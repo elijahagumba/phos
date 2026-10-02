@@ -46,10 +46,19 @@
 
 ```bash
 uv sync
+uv run phos demo
+```
+
+About fifteen seconds. A simulated water plant runs for 120 hours, something writes to its
+controller, and Atlas writes its brief. Then the demo shows what actually happened, and says so
+plainly when Atlas missed it or raised a false alarm. Try `--scenario operator` and
+`--scenario attacker` too.
+
+```bash
 uv run pytest -q
 ```
 
-The suite needs no datasets. Public corpora are downloaded separately and never committed; see
+The test suite needs no datasets. Public corpora are downloaded separately and never committed; see
 [data/README.md](data/README.md).
 
 <br>
