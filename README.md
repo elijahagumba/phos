@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="brand/phos_logo_black.png" alt="PHOS" width="160">
+  <img src="brand/phos_logo_black_on_white.png" alt="PHOS" width="200">
 </p>
 
 # PHOS
