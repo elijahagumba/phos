@@ -1,0 +1,94 @@
+{
+  "label": "CRUDE_NON_OPERATOR_NOT_A_FIELD_STUDY",
+  "not_a_field_study": true,
+  "operational_usefulness_claim": false,
+  "plant_literate": false,
+  "subject_kind": "mechanical_non_operator",
+  "n_human": 0,
+  "n_mechanical": 1,
+  "seed": 11,
+  "git_commit": "dba5c1c74fbe24d527a27a7acfb22bef1ec7541b",
+  "n_atlas_cases": 6,
+  "n_sentiel_cases": 1,
+  "sentiel_settling_is_weak": true,
+  "sentiel_settling_limitation": "Sentiel templates declare no contradictory patterns, so settling-fact suggestions for Sentiel cases are currently weak: the honest ask is a declared sanction record, and no corpus PHOS reads carries one (ADR 0079, refusal register R23). This is a study-design fact, not something the three Atlas arms can repair.",
+  "synthetic_derived": true,
+  "logged_to_eval_runs_log": false,
+  "primary": [
+    {
+      "arm": "raw_telemetry",
+      "n": 6,
+      "n_correct": 3,
+      "n_incorrect": 3,
+      "n_false_escalation": 0,
+      "n_missed_uncertainty": 3,
+      "n_evidence_requested": 0,
+      "n_overconfident_wrong": 0,
+      "n_with_time": 0,
+      "sum_elapsed_ms": 0
+    },
+    {
+      "arm": "threshold_alert",
+      "n": 6,
+      "n_correct": 2,
+      "n_incorrect": 4,
+      "n_false_escalation": 3,
+      "n_missed_uncertainty": 3,
+      "n_evidence_requested": 0,
+      "n_overconfident_wrong": 4,
+      "n_with_time": 0,
+      "sum_elapsed_ms": 0
+    },
+    {
+      "arm": "atlas_explanation",
+      "n": 6,
+      "n_correct": 4,
+      "n_incorrect": 2,
+      "n_false_escalation": 0,
+      "n_missed_uncertainty": 1,
+      "n_evidence_requested": 6,
+      "n_overconfident_wrong": 1,
+      "n_with_time": 0,
+      "sum_elapsed_ms": 0
+    }
+  ],
+  "sentiel": [
+    {
+      "arm": "raw_telemetry",
+      "n": 1,
+      "n_correct": 1,
+      "n_incorrect": 0,
+      "n_false_escalation": 0,
+      "n_missed_uncertainty": 1,
+      "n_evidence_requested": 0,
+      "n_overconfident_wrong": 0,
+      "n_with_time": 0,
+      "sum_elapsed_ms": 0
+    },
+    {
+      "arm": "threshold_alert",
+      "n": 1,
+      "n_correct": 0,
+      "n_incorrect": 1,
+      "n_false_escalation": 1,
+      "n_missed_uncertainty": 1,
+      "n_evidence_requested": 0,
+      "n_overconfident_wrong": 1,
+      "n_with_time": 0,
+      "sum_elapsed_ms": 0
+    },
+    {
+      "arm": "atlas_explanation",
+      "n": 1,
+      "n_correct": 1,
+      "n_incorrect": 0,
+      "n_false_escalation": 0,
+      "n_missed_uncertainty": 0,
+      "n_evidence_requested": 1,
+      "n_overconfident_wrong": 0,
+      "n_with_time": 0,
+      "sum_elapsed_ms": 0
+    }
+  ],
+  "n_scores": 21
+}

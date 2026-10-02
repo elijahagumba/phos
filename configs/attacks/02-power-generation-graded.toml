@@ -1,0 +1,300 @@
+#  Graded attack battery — islanded gas turbine generating set.
+#
+#  Twenty-eight attacks: seven kinds at four points on the difficulty dial. Payload regenerated
+#  from this file; nothing generated is committed.
+#
+#  THESE ARE ATTACKS WE DESIGNED. See ATTACKS_ARE_OURS_CAVEAT in the manifest.
+#
+#  The machine is a harder target than the works in one specific way: its couplings are tighter
+#  and faster, so a manipulation shows up in more signals at once. It is an easier target in
+#  another: it performs far fewer operator writes, so there is less legitimate command traffic for
+#  a mimic to hide among.
+
+name = "synth-attack-power-generation-graded"
+plant_id = "power-generation"
+role = "attack"
+seed = 90211
+traffic_seed = 5202
+start = 2026-05-01T00:00:00Z
+duration_hours = 120.0
+sample_interval_seconds = 30.0
+note = """
+Five days of the generating set at 30-second sampling, carrying the full graded battery.
+"""
+
+[[attacks]]
+attack_id = "pg-blatant-obvious"
+type = "BLATANT"
+subtlety = 0.0
+start_hours = 4.0
+duration_hours = 1.5
+target = "fuel_valve_pct"
+note = "The fuel valve driven away from what the governor asked for."
+
+[[attacks]]
+attack_id = "pg-drift-obvious"
+type = "STEALTH_DRIFT"
+subtlety = 0.0
+start_hours = 6.5
+duration_hours = 6.0
+target = "excitation_pct"
+note = "Excitation walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "pg-decoupled-obvious"
+type = "CORRELATION_BREAK"
+subtlety = 0.0
+start_hours = 13.5
+duration_hours = 2.5
+target = "bus_frequency_hz"
+reference = "turbine_speed_rpm"
+note = "Bus frequency reported inside its normal range while no longer being shaft speed over sixty."
+
+[[attacks]]
+attack_id = "pg-liar-obvious"
+type = "LIAR"
+subtlety = 0.0
+start_hours = 17.0
+duration_hours = 3.0
+target = "feeder_voltage_kv"
+reference = "feeder_voltage_setpoint_kv"
+note = "Feeder voltage reported short of setpoint so the tap changer drives the real one up."
+
+[[attacks]]
+attack_id = "pg-mimic-obvious"
+type = "MIMIC"
+subtlety = 0.0
+start_hours = 21.0
+duration_hours = 2.5
+target = "dispatch_setpoint_mw"
+mimics = "dispatch_change"
+note = "Dispatch setpoint moved to a value a dispatcher legitimately uses, with no write on the wire."
+
+[[attacks]]
+attack_id = "pg-rogue-write-obvious"
+type = "ROGUE_COMMAND"
+subtlety = 0.0
+start_hours = 24.5
+duration_hours = 1.5
+target = "feeder_voltage_setpoint_kv"
+issuer = "scada"
+note = "Voltage setpoint written by the station SCADA, which legitimately only polls."
+
+[[attacks]]
+attack_id = "pg-mimic-write-obvious"
+type = "MIMIC_COMMAND"
+subtlety = 0.0
+start_hours = 28.1
+duration_hours = 1.5
+target = "dispatch_setpoint_mw"
+issuer = "hmi"
+mimics = "dispatch_change"
+note = "Dispatch setpoint written from the station HMI, matching no scheduled dispatch."
+
+[[attacks]]
+attack_id = "pg-blatant-moderate"
+type = "BLATANT"
+subtlety = 0.4
+start_hours = 30.6
+duration_hours = 1.5
+target = "fuel_valve_pct"
+note = "The fuel valve driven away from what the governor asked for."
+
+[[attacks]]
+attack_id = "pg-drift-moderate"
+type = "STEALTH_DRIFT"
+subtlety = 0.4
+start_hours = 33.1
+duration_hours = 6.0
+target = "excitation_pct"
+note = "Excitation walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "pg-decoupled-moderate"
+type = "CORRELATION_BREAK"
+subtlety = 0.4
+start_hours = 40.1
+duration_hours = 2.5
+target = "bus_frequency_hz"
+reference = "turbine_speed_rpm"
+note = "Bus frequency reported inside its normal range while no longer being shaft speed over sixty."
+
+[[attacks]]
+attack_id = "pg-liar-moderate"
+type = "LIAR"
+subtlety = 0.4
+start_hours = 43.6
+duration_hours = 3.0
+target = "feeder_voltage_kv"
+reference = "feeder_voltage_setpoint_kv"
+note = "Feeder voltage reported short of setpoint so the tap changer drives the real one up."
+
+[[attacks]]
+attack_id = "pg-mimic-moderate"
+type = "MIMIC"
+subtlety = 0.4
+start_hours = 47.6
+duration_hours = 2.5
+target = "dispatch_setpoint_mw"
+mimics = "dispatch_change"
+note = "Dispatch setpoint moved to a value a dispatcher legitimately uses, with no write on the wire."
+
+[[attacks]]
+attack_id = "pg-rogue-write-moderate"
+type = "ROGUE_COMMAND"
+subtlety = 0.4
+start_hours = 51.1
+duration_hours = 1.5
+target = "feeder_voltage_setpoint_kv"
+issuer = "scada"
+note = "Voltage setpoint written by the station SCADA, which legitimately only polls."
+
+[[attacks]]
+attack_id = "pg-mimic-write-moderate"
+type = "MIMIC_COMMAND"
+subtlety = 0.4
+start_hours = 53.6
+duration_hours = 1.5
+target = "dispatch_setpoint_mw"
+issuer = "hmi"
+mimics = "dispatch_change"
+note = "Dispatch setpoint written from the station HMI, matching no scheduled dispatch."
+
+[[attacks]]
+attack_id = "pg-blatant-subtle"
+type = "BLATANT"
+subtlety = 0.75
+start_hours = 56.1
+duration_hours = 1.5
+target = "fuel_valve_pct"
+note = "The fuel valve driven away from what the governor asked for."
+
+[[attacks]]
+attack_id = "pg-drift-subtle"
+type = "STEALTH_DRIFT"
+subtlety = 0.75
+start_hours = 58.6
+duration_hours = 6.0
+target = "excitation_pct"
+note = "Excitation walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "pg-decoupled-subtle"
+type = "CORRELATION_BREAK"
+subtlety = 0.75
+start_hours = 65.6
+duration_hours = 2.5
+target = "bus_frequency_hz"
+reference = "turbine_speed_rpm"
+note = "Bus frequency reported inside its normal range while no longer being shaft speed over sixty."
+
+[[attacks]]
+attack_id = "pg-liar-subtle"
+type = "LIAR"
+subtlety = 0.75
+start_hours = 69.1
+duration_hours = 3.0
+target = "feeder_voltage_kv"
+reference = "feeder_voltage_setpoint_kv"
+note = "Feeder voltage reported short of setpoint so the tap changer drives the real one up."
+
+[[attacks]]
+attack_id = "pg-mimic-subtle"
+type = "MIMIC"
+subtlety = 0.75
+start_hours = 73.1
+duration_hours = 2.5
+target = "dispatch_setpoint_mw"
+mimics = "dispatch_change"
+note = "Dispatch setpoint moved to a value a dispatcher legitimately uses, with no write on the wire."
+
+[[attacks]]
+attack_id = "pg-rogue-write-subtle"
+type = "ROGUE_COMMAND"
+subtlety = 0.75
+start_hours = 76.6
+duration_hours = 1.5
+target = "feeder_voltage_setpoint_kv"
+issuer = "scada"
+note = "Voltage setpoint written by the station SCADA, which legitimately only polls."
+
+[[attacks]]
+attack_id = "pg-mimic-write-subtle"
+type = "MIMIC_COMMAND"
+subtlety = 0.75
+start_hours = 79.1
+duration_hours = 1.5
+target = "dispatch_setpoint_mw"
+issuer = "hmi"
+mimics = "dispatch_change"
+note = "Dispatch setpoint written from the station HMI, matching no scheduled dispatch."
+
+[[attacks]]
+attack_id = "pg-blatant-near-invisible"
+type = "BLATANT"
+subtlety = 0.99
+start_hours = 81.6
+duration_hours = 1.5
+target = "fuel_valve_pct"
+note = "The fuel valve driven away from what the governor asked for."
+
+[[attacks]]
+attack_id = "pg-drift-near-invisible"
+type = "STEALTH_DRIFT"
+subtlety = 0.99
+start_hours = 84.1
+duration_hours = 6.0
+target = "excitation_pct"
+note = "Excitation walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "pg-decoupled-near-invisible"
+type = "CORRELATION_BREAK"
+subtlety = 0.99
+start_hours = 91.1
+duration_hours = 2.5
+target = "bus_frequency_hz"
+reference = "turbine_speed_rpm"
+note = "Bus frequency reported inside its normal range while no longer being shaft speed over sixty."
+
+[[attacks]]
+attack_id = "pg-liar-near-invisible"
+type = "LIAR"
+subtlety = 0.99
+start_hours = 94.6
+duration_hours = 3.0
+target = "feeder_voltage_kv"
+reference = "feeder_voltage_setpoint_kv"
+note = "Feeder voltage reported short of setpoint so the tap changer drives the real one up."
+
+[[attacks]]
+attack_id = "pg-mimic-near-invisible"
+type = "MIMIC"
+subtlety = 0.99
+start_hours = 98.6
+duration_hours = 2.5
+target = "dispatch_setpoint_mw"
+mimics = "dispatch_change"
+note = "Dispatch setpoint moved to a value a dispatcher legitimately uses, with no write on the wire."
+
+[[attacks]]
+attack_id = "pg-rogue-write-near-invisible"
+type = "ROGUE_COMMAND"
+subtlety = 0.99
+start_hours = 102.1
+duration_hours = 1.5
+target = "feeder_voltage_setpoint_kv"
+issuer = "scada"
+note = "Voltage setpoint written by the station SCADA, which legitimately only polls."
+
+[[attacks]]
+attack_id = "pg-mimic-write-near-invisible"
+type = "MIMIC_COMMAND"
+subtlety = 0.99
+start_hours = 104.6
+duration_hours = 1.5
+target = "dispatch_setpoint_mw"
+issuer = "hmi"
+mimics = "dispatch_change"
+note = "Dispatch setpoint written from the station HMI, matching no scheduled dispatch."
+

@@ -1,0 +1,17 @@
+#  Standard normal dataset — surface water treatment works, held-out corpus.
+#
+#  A different seed, so different noise, different drift and a different event schedule over the
+#  same plant. Nothing measured on this corpus was seen while fitting on the training one.
+
+name = "synth-water-treatment-holdout"
+plant_id = "water-treatment"
+role = "holdout"
+seed = 2026002
+traffic_seed = 5102
+start = 2026-03-09T00:00:00Z
+duration_hours = 48.0
+sample_interval_seconds = 30.0
+note = """
+Two days at 30-second sampling. Every sample is normal, so a detector scored here is measuring \
+its own false-positive rate and nothing else.
+"""

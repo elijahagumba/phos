@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Datasets are never committed. Each corpus is pinned by its committed manifest; see data/README.md.
+data/*
+!data/README.md
+!data/manifest.example.json
+!data/registry.json
+!data/*/
+data/*/*
+!data/*/manifest.json
+!data/*/topology.toml
+!data/*/sentiel-manifest.json
+data/synth/
+
+# Generated dataset-library payloads. The catalogues are committed.
+dataset library/**/generated/
+
+# OS
+.DS_Store
+
+# Local environment files
+.env
+.env.local
+.env.*.local

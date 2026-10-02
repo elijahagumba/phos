@@ -1,0 +1,305 @@
+#  Graded attack battery — surface water treatment works.
+#
+#  Twenty-eight attacks: seven kinds at four points on the difficulty dial, from obvious to
+#  near-invisible. The payload is NOT committed. It is regenerated from this file by
+#  scripts/generate_attacks.py, which is what makes storing it unnecessary and editing this file
+#  the only way to change the corpus.
+#
+#  THESE ARE ATTACKS WE DESIGNED. A detection rate measured here is an upper bound on this
+#  library, never a lower bound on reality, and a suspiciously good score is a leaked fingerprint
+#  until proven otherwise. See ATTACKS_ARE_OURS_CAVEAT, which travels in the manifest.
+#
+#  Windows are laid out so that no attack holding a setpoint overlaps a genuine operator write to
+#  the same setpoint — the generator refuses that, because it would leave "who moved this" with
+#  two answers. The three setpoint-holding kinds therefore take three different setpoints.
+
+name = "synth-attack-water-treatment-graded"
+plant_id = "water-treatment"
+role = "attack"
+seed = 90210
+traffic_seed = 5201
+start = 2026-05-01T00:00:00Z
+duration_hours = 120.0
+sample_interval_seconds = 30.0
+note = """
+Five days of the works at 30-second sampling, carrying the full graded battery. The same plant, \
+seed and sampling rate as a normal corpus, so a false-positive rate measured on \
+synth-water-treatment-holdout and a recall measured here describe the same environment.
+"""
+
+[[attacks]]
+attack_id = "wt-blatant-obvious"
+type = "BLATANT"
+subtlety = 0.0
+start_hours = 4.0
+duration_hours = 1.5
+target = "intake_pump_speed_pct"
+note = "The intake pump driven hard away from what the level loop asked for."
+
+[[attacks]]
+attack_id = "wt-drift-obvious"
+type = "STEALTH_DRIFT"
+subtlety = 0.0
+start_hours = 6.5
+duration_hours = 6.0
+target = "chlorine_dose_mgpl"
+note = "Chlorine dose walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "wt-decoupled-obvious"
+type = "CORRELATION_BREAK"
+subtlety = 0.0
+start_hours = 13.5
+duration_hours = 2.5
+target = "raw_inflow_m3ph"
+reference = "intake_pump_speed_pct"
+note = "Inflow reported inside its own normal range while no longer following pump speed."
+
+[[attacks]]
+attack_id = "wt-liar-obvious"
+type = "LIAR"
+subtlety = 0.0
+start_hours = 17.0
+duration_hours = 3.0
+target = "clearwell_level_m"
+reference = "clearwell_level_setpoint_m"
+note = "Clearwell level reported permanently short of setpoint so the level loop overfills it."
+
+[[attacks]]
+attack_id = "wt-mimic-obvious"
+type = "MIMIC"
+subtlety = 0.0
+start_hours = 21.0
+duration_hours = 2.5
+target = "clearwell_level_setpoint_m"
+mimics = "level_setpoint_change"
+note = "Level setpoint moved to a value an operator legitimately uses, with no write on the wire."
+
+[[attacks]]
+attack_id = "wt-rogue-write-obvious"
+type = "ROGUE_COMMAND"
+subtlety = 0.0
+start_hours = 24.5
+duration_hours = 1.5
+target = "distribution_pressure_setpoint_bar"
+issuer = "scada"
+note = "Pressure setpoint written by the SCADA server, which legitimately only polls."
+
+[[attacks]]
+attack_id = "wt-mimic-write-obvious"
+type = "MIMIC_COMMAND"
+subtlety = 0.0
+start_hours = 27.0
+duration_hours = 1.5
+target = "chlorine_residual_setpoint_mgpl"
+issuer = "hmi"
+mimics = "residual_setpoint_change"
+note = "Residual setpoint written from the operator HMI, matching no scheduled operation."
+
+[[attacks]]
+attack_id = "wt-blatant-moderate"
+type = "BLATANT"
+subtlety = 0.4
+start_hours = 29.5
+duration_hours = 1.5
+target = "intake_pump_speed_pct"
+note = "The intake pump driven hard away from what the level loop asked for."
+
+[[attacks]]
+attack_id = "wt-drift-moderate"
+type = "STEALTH_DRIFT"
+subtlety = 0.4
+start_hours = 32.0
+duration_hours = 6.0
+target = "chlorine_dose_mgpl"
+note = "Chlorine dose walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "wt-decoupled-moderate"
+type = "CORRELATION_BREAK"
+subtlety = 0.4
+start_hours = 39.0
+duration_hours = 2.5
+target = "raw_inflow_m3ph"
+reference = "intake_pump_speed_pct"
+note = "Inflow reported inside its own normal range while no longer following pump speed."
+
+[[attacks]]
+attack_id = "wt-liar-moderate"
+type = "LIAR"
+subtlety = 0.4
+start_hours = 42.5
+duration_hours = 3.0
+target = "clearwell_level_m"
+reference = "clearwell_level_setpoint_m"
+note = "Clearwell level reported permanently short of setpoint so the level loop overfills it."
+
+[[attacks]]
+attack_id = "wt-mimic-moderate"
+type = "MIMIC"
+subtlety = 0.4
+start_hours = 46.5
+duration_hours = 2.5
+target = "clearwell_level_setpoint_m"
+mimics = "level_setpoint_change"
+note = "Level setpoint moved to a value an operator legitimately uses, with no write on the wire."
+
+[[attacks]]
+attack_id = "wt-rogue-write-moderate"
+type = "ROGUE_COMMAND"
+subtlety = 0.4
+start_hours = 50.0
+duration_hours = 1.5
+target = "distribution_pressure_setpoint_bar"
+issuer = "scada"
+note = "Pressure setpoint written by the SCADA server, which legitimately only polls."
+
+[[attacks]]
+attack_id = "wt-mimic-write-moderate"
+type = "MIMIC_COMMAND"
+subtlety = 0.4
+start_hours = 52.5
+duration_hours = 1.5
+target = "chlorine_residual_setpoint_mgpl"
+issuer = "hmi"
+mimics = "residual_setpoint_change"
+note = "Residual setpoint written from the operator HMI, matching no scheduled operation."
+
+[[attacks]]
+attack_id = "wt-blatant-subtle"
+type = "BLATANT"
+subtlety = 0.75
+start_hours = 55.0
+duration_hours = 1.5
+target = "intake_pump_speed_pct"
+note = "The intake pump driven hard away from what the level loop asked for."
+
+[[attacks]]
+attack_id = "wt-drift-subtle"
+type = "STEALTH_DRIFT"
+subtlety = 0.75
+start_hours = 57.5
+duration_hours = 6.0
+target = "chlorine_dose_mgpl"
+note = "Chlorine dose walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "wt-decoupled-subtle"
+type = "CORRELATION_BREAK"
+subtlety = 0.75
+start_hours = 64.5
+duration_hours = 2.5
+target = "raw_inflow_m3ph"
+reference = "intake_pump_speed_pct"
+note = "Inflow reported inside its own normal range while no longer following pump speed."
+
+[[attacks]]
+attack_id = "wt-liar-subtle"
+type = "LIAR"
+subtlety = 0.75
+start_hours = 68.0
+duration_hours = 3.0
+target = "clearwell_level_m"
+reference = "clearwell_level_setpoint_m"
+note = "Clearwell level reported permanently short of setpoint so the level loop overfills it."
+
+[[attacks]]
+attack_id = "wt-mimic-subtle"
+type = "MIMIC"
+subtlety = 0.75
+start_hours = 72.0
+duration_hours = 2.5
+target = "clearwell_level_setpoint_m"
+mimics = "level_setpoint_change"
+note = "Level setpoint moved to a value an operator legitimately uses, with no write on the wire."
+
+[[attacks]]
+attack_id = "wt-rogue-write-subtle"
+type = "ROGUE_COMMAND"
+subtlety = 0.75
+start_hours = 75.5
+duration_hours = 1.5
+target = "distribution_pressure_setpoint_bar"
+issuer = "scada"
+note = "Pressure setpoint written by the SCADA server, which legitimately only polls."
+
+[[attacks]]
+attack_id = "wt-mimic-write-subtle"
+type = "MIMIC_COMMAND"
+subtlety = 0.75
+start_hours = 78.0
+duration_hours = 1.5
+target = "chlorine_residual_setpoint_mgpl"
+issuer = "hmi"
+mimics = "residual_setpoint_change"
+note = "Residual setpoint written from the operator HMI, matching no scheduled operation."
+
+[[attacks]]
+attack_id = "wt-blatant-near-invisible"
+type = "BLATANT"
+subtlety = 0.99
+start_hours = 80.5
+duration_hours = 1.5
+target = "intake_pump_speed_pct"
+note = "The intake pump driven hard away from what the level loop asked for."
+
+[[attacks]]
+attack_id = "wt-drift-near-invisible"
+type = "STEALTH_DRIFT"
+subtlety = 0.99
+start_hours = 83.0
+duration_hours = 6.0
+target = "chlorine_dose_mgpl"
+note = "Chlorine dose walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "wt-decoupled-near-invisible"
+type = "CORRELATION_BREAK"
+subtlety = 0.99
+start_hours = 90.0
+duration_hours = 2.5
+target = "raw_inflow_m3ph"
+reference = "intake_pump_speed_pct"
+note = "Inflow reported inside its own normal range while no longer following pump speed."
+
+[[attacks]]
+attack_id = "wt-liar-near-invisible"
+type = "LIAR"
+subtlety = 0.99
+start_hours = 93.5
+duration_hours = 3.0
+target = "clearwell_level_m"
+reference = "clearwell_level_setpoint_m"
+note = "Clearwell level reported permanently short of setpoint so the level loop overfills it."
+
+[[attacks]]
+attack_id = "wt-mimic-near-invisible"
+type = "MIMIC"
+subtlety = 0.99
+start_hours = 97.5
+duration_hours = 2.5
+target = "clearwell_level_setpoint_m"
+mimics = "level_setpoint_change"
+note = "Level setpoint moved to a value an operator legitimately uses, with no write on the wire."
+
+[[attacks]]
+attack_id = "wt-rogue-write-near-invisible"
+type = "ROGUE_COMMAND"
+subtlety = 0.99
+start_hours = 101.0
+duration_hours = 1.5
+target = "distribution_pressure_setpoint_bar"
+issuer = "scada"
+note = "Pressure setpoint written by the SCADA server, which legitimately only polls."
+
+[[attacks]]
+attack_id = "wt-mimic-write-near-invisible"
+type = "MIMIC_COMMAND"
+subtlety = 0.99
+start_hours = 103.5
+duration_hours = 1.5
+target = "chlorine_residual_setpoint_mgpl"
+issuer = "hmi"
+mimics = "residual_setpoint_change"
+note = "Residual setpoint written from the operator HMI, matching no scheduled operation."
+

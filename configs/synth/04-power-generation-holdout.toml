@@ -1,0 +1,13 @@
+#  Standard normal dataset — islanded gas turbine generating set, held-out corpus.
+
+name = "synth-power-generation-holdout"
+plant_id = "power-generation"
+role = "holdout"
+seed = 2026012
+traffic_seed = 5112
+start = 2026-03-09T00:00:00Z
+duration_hours = 24.0
+sample_interval_seconds = 10.0
+note = """
+One day at 10-second sampling, from a different seed. Every sample is normal.
+"""

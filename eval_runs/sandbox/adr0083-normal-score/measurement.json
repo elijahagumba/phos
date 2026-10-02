@@ -1,0 +1,892 @@
+{
+  "seed": 11,
+  "alert_threshold": 3.0,
+  "calib_fraction": 0.1,
+  "reports": [
+    {
+      "detector_name": "model:atlas-mahalanobis",
+      "dataset_name": "hai[designed-normal-score][5A context]",
+      "domain": "ATLAS",
+      "created_at": "2026-09-24T09:39:25.697712+00:00",
+      "git_commit": null,
+      "seed": 11,
+      "source_note": "HAI 21.03 \u2014 HIL-based Augmented ICS Security Dataset [test] \u2014 prepared from hai-21.03-test1.csv.gz, downsampled to every 10th row, dropped attack_P1, attack_P2, attack_P3 | test slice of a three-way split, train_fraction=0.04 calib_fraction=0.3 | Coarse-map inflation: HAI's declared topology could not be partitioned below process level for P1 and P2, so unrelated departures anywhere on one process collapse into a single subsystem event. A large reduction here is evidence that grouping is correctly IMPLEMENTED, not that it is correctly RESOLVED. A finer map would lower the headline number and raise its meaning. | Uncalibrated hypothesis confidence: the confidences on these hypotheses are NOT calibrated probabilities and must not be surfaced to a user under Constitution \u00a73.3. Three reasons, and the third is measured rather than asserted. (1) The template priors are reasoned placeholders, not measured base rates. (2) EVIDENCE_STRENGTH is a placeholder too, and measuring either needs data labelling WHICH EXPLANATION IS TRUE, which no corpus PHOS uses carries \u2014 HAI labels attack and normal. (3) The belief update treats each subsystem event as independent, and on a plant they are plainly not: one disturbance persisting across consecutive windows arrives as many near-identical events, so a confidence built from them counts one cause many times. Atlas may rank and reason over these hypotheses; it may not present their confidences as calibrated. Evidence weights, separately, are calibrated. | Co-occurring-fault masking: a coarse group can hide a second, unrelated event inside one subsystem event. Two independent faults on one process are indistinguishable from one, and an attack co-occurring with a fault is reported as a single thing to investigate. That is a recall risk carried by the grouping, not a win. | Grouped weight is a maximum: a subsystem event carries the strongest member's calibrated weight, and a maximum over a set of calibrated probabilities is not itself a calibrated probability \u2014 it is biased upward by how many signals the unit carries. The calibration error reported for subsystem events may therefore come out better or worse than the per-signal one for reasons that have nothing to do with the calibrator, and is not a reading of it. | Saturated false-positive load: when a declared SaturationPolicy fires, the row is REFUSED as a detection claim even if recall looks excellent. Metrics stay on the report; they must not be quoted as detection. Public distillation 18.72 and Data4Cyber Track A keep their log names and stay MEASURED unless a caller applies a policy. Do not raise dwell_samples to chase a quieter public ZIP. | Normal-score CDF weights are not attack probabilities: the map is the empirical CDF of held-out attack-free magnitudes (ADR 0083). A weight of 0.9 means the score sits at or above about 90% of ordinary scores the model saw on normal data \u2014 not that an attack is 90% likely. Do not quote ECE against attack labels as evidence that these weights are calibrated probabilities under Constitution \u00a73.3.",
+      "alert_threshold": 3.0,
+      "match_tolerance_seconds": 0.0,
+      "calibration_bins": 10,
+      "n_observations": 225308,
+      "n_detections": 4631,
+      "n_alerts": 99,
+      "n_attack_intervals": 2,
+      "n_unscored_intervals": 0,
+      "n_unscored_alerts": 0,
+      "normal_hours": 7.886111111111111,
+      "window_recall": 1.0,
+      "false_positives": 87,
+      "false_positive_rate": 11.032053539978866,
+      "precision": 0.12121212121212122,
+      "recall_sample": 0.8571428571428571,
+      "f1": 0.21238938053097345,
+      "latency": {
+        "count": 2,
+        "min_seconds": 0.0,
+        "median_seconds": 5.0,
+        "mean_seconds": 5.0,
+        "max_seconds": 10.0
+      },
+      "operating_points": [
+        {
+          "threshold": 1.0001112247409025,
+          "recall": 1.0,
+          "fp_rate": 581.4019020781966,
+          "precision": 0.00993305981429497
+        },
+        {
+          "threshold": 1.0688761039673231,
+          "recall": 1.0,
+          "fp_rate": 522.8178936245157,
+          "precision": 0.010796545105566218
+        },
+        {
+          "threshold": 1.1458424313958286,
+          "recall": 1.0,
+          "fp_rate": 464.2338851708348,
+          "precision": 0.011875843454790824
+        },
+        {
+          "threshold": 1.236729482690578,
+          "recall": 1.0,
+          "fp_rate": 405.77668193025715,
+          "precision": 0.012954966070326958
+        },
+        {
+          "threshold": 1.3321877476182973,
+          "recall": 1.0,
+          "fp_rate": 347.19267347657626,
+          "precision": 0.014753508456279237
+        },
+        {
+          "threshold": 1.427791786822336,
+          "recall": 1.0,
+          "fp_rate": 289.1158858753082,
+          "precision": 0.015544041450777202
+        },
+        {
+          "threshold": 1.537212618854722,
+          "recall": 1.0,
+          "fp_rate": 230.27826699542092,
+          "precision": 0.019438444924406047
+        },
+        {
+          "threshold": 1.666676040291318,
+          "recall": 1.0,
+          "fp_rate": 172.07467418104966,
+          "precision": 0.023741007194244605
+        },
+        {
+          "threshold": 1.8524575058177166,
+          "recall": 1.0,
+          "fp_rate": 115.13913349771046,
+          "precision": 0.020496224379719527
+        },
+        {
+          "threshold": 2.2240384581366643,
+          "recall": 1.0,
+          "fp_rate": 57.06234589644241,
+          "precision": 0.03017241379310345
+        },
+        {
+          "threshold": 5.0415319039932385,
+          "recall": 0.0,
+          "fp_rate": 0.12680521310320536,
+          "precision": 0.0
+        }
+      ],
+      "expected_calibration_error": 0.5890100879361911,
+      "brier_score": 0.4607229323692233,
+      "reliability": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 48,
+          "mean_confidence": 0.6726884143857643,
+          "empirical_rate": 0.20833333333333334
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 47,
+          "mean_confidence": 0.7402098688387169,
+          "empirical_rate": 0.0425531914893617
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 4,
+          "mean_confidence": 0.8082727449366358,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        }
+      ],
+      "claim_status": "MEASURED",
+      "saturation_policy": null,
+      "refusal_reason": null
+    },
+    {
+      "detector_name": "atlas-vertical:atlas-mahalanobis+normal-score-cdf/per-signal-evidence",
+      "dataset_name": "hai[designed-normal-score][before]",
+      "domain": "ATLAS",
+      "created_at": "2026-09-24T09:39:25.816385+00:00",
+      "git_commit": null,
+      "seed": 11,
+      "source_note": "HAI 21.03 \u2014 HIL-based Augmented ICS Security Dataset [test] \u2014 prepared from hai-21.03-test1.csv.gz, downsampled to every 10th row, dropped attack_P1, attack_P2, attack_P3 | test slice of a three-way split, train_fraction=0.04 calib_fraction=0.3 | Coarse-map inflation: HAI's declared topology could not be partitioned below process level for P1 and P2, so unrelated departures anywhere on one process collapse into a single subsystem event. A large reduction here is evidence that grouping is correctly IMPLEMENTED, not that it is correctly RESOLVED. A finer map would lower the headline number and raise its meaning. | Uncalibrated hypothesis confidence: the confidences on these hypotheses are NOT calibrated probabilities and must not be surfaced to a user under Constitution \u00a73.3. Three reasons, and the third is measured rather than asserted. (1) The template priors are reasoned placeholders, not measured base rates. (2) EVIDENCE_STRENGTH is a placeholder too, and measuring either needs data labelling WHICH EXPLANATION IS TRUE, which no corpus PHOS uses carries \u2014 HAI labels attack and normal. (3) The belief update treats each subsystem event as independent, and on a plant they are plainly not: one disturbance persisting across consecutive windows arrives as many near-identical events, so a confidence built from them counts one cause many times. Atlas may rank and reason over these hypotheses; it may not present their confidences as calibrated. Evidence weights, separately, are calibrated. | Co-occurring-fault masking: a coarse group can hide a second, unrelated event inside one subsystem event. Two independent faults on one process are indistinguishable from one, and an attack co-occurring with a fault is reported as a single thing to investigate. That is a recall risk carried by the grouping, not a win. | Grouped weight is a maximum: a subsystem event carries the strongest member's calibrated weight, and a maximum over a set of calibrated probabilities is not itself a calibrated probability \u2014 it is biased upward by how many signals the unit carries. The calibration error reported for subsystem events may therefore come out better or worse than the per-signal one for reasons that have nothing to do with the calibrator, and is not a reading of it. | Saturated false-positive load: when a declared SaturationPolicy fires, the row is REFUSED as a detection claim even if recall looks excellent. Metrics stay on the report; they must not be quoted as detection. Public distillation 18.72 and Data4Cyber Track A keep their log names and stay MEASURED unless a caller applies a policy. Do not raise dwell_samples to chase a quieter public ZIP. | Normal-score CDF weights are not attack probabilities: the map is the empirical CDF of held-out attack-free magnitudes (ADR 0083). A weight of 0.9 means the score sits at or above about 90% of ordinary scores the model saw on normal data \u2014 not that an attack is 90% likely. Do not quote ECE against attack labels as evidence that these weights are calibrated probabilities under Constitution \u00a73.3.",
+      "alert_threshold": 0.0,
+      "match_tolerance_seconds": 0.0,
+      "calibration_bins": 10,
+      "n_observations": 225308,
+      "n_detections": 99,
+      "n_alerts": 99,
+      "n_attack_intervals": 2,
+      "n_unscored_intervals": 0,
+      "n_unscored_alerts": 0,
+      "normal_hours": 7.886111111111111,
+      "window_recall": 1.0,
+      "false_positives": 87,
+      "false_positive_rate": 11.032053539978866,
+      "precision": 0.12121212121212122,
+      "recall_sample": 0.8571428571428571,
+      "f1": 0.21238938053097345,
+      "latency": {
+        "count": 2,
+        "min_seconds": 0.0,
+        "median_seconds": 5.0,
+        "mean_seconds": 5.0,
+        "max_seconds": 10.0
+      },
+      "operating_points": [
+        {
+          "threshold": 3.0157732820595924,
+          "recall": 1.0,
+          "fp_rate": 11.032053539978866,
+          "precision": 0.12121212121212122
+        },
+        {
+          "threshold": 3.1411454839630486,
+          "recall": 1.0,
+          "fp_rate": 9.764001408946813,
+          "precision": 0.1348314606741573
+        },
+        {
+          "threshold": 3.3467650453969493,
+          "recall": 1.0,
+          "fp_rate": 8.622754491017965,
+          "precision": 0.13924050632911392
+        },
+        {
+          "threshold": 3.4862503483690483,
+          "recall": 1.0,
+          "fp_rate": 7.735117999295527,
+          "precision": 0.11594202898550725
+        },
+        {
+          "threshold": 3.553693612385351,
+          "recall": 0.5,
+          "fp_rate": 6.974286720676295,
+          "precision": 0.06779661016949153
+        },
+        {
+          "threshold": 3.6439641284311333,
+          "recall": 0.5,
+          "fp_rate": 6.086650228953857,
+          "precision": 0.04
+        },
+        {
+          "threshold": 3.7786841774014066,
+          "recall": 0.0,
+          "fp_rate": 5.072208524128214,
+          "precision": 0.0
+        },
+        {
+          "threshold": 3.9901492838337305,
+          "recall": 0.0,
+          "fp_rate": 3.804156393096161,
+          "precision": 0.0
+        },
+        {
+          "threshold": 4.181212075287824,
+          "recall": 0.0,
+          "fp_rate": 2.536104262064107,
+          "precision": 0.0
+        },
+        {
+          "threshold": 4.469121538567684,
+          "recall": 0.0,
+          "fp_rate": 1.2680521310320536,
+          "precision": 0.0
+        },
+        {
+          "threshold": 5.0415319039932385,
+          "recall": 0.0,
+          "fp_rate": 0.12680521310320536,
+          "precision": 0.0
+        }
+      ],
+      "expected_calibration_error": 0.8597156167811609,
+      "brier_score": 0.8466362271345983,
+      "reliability": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 99,
+          "mean_confidence": 0.9809277379932821,
+          "empirical_rate": 0.12121212121212122
+        }
+      ],
+      "claim_status": "MEASURED",
+      "saturation_policy": null,
+      "refusal_reason": null
+    },
+    {
+      "detector_name": "atlas-vertical:atlas-mahalanobis+normal-score-cdf/subsystem-events",
+      "dataset_name": "hai[designed-normal-score][after]",
+      "domain": "ATLAS",
+      "created_at": "2026-09-24T09:39:25.931574+00:00",
+      "git_commit": null,
+      "seed": 11,
+      "source_note": "HAI 21.03 \u2014 HIL-based Augmented ICS Security Dataset [test] \u2014 prepared from hai-21.03-test1.csv.gz, downsampled to every 10th row, dropped attack_P1, attack_P2, attack_P3 | test slice of a three-way split, train_fraction=0.04 calib_fraction=0.3 | Coarse-map inflation: HAI's declared topology could not be partitioned below process level for P1 and P2, so unrelated departures anywhere on one process collapse into a single subsystem event. A large reduction here is evidence that grouping is correctly IMPLEMENTED, not that it is correctly RESOLVED. A finer map would lower the headline number and raise its meaning. | Uncalibrated hypothesis confidence: the confidences on these hypotheses are NOT calibrated probabilities and must not be surfaced to a user under Constitution \u00a73.3. Three reasons, and the third is measured rather than asserted. (1) The template priors are reasoned placeholders, not measured base rates. (2) EVIDENCE_STRENGTH is a placeholder too, and measuring either needs data labelling WHICH EXPLANATION IS TRUE, which no corpus PHOS uses carries \u2014 HAI labels attack and normal. (3) The belief update treats each subsystem event as independent, and on a plant they are plainly not: one disturbance persisting across consecutive windows arrives as many near-identical events, so a confidence built from them counts one cause many times. Atlas may rank and reason over these hypotheses; it may not present their confidences as calibrated. Evidence weights, separately, are calibrated. | Co-occurring-fault masking: a coarse group can hide a second, unrelated event inside one subsystem event. Two independent faults on one process are indistinguishable from one, and an attack co-occurring with a fault is reported as a single thing to investigate. That is a recall risk carried by the grouping, not a win. | Grouped weight is a maximum: a subsystem event carries the strongest member's calibrated weight, and a maximum over a set of calibrated probabilities is not itself a calibrated probability \u2014 it is biased upward by how many signals the unit carries. The calibration error reported for subsystem events may therefore come out better or worse than the per-signal one for reasons that have nothing to do with the calibrator, and is not a reading of it. | Saturated false-positive load: when a declared SaturationPolicy fires, the row is REFUSED as a detection claim even if recall looks excellent. Metrics stay on the report; they must not be quoted as detection. Public distillation 18.72 and Data4Cyber Track A keep their log names and stay MEASURED unless a caller applies a policy. Do not raise dwell_samples to chase a quieter public ZIP. | Normal-score CDF weights are not attack probabilities: the map is the empirical CDF of held-out attack-free magnitudes (ADR 0083). A weight of 0.9 means the score sits at or above about 90% of ordinary scores the model saw on normal data \u2014 not that an attack is 90% likely. Do not quote ECE against attack labels as evidence that these weights are calibrated probabilities under Constitution \u00a73.3.",
+      "alert_threshold": 0.0,
+      "match_tolerance_seconds": 0.0,
+      "calibration_bins": 10,
+      "n_observations": 225308,
+      "n_detections": 31,
+      "n_alerts": 31,
+      "n_attack_intervals": 2,
+      "n_unscored_intervals": 0,
+      "n_unscored_alerts": 0,
+      "normal_hours": 7.886111111111111,
+      "window_recall": 1.0,
+      "false_positives": 28,
+      "false_positive_rate": 3.55054596688975,
+      "precision": 0.0967741935483871,
+      "recall_sample": 0.21428571428571427,
+      "f1": 0.13333333333333333,
+      "latency": {
+        "count": 2,
+        "min_seconds": 10.0,
+        "median_seconds": 30.0,
+        "mean_seconds": 30.0,
+        "max_seconds": 50.0
+      },
+      "operating_points": [
+        {
+          "threshold": 3.0157732820595924,
+          "recall": 1.0,
+          "fp_rate": 3.55054596688975,
+          "precision": 0.0967741935483871
+        },
+        {
+          "threshold": 3.0528581039762135,
+          "recall": 1.0,
+          "fp_rate": 3.170130327580134,
+          "precision": 0.10714285714285714
+        },
+        {
+          "threshold": 3.133353304814758,
+          "recall": 1.0,
+          "fp_rate": 2.789714688270518,
+          "precision": 0.12
+        },
+        {
+          "threshold": 3.3671187043516144,
+          "recall": 1.0,
+          "fp_rate": 2.409299048960902,
+          "precision": 0.13636363636363635
+        },
+        {
+          "threshold": 3.5058739450123397,
+          "recall": 0.5,
+          "fp_rate": 2.2824938358576965,
+          "precision": 0.05263157894736842
+        },
+        {
+          "threshold": 3.560411782865389,
+          "recall": 0.0,
+          "fp_rate": 2.0288834096512858,
+          "precision": 0.0
+        },
+        {
+          "threshold": 3.7122340103494293,
+          "recall": 0.0,
+          "fp_rate": 1.6484677703416697,
+          "precision": 0.0
+        },
+        {
+          "threshold": 3.90785553928704,
+          "recall": 0.0,
+          "fp_rate": 1.2680521310320536,
+          "precision": 0.0
+        },
+        {
+          "threshold": 4.202086133200392,
+          "recall": 0.0,
+          "fp_rate": 0.8876364917224375,
+          "precision": 0.0
+        },
+        {
+          "threshold": 4.586201777991548,
+          "recall": 0.0,
+          "fp_rate": 0.5072208524128214,
+          "precision": 0.0
+        },
+        {
+          "threshold": 5.0415319039932385,
+          "recall": 0.0,
+          "fp_rate": 0.12680521310320536,
+          "precision": 0.0
+        }
+      ],
+      "expected_calibration_error": 0.8832075727891684,
+      "brier_score": 0.8682440126449392,
+      "reliability": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 31,
+          "mean_confidence": 0.9799817663375555,
+          "empirical_rate": 0.0967741935483871
+        }
+      ],
+      "claim_status": "MEASURED",
+      "saturation_policy": null,
+      "refusal_reason": null
+    },
+    {
+      "detector_name": "model:atlas-mahalanobis",
+      "dataset_name": "batch-distillation[designed][adr0083-baseline]",
+      "domain": "ATLAS",
+      "created_at": "2026-09-24T09:40:17.969216+00:00",
+      "git_commit": null,
+      "seed": 11,
+      "source_note": "batch-distillation v1.1.2 (Zenodo record 21535243), mixture ternary_butan-1-ol+propan-2-ol+water, 15 dual-clean train experiments / 13 YAML-contaminated train held out / 63 test experiments, downsampled to every 10th row with block-pooled labels, packed clock from 1970-01-01T00:00:00+0000 with a labelled-normal seam row between experiments. recipe_step carried from operation-log Executing step events (15 declared names: ANOMALIE, Distillation, Druck, End, Heat, Heat1, Heat10, Heat2, Heat3, Heat4, Heat5, Heat6, Heat7, Heat8, Heat9). Label: shipped classes [2] (anomalous phase) are positive; [1, 3] (blind, recovery) are unscored, neither recall target nor normal time (ADR 0082). Recall measured on this corpus is perturbation recall, never attack recall: the manipulations were engineered process perturbations performed by the plant's own operators, not cyber attacks (ADR 0024 decision 7). [test] | Coarse-map inflation: HAI's declared topology could not be partitioned below process level for P1 and P2, so unrelated departures anywhere on one process collapse into a single subsystem event. A large reduction here is evidence that grouping is correctly IMPLEMENTED, not that it is correctly RESOLVED. A finer map would lower the headline number and raise its meaning. | Uncalibrated hypothesis confidence: the confidences on these hypotheses are NOT calibrated probabilities and must not be surfaced to a user under Constitution \u00a73.3. Three reasons, and the third is measured rather than asserted. (1) The template priors are reasoned placeholders, not measured base rates. (2) EVIDENCE_STRENGTH is a placeholder too, and measuring either needs data labelling WHICH EXPLANATION IS TRUE, which no corpus PHOS uses carries \u2014 HAI labels attack and normal. (3) The belief update treats each subsystem event as independent, and on a plant they are plainly not: one disturbance persisting across consecutive windows arrives as many near-identical events, so a confidence built from them counts one cause many times. Atlas may rank and reason over these hypotheses; it may not present their confidences as calibrated. Evidence weights, separately, are calibrated. | Co-occurring-fault masking: a coarse group can hide a second, unrelated event inside one subsystem event. Two independent faults on one process are indistinguishable from one, and an attack co-occurring with a fault is reported as a single thing to investigate. That is a recall risk carried by the grouping, not a win. | Grouped weight is a maximum: a subsystem event carries the strongest member's calibrated weight, and a maximum over a set of calibrated probabilities is not itself a calibrated probability \u2014 it is biased upward by how many signals the unit carries. The calibration error reported for subsystem events may therefore come out better or worse than the per-signal one for reasons that have nothing to do with the calibrator, and is not a reading of it. | Saturated false-positive load: when a declared SaturationPolicy fires, the row is REFUSED as a detection claim even if recall looks excellent. Metrics stay on the report; they must not be quoted as detection. Public distillation 18.72 and Data4Cyber Track A keep their log names and stay MEASURED unless a caller applies a policy. Do not raise dwell_samples to chase a quieter public ZIP. | Normal-score CDF weights are not attack probabilities: the map is the empirical CDF of held-out attack-free magnitudes (ADR 0083). A weight of 0.9 means the score sits at or above about 90% of ordinary scores the model saw on normal data \u2014 not that an attack is 90% likely. Do not quote ECE against attack labels as evidence that these weights are calibrated probabilities under Constitution \u00a73.3.",
+      "alert_threshold": 3.0,
+      "match_tolerance_seconds": 0.0,
+      "calibration_bins": 10,
+      "n_observations": 1306866,
+      "n_detections": 86799,
+      "n_alerts": 5637,
+      "n_attack_intervals": 126,
+      "n_unscored_intervals": 115,
+      "n_unscored_alerts": 649,
+      "normal_hours": 73.12333333333333,
+      "window_recall": 0.5476190476190477,
+      "false_positives": 1476,
+      "false_positive_rate": 20.185075443314947,
+      "precision": 0.7040898155573376,
+      "recall_sample": 0.19302853050017907,
+      "f1": 0.30299106697448247,
+      "latency": {
+        "count": 69,
+        "min_seconds": 0.0,
+        "median_seconds": 20.0,
+        "mean_seconds": 163.47826086956522,
+        "max_seconds": 5060.0
+      },
+      "operating_points": [
+        {
+          "threshold": 1.0000038224788734,
+          "recall": 1.0,
+          "fp_rate": 686.5660755800702,
+          "precision": 0.33135330234540444
+        },
+        {
+          "threshold": 1.0823569049316653,
+          "recall": 1.0,
+          "fp_rate": 620.9509048639285,
+          "precision": 0.327896030077859
+        },
+        {
+          "threshold": 1.1758249974282604,
+          "recall": 0.9841269841269841,
+          "fp_rate": 555.6912978073574,
+          "precision": 0.3250838786831877
+        },
+        {
+          "threshold": 1.2636760980867643,
+          "recall": 0.9761904761904762,
+          "fp_rate": 479.95623831882205,
+          "precision": 0.33249648141808363
+        },
+        {
+          "threshold": 1.336572471403433,
+          "recall": 0.9523809523809523,
+          "fp_rate": 398.2449742444272,
+          "precision": 0.35145427820587055
+        },
+        {
+          "threshold": 1.4122243003873831,
+          "recall": 0.9285714285714286,
+          "fp_rate": 316.38327939098326,
+          "precision": 0.3797919682590746
+        },
+        {
+          "threshold": 1.52173858735937,
+          "recall": 0.9126984126984127,
+          "fp_rate": 235.99854127729407,
+          "precision": 0.42239850051879374
+        },
+        {
+          "threshold": 1.6944647741679522,
+          "recall": 0.8412698412698413,
+          "fp_rate": 162.30113506860556,
+          "precision": 0.47537795066749183
+        },
+        {
+          "threshold": 1.9926547804155745,
+          "recall": 0.753968253968254,
+          "fp_rate": 96.83639513151297,
+          "precision": 0.5389973958333333
+        },
+        {
+          "threshold": 2.4891431037888707,
+          "recall": 0.6111111111111112,
+          "fp_rate": 34.53070155445138,
+          "precision": 0.6737726098191215
+        },
+        {
+          "threshold": 19.16880964326383,
+          "recall": 0.007936507936507936,
+          "fp_rate": 0.0,
+          "precision": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.11300049990314415,
+      "brier_score": 0.22530314150130207,
+      "reliability": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 1512,
+          "mean_confidence": 0.661619802568212,
+          "empirical_rate": 0.6779100529100529
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 1057,
+          "mean_confidence": 0.7475521718067882,
+          "empirical_rate": 0.6896877956480606
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 831,
+          "mean_confidence": 0.848515813909757,
+          "empirical_rate": 0.8700361010830325
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 1588,
+          "mean_confidence": 0.941416644054945,
+          "empirical_rate": 0.6517632241813602
+        }
+      ],
+      "claim_status": "MEASURED",
+      "saturation_policy": null,
+      "refusal_reason": null
+    },
+    {
+      "detector_name": "model:atlas-mahalanobis+normal-score-cdf",
+      "dataset_name": "batch-distillation[designed-normal-score]",
+      "domain": "ATLAS",
+      "created_at": "2026-09-24T09:40:52.390361+00:00",
+      "git_commit": null,
+      "seed": 11,
+      "source_note": "batch-distillation v1.1.2 (Zenodo record 21535243), mixture ternary_butan-1-ol+propan-2-ol+water, 15 dual-clean train experiments / 13 YAML-contaminated train held out / 63 test experiments, downsampled to every 10th row with block-pooled labels, packed clock from 1970-01-01T00:00:00+0000 with a labelled-normal seam row between experiments. recipe_step carried from operation-log Executing step events (15 declared names: ANOMALIE, Distillation, Druck, End, Heat, Heat1, Heat10, Heat2, Heat3, Heat4, Heat5, Heat6, Heat7, Heat8, Heat9). Label: shipped classes [2] (anomalous phase) are positive; [1, 3] (blind, recovery) are unscored, neither recall target nor normal time (ADR 0082). Recall measured on this corpus is perturbation recall, never attack recall: the manipulations were engineered process perturbations performed by the plant's own operators, not cyber attacks (ADR 0024 decision 7). [test] | Coarse-map inflation: HAI's declared topology could not be partitioned below process level for P1 and P2, so unrelated departures anywhere on one process collapse into a single subsystem event. A large reduction here is evidence that grouping is correctly IMPLEMENTED, not that it is correctly RESOLVED. A finer map would lower the headline number and raise its meaning. | Uncalibrated hypothesis confidence: the confidences on these hypotheses are NOT calibrated probabilities and must not be surfaced to a user under Constitution \u00a73.3. Three reasons, and the third is measured rather than asserted. (1) The template priors are reasoned placeholders, not measured base rates. (2) EVIDENCE_STRENGTH is a placeholder too, and measuring either needs data labelling WHICH EXPLANATION IS TRUE, which no corpus PHOS uses carries \u2014 HAI labels attack and normal. (3) The belief update treats each subsystem event as independent, and on a plant they are plainly not: one disturbance persisting across consecutive windows arrives as many near-identical events, so a confidence built from them counts one cause many times. Atlas may rank and reason over these hypotheses; it may not present their confidences as calibrated. Evidence weights, separately, are calibrated. | Co-occurring-fault masking: a coarse group can hide a second, unrelated event inside one subsystem event. Two independent faults on one process are indistinguishable from one, and an attack co-occurring with a fault is reported as a single thing to investigate. That is a recall risk carried by the grouping, not a win. | Grouped weight is a maximum: a subsystem event carries the strongest member's calibrated weight, and a maximum over a set of calibrated probabilities is not itself a calibrated probability \u2014 it is biased upward by how many signals the unit carries. The calibration error reported for subsystem events may therefore come out better or worse than the per-signal one for reasons that have nothing to do with the calibrator, and is not a reading of it. | Saturated false-positive load: when a declared SaturationPolicy fires, the row is REFUSED as a detection claim even if recall looks excellent. Metrics stay on the report; they must not be quoted as detection. Public distillation 18.72 and Data4Cyber Track A keep their log names and stay MEASURED unless a caller applies a policy. Do not raise dwell_samples to chase a quieter public ZIP. | Normal-score CDF weights are not attack probabilities: the map is the empirical CDF of held-out attack-free magnitudes (ADR 0083). A weight of 0.9 means the score sits at or above about 90% of ordinary scores the model saw on normal data \u2014 not that an attack is 90% likely. Do not quote ECE against attack labels as evidence that these weights are calibrated probabilities under Constitution \u00a73.3.",
+      "alert_threshold": 3.0,
+      "match_tolerance_seconds": 0.0,
+      "calibration_bins": 10,
+      "n_observations": 1306866,
+      "n_detections": 86799,
+      "n_alerts": 5637,
+      "n_attack_intervals": 126,
+      "n_unscored_intervals": 115,
+      "n_unscored_alerts": 649,
+      "normal_hours": 73.12333333333333,
+      "window_recall": 0.5476190476190477,
+      "false_positives": 1476,
+      "false_positive_rate": 20.185075443314947,
+      "precision": 0.7040898155573376,
+      "recall_sample": 0.19302853050017907,
+      "f1": 0.30299106697448247,
+      "latency": {
+        "count": 69,
+        "min_seconds": 0.0,
+        "median_seconds": 20.0,
+        "mean_seconds": 163.47826086956522,
+        "max_seconds": 5060.0
+      },
+      "operating_points": [
+        {
+          "threshold": 1.0000038224788734,
+          "recall": 1.0,
+          "fp_rate": 686.5660755800702,
+          "precision": 0.33135330234540444
+        },
+        {
+          "threshold": 1.0823569049316653,
+          "recall": 1.0,
+          "fp_rate": 620.9509048639285,
+          "precision": 0.327896030077859
+        },
+        {
+          "threshold": 1.1758249974282604,
+          "recall": 0.9841269841269841,
+          "fp_rate": 555.6912978073574,
+          "precision": 0.3250838786831877
+        },
+        {
+          "threshold": 1.2636760980867643,
+          "recall": 0.9761904761904762,
+          "fp_rate": 479.95623831882205,
+          "precision": 0.33249648141808363
+        },
+        {
+          "threshold": 1.336572471403433,
+          "recall": 0.9523809523809523,
+          "fp_rate": 398.2449742444272,
+          "precision": 0.35145427820587055
+        },
+        {
+          "threshold": 1.4122243003873831,
+          "recall": 0.9285714285714286,
+          "fp_rate": 316.38327939098326,
+          "precision": 0.3797919682590746
+        },
+        {
+          "threshold": 1.52173858735937,
+          "recall": 0.9126984126984127,
+          "fp_rate": 235.99854127729407,
+          "precision": 0.42239850051879374
+        },
+        {
+          "threshold": 1.6944647741679522,
+          "recall": 0.8412698412698413,
+          "fp_rate": 162.30113506860556,
+          "precision": 0.47537795066749183
+        },
+        {
+          "threshold": 1.9926547804155745,
+          "recall": 0.753968253968254,
+          "fp_rate": 96.83639513151297,
+          "precision": 0.5389973958333333
+        },
+        {
+          "threshold": 2.4891431037888707,
+          "recall": 0.6111111111111112,
+          "fp_rate": 34.53070155445138,
+          "precision": 0.6737726098191215
+        },
+        {
+          "threshold": 19.16880964326383,
+          "recall": 0.007936507936507936,
+          "fp_rate": 0.0,
+          "precision": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.2490603022599447,
+      "brier_score": 0.2688294351353869,
+      "reliability": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "empirical_rate": 0.0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 4988,
+          "mean_confidence": 0.9531501178172823,
+          "empirical_rate": 0.7040898155573376
+        }
+      ],
+      "claim_status": "MEASURED",
+      "saturation_policy": null,
+      "refusal_reason": null
+    }
+  ]
+}

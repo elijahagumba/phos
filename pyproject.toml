@@ -1,0 +1,124 @@
+[project]
+name = "phos"
+version = "0.1.0"
+description = "PHOS — behavioural cybersecurity systems (Atlas, Sentiel, PHOS Intelligence)"
+readme = "README.md"
+requires-python = "==3.12.*"
+dependencies = [
+    "dpkt==1.9.8",
+    "numpy==2.5.1",
+    "pandas==3.0.5",
+    "pydantic==2.12.3",
+    "scikit-learn==1.9.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.4.2",
+    "pytest-cov==7.0.0",
+    "mypy==1.18.2",
+    "ruff==0.14.1",
+    "pandas-stubs==3.0.3.260530",
+    "pyarrow==25.0.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/phos"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers --strict-config --import-mode=importlib"
+# `tests/` mirrors `src/phos/` package by package, so two packages legitimately want a module of
+# the same name — `tests/atlas/test_engine.py` and `tests/reasoning/test_engine.py` both test the
+# engine of their own package. The default `prepend` import mode identifies a test module by its
+# basename alone and refuses the pair. Importlib mode names it by its path from the rootdir, which
+# is what makes the mirroring rule (Constitution §5) expressible.
+consider_namespace_packages = true
+# Import the package from the source tree rather than relying on the editable install. On macOS
+# the .pth files uv writes can end up carrying the UF_HIDDEN flag, which CPython >= 3.11 skips,
+# silently breaking `import phos`. Tests should not be hostage to that.
+# The repository root joins it so that `scripts/` is importable and therefore testable —
+# tests/synth/test_generate.py drives the generator's command line directly. Scripts are the one
+# part of PHOS pytest could not reach before.
+pythonpath = ["src", "."]
+# Some tests pin records that stay in the private lab (roadmap state, phase plans). The public
+# repository is exported from the lab without them; tests/conftest.py skips these there and runs
+# them everywhere else.
+markers = [
+    "lab_only: reads a record that is not published; skipped in the public repository",
+]
+
+[tool.coverage.run]
+source = ["src/phos"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests", "scripts"]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "A",    # flake8-builtins
+    "C4",   # flake8-comprehensions
+    "RUF",  # ruff-specific
+    "D",    # pydocstyle — Constitution §6 requires docstrings on public API
+    "ANN",  # flake8-annotations — Constitution §6 requires full type hints
+]
+ignore = [
+    "D203",  # incompatible with D211
+    "D213",  # incompatible with D212
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Test names are the documentation; module docstrings are still required.
+"tests/*" = ["D101", "D102", "D103"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests", "scripts"]
+warn_unreachable = true
+disallow_any_unimported = true
+plugins = ["pydantic.mypy"]
+# Same reason as `consider_namespace_packages` above: name a test module by its path from the repo
+# root, so two mirrored test packages may each hold a `test_engine.py`.
+explicit_package_bases = true
+mypy_path = "src:."
+
+[[tool.mypy.overrides]]
+# dpkt ships no py.typed marker. PART P1 confines every dpkt call to `_peel_layers` and the reader
+# setup in phos.atlas.packet.capture, which convert what comes back to `str`, `int` and `bytes`
+# before returning, so no untyped value reaches a signature or a stored field. That containment is
+# the same boundary that catches dpkt's exceptions: one function is the only place the library is
+# trusted, which is what keeps it reviewable and replaceable. See ADR 0012.
+module = ["dpkt.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# scikit-learn ships no py.typed marker, so mypy cannot see through it. PART 4A confines every
+# sklearn call to two private functions in phos.reasoning.calibration that convert what comes back
+# to plain floats immediately, so no untyped value reaches a signature or a stored field.
+module = ["sklearn.*"]
+ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_typed = true
+warn_required_dynamic_aliases = true

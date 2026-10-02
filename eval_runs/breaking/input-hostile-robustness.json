@@ -1,0 +1,111 @@
+{
+  "created_at": "2026-08-22T17:24:54.420692+00:00",
+  "git_commit": "a829c1eac83307c8f0084abb42ddca2f4d034b0c",
+  "config": {
+    "seed": 7,
+    "alert_threshold": 0.0,
+    "danger_margin": 3.0,
+    "atlas": {
+      "grouping_window": "PT1M",
+      "reasoning": {
+        "correlation_window": "PT30M",
+        "pruning_threshold": 0.02,
+        "seed": 0
+      }
+    },
+    "measure_commands": false,
+    "phase_features": {
+      "batch-reactor": "batch_phase"
+    },
+    "settling_window": "PT10M"
+  },
+  "clean_map": [],
+  "caveated_map": [],
+  "breakdowns": [],
+  "robustness": [
+    {
+      "corpus": "synth-hostile-malformed-records",
+      "plant_id": "",
+      "outcomes": [
+        {
+          "attack_id": "hostile-malformed-records",
+          "attack_type": "MALFORMED_RECORD",
+          "corpus": "synth-hostile-malformed-records",
+          "target": "",
+          "rows_affected": 58,
+          "verdict": "REFUSED",
+          "error_type": "ParserError",
+          "detail": "58 record(s) made malformed, cycling through missing_field, extra_field, non_numeric_value, broken_timestamp, empty_field; the header is intact so the corpus still loads and the question is what happens to the records it cannot trust -> refused loudly: Error tokenizing data. C error: Expected 17 fields in line 51, saw 18\n",
+          "baseline_shift": null
+        }
+      ],
+      "loaded": false
+    },
+    {
+      "corpus": "synth-hostile-out-of-range",
+      "plant_id": "water-treatment",
+      "outcomes": [
+        {
+          "attack_id": "hostile-out-of-range",
+          "attack_type": "OUT_OF_RANGE",
+          "corpus": "synth-hostile-out-of-range",
+          "target": "distribution_flow_m3ph",
+          "rows_affected": 29,
+          "verdict": "COMPLETED",
+          "error_type": "",
+          "detail": "29 value(s) of distribution_flow_m3ph made physically impossible for an instrument calibrated 0 to 350 m3/h, including the two non-finite floats a float parser will hand you if you let it -> the pipeline read the corpus and ran to completion",
+          "baseline_shift": null
+        }
+      ],
+      "loaded": true
+    },
+    {
+      "corpus": "synth-hostile-poisoned-baseline",
+      "plant_id": "water-treatment",
+      "outcomes": [
+        {
+          "attack_id": "hostile-poisoned-baseline",
+          "attack_type": "POISONED_BASELINE",
+          "corpus": "synth-hostile-poisoned-baseline",
+          "target": "clearwell_level_m",
+          "rows_affected": 950,
+          "verdict": "COMPLETED",
+          "error_type": "",
+          "detail": "clearwell_level_m walked +0.2400 m across the first 950 record(s) — the fitting window — at a rate a calibration drift would plausibly produce. Nothing is malformed and nothing raises an error; the baseline learned from this corpus is simply not the plant's -> the pipeline read the corpus and ran to completion",
+          "baseline_shift": 0.13424762867811643
+        }
+      ],
+      "loaded": true
+    },
+    {
+      "corpus": "synth-hostile-truncated",
+      "plant_id": "water-treatment",
+      "outcomes": [
+        {
+          "attack_id": "hostile-truncated",
+          "attack_type": "TRUNCATED",
+          "corpus": "synth-hostile-truncated",
+          "target": "",
+          "rows_affected": 144,
+          "verdict": "COMPLETED",
+          "error_type": "",
+          "detail": "144 record(s) removed from the end of the file and the last surviving record cut mid-field, as a write interrupted part-way through leaves it -> the pipeline read the corpus and ran to completion",
+          "baseline_shift": null
+        }
+      ],
+      "loaded": true
+    }
+  ],
+  "command_results": [],
+  "caveats": [
+    "These are attacks WE designed against a MODEL of a plant. A blind spot found here is real and worth fixing — the map's value is in its misses. But Atlas performing well here shows that it handles our adversary against our simulation, a necessary step toward handling a real adversary against a real plant and is not evidence of it. No number in this report may be quoted as a detection rate for Atlas in the field.",
+    "Detection results and input-hostile results are measured and reported separately and are NEVER combined. Detection results support only 'Atlas detects plant attacks down to this subtlety'. Input-hostile results support only 'Atlas's software survives hostile input'. Neither, alone or together, supports any claim that PHOS is secure against an attacker.",
+    "These are attacks WE designed. Atlas catching them shows that Atlas handles our imagination, not a real adversary's: the library was written by someone who could read the detector, and an attack nobody here thought of is not in it. Two consequences follow and both are load bearing. A detection rate measured here is an upper bound on this library, never a lower bound on reality. And if Atlas ever scores suspiciously well, the first hypothesis is a leaked fingerprint — some incidental tell in timing, formatting, ordering or numerical precision that lets the detector find the injection rather than the attack — and not brilliance. Rule that out before believing the number.",
+    "An input-hostile case tests whether Atlas's SOFTWARE survives malformed, out-of-range, truncated or poisoned input without crashing, corrupting its baseline or producing silently wrong output. Passing it is not evidence that PHOS is secure against a real-world attacker. That claim needs a live deployment, an exposed attack surface and an adversary who did not read this file, none of which exist here. An input-hostile case is never labelled as a plant attack and never appears in a corpus's attack intervals.",
+    "This attack falsifies the reading of an instrument that carries calibration drift. D2's pseudo-noise reproduces the instrument's measurement noise but NOT its slow drift, whose phase is drawn from the plant's setup generator and cannot be reconstructed from outside, so the injected signal is drift-free where a genuine one wanders. A detection here may be Atlas seeing that artefact rather than the danger, and must not be read as clean evidence of genuine detection. The artefact is strongest at low subtlety, where the reading is fully synthetic, and fades toward the near-invisible end, where most of the genuine signal — drift included — is still present.",
+    "The hypothesis confidences behind the command-reasoning section are NOT calibrated probabilities and are not surfaced as any (Constitution §3.3). Only the ORDERING of competing explanations is read, and only the direction it moved.",
+    "The command-attribution result is an ORDINAL RANK MEASURED AGAINST OUR OWN MATERIAL, and it may not be cited as a real-world detection rate. What it compares is where one named explanation sat before and after Atlas could read the commands — our attack library, run against our plant model, judged by our template set. Three things follow. It is not a rate: 'moved in n of m' counts attacks in a hand-written battery, so its denominator is a property of what we chose to write and carries no population behind it. It is not calibrated: only the direction the ordering moved is read, never the confidence attached to it. And it is not transferable: a real commissioning engineer leaves behind the same new device relationship an intruder does, so no movement here says the two can be told apart in the field. Known-station writes and unknown-master writes must not be pooled into one lead rate: they test different template splits (ADR 0014 vs ADR 0027). Quoting this number as a detection rate would claim a measurement against reality that was never made.",
+    "The behavioural model is fitted on a separate D1 normal corpus of the same plant, not on the attacked corpus. The calibrator is cross-fitted over two time folds, so every attack is scored in the fold whose calibration slice excluded it. A detection result is therefore a statement about Atlas given a well-fed baseline; a deployment fitted on four hours of a plant with a daily cycle would do worse, and that is a different measurement.",
+    "A corpus whose false-positive load is this high has not 'caught' its attacks in any useful sense: it alerted on so much of the corpus that landing inside an attack window was close to unavoidable. Recall and a false-positive rate must be read together, and a recall row from a saturated corpus supports no claim about detection at all."
+  ]
+}

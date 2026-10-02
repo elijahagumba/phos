@@ -1,0 +1,227 @@
+#  HAI 21.03 — subsystem topology
+#
+#  Which signals are instrumented on the same physical unit. Hand-authored from the corpus
+#  authors' published documentation and from nothing else. Never derived from the data: see
+#  docs/adr/0010-declared-topology-and-the-granularity-hai-supports.md for why inferring
+#  membership from co-movement would be circular.
+#
+#  Sole documentary source, cited throughout as "the manual":
+#
+#      HAI Dataset Technical Details, document version 4.0, released May 31 2023.
+#      https://github.com/icsdataset/hai/blob/master/hai_dataset_technical_details.pdf
+#      Page numbers below are the document's own printed page numbers.
+#
+#  This is the only manual the HAI repository publishes — its git history holds a single commit,
+#  so the 21.03-era v2.0 revision described in the change log is not retrievable. Two consequences
+#  are recorded in the ADR and matter when reading the assignments below:
+#
+#    1. The manual's data-point table uses HAI 22.04/23.05 tag names. Several 21.03 columns are
+#       named differently (P2_ASD for P2_AutoSD, P2_MSD for P2_ManualSD, P2_VXT02/VYT02/VXT03/
+#       VYT03 for P2_VIBTR01..04), and three 21.03 columns — P2_CO_rpm, P2_HILout, P2_SIT02 —
+#       appear in the table under no name at all.
+#    2. The manual states HAI 21.03 carries 78 data points (p. 1 and p. 36). It carries 79. The
+#       manual's own column arithmetic on p. 36 — "84 columns", one timestamp and four label
+#       columns — corroborates 79 rather than 78.
+#
+#  Granularity: this map is at process level for P1, P2 and P3, and splits P4 into the three
+#  simulated machines the manual names per point. That is the finest split the documentation
+#  supports as a partition. The ADR records what finer splits were available, and why each was
+#  declined rather than merely unavailable.
+
+schema_version = 1
+corpus = "hai"
+
+
+[[subsystems]]
+subsystem_id = "p1-boiler"
+label = "P1 — boiler process (water-to-water heat transfer, Emerson Ovation DCS)"
+source = """
+The manual, "HAI TESTBED — P1: BOILER PROCESS" (p. 4) with Figure 1, the process flow diagram: \
+the boiler is one closed water circuit — main water tank (P1a), heat transfer system (P1b), \
+return water tank (P1c), heating water tank (P1d), heating system (P1e), cooling system (P1f) — \
+under a single Emerson Ovation DCS. Every P1_* point in HAI 21.03 is one of its eleven sensors, \
+three actuators, six valves or five operator setpoints (p. 5).
+
+Not split finer, though the manual describes structure that looks splittable. Figures 4-8 \
+(pp. 7-8) decompose the boiler into five feedback control loops, but that decomposition is a \
+covering rather than a partition and does not cover this corpus: it names only 26 of these 38 \
+points, and P1_FCV03D appears in two loops at once — commanded by P1-FC (Figure 6) and a \
+feed-forward input to P1-LC (Figure 5). The twelve points no loop diagram mentions are the two \
+main water pumps, the heating water pump and its supply pressure, the heating water tank's \
+temperature and outflow setpoint, one flow transmitter pair, and the DCS start/stop. Figure 1 \
+does name six physical vessels and systems, but the manual assigns no data point to any of them, \
+and eighteen of these points name no vessel in their description either. Splitting on either \
+basis would require inventing a tie-break rule and a residual bucket, which is inference wearing \
+a citation.
+"""
+signals = [
+  "P1_B2004",
+  "P1_B2016",
+  "P1_B3004",
+  "P1_B3005",
+  "P1_B4002",
+  "P1_B4005",
+  "P1_B400B",
+  "P1_B4022",
+  "P1_FCV01D",
+  "P1_FCV01Z",
+  "P1_FCV02D",
+  "P1_FCV02Z",
+  "P1_FCV03D",
+  "P1_FCV03Z",
+  "P1_FT01",
+  "P1_FT01Z",
+  "P1_FT02",
+  "P1_FT02Z",
+  "P1_FT03",
+  "P1_FT03Z",
+  "P1_LCV01D",
+  "P1_LCV01Z",
+  "P1_LIT01",
+  "P1_PCV01D",
+  "P1_PCV01Z",
+  "P1_PCV02D",
+  "P1_PCV02Z",
+  "P1_PIT01",
+  "P1_PIT02",
+  "P1_PP01AD",
+  "P1_PP01AR",
+  "P1_PP01BD",
+  "P1_PP01BR",
+  "P1_PP02D",
+  "P1_PP02R",
+  "P1_STSP",
+  "P1_TIT01",
+  "P1_TIT02",
+]
+
+
+[[subsystems]]
+subsystem_id = "p2-turbine"
+label = "P2 — turbine process (GE Rotor Kit, Mark VIe DCS)"
+source = """
+The manual, "HAI TESTBED — P2: TURBINE PROCESS" (p. 5): one GE Rotor Kit under one Mark VIe DCS, \
+comprising a motor system with a DC speed control device and a rotor system carrying the shaft, \
+two balance wheels, two journal bearings and a bearing block, instrumented by one speedometer and \
+four vibration proximity probes. Every P2_* point in HAI 21.03 belongs to that one machine.
+
+Not split finer, for two independent reasons. Figure 1 distinguishes a motor system (P2a) from a \
+rotor system (P2b), but the manual assigns no data point to either. The two documented control \
+functions — P2-SC speed control and P2-TRIP over-speed/over-vibration trip, both p. 10 — are not \
+a partition: the trip description and the speed-control description both take P2_SIT01 as their \
+input. And three of these 22 columns, P2_CO_rpm, P2_HILout and P2_SIT02, have no entry in the \
+manual's data-point table under any name, so for those the documentation supports no assignment \
+below the process prefix carried in the column name itself.
+"""
+signals = [
+  "P2_24Vdc",
+  "P2_ASD",
+  "P2_AutoGO",
+  "P2_CO_rpm",
+  "P2_Emerg",
+  "P2_HILout",
+  "P2_MSD",
+  "P2_ManualGO",
+  "P2_OnOff",
+  "P2_RTR",
+  "P2_SIT01",
+  "P2_SIT02",
+  "P2_TripEx",
+  "P2_VT01",
+  "P2_VTR01",
+  "P2_VTR02",
+  "P2_VTR03",
+  "P2_VTR04",
+  "P2_VXT02",
+  "P2_VXT03",
+  "P2_VYT02",
+  "P2_VYT03",
+]
+
+
+[[subsystems]]
+subsystem_id = "p3-water-treatment"
+label = "P3 — water treatment process (Siemens S7-300 PLC)"
+source = """
+The manual, "HAI TESTBED — P3: WATER-TREATMENT PROCESS" (p. 5) and "WATER TREATMENT CONTROL" with \
+Figure 13 (p. 11). The manual documents exactly one feedback loop for this process, P3-LC, which \
+drives the level control valve LCV01 and the level control pump LCP01 from the HIL simulator's \
+discharge and pumping demands against the upper reservoir's level LT01 and its high and low \
+setpoints LH01/LL01. All seven HAI 21.03 columns are that loop's instrumentation and setpoints, \
+plus the flow and pressure transmitters on the line into the upper tank. The manual describes \
+nothing finer, and with a single documented loop there is nothing finer to describe.
+"""
+signals = [
+  "P3_FIT01",
+  "P3_LCP01D",
+  "P3_LCV01D",
+  "P3_LH",
+  "P3_LIT01",
+  "P3_LL",
+  "P3_PIT01",
+]
+
+
+[[subsystems]]
+subsystem_id = "p4-steam-turbine"
+label = "P4 — steam turbine model and its power generator (simulated)"
+source = """
+The manual, "P4: HARDWARE-IN-THE-LOOP SIMULATOR" (p. 5), which identifies the steam turbine model \
+(STM, P4.1) and the power generator model it drives (P4.2) as one simulated machine: the boiler's \
+temperature and pressure set the steam entering the STM, an internal governor controls its output \
+power, and the generator model produces the corresponding electrical power.
+
+Membership is not read off the ST_ name prefix but off the manual's own per-point descriptions in \
+the data-point table (rows 81-87, pp. 14-15), each of which names the STM explicitly: frequency \
+deviation of STM, gate opening rate of STM, electrical load demand of STM, output power of STM, \
+scheduled power demand of STM, digital value of steam pressure of STM, digital value of steam \
+temperature of STM.
+"""
+signals = [
+  "P4_ST_FD",
+  "P4_ST_GOV",
+  "P4_ST_LD",
+  "P4_ST_PO",
+  "P4_ST_PS",
+  "P4_ST_PT01",
+  "P4_ST_TT01",
+]
+
+
+[[subsystems]]
+subsystem_id = "p4-hydro-turbine"
+label = "P4 — hydro turbine model and its power generator (simulated)"
+source = """
+The manual, "P4: HARDWARE-IN-THE-LOOP SIMULATOR" (p. 5), which identifies the hydro turbine model \
+(HTM, P4.3) and the power generator model it drives (P4.4) as a second simulated machine, \
+computing generated output power from the water treatment process's discharge.
+
+As with the steam train, membership comes from the manual's per-point descriptions (rows 76-79, \
+p. 14) rather than from the HT_ prefix: frequency deviation of HTM, electrical load demand of \
+HTM, output power of HTM, scheduled power demand of HTM.
+"""
+signals = [
+  "P4_HT_FD",
+  "P4_HT_LD",
+  "P4_HT_PO",
+  "P4_HT_PS",
+]
+
+
+[[subsystems]]
+subsystem_id = "p4-power-grid"
+label = "P4 — power grid model (simulated)"
+source = """
+The manual, "P4: HARDWARE-IN-THE-LOOP SIMULATOR" (p. 5): the simulator holds two synchronous \
+generator models and "one power grid model, which included the local load demand and was \
+connected to an infinite bus" — a third distinct simulated unit, which both turbine trains are \
+regulated against to hold the microgrid at 60 Hz (P4.5).
+
+One point is instrumented on it. The data-point table (row 80, p. 15) describes P4_LD as the \
+*total* electrical load demand, which is what distinguishes it from the per-machine P4_ST_LD and \
+P4_HT_LD assigned above. A one-signal subsystem contributes no reduction and is declared anyway, \
+because the alternative is folding it into a machine the manual does not put it on.
+"""
+signals = [
+  "P4_LD",
+]

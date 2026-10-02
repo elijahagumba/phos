@@ -1,0 +1,1599 @@
+{
+  "budget": 48,
+  "comparison": {
+    "budget": 48,
+    "ranking": "peak",
+    "n_malicious_days": 53,
+    "n_insiders": 2,
+    "n_scored_days": 210814,
+    "n_episodes_available": 40,
+    "n_episode_days_available": 506,
+    "baseline_true_items": 5,
+    "baseline_malicious_days": 5,
+    "baseline_insiders": 1,
+    "episode_true_items": 1,
+    "episode_entity_days": 506,
+    "episode_malicious_days": 9,
+    "episode_insiders": 1,
+    "episode_carried_days": 458,
+    "cut_score": 13.700640148454447,
+    "tie_span_at_cut": 1,
+    "cut_is_arbitrary": false
+  },
+  "extra_budgets": [
+    {
+      "budget": 20,
+      "ranking": "peak",
+      "n_malicious_days": 53,
+      "n_insiders": 2,
+      "n_scored_days": 210814,
+      "n_episodes_available": 40,
+      "n_episode_days_available": 506,
+      "baseline_true_items": 4,
+      "baseline_malicious_days": 4,
+      "baseline_insiders": 1,
+      "episode_true_items": 1,
+      "episode_entity_days": 289,
+      "episode_malicious_days": 9,
+      "episode_insiders": 1,
+      "episode_carried_days": 261,
+      "cut_score": 15.066267566923365,
+      "tie_span_at_cut": 1,
+      "cut_is_arbitrary": false
+    },
+    {
+      "budget": 100,
+      "ranking": "peak",
+      "n_malicious_days": 53,
+      "n_insiders": 2,
+      "n_scored_days": 210814,
+      "n_episodes_available": 40,
+      "n_episode_days_available": 506,
+      "baseline_true_items": 5,
+      "baseline_malicious_days": 5,
+      "baseline_insiders": 1,
+      "episode_true_items": 1,
+      "episode_entity_days": 506,
+      "episode_malicious_days": 9,
+      "episode_insiders": 1,
+      "episode_carried_days": 458,
+      "cut_score": 13.700640148454447,
+      "tie_span_at_cut": 1,
+      "cut_is_arbitrary": false
+    },
+    {
+      "budget": 200,
+      "ranking": "peak",
+      "n_malicious_days": 53,
+      "n_insiders": 2,
+      "n_scored_days": 210814,
+      "n_episodes_available": 40,
+      "n_episode_days_available": 506,
+      "baseline_true_items": 5,
+      "baseline_malicious_days": 5,
+      "baseline_insiders": 1,
+      "episode_true_items": 1,
+      "episode_entity_days": 506,
+      "episode_malicious_days": 9,
+      "episode_insiders": 1,
+      "episode_carried_days": 458,
+      "cut_score": 13.700640148454447,
+      "tie_span_at_cut": 1,
+      "cut_is_arbitrary": false
+    }
+  ],
+  "sensitivity": [
+    {
+      "gap_days": 1,
+      "quantile": 0.5,
+      "extension_floor": 1.5936685782724873,
+      "n_episodes": 46,
+      "n_days": 203,
+      "n_carried_days": 155,
+      "max_days": 21
+    },
+    {
+      "gap_days": 1,
+      "quantile": 0.75,
+      "extension_floor": 2.782685444574442,
+      "n_episodes": 46,
+      "n_days": 130,
+      "n_carried_days": 82,
+      "max_days": 11
+    },
+    {
+      "gap_days": 1,
+      "quantile": 0.9,
+      "extension_floor": 4.241904686931274,
+      "n_episodes": 46,
+      "n_days": 94,
+      "n_carried_days": 46,
+      "max_days": 5
+    },
+    {
+      "gap_days": 1,
+      "quantile": 0.95,
+      "extension_floor": 5.365114702568377,
+      "n_episodes": 46,
+      "n_days": 80,
+      "n_carried_days": 32,
+      "max_days": 4
+    },
+    {
+      "gap_days": 1,
+      "quantile": 0.99,
+      "extension_floor": 7.9992920875078966,
+      "n_episodes": 47,
+      "n_days": 60,
+      "n_carried_days": 12,
+      "max_days": 3
+    },
+    {
+      "gap_days": 2,
+      "quantile": 0.5,
+      "extension_floor": 1.5936685782724873,
+      "n_episodes": 45,
+      "n_days": 404,
+      "n_carried_days": 356,
+      "max_days": 106
+    },
+    {
+      "gap_days": 2,
+      "quantile": 0.75,
+      "extension_floor": 2.782685444574442,
+      "n_episodes": 46,
+      "n_days": 207,
+      "n_carried_days": 159,
+      "max_days": 34
+    },
+    {
+      "gap_days": 2,
+      "quantile": 0.9,
+      "extension_floor": 4.241904686931274,
+      "n_episodes": 46,
+      "n_days": 112,
+      "n_carried_days": 64,
+      "max_days": 7
+    },
+    {
+      "gap_days": 2,
+      "quantile": 0.95,
+      "extension_floor": 5.365114702568377,
+      "n_episodes": 46,
+      "n_days": 89,
+      "n_carried_days": 41,
+      "max_days": 5
+    },
+    {
+      "gap_days": 2,
+      "quantile": 0.99,
+      "extension_floor": 7.9992920875078966,
+      "n_episodes": 46,
+      "n_days": 61,
+      "n_carried_days": 13,
+      "max_days": 3
+    },
+    {
+      "gap_days": 3,
+      "quantile": 0.5,
+      "extension_floor": 1.5936685782724873,
+      "n_episodes": 38,
+      "n_days": 1093,
+      "n_carried_days": 1045,
+      "max_days": 232
+    },
+    {
+      "gap_days": 3,
+      "quantile": 0.75,
+      "extension_floor": 2.782685444574442,
+      "n_episodes": 43,
+      "n_days": 351,
+      "n_carried_days": 303,
+      "max_days": 93
+    },
+    {
+      "gap_days": 3,
+      "quantile": 0.9,
+      "extension_floor": 4.241904686931274,
+      "n_episodes": 44,
+      "n_days": 158,
+      "n_carried_days": 110,
+      "max_days": 21
+    },
+    {
+      "gap_days": 3,
+      "quantile": 0.95,
+      "extension_floor": 5.365114702568377,
+      "n_episodes": 46,
+      "n_days": 100,
+      "n_carried_days": 52,
+      "max_days": 6
+    },
+    {
+      "gap_days": 3,
+      "quantile": 0.99,
+      "extension_floor": 7.9992920875078966,
+      "n_episodes": 46,
+      "n_days": 63,
+      "n_carried_days": 15,
+      "max_days": 3
+    },
+    {
+      "gap_days": 7,
+      "quantile": 0.5,
+      "extension_floor": 1.5936685782724873,
+      "n_episodes": 36,
+      "n_days": 4569,
+      "n_carried_days": 4521,
+      "max_days": 238
+    },
+    {
+      "gap_days": 7,
+      "quantile": 0.75,
+      "extension_floor": 2.782685444574442,
+      "n_episodes": 37,
+      "n_days": 1726,
+      "n_carried_days": 1678,
+      "max_days": 184
+    },
+    {
+      "gap_days": 7,
+      "quantile": 0.9,
+      "extension_floor": 4.241904686931274,
+      "n_episodes": 40,
+      "n_days": 506,
+      "n_carried_days": 458,
+      "max_days": 75
+    },
+    {
+      "gap_days": 7,
+      "quantile": 0.95,
+      "extension_floor": 5.365114702568377,
+      "n_episodes": 42,
+      "n_days": 173,
+      "n_carried_days": 125,
+      "max_days": 25
+    },
+    {
+      "gap_days": 7,
+      "quantile": 0.99,
+      "extension_floor": 7.9992920875078966,
+      "n_episodes": 44,
+      "n_days": 74,
+      "n_carried_days": 26,
+      "max_days": 6
+    },
+    {
+      "gap_days": 14,
+      "quantile": 0.5,
+      "extension_floor": 1.5936685782724873,
+      "n_episodes": 33,
+      "n_days": 5297,
+      "n_carried_days": 5249,
+      "max_days": 238
+    },
+    {
+      "gap_days": 14,
+      "quantile": 0.75,
+      "extension_floor": 2.782685444574442,
+      "n_episodes": 36,
+      "n_days": 3344,
+      "n_carried_days": 3296,
+      "max_days": 184
+    },
+    {
+      "gap_days": 14,
+      "quantile": 0.9,
+      "extension_floor": 4.241904686931274,
+      "n_episodes": 38,
+      "n_days": 1316,
+      "n_carried_days": 1268,
+      "max_days": 116
+    },
+    {
+      "gap_days": 14,
+      "quantile": 0.95,
+      "extension_floor": 5.365114702568377,
+      "n_episodes": 39,
+      "n_days": 441,
+      "n_carried_days": 393,
+      "max_days": 55
+    },
+    {
+      "gap_days": 14,
+      "quantile": 0.99,
+      "extension_floor": 7.9992920875078966,
+      "n_episodes": 40,
+      "n_days": 94,
+      "n_carried_days": 46,
+      "max_days": 8
+    }
+  ],
+  "top_episodes": [
+    {
+      "user_id": "CSF0929",
+      "start": "2010-07-02T00:00:00Z",
+      "end": "2010-07-23T00:00:00Z",
+      "n_days": 12,
+      "n_carried_days": 7,
+      "peak": 19.323735811791718,
+      "total": 129.14054952007442,
+      "breadth": 4,
+      "trajectory": "falling",
+      "malicious_days": [
+        "2010-07-02T00:00:00Z",
+        "2010-07-03T00:00:00Z",
+        "2010-07-06T00:00:00Z",
+        "2010-07-08T00:00:00Z",
+        "2010-07-09T00:00:00Z",
+        "2010-07-12T00:00:00Z",
+        "2010-07-14T00:00:00Z",
+        "2010-07-15T00:00:00Z",
+        "2010-07-16T00:00:00Z"
+      ],
+      "insider": "CSF0929"
+    },
+    {
+      "user_id": "DGC0484",
+      "start": "2010-12-09T00:00:00Z",
+      "end": "2010-12-22T00:00:00Z",
+      "n_days": 6,
+      "n_carried_days": 5,
+      "peak": 18.628242368319334,
+      "total": 49.58871756652485,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "TDB0268",
+      "start": "2011-01-04T00:00:00Z",
+      "end": "2011-01-08T00:00:00Z",
+      "n_days": 3,
+      "n_carried_days": 2,
+      "peak": 18.21570955996644,
+      "total": 27.52446772934662,
+      "breadth": 2,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "CJP0221",
+      "start": "2011-01-07T00:00:00Z",
+      "end": "2011-01-13T00:00:00Z",
+      "n_days": 3,
+      "n_carried_days": 2,
+      "peak": 18.095389790212863,
+      "total": 31.905345051674903,
+      "breadth": 4,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "DGC0484",
+      "start": "2010-07-02T00:00:00Z",
+      "end": "2010-07-23T00:00:00Z",
+      "n_days": 9,
+      "n_carried_days": 7,
+      "peak": 17.844215746818517,
+      "total": 72.1404822106427,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "LXW0999",
+      "start": "2010-07-17T00:00:00Z",
+      "end": "2010-07-19T00:00:00Z",
+      "n_days": 2,
+      "n_carried_days": 1,
+      "peak": 17.597470701529332,
+      "total": 23.02410103596511,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "NLR0174",
+      "start": "2010-07-26T00:00:00Z",
+      "end": "2010-08-13T00:00:00Z",
+      "n_days": 8,
+      "n_carried_days": 7,
+      "peak": 17.408747144396493,
+      "total": 60.83492412752277,
+      "breadth": 4,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "BGM0010",
+      "start": "2011-04-07T00:00:00Z",
+      "end": "2011-04-29T00:00:00Z",
+      "n_days": 10,
+      "n_carried_days": 9,
+      "peak": 17.128578171295096,
+      "total": 73.04567947757351,
+      "breadth": 4,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "JZA0447",
+      "start": "2010-09-28T00:00:00Z",
+      "end": "2011-01-21T00:00:00Z",
+      "n_days": 49,
+      "n_carried_days": 46,
+      "peak": 17.048269353083786,
+      "total": 328.5134573678604,
+      "breadth": 4,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "TDB0268",
+      "start": "2011-05-13T00:00:00Z",
+      "end": "2011-05-14T00:00:00Z",
+      "n_days": 2,
+      "n_carried_days": 1,
+      "peak": 16.51368713640078,
+      "total": 24.7637019062919,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "CCH0252",
+      "start": "2010-08-16T00:00:00Z",
+      "end": "2010-08-24T00:00:00Z",
+      "n_days": 4,
+      "n_carried_days": 3,
+      "peak": 16.149825314912036,
+      "total": 31.25112367587302,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "YEV0902",
+      "start": "2011-03-15T00:00:00Z",
+      "end": "2011-04-25T00:00:00Z",
+      "n_days": 14,
+      "n_carried_days": 13,
+      "peak": 16.02152326102719,
+      "total": 84.51246199875798,
+      "breadth": 2,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "DGC0484",
+      "start": "2010-10-13T00:00:00Z",
+      "end": "2010-10-22T00:00:00Z",
+      "n_days": 4,
+      "n_carried_days": 2,
+      "peak": 15.839711233724605,
+      "total": 40.761756932659395,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "CSG0640",
+      "start": "2010-12-30T00:00:00Z",
+      "end": "2011-04-15T00:00:00Z",
+      "n_days": 41,
+      "n_carried_days": 40,
+      "peak": 15.695956487003533,
+      "total": 259.7819344863764,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "BSB0995",
+      "start": "2011-01-09T00:00:00Z",
+      "end": "2011-05-01T00:00:00Z",
+      "n_days": 71,
+      "n_carried_days": 70,
+      "peak": 15.563452724220808,
+      "total": 438.68864216923834,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "MEL0063",
+      "start": "2010-07-12T00:00:00Z",
+      "end": "2010-09-08T00:00:00Z",
+      "n_days": 20,
+      "n_carried_days": 19,
+      "peak": 15.47582703714036,
+      "total": 143.3079285110292,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "RCH0166",
+      "start": "2011-01-31T00:00:00Z",
+      "end": "2011-03-07T00:00:00Z",
+      "n_days": 16,
+      "n_carried_days": 15,
+      "peak": 15.32704941525327,
+      "total": 106.9214860480695,
+      "breadth": 2,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "ZAS0669",
+      "start": "2010-09-29T00:00:00Z",
+      "end": "2010-10-05T00:00:00Z",
+      "n_days": 3,
+      "n_carried_days": 2,
+      "peak": 15.310978729012241,
+      "total": 29.568381655280604,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "YXG0504",
+      "start": "2010-10-09T00:00:00Z",
+      "end": "2010-10-15T00:00:00Z",
+      "n_days": 2,
+      "n_carried_days": 1,
+      "peak": 15.30463841749573,
+      "total": 21.544244329361934,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "TJC0370",
+      "start": "2011-02-07T00:00:00Z",
+      "end": "2011-03-18T00:00:00Z",
+      "n_days": 10,
+      "n_carried_days": 9,
+      "peak": 15.066267566923365,
+      "total": 68.18950646844789,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "YXG0504",
+      "start": "2010-10-23T00:00:00Z",
+      "end": "2010-10-27T00:00:00Z",
+      "n_days": 3,
+      "n_carried_days": 2,
+      "peak": 15.054958914630662,
+      "total": 26.436299613831252,
+      "breadth": 2,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "LMR0049",
+      "start": "2010-08-24T00:00:00Z",
+      "end": "2010-11-04T00:00:00Z",
+      "n_days": 25,
+      "n_carried_days": 24,
+      "peak": 15.04582478759698,
+      "total": 170.92655635124873,
+      "breadth": 4,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "RHB0200",
+      "start": "2010-07-12T00:00:00Z",
+      "end": "2010-08-28T00:00:00Z",
+      "n_days": 15,
+      "n_carried_days": 14,
+      "peak": 14.827151302102049,
+      "total": 103.25755000411067,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "QRF0629",
+      "start": "2011-02-02T00:00:00Z",
+      "end": "2011-03-12T00:00:00Z",
+      "n_days": 12,
+      "n_carried_days": 11,
+      "peak": 14.817895915327856,
+      "total": 79.24402959569272,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "CJP0221",
+      "start": "2010-07-15T00:00:00Z",
+      "end": "2010-07-22T00:00:00Z",
+      "n_days": 4,
+      "n_carried_days": 3,
+      "peak": 14.66561452848658,
+      "total": 34.06809296408943,
+      "breadth": 4,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "JRV0778",
+      "start": "2010-09-10T00:00:00Z",
+      "end": "2010-10-05T00:00:00Z",
+      "n_days": 9,
+      "n_carried_days": 8,
+      "peak": 14.555459400769927,
+      "total": 58.7232265648077,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "DGC0484",
+      "start": "2010-11-05T00:00:00Z",
+      "end": "2010-11-24T00:00:00Z",
+      "n_days": 6,
+      "n_carried_days": 5,
+      "peak": 14.439353712513718,
+      "total": 45.70163247001143,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "LUP0038",
+      "start": "2010-11-10T00:00:00Z",
+      "end": "2011-05-13T00:00:00Z",
+      "n_days": 75,
+      "n_carried_days": 74,
+      "peak": 14.16761461703683,
+      "total": 491.45728374568563,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "RTH0015",
+      "start": "2011-02-18T00:00:00Z",
+      "end": "2011-03-07T00:00:00Z",
+      "n_days": 6,
+      "n_carried_days": 5,
+      "peak": 14.047376460198482,
+      "total": 41.84356694435355,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "CJP0221",
+      "start": "2011-05-13T00:00:00Z",
+      "end": "2011-05-14T00:00:00Z",
+      "n_days": 2,
+      "n_carried_days": 1,
+      "peak": 13.97017919067793,
+      "total": 19.293877173060146,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "CBL0969",
+      "start": "2011-05-13T00:00:00Z",
+      "end": "2011-05-13T00:00:00Z",
+      "n_days": 1,
+      "n_carried_days": 0,
+      "peak": 13.969457697979035,
+      "total": 13.969457697979035,
+      "breadth": 4,
+      "trajectory": "single",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "ESB0859",
+      "start": "2010-11-15T00:00:00Z",
+      "end": "2010-12-13T00:00:00Z",
+      "n_days": 7,
+      "n_carried_days": 6,
+      "peak": 13.960043234717956,
+      "total": 50.90122340674131,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "WAW0624",
+      "start": "2011-02-25T00:00:00Z",
+      "end": "2011-03-10T00:00:00Z",
+      "n_days": 5,
+      "n_carried_days": 4,
+      "peak": 13.849271970435696,
+      "total": 44.49366083023984,
+      "breadth": 4,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "XOH0359",
+      "start": "2011-01-20T00:00:00Z",
+      "end": "2011-01-26T00:00:00Z",
+      "n_days": 4,
+      "n_carried_days": 3,
+      "peak": 13.842812464078317,
+      "total": 31.68187706577035,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "YEV0902",
+      "start": "2010-08-12T00:00:00Z",
+      "end": "2010-08-30T00:00:00Z",
+      "n_days": 6,
+      "n_carried_days": 5,
+      "peak": 13.837598247811172,
+      "total": 47.234873360658085,
+      "breadth": 4,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "TKW0289",
+      "start": "2011-03-27T00:00:00Z",
+      "end": "2011-04-27T00:00:00Z",
+      "n_days": 13,
+      "n_carried_days": 12,
+      "peak": 13.789115340915018,
+      "total": 92.35859802340246,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "WMH0866",
+      "start": "2011-02-18T00:00:00Z",
+      "end": "2011-03-25T00:00:00Z",
+      "n_days": 12,
+      "n_carried_days": 11,
+      "peak": 13.747648590811648,
+      "total": 75.77942329355898,
+      "breadth": 4,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "ECF0196",
+      "start": "2011-01-19T00:00:00Z",
+      "end": "2011-01-25T00:00:00Z",
+      "n_days": 3,
+      "n_carried_days": 2,
+      "peak": 13.71844563031136,
+      "total": 29.404614124608614,
+      "breadth": 3,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "HAM0510",
+      "start": "2010-07-02T00:00:00Z",
+      "end": "2010-07-03T00:00:00Z",
+      "n_days": 2,
+      "n_carried_days": 1,
+      "peak": 13.712592519526218,
+      "total": 23.38533765807521,
+      "breadth": 4,
+      "trajectory": "rising",
+      "malicious_days": [],
+      "insider": null
+    },
+    {
+      "user_id": "KGM0616",
+      "start": "2010-09-08T00:00:00Z",
+      "end": "2010-09-30T00:00:00Z",
+      "n_days": 7,
+      "n_carried_days": 6,
+      "peak": 13.700640148454447,
+      "total": 45.39276655249968,
+      "breadth": 3,
+      "trajectory": "falling",
+      "malicious_days": [],
+      "insider": null
+    }
+  ],
+  "profiles": [
+    {
+      "entity_id": "ent_CSF0929",
+      "n_days": 12,
+      "n_anchor_days": 5,
+      "n_carried_days": 7,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 42.533520658809444,
+      "anchor_score": 86.60702886126498
+    },
+    {
+      "entity_id": "ent_DGC0484",
+      "n_days": 6,
+      "n_anchor_days": 1,
+      "n_carried_days": 5,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 30.960475198205515,
+      "anchor_score": 18.628242368319334
+    },
+    {
+      "entity_id": "ent_TDB0268",
+      "n_days": 3,
+      "n_anchor_days": 1,
+      "n_carried_days": 2,
+      "episode_families": [
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 2,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 9.308758169380177,
+      "anchor_score": 18.21570955996644
+    },
+    {
+      "entity_id": "ent_CJP0221",
+      "n_days": 3,
+      "n_anchor_days": 1,
+      "n_carried_days": 2,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 13.80995526146204,
+      "anchor_score": 18.095389790212863
+    },
+    {
+      "entity_id": "ent_DGC0484",
+      "n_days": 9,
+      "n_anchor_days": 2,
+      "n_carried_days": 7,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 39.65943763088196,
+      "anchor_score": 32.48104457976074
+    },
+    {
+      "entity_id": "ent_LXW0999",
+      "n_days": 2,
+      "n_anchor_days": 1,
+      "n_carried_days": 1,
+      "episode_families": [
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 5.426630334435777,
+      "anchor_score": 17.597470701529332
+    },
+    {
+      "entity_id": "ent_NLR0174",
+      "n_days": 8,
+      "n_anchor_days": 1,
+      "n_carried_days": 7,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 43.42617698312628,
+      "anchor_score": 17.408747144396493
+    },
+    {
+      "entity_id": "ent_BGM0010",
+      "n_days": 10,
+      "n_anchor_days": 1,
+      "n_carried_days": 9,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 55.91710130627842,
+      "anchor_score": 17.128578171295096
+    },
+    {
+      "entity_id": "ent_JZA0447",
+      "n_days": 49,
+      "n_anchor_days": 3,
+      "n_carried_days": 46,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 282.889747564093,
+      "anchor_score": 45.62370980376742
+    },
+    {
+      "entity_id": "ent_TDB0268",
+      "n_days": 2,
+      "n_anchor_days": 1,
+      "n_carried_days": 1,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 8.250014769891118,
+      "anchor_score": 16.51368713640078
+    },
+    {
+      "entity_id": "ent_CCH0252",
+      "n_days": 4,
+      "n_anchor_days": 1,
+      "n_carried_days": 3,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 15.101298360960985,
+      "anchor_score": 16.149825314912036
+    },
+    {
+      "entity_id": "ent_YEV0902",
+      "n_days": 14,
+      "n_anchor_days": 1,
+      "n_carried_days": 13,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 2,
+      "carried_only_families": [
+        "DATA_HANDLING"
+      ],
+      "n_families_available": 4,
+      "carried_score": 68.4909387377308,
+      "anchor_score": 16.02152326102719
+    },
+    {
+      "entity_id": "ent_DGC0484",
+      "n_days": 4,
+      "n_anchor_days": 2,
+      "n_carried_days": 2,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 10.473880279161872,
+      "anchor_score": 30.287876653497523
+    },
+    {
+      "entity_id": "ent_CSG0640",
+      "n_days": 41,
+      "n_anchor_days": 1,
+      "n_carried_days": 40,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 244.0859779993728,
+      "anchor_score": 15.695956487003533
+    },
+    {
+      "entity_id": "ent_BSB0995",
+      "n_days": 71,
+      "n_anchor_days": 1,
+      "n_carried_days": 70,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 423.12518944501755,
+      "anchor_score": 15.563452724220808
+    },
+    {
+      "entity_id": "ent_MEL0063",
+      "n_days": 20,
+      "n_anchor_days": 1,
+      "n_carried_days": 19,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 127.83210147388884,
+      "anchor_score": 15.47582703714036
+    },
+    {
+      "entity_id": "ent_RCH0166",
+      "n_days": 16,
+      "n_anchor_days": 1,
+      "n_carried_days": 15,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 2,
+      "carried_only_families": [
+        "DATA_HANDLING"
+      ],
+      "n_families_available": 4,
+      "carried_score": 91.59443663281623,
+      "anchor_score": 15.32704941525327
+    },
+    {
+      "entity_id": "ent_ZAS0669",
+      "n_days": 3,
+      "n_anchor_days": 1,
+      "n_carried_days": 2,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 14.25740292626836,
+      "anchor_score": 15.310978729012241
+    },
+    {
+      "entity_id": "ent_YXG0504",
+      "n_days": 2,
+      "n_anchor_days": 1,
+      "n_carried_days": 1,
+      "episode_families": [
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 6.239605911866204,
+      "anchor_score": 15.30463841749573
+    },
+    {
+      "entity_id": "ent_TJC0370",
+      "n_days": 10,
+      "n_anchor_days": 1,
+      "n_carried_days": 9,
+      "episode_families": [
+        "ACCESS",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 53.12323890152453,
+      "anchor_score": 15.066267566923365
+    },
+    {
+      "entity_id": "ent_YXG0504",
+      "n_days": 3,
+      "n_anchor_days": 1,
+      "n_carried_days": 2,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 2,
+      "carried_only_families": [
+        "ACCESS"
+      ],
+      "n_families_available": 4,
+      "carried_score": 11.381340699200589,
+      "anchor_score": 15.054958914630662
+    },
+    {
+      "entity_id": "ent_LMR0049",
+      "n_days": 25,
+      "n_anchor_days": 1,
+      "n_carried_days": 24,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 155.88073156365175,
+      "anchor_score": 15.04582478759698
+    },
+    {
+      "entity_id": "ent_RHB0200",
+      "n_days": 15,
+      "n_anchor_days": 1,
+      "n_carried_days": 14,
+      "episode_families": [
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 88.43039870200863,
+      "anchor_score": 14.827151302102049
+    },
+    {
+      "entity_id": "ent_QRF0629",
+      "n_days": 12,
+      "n_anchor_days": 1,
+      "n_carried_days": 11,
+      "episode_families": [
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 64.42613368036487,
+      "anchor_score": 14.817895915327856
+    },
+    {
+      "entity_id": "ent_CJP0221",
+      "n_days": 4,
+      "n_anchor_days": 1,
+      "n_carried_days": 3,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 19.402478435602852,
+      "anchor_score": 14.66561452848658
+    },
+    {
+      "entity_id": "ent_JRV0778",
+      "n_days": 9,
+      "n_anchor_days": 1,
+      "n_carried_days": 8,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 44.16776716403778,
+      "anchor_score": 14.555459400769927
+    },
+    {
+      "entity_id": "ent_DGC0484",
+      "n_days": 6,
+      "n_anchor_days": 1,
+      "n_carried_days": 5,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "DATA_HANDLING"
+      ],
+      "n_families_available": 4,
+      "carried_score": 31.262278757497718,
+      "anchor_score": 14.439353712513718
+    },
+    {
+      "entity_id": "ent_LUP0038",
+      "n_days": 75,
+      "n_anchor_days": 1,
+      "n_carried_days": 74,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "ACCESS",
+        "PEER"
+      ],
+      "n_families_available": 4,
+      "carried_score": 477.2896691286488,
+      "anchor_score": 14.16761461703683
+    },
+    {
+      "entity_id": "ent_RTH0015",
+      "n_days": 6,
+      "n_anchor_days": 1,
+      "n_carried_days": 5,
+      "episode_families": [
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 27.79619048415507,
+      "anchor_score": 14.047376460198482
+    },
+    {
+      "entity_id": "ent_CJP0221",
+      "n_days": 2,
+      "n_anchor_days": 1,
+      "n_carried_days": 1,
+      "episode_families": [
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 5.323697982382217,
+      "anchor_score": 13.97017919067793
+    },
+    {
+      "entity_id": "ent_CBL0969",
+      "n_days": 1,
+      "n_anchor_days": 1,
+      "n_carried_days": 0,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 0.0,
+      "anchor_score": 13.969457697979035
+    },
+    {
+      "entity_id": "ent_ESB0859",
+      "n_days": 7,
+      "n_anchor_days": 1,
+      "n_carried_days": 6,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 36.94118017202336,
+      "anchor_score": 13.960043234717956
+    },
+    {
+      "entity_id": "ent_WAW0624",
+      "n_days": 5,
+      "n_anchor_days": 1,
+      "n_carried_days": 4,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [
+        "DATA_HANDLING"
+      ],
+      "n_families_available": 4,
+      "carried_score": 30.644388859804142,
+      "anchor_score": 13.849271970435696
+    },
+    {
+      "entity_id": "ent_XOH0359",
+      "n_days": 4,
+      "n_anchor_days": 1,
+      "n_carried_days": 3,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 17.839064601692034,
+      "anchor_score": 13.842812464078317
+    },
+    {
+      "entity_id": "ent_YEV0902",
+      "n_days": 6,
+      "n_anchor_days": 1,
+      "n_carried_days": 5,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 33.39727511284691,
+      "anchor_score": 13.837598247811172
+    },
+    {
+      "entity_id": "ent_TKW0289",
+      "n_days": 13,
+      "n_anchor_days": 1,
+      "n_carried_days": 12,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 78.56948268248745,
+      "anchor_score": 13.789115340915018
+    },
+    {
+      "entity_id": "ent_WMH0866",
+      "n_days": 12,
+      "n_anchor_days": 1,
+      "n_carried_days": 11,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 62.031774702747335,
+      "anchor_score": 13.747648590811648
+    },
+    {
+      "entity_id": "ent_ECF0196",
+      "n_days": 3,
+      "n_anchor_days": 1,
+      "n_carried_days": 2,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 15.686168494297256,
+      "anchor_score": 13.71844563031136
+    },
+    {
+      "entity_id": "ent_HAM0510",
+      "n_days": 2,
+      "n_anchor_days": 1,
+      "n_carried_days": 1,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 4,
+      "carried_only_families": [],
+      "n_families_available": 4,
+      "carried_score": 9.672745138548992,
+      "anchor_score": 13.712592519526218
+    },
+    {
+      "entity_id": "ent_KGM0616",
+      "n_days": 7,
+      "n_anchor_days": 1,
+      "n_carried_days": 6,
+      "episode_families": [
+        "ACCESS",
+        "DATA_HANDLING",
+        "PEER",
+        "RELATIONSHIP"
+      ],
+      "best_day_families": 3,
+      "carried_only_families": [
+        "RELATIONSHIP"
+      ],
+      "n_families_available": 4,
+      "carried_score": 31.692126404045233,
+      "anchor_score": 13.700640148454447
+    }
+  ],
+  "graph": {
+    "users": 1000,
+    "accounts": 1000,
+    "supervisor_edges": 999,
+    "unresolved_supervisors": 0,
+    "rootless_users": 1,
+    "level_sizes": {
+      "business_unit": 1,
+      "functional_unit": 6,
+      "department": 22,
+      "team": 37
+    },
+    "vacuous_levels": [
+      "business_unit"
+    ],
+    "blank_levels": {
+      "business_unit": 0,
+      "functional_unit": 2,
+      "department": 14,
+      "team": 159
+    }
+  },
+  "path_firing": {
+    "distant_internal_recipients": 132513,
+    "shared_device_distant": 35842,
+    "max_declared_hops": 191966,
+    "mean_declared_hops": 191966
+  },
+  "path_on_malicious": {
+    "shared_device_distant": 3,
+    "max_declared_hops": 52,
+    "mean_declared_hops": 52,
+    "distant_internal_recipients": 35
+  },
+  "path_expected_by_chance": {
+    "distant_internal_recipients": 33.31462331723699,
+    "shared_device_distant": 9.010910091360156,
+    "max_declared_hops": 48.26149117231303,
+    "mean_declared_hops": 48.26149117231303
+  },
+  "interaction_verdicts": {
+    "INSUFFICIENT": 1202878
+  },
+  "sequence_alerts": 2108,
+  "sequence_alerts_malicious": 1,
+  "sequence_expected_by_chance": 0.5299648030965685,
+  "sequence_cut": 6.927222558292359,
+  "sequence_rank_agreement": 0.6421073768627307,
+  "n_malicious_days": 53,
+  "n_scored_days": 210814,
+  "n_episodes": 40,
+  "notes": [
+    "r3.1's directory puts all 1,000 employees in business unit '1', so DeclaredRelation.ORG_UNRELATED — the directory knows both people and places them nowhere near each other — NEVER OCCURS on this corpus. A path finding cut at that relation would read zero on every entity-day for a structural reason and would be mistaken for a measured negative. The cut is therefore DISTANT_HOPS, one level in, decided from the directory's own shape: department takes 22 distinct values, business unit takes one.",
+    "The declared interaction policy was asked about 1,202,878 internal recipient pair(s) and returned INSUFFICIENT for every one: CERT r3.1 ships no policy about which roles may talk to which. This is phos.sentiel.interaction refusing correctly, wired end to end for the first time.",
+    "EvidenceKind.SEQUENCE_ANOMALY was emitted 26 time(s) — the first any PHOS engine has produced. EvidenceKind.RELATIONSHIP_CHANGE carried 417 declared-path finding(s)."
+  ]
+}

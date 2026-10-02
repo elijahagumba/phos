@@ -1,0 +1,163 @@
+{
+  "name": "batch-distillation-test",
+  "path": "batch-distillation/batch-distillation-test-prepared.csv",
+  "timestamp_column": "timestamp",
+  "label_column": "label",
+  "unscored_label_values": [
+    "-1"
+  ],
+  "value_columns": null,
+  "source_note": "batch-distillation v1.1.2 (Zenodo record 21535243), mixture ternary_butan-1-ol+propan-2-ol+water, 15 dual-clean train experiments / 13 YAML-contaminated train held out / 63 test experiments, downsampled to every 10th row with block-pooled labels, packed clock from 1970-01-01T00:00:00+0000 with a labelled-normal seam row between experiments. recipe_step carried from operation-log Executing step events (15 declared names: ANOMALIE, Distillation, Druck, End, Heat, Heat1, Heat10, Heat2, Heat3, Heat4, Heat5, Heat6, Heat7, Heat8, Heat9). Label: shipped classes [2] (anomalous phase) are positive; [1, 3] (blind, recovery) are unscored, neither recall target nor normal time (ADR 0082). Recall measured on this corpus is perturbation recall, never attack recall: the manipulations were engineered process perturbations performed by the plant's own operators, not cyber attacks (ADR 0024 decision 7). [test]",
+  "domain": "ATLAS",
+  "train": {
+    "name": "batch-distillation-train",
+    "path": "batch-distillation/batch-distillation-train-prepared.csv",
+    "timestamp_column": "timestamp",
+    "label_column": "label",
+    "unscored_label_values": [
+      "-1"
+    ],
+    "value_columns": null,
+    "source_note": "batch-distillation v1.1.2 (Zenodo record 21535243), mixture ternary_butan-1-ol+propan-2-ol+water, 15 dual-clean train experiments / 13 YAML-contaminated train held out / 63 test experiments, downsampled to every 10th row with block-pooled labels, packed clock from 1970-01-01T00:00:00+0000 with a labelled-normal seam row between experiments. recipe_step carried from operation-log Executing step events (15 declared names: ANOMALIE, Distillation, Druck, End, Heat, Heat1, Heat10, Heat2, Heat3, Heat4, Heat5, Heat6, Heat7, Heat8, Heat9). Label: shipped classes [2] (anomalous phase) are positive; [1, 3] (blind, recovery) are unscored, neither recall target nor normal time (ADR 0082). Recall measured on this corpus is perturbation recall, never attack recall: the manipulations were engineered process perturbations performed by the plant's own operators, not cyber attacks (ADR 0024 decision 7). [train]",
+    "domain": "ATLAS"
+  },
+  "contaminated_train": {
+    "name": "batch-distillation-contaminated-train",
+    "path": "batch-distillation/batch-distillation-contaminated-train-prepared.csv",
+    "timestamp_column": "timestamp",
+    "label_column": "label",
+    "unscored_label_values": [
+      "-1"
+    ],
+    "value_columns": null,
+    "source_note": "batch-distillation v1.1.2 (Zenodo record 21535243), mixture ternary_butan-1-ol+propan-2-ol+water, 15 dual-clean train experiments / 13 YAML-contaminated train held out / 63 test experiments, downsampled to every 10th row with block-pooled labels, packed clock from 1970-01-01T00:00:00+0000 with a labelled-normal seam row between experiments. recipe_step carried from operation-log Executing step events (15 declared names: ANOMALIE, Distillation, Druck, End, Heat, Heat1, Heat10, Heat2, Heat3, Heat4, Heat5, Heat6, Heat7, Heat8, Heat9). Label: shipped classes [2] (anomalous phase) are positive; [1, 3] (blind, recovery) are unscored, neither recall target nor normal time (ADR 0082). Recall measured on this corpus is perturbation recall, never attack recall: the manipulations were engineered process perturbations performed by the plant's own operators, not cyber attacks (ADR 0024 decision 7). [contaminated-train]",
+    "domain": "ATLAS"
+  },
+  "join": {
+    "mixture": "ternary_butan-1-ol+propan-2-ol+water",
+    "mixture_dirname": "batch_dist_ternary_butan-1-ol+propan-2-ol+water",
+    "labels_stem": "00_Batch_Distillation_Plant_M-202210_Timeseries_Label_Anomaly_Metadata",
+    "sensors_stem": "01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors",
+    "actuators_stem": "02_Batch_Distillation_Plant_M-202210_Timeseries_Actuators",
+    "logs_stem": "07_Batch_Distillation_Plant_M-202210_Tabular_Operation_Logs",
+    "recipe_step_column": "recipe_step",
+    "train_output_file": "batch-distillation-train-prepared.csv",
+    "test_output_file": "batch-distillation-test-prepared.csv",
+    "contaminated_output_file": "batch-distillation-contaminated-train-prepared.csv",
+    "row_stride": 10,
+    "timestamp_column": "Time",
+    "label_column": "Label (anomaly)",
+    "positive_label_values": [
+      2
+    ],
+    "unscored_label_values": [
+      1,
+      3
+    ],
+    "epoch": "1970-01-01T00:00:00+0000"
+  },
+  "counts": {
+    "n_clean_train": 15,
+    "n_contaminated_train": 13,
+    "n_test": 63,
+    "n_train_rows": 10918,
+    "n_test_rows": 39664,
+    "n_test_windows": 126,
+    "n_test_positive_rows": 8377,
+    "n_test_unscored_windows": 115,
+    "n_test_unscored_rows": 5091,
+    "n_signals": 33,
+    "n_train_recipe_step_rows": 842,
+    "n_test_recipe_step_rows": 15154
+  },
+  "phase_feature": "recipe_step",
+  "recipe_step_names": [
+    "ANOMALIE",
+    "Distillation",
+    "Druck",
+    "End",
+    "Heat",
+    "Heat1",
+    "Heat10",
+    "Heat2",
+    "Heat3",
+    "Heat4",
+    "Heat5",
+    "Heat6",
+    "Heat7",
+    "Heat8",
+    "Heat9"
+  ],
+  "caveats": [
+    "Recall measured here is perturbation recall, never attack recall. The manipulations were engineered process perturbations performed by the plant's own operators (ADR 0024 decision 7).",
+    "The fit set is the intersection of both label sources calling an experiment clean: 15 of 38 train_normal files in this mixture (ADR 0024 decision 5).",
+    "One mixture family only: ternary_butan-1-ol+propan-2-ol+water. A number computed here is not a cross-recipe claim (ADR 0024 decision 6).",
+    "Only label class 2 (anomalous phase) is scored as anomalous; classes 1 (blind) and 3 (recovery) are unscored, outside both the false-positive denominator and recall (ADR 0082). Numbers logged before ADR 0082 treated classes 1, 2 and 3 as anomalous and are not comparable with numbers logged after it."
+  ],
+  "provenance": {
+    "dataset": "batch-distillation",
+    "title": "Batch Distillation Data for Developing Machine Learning Anomaly Detection Methods (RPTU Kaiserslautern-Landau, plant M-202210)",
+    "homepage": "https://doi.org/10.5281/zenodo.17395543",
+    "license": {
+      "spdx": "CC-BY-4.0",
+      "name": "Creative Commons Attribution 4.0 International",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "status": "explicit",
+      "evidence": "CONFIRMED by two independent surfaces. (1) The Zenodo REST API for record 21535243 returns \"license\": {\"id\": \"cc-by-4.0\"} with \"access_right\": \"open\". (2) The descriptor paper (https://www.nature.com/articles/s41597-026-07124-3) states: 'The data are organized in a structured dataset and made freely available via https://doi.org/10.5281/zenodo.17395543 under a CC BY 4.0 license.'",
+      "permits_research_use": true
+    },
+    "citation": "Arweiler, J., Jungjohann, I., Werner, J. et al. (2026). Batch Distillation Data for Developing Machine Learning Anomaly Detection Methods. Scientific Data. https://doi.org/10.1038/s41597-026-07124-3",
+    "files": [
+      {
+        "filename": "00_Batch_Distillation_Plant_M-202210_Timeseries_Label_Anomaly_Metadata.zip",
+        "url": "https://zenodo.org/api/records/21535243/files/00_Batch_Distillation_Plant_M-202210_Timeseries_Label_Anomaly_Metadata.zip/content",
+        "size_bytes": 1726509,
+        "md5": "636dcb8188e5eb80f19522e244704e2c",
+        "sha256": null
+      },
+      {
+        "filename": "01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors.zip",
+        "url": "https://zenodo.org/api/records/21535243/files/01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors.zip/content",
+        "size_bytes": 36472069,
+        "md5": "165b3d89c5d483392eeb7e7909edb859",
+        "sha256": null
+      },
+      {
+        "filename": "02_Batch_Distillation_Plant_M-202210_Timeseries_Actuators.zip",
+        "url": "https://zenodo.org/api/records/21535243/files/02_Batch_Distillation_Plant_M-202210_Timeseries_Actuators.zip/content",
+        "size_bytes": 8777817,
+        "md5": "58b4648b4c37d5d0dc8a678015e054e7",
+        "sha256": null
+      },
+      {
+        "filename": "06_Batch_Distillation_Plant_M-202210_Tabular_Plant_Information.zip",
+        "url": "https://zenodo.org/api/records/21535243/files/06_Batch_Distillation_Plant_M-202210_Tabular_Plant_Information.zip/content",
+        "size_bytes": 392921,
+        "md5": "1ec30434ba3fd058ad1969e526ce9698",
+        "sha256": null
+      },
+      {
+        "filename": "07_Batch_Distillation_Plant_M-202210_Tabular_Operation_Logs.zip",
+        "url": "https://zenodo.org/api/records/21535243/files/07_Batch_Distillation_Plant_M-202210_Tabular_Operation_Logs.zip/content",
+        "size_bytes": 140441,
+        "md5": "b81f2af1b4b461da1e67cbba8fd58080",
+        "sha256": null
+      },
+      {
+        "filename": "plant_M-202210_metadata.yaml",
+        "url": "https://zenodo.org/api/records/21535243/files/plant_M-202210_metadata.yaml/content",
+        "size_bytes": 416,
+        "md5": "3e538786ee33da16361ab01ad111ff10",
+        "sha256": null
+      },
+      {
+        "filename": "Batch_Distillation_Plant_M-202210_Modality_Availability_Matrix.csv",
+        "url": "https://zenodo.org/api/records/21535243/files/Batch_Distillation_Plant_M-202210_Modality_Availability_Matrix.csv/content",
+        "size_bytes": 30361,
+        "md5": "70caf5476ff51301f40e0c90301c4f1e",
+        "sha256": null
+      }
+    ],
+    "note": "Generated by scripts/fetch_datasets.py. The data this describes is git-ignored."
+  }
+}

@@ -1,0 +1,219 @@
+#  Graded attack battery — jacketed batch reactor.
+#
+#  Twenty attacks: five kinds at four points on the difficulty dial. There are only five kinds
+#  here, and the absence is the point. This plant declares NO CONTROL NETWORK, so it emits no
+#  capture and no command attack can be staged against it — the generator refuses one rather than
+#  inventing traffic for a wire that does not exist.
+#
+#  That makes it the control case for the whole question P3 left open. On this plant Atlas is deaf
+#  to commands by construction, so whatever it detects here it detects from process behaviour
+#  alone. Comparing it against the works and the machine is how D3 can say what command visibility
+#  is actually worth.
+#
+#  THESE ARE ATTACKS WE DESIGNED. See ATTACKS_ARE_OURS_CAVEAT in the manifest.
+
+name = "synth-attack-batch-reactor-graded"
+plant_id = "batch-reactor"
+role = "attack"
+seed = 90212
+traffic_seed = 5203
+start = 2026-05-01T00:00:00Z
+duration_hours = 96.0
+sample_interval_seconds = 30.0
+note = """
+Four days of the reactor at 30-second sampling, carrying every attack kind that can exist on a \
+plant with no control network.
+"""
+
+[[attacks]]
+attack_id = "br-blatant-obvious"
+type = "BLATANT"
+subtlety = 0.0
+start_hours = 4.0
+duration_hours = 1.5
+target = "jacket_valve_pct"
+note = "The jacket valve driven away from what the cascade loop asked for."
+
+[[attacks]]
+attack_id = "br-drift-obvious"
+type = "STEALTH_DRIFT"
+subtlety = 0.0
+start_hours = 6.5
+duration_hours = 6.0
+target = "feed_valve_pct"
+note = "Reagent feed valve walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "br-decoupled-obvious"
+type = "CORRELATION_BREAK"
+subtlety = 0.0
+start_hours = 13.5
+duration_hours = 2.5
+target = "jacket_flow_m3ph"
+reference = "jacket_valve_pct"
+note = "Jacket flow reported inside its normal range while no longer following the valve."
+
+[[attacks]]
+attack_id = "br-liar-obvious"
+type = "LIAR"
+subtlety = 0.0
+start_hours = 17.0
+duration_hours = 3.0
+target = "reactor_temp_c"
+reference = "reactor_temp_setpoint_c"
+note = "Reactor temperature reported short of setpoint so the jacket drives the real one up."
+
+[[attacks]]
+attack_id = "br-mimic-obvious"
+type = "MIMIC"
+subtlety = 0.0
+start_hours = 22.5
+duration_hours = 2.5
+target = "reactor_temp_setpoint_c"
+mimics = "recipe_change"
+note = "Temperature setpoint moved to a value a recipe change legitimately uses. This plant has no control network, so nothing anywhere records who did it."
+
+[[attacks]]
+attack_id = "br-blatant-moderate"
+type = "BLATANT"
+subtlety = 0.4
+start_hours = 26.0
+duration_hours = 1.5
+target = "jacket_valve_pct"
+note = "The jacket valve driven away from what the cascade loop asked for."
+
+[[attacks]]
+attack_id = "br-drift-moderate"
+type = "STEALTH_DRIFT"
+subtlety = 0.4
+start_hours = 28.5
+duration_hours = 6.0
+target = "feed_valve_pct"
+note = "Reagent feed valve walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "br-decoupled-moderate"
+type = "CORRELATION_BREAK"
+subtlety = 0.4
+start_hours = 35.5
+duration_hours = 2.5
+target = "jacket_flow_m3ph"
+reference = "jacket_valve_pct"
+note = "Jacket flow reported inside its normal range while no longer following the valve."
+
+[[attacks]]
+attack_id = "br-liar-moderate"
+type = "LIAR"
+subtlety = 0.4
+start_hours = 39.0
+duration_hours = 3.0
+target = "reactor_temp_c"
+reference = "reactor_temp_setpoint_c"
+note = "Reactor temperature reported short of setpoint so the jacket drives the real one up."
+
+[[attacks]]
+attack_id = "br-mimic-moderate"
+type = "MIMIC"
+subtlety = 0.4
+start_hours = 43.94
+duration_hours = 2.5
+target = "reactor_temp_setpoint_c"
+mimics = "recipe_change"
+note = "Temperature setpoint moved to a value a recipe change legitimately uses. This plant has no control network, so nothing anywhere records who did it."
+
+[[attacks]]
+attack_id = "br-blatant-subtle"
+type = "BLATANT"
+subtlety = 0.75
+start_hours = 47.44
+duration_hours = 1.5
+target = "jacket_valve_pct"
+note = "The jacket valve driven away from what the cascade loop asked for."
+
+[[attacks]]
+attack_id = "br-drift-subtle"
+type = "STEALTH_DRIFT"
+subtlety = 0.75
+start_hours = 49.94
+duration_hours = 6.0
+target = "feed_valve_pct"
+note = "Reagent feed valve walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "br-decoupled-subtle"
+type = "CORRELATION_BREAK"
+subtlety = 0.75
+start_hours = 56.94
+duration_hours = 2.5
+target = "jacket_flow_m3ph"
+reference = "jacket_valve_pct"
+note = "Jacket flow reported inside its normal range while no longer following the valve."
+
+[[attacks]]
+attack_id = "br-liar-subtle"
+type = "LIAR"
+subtlety = 0.75
+start_hours = 60.44
+duration_hours = 3.0
+target = "reactor_temp_c"
+reference = "reactor_temp_setpoint_c"
+note = "Reactor temperature reported short of setpoint so the jacket drives the real one up."
+
+[[attacks]]
+attack_id = "br-mimic-subtle"
+type = "MIMIC"
+subtlety = 0.75
+start_hours = 64.44
+duration_hours = 2.5
+target = "reactor_temp_setpoint_c"
+mimics = "recipe_change"
+note = "Temperature setpoint moved to a value a recipe change legitimately uses. This plant has no control network, so nothing anywhere records who did it."
+
+[[attacks]]
+attack_id = "br-blatant-near-invisible"
+type = "BLATANT"
+subtlety = 0.99
+start_hours = 67.94
+duration_hours = 1.5
+target = "jacket_valve_pct"
+note = "The jacket valve driven away from what the cascade loop asked for."
+
+[[attacks]]
+attack_id = "br-drift-near-invisible"
+type = "STEALTH_DRIFT"
+subtlety = 0.99
+start_hours = 70.44
+duration_hours = 6.0
+target = "feed_valve_pct"
+note = "Reagent feed valve walked away one sub-noise increment at a time."
+
+[[attacks]]
+attack_id = "br-decoupled-near-invisible"
+type = "CORRELATION_BREAK"
+subtlety = 0.99
+start_hours = 77.44
+duration_hours = 2.5
+target = "jacket_flow_m3ph"
+reference = "jacket_valve_pct"
+note = "Jacket flow reported inside its normal range while no longer following the valve."
+
+[[attacks]]
+attack_id = "br-liar-near-invisible"
+type = "LIAR"
+subtlety = 0.99
+start_hours = 80.94
+duration_hours = 3.0
+target = "reactor_temp_c"
+reference = "reactor_temp_setpoint_c"
+note = "Reactor temperature reported short of setpoint so the jacket drives the real one up."
+
+[[attacks]]
+attack_id = "br-mimic-near-invisible"
+type = "MIMIC"
+subtlety = 0.99
+start_hours = 84.94
+duration_hours = 2.5
+target = "reactor_temp_setpoint_c"
+mimics = "recipe_change"
+note = "Temperature setpoint moved to a value a recipe change legitimately uses. This plant has no control network, so nothing anywhere records who did it."
+

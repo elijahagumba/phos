@@ -1,0 +1,14 @@
+#  Standard normal dataset — islanded gas turbine generating set, fitting corpus.
+
+name = "synth-power-generation-train"
+plant_id = "power-generation"
+role = "train"
+seed = 2026011
+traffic_seed = 5111
+start = 2026-03-02T00:00:00Z
+duration_hours = 48.0
+sample_interval_seconds = 10.0
+note = """
+Two days at 10-second sampling. Fast enough to carry the governor's response to a load step, and \
+long enough for two full daily demand cycles and six shift changes.
+"""

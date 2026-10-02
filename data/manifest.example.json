@@ -1,0 +1,9 @@
+{
+  "name": "hai-23.05-train1",
+  "path": "hai/hai-23.05/train1.csv",
+  "timestamp_column": "timestamp",
+  "label_column": "Attack",
+  "value_columns": null,
+  "source_note": "HAI 23.05, train1.csv, numeric columns auto-detected",
+  "domain": "ATLAS"
+}

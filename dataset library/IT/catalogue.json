@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "domain": "SENTIEL",
+  "caveats": [
+    "THE DATASET LIBRARY IS NOT A PUBLIC CORPUS. It is generated from phos.synth plants and from hand-declared person-day personas. A detection rate measured here is an upper bound on this library, never a lower bound on reality, and it must not be quoted as HAI, BATADAL, batch-distillation, or CERT recall. Perturbation recall on distillation is a different ruler and is not this one. Public-data claims still require a confirmed licence and a harness row on that corpus.",
+    "A synthetic plant is a MODEL of an industrial process, not an industrial process. Its physics, its rhythms and its imperfections were written from public descriptions of how such processes behave, and its realism is a claim to be defended rather than a property to be assumed \u2014 PlantDescription.model_source is where each plant states what it was built from. A detection result measured on this data says that Atlas handles OUR MODEL of a plant. That is a necessary step toward handling a real one and is not evidence of it.",
+    "These are attacks WE designed. Atlas catching them shows that Atlas handles our imagination, not a real adversary's: the library was written by someone who could read the detector, and an attack nobody here thought of is not in it. Two consequences follow and both are load bearing. A detection rate measured here is an upper bound on this library, never a lower bound on reality. And if Atlas ever scores suspiciously well, the first hypothesis is a leaked fingerprint \u2014 some incidental tell in timing, formatting, ordering or numerical precision that lets the detector find the injection rather than the attack \u2014 and not brilliance. Rule that out before believing the number.",
+    "THE IT PERSONAS ARE BEHAVIOURAL FIXTURES WE WROTE. They emit ontology Observations (counts of logons, files, hosts, devices) with entity-scoped labels. They are not malware, not credential-theft tooling, and not a live directory. Sentiel catching a labelled 'insider_multi' user shows the scoring policy ranks the fixture we built, not that a SOC would catch a real insider. Peer-relative advantage on CERT remains unmeasured until a labelled peer-relative positive exists on that corpus (ADR 0023)."
+  ],
+  "n_personas": 48,
+  "n_labelled": 8,
+  "train_days": 35,
+  "test_days": 15,
+  "n_person_days": 2400,
+  "features": [
+    "logon_count",
+    "distinct_pcs",
+    "off_hours_logon_count",
+    "removable_device_connects",
+    "file_access_count",
+    "distinct_files",
+    "external_email_count",
+    "distinct_http_hosts",
+    "logon_count_peer",
+    "file_access_count_peer",
+    "distinct_http_hosts_peer"
+  ],
+  "personas": [
+    {
+      "user_id": "N00",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N01",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N02",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N03",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N04",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N05",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N06",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N07",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N08",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N09",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N10",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N11",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N12",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N13",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N14",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "N15",
+      "kind": "normal",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "B00",
+      "kind": "backup_team",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "B01",
+      "kind": "backup_team",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "B02",
+      "kind": "backup_team",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "B03",
+      "kind": "backup_team",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "B04",
+      "kind": "backup_team",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "B05",
+      "kind": "backup_team",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "B06",
+      "kind": "backup_team",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "B07",
+      "kind": "backup_team",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "C00",
+      "kind": "chronic_admin",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "C01",
+      "kind": "chronic_admin",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "C02",
+      "kind": "chronic_admin",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "C03",
+      "kind": "chronic_admin",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "C04",
+      "kind": "chronic_admin",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "C05",
+      "kind": "chronic_admin",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "C06",
+      "kind": "chronic_admin",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "C07",
+      "kind": "chronic_admin",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "R00",
+      "kind": "role_change",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "R01",
+      "kind": "role_change",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "R02",
+      "kind": "role_change",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "R03",
+      "kind": "role_change",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "H00",
+      "kind": "off_hours",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "H01",
+      "kind": "off_hours",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "H02",
+      "kind": "off_hours",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "H03",
+      "kind": "off_hours",
+      "labelled": false,
+      "scenario": null
+    },
+    {
+      "user_id": "M00",
+      "kind": "insider_multi",
+      "labelled": true,
+      "scenario": "multi-family"
+    },
+    {
+      "user_id": "M01",
+      "kind": "insider_multi",
+      "labelled": true,
+      "scenario": "multi-family"
+    },
+    {
+      "user_id": "M02",
+      "kind": "insider_multi",
+      "labelled": true,
+      "scenario": "multi-family"
+    },
+    {
+      "user_id": "M03",
+      "kind": "insider_multi",
+      "labelled": true,
+      "scenario": "multi-family"
+    },
+    {
+      "user_id": "K00",
+      "kind": "credential_reuse",
+      "labelled": true,
+      "scenario": "credential-reuse"
+    },
+    {
+      "user_id": "K01",
+      "kind": "credential_reuse",
+      "labelled": true,
+      "scenario": "credential-reuse"
+    },
+    {
+      "user_id": "S00",
+      "kind": "shadow_http",
+      "labelled": true,
+      "scenario": "shadow-http"
+    },
+    {
+      "user_id": "S01",
+      "kind": "shadow_http",
+      "labelled": true,
+      "scenario": "shadow-http"
+    }
+  ]
+}

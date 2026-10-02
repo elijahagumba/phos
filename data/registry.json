@@ -1,0 +1,1235 @@
+{
+  "schema_version": 1,
+  "description": "Curated public corpora PHOS is evaluated against. This file is committed; the data it describes never is. Every entry records where the corpus came from, the licence that permits its use, and the label semantics that were verified by reading the actual file rather than the paper.",
+  "verified_on": "2026-08-19",
+  "size_confirm_threshold_bytes": 314572800,
+  "datasets": [
+    {
+      "name": "batadal",
+      "title": "BATADAL \u2014 Battle of the Attack Detection Algorithms (C-Town water network SCADA)",
+      "domain": "ATLAS",
+      "homepage": "https://www.batadal.net/data.html",
+      "format": "csv",
+      "status": "integrated",
+      "status_note": "Fitted on the attack-free training corpus and scored on the labelled one, which is how the corpus is designed to be used.",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "http://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "evidence": "CC BY 4.0 link in the footer of https://www.batadal.net/data.html",
+        "permits_research_use": true
+      },
+      "citation": "Taormina, R. et al. (2018). Battle of the Attack Detection Algorithms: Disclosing Cyber Attacks on Water Distribution Networks. Journal of Water Resources Planning and Management, 144(8).",
+      "files": [
+        {
+          "url": "https://www.batadal.net/data/BATADAL_dataset03.csv",
+          "filename": "BATADAL_dataset03.csv",
+          "size_bytes": 2940389,
+          "role": "train",
+          "note": "One simulated year, hourly. ATT_FLAG is 0 for every row \u2014 genuinely attack-free."
+        },
+        {
+          "url": "https://www.batadal.net/data/BATADAL_dataset04.csv",
+          "filename": "BATADAL_dataset04.csv",
+          "size_bytes": 1225392,
+          "role": "test",
+          "note": "Six months, hourly, five labelled attack windows."
+        }
+      ],
+      "timestamp": {
+        "column": "DATETIME",
+        "format": "%d/%m/%y %H",
+        "note": "Day-first, hour-resolution. Proven by 25/12/16, whose leading field cannot be a month. Left to pandas' inference this parses inconsistently \u2014 some rows month-first, some day-first \u2014 so the format is pinned explicitly during preparation."
+      },
+      "labels": {
+        "column": "ATT_FLAG",
+        "raw_column_in_test_file": " ATT_FLAG",
+        "attack_values": [
+          "1"
+        ],
+        "normal_values": [
+          "0"
+        ],
+        "unlabelled_values": [
+          "-999"
+        ],
+        "note": "TRAP: -999 means 'not labelled', not 'attack'. It is 3958 of 4177 rows in the test file. PHOS's default_attack_when treats any non-zero value as an attack, which would mark 95% of the corpus an attack. Preparation maps 1 -> 1 and everything else -> 0, so the shipped default is then correct."
+      },
+      "quirks": [
+        "The test file's 44 non-timestamp columns each carry a leading space (' L_T1'); the training file's do not. A model fitted on one and scored on the other would match no baselines and silently report zero recall. Preparation strips column names."
+      ],
+      "prepare": {
+        "train": {
+          "source_file": "BATADAL_dataset03.csv",
+          "output_file": "batadal-train-prepared.csv",
+          "timestamp_column": "DATETIME",
+          "timestamp_format": "%d/%m/%y %H",
+          "label_column": "ATT_FLAG",
+          "attack_values": [
+            "1"
+          ],
+          "drop_columns": [],
+          "strip_column_names": true
+        },
+        "test": {
+          "source_file": "BATADAL_dataset04.csv",
+          "output_file": "batadal-test-prepared.csv",
+          "timestamp_column": "DATETIME",
+          "timestamp_format": "%d/%m/%y %H",
+          "label_column": "ATT_FLAG",
+          "attack_values": [
+            "1"
+          ],
+          "drop_columns": [],
+          "strip_column_names": true
+        }
+      }
+    },
+    {
+      "name": "batch-distillation",
+      "title": "Batch Distillation Data for Developing Machine Learning Anomaly Detection Methods (RPTU Kaiserslautern-Landau, plant M-202210)",
+      "domain": "ATLAS",
+      "homepage": "https://doi.org/10.5281/zenodo.17395543",
+      "format": "csv",
+      "status": "integrated",
+      "status_note": "Licence CONFIRMED, payload acquired, and prepared as one mixture family (ternary_butan-1-ol+propan-2-ol+water) fitted on the 15 experiments both label sources call clean. See docs/data-campaign/manifests/batch-distillation.md and ADR 0024 / ADR 0025. ADR 0082 resolves the label classes from the descriptor paper: only class 2 is scored as anomalous, and classes 1 and 3 are unscored (removed from the false-positive denominator and from recall). Enforced in preparation and in the metrics (see labels.enforcement).",
+      "referral": {
+        "by": "Indra Jungjohann (co-author of the descriptor paper, RPTU Kaiserslautern-Landau)",
+        "recorded_on": "2026-09-23",
+        "note": "Pointed PHOS to this corpus directly, citing version record 22250958 (v1.1.3). Recorded as provenance, not as the intake route: the corpus was already registered and integrated through the data campaign under ADR 0024 (2026-08-21). The referral used the name 'noBOOM', which does not appear in the Scientific Data paper or on the Zenodo record, so it is not recorded as an alias (ADR 0082)."
+      },
+      "version": {
+        "record_id": "21535243",
+        "version": "1.1.2",
+        "version_doi": "10.5281/zenodo.21535243",
+        "published": "2026-07-24",
+        "note": "TRAP: 10.5281/zenodo.17395543 in the homepage field is the CONCEPT doi and resolves to whatever version is newest. Constitution 3.7 requires versioned datasets, so the version record id is pinned here and every file below carries the MD5 published for that record. All seven were verified on download.",
+        "newer_version_seen": {
+          "record_id": "22250958",
+          "version": "1.1.3",
+          "version_doi": "10.5281/zenodo.22250958",
+          "published": "2026-09-02",
+          "checked_on": "2026-09-23",
+          "note": "NOT PINNED (ADR 0082). Compared file by file against this pin: the labels archive is byte-identical (same MD5). The sensors archive changed (md5 ecf2ee25f32d758bdd1e31820d77883e, 36470058 bytes) in exactly 2 of 357 CSVs, the Startup and Operation files of batch_dist_binary_ethanol+propan-2-ol/operating_point_002/train_normal_experiment_002 (the ragged file below); 1.1.2 carried values about a thousand times too large there (FT703 '3' where 1.1.3 has '0.003'). That experiment is outside the prepared mixture, so the prepared splits are unaffected. The pin moves only when the raw payload is re-acquired, so that the MD5s above keep matching what is on disk. Licence unchanged: cc-by-4.0 on the 22250958 API record."
+        }
+      },
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "evidence": "CONFIRMED by two independent surfaces. (1) The Zenodo REST API for record 21535243 returns \"license\": {\"id\": \"cc-by-4.0\"} with \"access_right\": \"open\". (2) The descriptor paper (https://www.nature.com/articles/s41597-026-07124-3) states: 'The data are organized in a structured dataset and made freely available via https://doi.org/10.5281/zenodo.17395543 under a CC BY 4.0 license.'",
+        "permits_research_use": true
+      },
+      "citation": "Arweiler, J., Jungjohann, I., Werner, J. et al. (2026). Batch Distillation Data for Developing Machine Learning Anomaly Detection Methods. Scientific Data. https://doi.org/10.1038/s41597-026-07124-3",
+      "files": [
+        {
+          "url": "https://zenodo.org/api/records/21535243/files/00_Batch_Distillation_Plant_M-202210_Timeseries_Label_Anomaly_Metadata.zip/content",
+          "filename": "00_Batch_Distillation_Plant_M-202210_Timeseries_Label_Anomaly_Metadata.zip",
+          "size_bytes": 1726509,
+          "md5": "636dcb8188e5eb80f19522e244704e2c",
+          "role": "labels",
+          "extract": true,
+          "extract_to": "00_Batch_Distillation_Plant_M-202210_Timeseries_Label_Anomaly_Metadata",
+          "note": "119 per-experiment label CSVs (Time, 'Label (anomaly)') and 119 per-experiment YAMLs carrying the anomaly ontology. Both label sources ship together."
+        },
+        {
+          "url": "https://zenodo.org/api/records/21535243/files/01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors.zip/content",
+          "filename": "01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors.zip",
+          "size_bytes": 36472069,
+          "md5": "165b3d89c5d483392eeb7e7909edb859",
+          "role": "signals",
+          "extract": true,
+          "extract_to": "01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors",
+          "note": "119 experiments, 18 sensor signals at 1 Hz. Exactly one distinct column set across all 119 files."
+        },
+        {
+          "url": "https://zenodo.org/api/records/21535243/files/02_Batch_Distillation_Plant_M-202210_Timeseries_Actuators.zip/content",
+          "filename": "02_Batch_Distillation_Plant_M-202210_Timeseries_Actuators.zip",
+          "size_bytes": 8777817,
+          "md5": "58b4648b4c37d5d0dc8a678015e054e7",
+          "role": "signals",
+          "extract": true,
+          "extract_to": "02_Batch_Distillation_Plant_M-202210_Timeseries_Actuators",
+          "note": "119 experiments, 13 actuator signals at 1 Hz: heater powers, valve states, pump speeds, vacuum throttle valve position. A commanded-state channel alongside the process values."
+        },
+        {
+          "url": "https://zenodo.org/api/records/21535243/files/06_Batch_Distillation_Plant_M-202210_Tabular_Plant_Information.zip/content",
+          "filename": "06_Batch_Distillation_Plant_M-202210_Tabular_Plant_Information.zip",
+          "size_bytes": 392921,
+          "md5": "1ec30434ba3fd058ad1969e526ce9698",
+          "role": "documentation",
+          "extract": true,
+          "extract_to": "06_Batch_Distillation_Plant_M-202210_Tabular_Plant_Information",
+          "note": "plant_description_bd+v1_mapping.yaml per experiment: a declared register of 40 actuators, 14 equipment items and 29 sensors with owner-written descriptions. Candidate source for a declared topology under ADR 0010, NOT yet authored into one."
+        },
+        {
+          "url": "https://zenodo.org/api/records/21535243/files/07_Batch_Distillation_Plant_M-202210_Tabular_Operation_Logs.zip/content",
+          "filename": "07_Batch_Distillation_Plant_M-202210_Tabular_Operation_Logs.zip",
+          "size_bytes": 140441,
+          "md5": "b81f2af1b4b461da1e67cbba8fd58080",
+          "role": "documentation",
+          "extract": true,
+          "extract_to": "07_Batch_Distillation_Plant_M-202210_Tabular_Operation_Logs",
+          "note": "Per-experiment operation logs."
+        },
+        {
+          "url": "https://zenodo.org/api/records/21535243/files/plant_M-202210_metadata.yaml/content",
+          "filename": "plant_M-202210_metadata.yaml",
+          "size_bytes": 416,
+          "md5": "3e538786ee33da16361ab01ad111ff10",
+          "role": "documentation",
+          "note": "Plant identity: laboratory-scale batch vacuum distillation, RPTU Kaiserslautern-Landau."
+        },
+        {
+          "url": "https://zenodo.org/api/records/21535243/files/Batch_Distillation_Plant_M-202210_Modality_Availability_Matrix.csv/content",
+          "filename": "Batch_Distillation_Plant_M-202210_Modality_Availability_Matrix.csv",
+          "size_bytes": 30361,
+          "md5": "70caf5476ff51301f40e0c90301c4f1e",
+          "role": "documentation",
+          "note": "Which modality exists for which experiment."
+        }
+      ],
+      "timestamp": {
+        "column": "Time",
+        "format": "%H:%M:%S",
+        "note": "TRAP: time-of-day only, NO DATE. Verified across all 119 experiments that no clock runs backwards, so none crosses midnight; but each experiment is its own timeline and they MUST NOT be concatenated into one chronological corpus without an explicit per-experiment offset."
+      },
+      "labels": {
+        "column": "Label (anomaly)",
+        "attack_values": [
+          "2"
+        ],
+        "normal_values": [
+          "0"
+        ],
+        "unlabelled_values": [
+          "1",
+          "3"
+        ],
+        "unlabelled_semantics": "Unscored, not normal: excluded from both the false-positive denominator and recall (ADR 0082). Unlike BATADAL's -999, these rows are NOT mapped to 0.",
+        "classes": {
+          "0": "normal operation",
+          "1": "blind phase: perturbation introduced, not yet observable in the recorded data",
+          "2": "anomalous phase: deviation observable in the recorded data; the only class scored as anomalous (ADR 0082)",
+          "3": "recovery phase: perturbation removed, effects still observable"
+        },
+        "classes_evidence": "The descriptor paper (https://www.nature.com/articles/s41597-026-07124-3, section Anomalies) names the blind phase 'phase \"1\" in the label modality', the anomalous phase 'phase \"2\"' and the recovery phase 'phase \"3\"'; 0 is the fault-free default. The shipped files agree: 22891 of 23087 class-1 rows fall outside every YAML observation window, as a phase that is not yet observable should. Read from the paper on 2026-09-23 and checked against the files; supersedes the earlier 'unverified' flag.",
+        "enforcement": "ENFORCED (ADR 0082). src/phos/eval/batch_distillation.py::_prepared_label writes class 2 as prepared label 1 and classes 1 and 3 as -1; any other class is refused. The manifest declares unscored_label_values [\"-1\"], so LabelledCsvAdapter loads those rows as Dataset.unscored_intervals: removed from normal_duration (the false-positive denominator), not recall targets, and an alert inside one is neither a true nor a false positive. At row_stride 10 each kept row is labelled by the most severe label in its ten-second block (positive over unscored over normal), because 33 of 69 blind-phase runs in the prepared mixture are shorter than the stride and sampling would count their time as normal. Every eval_runs row for this corpus logged before this change scored classes 1, 2 and 3 as positive and is not comparable with rows logged after it.",
+        "note": "Labels are in a SEPARATE per-experiment file from the signals and must be joined on Time. Verified value distribution across all 119 files: 0 -> 534608 rows, 1 -> 23087, 2 -> 103220, 3 -> 32875. The classes are phases of one perturbation response and do NOT correspond to the YAML class field. They are engineered PROCESS PERTURBATIONS, not cyber attacks: class 2 is the perturbation-observable phase and must never be reported as attack recall (ADR 0024 decision 7).",
+        "unverified_multiclass_meaning": false
+      },
+      "splits": {
+        "train": {
+          "pattern": "train_normal_experiment_*",
+          "experiments": 38,
+          "rows": 225152,
+          "normal_hours": 62.54,
+          "note": "Corpus-declared attack-free split, verified: all 38 carry the label set exactly {0}. 62.5 normal hours is a usable denominator for the FP-per-normal-hour ruler of ADR 0003."
+        },
+        "test": {
+          "pattern": "test_anormal_experiment_*",
+          "experiments": 81,
+          "rows": 468638,
+          "hours": 130.18
+        }
+      },
+      "quirks": [
+        "TRAP (ragged file): batch_dist_binary_ethanol+propan-2-ol/operating_point_002/train_normal_experiment_002.csv has 8334 label rows against 7118 sensor rows. Rows 7118 onward are null in BOTH Time and 'Label (anomaly)'. The last non-null label time (17:02:59) matches the sensor file's last time exactly, so the tail is padding and dropping it is unambiguous. But PHOS's default_attack_when treats non-zero-or-non-blank as an attack, which would turn 1216 null rows into attack rows inside the TRAINING split. This is BATADAL's -999 trap in a new coat.",
+        "TRAP (label sources disagree): all 38 train_normal files are clean by the CSV column, but 19 of the 38 carry YAML anomaly records anyway (classes ConfirmedAnomaly and Anomaly; one file has 20 records). Fitting 'normal' on files the corpus's own expert annotation says contain confirmed anomalies is a decision that must be made explicitly and recorded, not made silently by whichever label source the reader opened first.",
+        "TRAP (YAML interval schema varies): for anomalies with hasCategory 'recurrent', hasBeginning and hasEnd hold PAIRED ARRAYS of times rather than scalars. An interval parser written for the scalar case will fail or silently take the first element. hasCategory holds temporal persistence (transient 249, recurrent 51, permanent 25, null 200), NOT cause.",
+        "119 separate experiments across four mixtures and many operating points means 119 separate timelines. Whether one baseline is defensible across 38 normal experiments spanning different recipes is an open MODELLING question, not a reading question.",
+        "The causal annotation is partial: of 506 anomaly records, 181 have a null Perturbation and 325 have no wasOriginatedBy observation.",
+        "The signal space is CONSISTENT: exactly one distinct 18-column sensor set and one 13-column actuator set across all 119 experiments. Materially unlike HAI, where 21 to 27 of 79 signals are constant in training and are dropped from the SignalSpace entirely.",
+        "The deposit is 95.21 GB in total; the subset above is 47.5 MB. Audio (47.40 GB) and Image (38.18 GB) are 90% of it and are not read. Zenodo serves files individually, so they are skipped rather than downloaded and discarded."
+      ],
+      "caveats": [
+        "Recall measured here is perturbation recall, never attack recall. The manipulations were engineered process perturbations performed by the plant's own operators (ADR 0024 decision 7).",
+        "The fit set is the intersection of both label sources calling an experiment clean: 15 of 38 train_normal files in this mixture (ADR 0024 decision 5).",
+        "One mixture family only: ternary_butan-1-ol+propan-2-ol+water. A number computed here is not a cross-recipe claim (ADR 0024 decision 6).",
+        "Only label class 2 (anomalous phase) is scored as anomalous; classes 1 (blind) and 3 (recovery) are unscored, outside both the false-positive denominator and recall (ADR 0082). Numbers logged before ADR 0082 treated classes 1, 2 and 3 as anomalous and are not comparable with numbers logged after it."
+      ],
+      "join": {
+        "mixture": "ternary_butan-1-ol+propan-2-ol+water",
+        "mixture_dirname": "batch_dist_ternary_butan-1-ol+propan-2-ol+water",
+        "labels_stem": "00_Batch_Distillation_Plant_M-202210_Timeseries_Label_Anomaly_Metadata",
+        "sensors_stem": "01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors",
+        "actuators_stem": "02_Batch_Distillation_Plant_M-202210_Timeseries_Actuators",
+        "train_output_file": "batch-distillation-train-prepared.csv",
+        "test_output_file": "batch-distillation-test-prepared.csv",
+        "contaminated_output_file": "batch-distillation-contaminated-train-prepared.csv",
+        "row_stride": 10,
+        "timestamp_column": "Time",
+        "label_column": "Label (anomaly)",
+        "positive_label_values": [
+          2
+        ],
+        "unscored_label_values": [
+          1,
+          3
+        ],
+        "epoch": "1970-01-01T00:00:00+0000"
+      },
+      "prepare": null
+    },
+    {
+      "name": "hai",
+      "title": "HAI 21.03 \u2014 HIL-based Augmented ICS Security Dataset",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/icsdataset/hai",
+      "format": "csv.gz",
+      "status": "integrated",
+      "status_note": "Version 21.03 chosen over 23.05 because 23.05 is stored in Git LFS, which needs git-lfs installed and a ~533 MB clone; 21.03 is plain git objects fetchable per file.",
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International",
+        "url": "http://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "explicit",
+        "evidence": "'## License' section of https://github.com/icsdataset/hai README.md. The repository has no LICENSE file, so the GitHub API reports no licence; the README is the authoritative statement.",
+        "permits_research_use": true
+      },
+      "citation": "Shin, H.-K., Lee, W., Yun, J.-H., Kim, H. (2021). HAI 1.0: HIL-based Augmented ICS Security Dataset. CSET '20 / HAICon.",
+      "files": [
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/master/hai-21.03/train1.csv.gz",
+          "filename": "hai-21.03-train1.csv.gz",
+          "size_bytes": 30651421,
+          "role": "train",
+          "note": "216001 rows at 1 Hz, 2020-07-11 00:00 to 2020-07-13 12:00. attack == 0 for every row."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/master/hai-21.03/test1.csv.gz",
+          "filename": "hai-21.03-test1.csv.gz",
+          "size_bytes": 6149549,
+          "role": "test",
+          "note": "43201 rows at 1 Hz, 2020-07-07 15:00 to 2020-07-08 03:00, five labelled attack windows."
+        }
+      ],
+      "timestamp": {
+        "column": "time",
+        "format": "%Y-%m-%d %H:%M:%S",
+        "note": "Unambiguous ISO-like ordering. Pinned anyway so parsing never depends on inference."
+      },
+      "labels": {
+        "column": "attack",
+        "attack_values": [
+          "1"
+        ],
+        "normal_values": [
+          "0"
+        ],
+        "unlabelled_values": [],
+        "note": "Clean binary flag; PHOS's default_attack_when is already correct for it."
+      },
+      "quirks": [
+        "TRAP: attack_P1, attack_P2 and attack_P3 are per-process label columns and are numeric. The CSV adapter's auto-detection excludes only the timestamp and label columns, so leaving value_columns null would feed three copies of the answer in as signals. Preparation drops them.",
+        "The test capture (2020-07-07) predates the training capture (2020-07-11), so the two files cannot be concatenated into one chronological corpus. They are used as the separate train/test corpora the authors intended.",
+        "216001 training rows x 79 signals is 17 million Observation objects, which does not fit in memory. Both corpora are prepared at row_stride=10 (one sample per 10 s). The stride is recorded in each manifest's source_note and therefore in every report. The shortest labelled attack run is 60 s, so all five windows survive the thinning."
+      ],
+      "prepare": {
+        "train": {
+          "source_file": "hai-21.03-train1.csv.gz",
+          "output_file": "hai-21.03-train-prepared.csv",
+          "timestamp_column": "time",
+          "timestamp_format": "%Y-%m-%d %H:%M:%S",
+          "label_column": "attack",
+          "attack_values": [
+            "1"
+          ],
+          "drop_columns": [
+            "attack_P1",
+            "attack_P2",
+            "attack_P3"
+          ],
+          "strip_column_names": true,
+          "row_stride": 10
+        },
+        "test": {
+          "source_file": "hai-21.03-test1.csv.gz",
+          "output_file": "hai-21.03-test-prepared.csv",
+          "timestamp_column": "time",
+          "timestamp_format": "%Y-%m-%d %H:%M:%S",
+          "label_column": "attack",
+          "attack_values": [
+            "1"
+          ],
+          "drop_columns": [
+            "attack_P1",
+            "attack_P2",
+            "attack_P3"
+          ],
+          "strip_column_names": true,
+          "row_stride": 10
+        }
+      }
+    },
+    {
+      "name": "morris-power-system",
+      "title": "Morris / Mississippi State \u2014 Power System Attack Datasets",
+      "domain": "ATLAS",
+      "homepage": "https://sites.google.com/a/uah.edu/tommy-morris-uah/ics-data-sets",
+      "format": "arff",
+      "status": "skipped-licence-unclear",
+      "status_note": "NOT DOWNLOADED. The dataset page names authors, papers and a citation request but states no licence and grants no explicit permission. Per the acquisition rule, an unclear licence is a skip. Files are reachable at http://www.ece.uah.edu/~thm0009/icsdatasets/ (verified HTTP 200) if the operator decides the citation request is sufficient. The three-class and multi-class power-system files are additionally behind Google Drive viewer links rather than direct downloads. RE-CHECKED 2026-08-24 for the gas-pipeline gap finding: the page was read again and still grants no licence anywhere. Its only instruction is a citation request, quoted verbatim: 'Please cite the following paper if using these datasets.' No licensed mirror or re-release was found. The page also warns that Dataset 3 contains 'unintended patterns which cause machine learning algorithms to easily identify attacks versus non-attacks in unrealistic ways', and states 'We are creating new data sets with these problems fixed. Please check back soon (by end of 2014)' \u2014 a promise now twelve years unfulfilled. Which process Dataset 3 covers was NOT established by this read. The corpus therefore carries a second disqualifier independent of its licence: part of it is known by its own authors to be trivially separable.",
+      "license": {
+        "spdx": null,
+        "name": "No licence stated",
+        "url": null,
+        "status": "unclear",
+        "evidence": "Full text of the dataset page was read on 2026-07-29; it contains citation requests for the associated papers and no licence, copyright grant or terms-of-use statement.",
+        "permits_research_use": null
+      },
+      "citation": "Pan, S., Morris, T., Adhikari, U. (2015). Developing a Hybrid Intrusion Detection System Using Data Mining for Power Systems. IEEE Transactions on Smart Grid.",
+      "files": [],
+      "labels": {
+        "column": "marker",
+        "attack_values": [
+          "Attack"
+        ],
+        "normal_values": [
+          "Natural",
+          "NoEvents"
+        ],
+        "unlabelled_values": [],
+        "note": "Textual labels, from the published schema \u2014 NOT verified against the file, because the file was not downloaded. TRAP if it ever is: default_attack_when marks every non-empty non-numeric string an attack, so 'Natural' and 'NoEvents' would both count as attacks."
+      },
+      "quirks": [
+        "ARFF, not CSV. LabelledCsvAdapter cannot read it without a conversion step even once the licence question is settled."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "forge-ics-datasets",
+      "title": "FORGE \u2014 Fast Open Reproducible Generation Environment Datasets for ICS",
+      "domain": "ATLAS",
+      "homepage": "https://ieee-dataport.org/documents/fast-open-reproducible-generation-environment-forge-datasets-ics",
+      "format": "json+pcap",
+      "status": "skipped-subscription-gated",
+      "status_note": "NOT DOWNLOADED and not downloadable. Recorded 2026-08-24 because it is the strongest gas-pipeline candidate this campaign found and its blocker is access, not content. The deposit carries FIVE simulated testbeds \u2014 water storage tank, two-zone HVAC, GAS PIPELINE, shell-and-tube heat exchanger, and an industrial robot arm \u2014 with 5000 benign and 1000 attack-labelled runs. Each run emits config.json, output.pcap, filtered.pcap, matlabOutput.json, hmiLog.json and output.json; attack runs add attackLog.json and a scenario YAML. Attacks are labelled against five MITRE ATT&CK for ICS techniques: T1499 Modbus flooding, T1498 ICMP flooding, T1563 session hijacking, T1055 Modbus injection, T1557 adversary-in-the-middle. The page states 294.81 MB for the gas pipeline, heat exchanger and robot arm datasets. It is simultaneously a Track A candidate (matlabOutput.json holds simulated sensor and actuator values) and a Track B candidate (output.pcap with labelled Modbus techniques), which is why losing it costs twice.",
+      "license": {
+        "spdx": null,
+        "name": "No licence stated; access gated by an IEEE DataPort subscription",
+        "url": null,
+        "status": "form-required",
+        "evidence": "Page read directly on 2026-08-24. Access statement quoted verbatim: 'This dataset requires an IEEE DataPort Subscription to access.', alongside 'login now to access your IEEE DataPort Subscription' and a Subscribe Now link. NO named licence appears anywhere on the page; the only rights statement is the site-wide '\u00a9 Copyright IEEE - All rights reserved.' A paywall plus an absent licence is a skip twice over. No attempt was made to work around the gate.",
+        "permits_research_use": null
+      },
+      "citation": "Fast Open Reproducible Generation Environment (FORGE) Datasets for ICS. IEEE DataPort.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "Per-run labelling against MITRE ATT&CK for ICS technique ids, described on the page and NOT verified against any file, because no file was obtained. TRAP to check first if it is ever obtained: whether the technique id is a per-RUN scenario label or a per-WINDOW one. A per-run label cannot answer ADR 0040, which needs command-action windows."
+      },
+      "quirks": [
+        "Subscription-gated on IEEE DataPort. The acquisition rule forbids working around an access gate, so this cannot be obtained by any means available to PHOS.",
+        "No licence text exists to evaluate even if access were obtained, so paying for a subscription would not make the corpus commercial-safe.",
+        "The gas pipeline is one of five testbeds inside the deposit, not a standalone corpus."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Recorded as an exclusion, not as a plan. Nothing in PHOS may cite FORGE as available.",
+        "Belongs to the consolidated finding in docs/data-campaign/gas-pipeline-gap.md."
+      ]
+    },
+    {
+      "name": "wustl-iiot-2021",
+      "title": "WUSTL-IIOT-2021 \u2014 Dataset for IIoT Cybersecurity Research",
+      "domain": "ATLAS",
+      "homepage": "https://www.cse.wustl.edu/~jain/iiot2/index.html",
+      "format": "csv",
+      "status": "skipped-licence-unclear",
+      "status_note": "NOT DOWNLOADED. The page gives a direct link (ftp/wustl_iiot_2021.zip, 106192911 bytes) and a citation request, but states no licence and grants no explicit permission. Per the acquisition rule, unclear means skip. This is the one skipped corpus that would have integrated immediately \u2014 it is a single labelled CSV.",
+      "license": {
+        "spdx": null,
+        "name": "No licence stated",
+        "url": null,
+        "status": "unclear",
+        "evidence": "Page text fetched and searched for licence/terms/permission wording on 2026-07-29; only a 'Please cite this dataset as follows' request was present.",
+        "permits_research_use": null
+      },
+      "citation": "Zolanvari, M., Teixeira, M. A., Gupta, L., Khan, K. M., Jain, R. (2021). WUSTL-IIOT-2021 Dataset for IIoT Cybersecurity Research. Washington University in St. Louis.",
+      "files": [],
+      "labels": {
+        "column": "Traffic",
+        "attack_values": [
+          "command injection",
+          "reconnaissance",
+          "DoS"
+        ],
+        "normal_values": [
+          "normal"
+        ],
+        "unlabelled_values": [],
+        "note": "Textual attack-type labels, from the page description \u2014 NOT verified against the file, which was not downloaded. TRAP if it ever is: default_attack_when treats any non-empty non-numeric string as an attack, so 'normal' would score as an attack and the corpus would read as 100% attack. A 'Target' binary column is also reported to exist and would be the safer label."
+      },
+      "quirks": [
+        "The authors instruct users to drop StartTime, LastTime, SrcAddr, DstAddr, sIpId and dIpId before modelling, because those columns leak the attack identity.",
+        "Deliberately imbalanced: 87016 attack rows out of 1194464."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "lanl-cyber1",
+      "title": "LANL \u2014 Comprehensive, Multi-Source Cyber-Security Events",
+      "domain": "SENTIEL",
+      "homepage": "https://csr.lanl.gov/data/cyber1/",
+      "format": "txt.gz",
+      "status": "operator-provided",
+      "status_note": "NOT FETCHABLE. CORRECTION 2026-08-24 (Track C): the 2026-07-29 note said historical URLs under /data/cyber1/ all return 404 and the page carries no download links \u2014 only mailto:cyberdata@lanl.gov. The page now presents a download form ('To download the data set, please help us understand how it will be used') with email and usage fields, then lists the five files. Access is form-gated, which the acquisition rules still forbid working around. The 404-only description is stale and is kept here so the correction is visible. CC0 waiver is unchanged. Track C: redteam.txt is red-team compromise, not a peer-relative insider; 12,425 users and no published roles. See docs/data-campaign/manifests/lanl-cyber1.md and docs/data-campaign/peer-baselining-gap.md. Independently, the ~10.7 GB of event data would not have been downloaded for peer baselining anyway.",
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "Public-domain dedication (copyright waived)",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "status": "explicit",
+        "evidence": "'License' section of https://csr.lanl.gov/data/cyber1/ \u2014 'To the extent possible under law, Los Alamos National Laboratory has waived all copyright and related or neighboring rights to Comprehensive, Multi-Source Cyber-Security Events.'",
+        "permits_research_use": true
+      },
+      "citation": "Kent, A. D. (2015). Comprehensive, Multi-Source Cyber-Security Events. Los Alamos National Laboratory. doi:10.17021/1179829",
+      "files": [],
+      "deferred_files": [
+        {
+          "url": "https://csr.lanl.gov/data/cyber1/redteam.txt.gz",
+          "filename": "redteam.txt.gz",
+          "size_bytes": 4915,
+          "role": "labels",
+          "note": "The ground truth. Every other file in the corpus is unlabelled; an event is an attack iff it appears here. Direct URL returned 404 as of 2026-07-29. CORRECTION 2026-08-24: the page now gates download behind an email-and-usage form rather than exposing this URL."
+        },
+        {
+          "url": "https://csr.lanl.gov/data/cyber1/auth.txt.gz",
+          "filename": "auth.txt.gz",
+          "size_bytes": 7730941132,
+          "role": "events"
+        },
+        {
+          "url": "https://csr.lanl.gov/data/cyber1/proc.txt.gz",
+          "filename": "proc.txt.gz",
+          "size_bytes": 2362232012,
+          "role": "events"
+        },
+        {
+          "url": "https://csr.lanl.gov/data/cyber1/flows.txt.gz",
+          "filename": "flows.txt.gz",
+          "size_bytes": 1181116006,
+          "role": "events"
+        },
+        {
+          "url": "https://csr.lanl.gov/data/cyber1/dns.txt.gz",
+          "filename": "dns.txt.gz",
+          "size_bytes": 185597952,
+          "role": "events"
+        }
+      ],
+      "timestamp": {
+        "column": "time",
+        "format": "epoch_seconds_from_1",
+        "note": "Not wall-clock. Time starts at 1 with one-second resolution; the real timeframe is undisclosed. An adapter must choose an arbitrary epoch and say so."
+      },
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "There is no label column. redteam.txt lists the compromise events as (time, user@domain, source computer, destination computer) tuples; labelling means joining those against auth.txt. This is why the corpus needs a PART 6 adapter and cannot use LabelledCsvAdapter."
+      },
+      "quirks": [
+        "Headerless, comma-separated, no label column \u2014 structurally not a labelled CSV time series."
+      ],
+      "prepare": null,
+      "caveats": [
+        "TRACK C 2026-08-24: form-gated (email + usage statement). Not a peer-relative insider corpus. No declared roles. See docs/data-campaign/peer-baselining-gap.md."
+      ]
+    },
+    {
+      "name": "cert-insider-threat",
+      "title": "CERT Insider Threat Test Dataset (CMU/SEI)",
+      "domain": "SENTIEL",
+      "homepage": "https://kilthub.cmu.edu/articles/dataset/Insider_Threat_Test_Dataset/12841247",
+      "format": "tar.bz2",
+      "status": "integrated",
+      "status_note": "Release 3.1 fetched and integrated on 2026-08-19 for PART 6-D. It is the SMALLEST release that actually contains labelled insider-threat scenarios: r1 is only 87.5 MB but the answers archive's insiders.csv has no r1 row at all, so it has zero labelled insiders and no recall number can come from it. Of the labelled releases r3.1 (4.25 GB) is smallest, ahead of r3.2 (4.29 GB), r4.2 (4.82 GB), r4.1 (5.02 GB) and r2 (8.66 GB). r3.1 unpacks to about 13 GB, of which http.csv is 11 GB. It carries 2 labelled insiders (scenarios 1 and 2) across 1000 users and 18 months. Every size and URL here was confirmed against the figshare API for record 12841247 on 2026-08-19, not copied from the article page.",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "evidence": "figshare article metadata for record 12841247 reports license 'CC BY 4.0' (re-confirmed via the figshare API on 2026-08-19). NOTE: this is contradicted by the terms shipped inside the payload \u2014 see payload_license.",
+        "permits_research_use": true
+      },
+      "citation": "Lindauer, B. (2020). Insider Threat Test Dataset. Carnegie Mellon University, Software Engineering Institute. doi:10.1184/R1/12841247.v1",
+      "files": [
+        {
+          "url": "https://ndownloader.figshare.com/files/24857828",
+          "filename": "answers.tar.bz2",
+          "size_bytes": 1254678,
+          "role": "labels",
+          "note": "Ground truth for every release. answers/insiders.csv is the master file: one row per incident giving release, scenario, user, start and end.",
+          "sha256": "ed21bf921def01e97326b314f2d1fa77651a945bd31bf513095f8ac7658c9ddd",
+          "extract": true,
+          "extract_to": "answers"
+        },
+        {
+          "url": "https://ndownloader.figshare.com/files/24860765",
+          "filename": "SEI_Insider_README.txt",
+          "size_bytes": 1446,
+          "role": "labels",
+          "note": "The authors' description of the release structure."
+        },
+        {
+          "url": "https://ndownloader.figshare.com/files/24857831",
+          "filename": "CHECKSUMS-sha256.txt",
+          "size_bytes": 868,
+          "role": "labels",
+          "note": "Upstream SHA-256 checksums for every release archive."
+        },
+        {
+          "url": "https://ndownloader.figshare.com/files/24857777",
+          "filename": "r3.1.tar.bz2",
+          "size_bytes": 4249740376,
+          "role": "events",
+          "note": "Release 3.1: logon, device, http, email and file logs, an LDAP/ directory of 18 monthly org-chart snapshots, and psychometric.csv. Unpacks to ~13 GB. Exceeds size_confirm_threshold_bytes, so fetching it requires explicit operator consent.",
+          "sha256": "9f891291fb76e05c5d9e6b9780bce0d18096e8df993088b26a3e945e65e7510d",
+          "extract": true,
+          "extract_to": "r3.1"
+        }
+      ],
+      "deferred_files": [
+        {
+          "url": "https://ndownloader.figshare.com/files/24857825",
+          "filename": "r1.tar.bz2",
+          "size_bytes": 87541633,
+          "role": "events",
+          "note": "CORRECTED 2026-08-19. This entry previously pointed at https://kilthub.cmu.edu/ndownloader/files/24844280, which is r6.2.tar.bz2 (23.8 GB), while declaring 87.5 MB. Since the size gate reads the DECLARED size, it would have waved a 23.8 GB download straight through. Deferred anyway: r1 has no row in answers/insiders.csv, so it contains no labelled insiders."
+        }
+      ],
+      "timestamp": {
+        "column": "date",
+        "format": "%m/%d/%Y %H:%M:%S",
+        "note": "VERIFIED against r3.1's own files on 2026-08-19. Naive local wall-clock with no offset; the reader interprets it as UTC, matching LabelledCsvAdapter's documented choice. insiders.csv uses the same format but mixes padded and unpadded months ('3/6/2010' and '07/01/2010'), which one strptime format reads."
+      },
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "No label column, and labelling is ENTITY-SCOPED rather than time-scoped: answers/insiders.csv names which USER was malicious over which window. r3.1 labels 2 users of 1000. Flattening this to a time-only interval would score a detection about any of the other 998 users inside that window as a true positive. Read by phos.sentiel.labels; scored by phos.sentiel.evaluation."
+      },
+      "quirks": [
+        "A directory tree of per-activity CSVs rather than one labelled table.",
+        "VERIFIED 2026-08-19: r3.1's email.csv has NO 'user' and NO 'pc' column. Its header is 'id,date,to,from,size,attachments,content' and the actor must be resolved from the 'from' address against LDAP/. The published schema and this registry's earlier note both said otherwise.",
+        "r3.1's own readme.txt calls the email attachment column 'attachment_count'; the file's header says 'attachments'. The header is authoritative.",
+        "Removable-media wording differs by release: r2 writes Insert/Remove, r3.1 writes Connect/Disconnect.",
+        "file.csv rows are file copies TO REMOVABLE MEDIA, not general file opens, so file_access_count and distinct_files mean 'copied out' in r3.1.",
+        "LDAP/ is 18 monthly snapshots; the population shrinks from 1000 to 897 as people leave."
+      ],
+      "prepare": null,
+      "release": "r3.1",
+      "payload_license": {
+        "spdx": null,
+        "name": "ExactData, LLC End User Agreement (bundled with the payload)",
+        "url": null,
+        "status": "explicit",
+        "evidence": "answers/license.txt inside answers.tar.bz2, and r3.1/license.txt inside r3.1.tar.bz2: 'All Test Data Files contained within Copyright (c) 2011 ExactData, LLC All Rights Reserved', provided under SEI agreement #12-00121-EXP-000. Grant of Rights (a) prohibits redistribution or making the Licensed Products available to any unauthorized party; (c) permits derivative works such as reports and research papers that incorporate the data only to the minimal extent necessary to describe the performance of the systems tested. This CONFLICTS with the CC BY 4.0 the figshare record states. PHOS's practice satisfies both readings: the payload is git-ignored and never redistributed, and only aggregate metrics are reported.",
+        "permits_research_use": true
+      },
+      "caveats": [
+        "CERT is SYNTHETIC: simulated users and simulated attackers, not observed enterprise activity. A good number here demonstrates the machinery works; it does not demonstrate real-world capability, and simulated insiders may be cleaner and more obvious than real ones.",
+        "The featurisation is a per-entity STARTER set (8 count features over a one-day window). There is no relationship context (PART 6A) and no peer-group baselining (PART 6B), so this baseline is expected to miss the insider whose own history looks unremarkable and whose peers' does not \u2014 which is the class 6B exists to catch.",
+        "Ground truth is ENTITY-SCOPED: a detection counts only when it names the labelled malicious user inside their labelled window. The false-positive denominator is normal USER-hours summed across the population, not wall-clock hours, and is not comparable to an Atlas FP rate.",
+        "TRACK C 2026-08-24: answers/scenarios.txt covers all five CERT scenarios; 0 are peer-relative. Scaling to r4.x\u2013r6.x multiplies population, not registers. Peer-group advantage stays retired (ADR 0023 / 0060). See docs/data-campaign/manifests/cert-releases-beyond-r31.md and docs/data-campaign/peer-baselining-gap.md."
+      ]
+    },
+    {
+      "name": "netresec-4sics-ics-pcap",
+      "title": "4SICS / Netresec ICS Lab PCAP captures",
+      "domain": "ATLAS",
+      "homepage": "https://www.netresec.com/?page=PCAP4SICS",
+      "format": "pcap",
+      "status": "noted-for-part-5",
+      "status_note": "NOT DOWNLOADED and deliberately not integrated. PHOS has no packet adapter; scapy-based PCAP parsing is PART 5 work. Recorded here so PART 5 starts from a known source rather than a search.",
+      "license": {
+        "spdx": null,
+        "name": "Publicly published capture files; terms stated on the source page",
+        "url": "https://www.netresec.com/?page=PCAP4SICS",
+        "status": "unverified",
+        "evidence": "Not verified \u2014 the corpus was out of scope for this task, so its licence was not checked. It MUST be verified before any download.",
+        "permits_research_use": null
+      },
+      "citation": "4SICS ICS Lab, published by Netresec.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "Unlabelled captures from a conference ICS lab; ground truth would have to be established separately."
+      },
+      "quirks": [
+        "PCAP. Needs the PART 5 packet adapter and scapy before it can produce a single Observation."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "itrust-swat-wadi",
+      "title": "iTrust SWaT / WADI (Singapore University of Technology and Design)",
+      "domain": "ATLAS",
+      "homepage": "https://itrust.sutd.edu.sg/itrust-labs_datasets/",
+      "format": "csv",
+      "status": "operator-provided",
+      "status_note": "NOT FETCHABLE by this script. Access requires signing and submitting a request form, which the acquisition rules forbid working around. If the operator obtains it, it is a labelled CSV time series and drops straight into LabelledCsvAdapter \u2014 add a registry entry with verified label semantics at that point.",
+      "license": {
+        "spdx": null,
+        "name": "Per-requester agreement signed with iTrust",
+        "url": "https://itrust.sutd.edu.sg/itrust-labs_datasets/",
+        "status": "form-required",
+        "evidence": "Access is gated behind a dataset request form; no anonymous direct download exists.",
+        "permits_research_use": null
+      },
+      "citation": "Goh, J., Adepu, S., Junejo, K. N., Mathur, A. (2016). A Dataset to Support Research in the Design of Secure Water Treatment Systems.",
+      "files": [],
+      "labels": {
+        "column": "Normal/Attack",
+        "attack_values": [
+          "Attack",
+          "A ttack"
+        ],
+        "normal_values": [
+          "Normal"
+        ],
+        "unlabelled_values": [],
+        "note": "Textual labels, from the published schema \u2014 not verified. TRAP: default_attack_when would mark 'Normal' as an attack. SWaT is also known to contain the typo 'A ttack' as a label value.",
+        "unverified": true
+      },
+      "quirks": [
+        "Form-gated, so out of reach of an automated fetch by design."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "data4cyber",
+      "title": "Data4Cyber — labelled cyber-physical dataset for distribution-grid management under OT attacks",
+      "domain": "ATLAS",
+      "homepage": "https://zenodo.org/records/19965384",
+      "format": "mixed-csv-pcapng",
+      "status": "integrated",
+      "status_note": "Track A process telemetry. Fit on S0, score S1 via grid_prepare. NOT a labelled command corpus: labels are 1 Hz process phases. Do not register format=pcap with attack_intervals copied from CSV clocks. 5880 normal seconds cannot be the FP/hour ruler. Payloads gitignored.",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "evidence": "CONFIRMED by two independent surfaces (ADR 0033). (1) Zenodo API record 19965384 metadata.license.id = cc-by-4.0. (2) Panasonic Newsroom: 'Publication format: Open data (CC BY 4.0)'. Payload LICENSE.txt restates CC BY 4.0.",
+        "permits_research_use": true
+      },
+      "citation": "Sen, \u00d6., Bader, L., Emara, M., Serror, M., Schwalm, B., Tsurumi, J., Oba, T., Izawa, T., and Ujiie, Y. (2026). Data4Cyber: A Labeled Cyber-Physical Dataset for Distribution-Grid Management Systems Under Representative OT Attacks. Zenodo. https://doi.org/10.5281/zenodo.19965384",
+      "files": [
+        {
+          "url": "https://zenodo.org/api/records/19965384/files/data4cyber_dataset.zip/content",
+          "filename": "data4cyber_dataset.zip",
+          "size_bytes": 134034872,
+          "md5": "a540979c63120c9a0295ff974933580f",
+          "role": "data",
+          "extract": true,
+          "extract_to": "data4cyber_dataset",
+          "note": "Seven primary scenarios S0-S6 plus S1-alt. Each folder holds dataset.csv, attack-phases.json, network_tap.pcapng, benign_only.pcapng, attacker_only.pcapng, and IPAL state.jsonl.gz."
+        }
+      ],
+      "labels": {
+        "column": "attack_active",
+        "attack_values": ["True", "true", "1"],
+        "normal_values": ["False", "false", "0"],
+        "unlabelled_values": [],
+        "note": "VERIFIED on the shipped S0/S1/S3 CSV files 2026-08-22. attack_active and attack_phase are 1 Hz PROCESS PHASES, not command-action windows. IPAL state.jsonl.gz copies those row labels. attack-phases.json clocks must not be copied into a command-corpus attack_intervals list (ADR 0040)."
+      },
+      "quirks": [
+        "pcapng opens via dpkt UniversalReader (S0 network_tap: 306604 frames, link_type=1, accounts_for_every_frame). ADR 0033's 'pcapng is not yet the dpkt path' is amended for this corpus by ADR 0040.",
+        "S1 contains 520 operator-shaped Modbus FC 16 writes from 192.168.1.20 to 192.168.1.88:502 at registers 40242/40246. The publisher's 'Industroyer Modbus command execution window' still contains 120 legitimate EMS writes and ~82k Modbus messages. attacker_only.pcapng is a time slice, not attacker frames.",
+        "S3 is 1800/1800 attack rows. Aggregate normal time is 5880 CSV seconds (~1.6 h) and cannot be the FP/hour ruler."
+      ],
+      "caveats": [
+        "Not a labelled command corpus. discover_labelled_command_corpora must stay empty until command-action windows exist (ADR 0040).",
+        "Do not quote a Data4Cyber false-positives-per-normal-hour figure as a control-room budget.",
+        "Do not pool any ordinal from this corpus with D2 known-station 0/16 or unknown-master 1/4.",
+        "Recall is process-phase recall on attack_active as shipped, including reconnaissance seconds. It is not command-action recall."
+      ],
+      "grid_prepare": {
+        "dataset_root": "data4cyber_dataset",
+        "train_scenario": "S0_benign_baseline",
+        "test_scenario": "S1_industroyer_pv",
+        "train_output_file": "data4cyber-s0-train-prepared.csv",
+        "test_output_file": "data4cyber-s1-test-prepared.csv",
+        "timestamp_column": "timestamp",
+        "label_column": "attack_active"
+      },
+      "prepare": null
+    },
+    {
+      "name": "s7-data-modification",
+      "title": "S7 data-modification attacks on a battery and PV power testbed",
+      "domain": "ATLAS",
+      "homepage": "https://zenodo.org/records/15373938",
+      "format": "parquet",
+      "status": "confirmed-not-a-command-corpus",
+      "status_note": "Licence confirmed (ADR 0033). Process table inspected 2026-08-23 (ADR 0047): 13912 rows, 21 columns, NO label column. packets_dataset.parquet is a parsed packet table, not a pcap. Atlas does not dissect S7comm. Do not fetch packets to score as a capture (ADR 0012, ADR 0040). Labelled Track A is refused.",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "evidence": "CONFIRMED by two independent surfaces (ADR 0033). (1) Zenodo API record 15373938 metadata.license.id = cc-by-4.0. (2) KITopen 1000181992: Creative Commons Namensnennung 4.0 International.",
+        "permits_research_use": true
+      },
+      "citation": "See docs/data-campaign/manifests/s7-data-modification.md.",
+      "files": [
+        {
+          "url": "https://zenodo.org/api/records/15373938/files/process_dataset.parquet/content",
+          "filename": "process_dataset.parquet",
+          "size_bytes": 359657,
+          "md5": "ebc3e048e0319f044ea47cc08e498999",
+          "role": "signals",
+          "note": "VERIFIED 2026-08-23 on the file. 13912 rows, 21 process columns, archive_recv_ts clock. No label column. Not in FETCHABLE_STATUSES: inspection is not a labelled Track A row (ADR 0047)."
+        }
+      ],
+      "labels": {
+        "column": null,
+        "attack_values": ["data_modification"],
+        "normal_values": ["normal"],
+        "unlabelled_values": [],
+        "note": "VERIFIED ABSENT on process_dataset.parquet (ADR 0047). The record's textual normal/data_modification vocabulary is the PACKET table, not the process table. default_attack_when would still read 'normal' as an attack if those strings were joined later.",
+        "unverified": false
+      },
+      "quirks": [
+        "packets_dataset.parquet is a table. Feeding it as pcap bypasses the dissector.",
+        "Process table has no attack labels. Do not invent process-row windows from packet-row labels in this PART."
+      ],
+      "caveats": [
+        "Not a labelled command corpus (ADR 0040).",
+        "Not labelled Track A process telemetry (ADR 0047): the process file has no label column.",
+        "packets_dataset.parquet is not a pcap (ADR 0012)."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "3w-petrobras",
+      "title": "3W \u2014 Petrobras offshore oil well undesirable events",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/petrobras/3W",
+      "format": "parquet",
+      "status": "confirmed-not-a-command-corpus",
+      "status_note": "Licence confirmed (ADR 0033). Class labels 1-9 are faults, not cyber-attacks. No command capture. Do not collapse faults to attack (ADR 0040).",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "evidence": "CONFIRMED by two independent surfaces (ADR 0033). (1) GitHub README: data files CC BY 4.0. (2) figshare API article 29205836 license name CC BY 4.0.",
+        "permits_research_use": true
+      },
+      "citation": "See docs/data-campaign/manifests/3w-petrobras.md.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": ["0"],
+        "unlabelled_values": [],
+        "note": "Classes 1-9 are faults (ADR 0033). Not attack labels. Not a command corpus."
+      },
+      "quirks": [
+        "Real, simulated and hand-drawn instances sit in the same tree."
+      ],
+      "caveats": [
+        "Not a labelled command corpus. Fault recall must never be quoted as attack recall (ADR 0040)."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "tu-wien-pilot-factory",
+      "title": "TU Wien Pilot Factory \u2014 smart-factory network capture (malware communication in smart factories)",
+      "domain": "ATLAS",
+      "homepage": "https://researchdata.tuwien.ac.at/records/vs6hv-1vs74",
+      "format": "pcap+csv",
+      "status": "confirmed-not-a-command-corpus",
+      "status_note": "NOT ACQUIRED beyond a 134.1 MB assessment slice read by HTTP range on 2026-08-29. Licence CONFIRMED by two independent surfaces. Refused as a labelled command corpus: the labelled extraction carries NO application layer (no Modbus function code, register, unit id, or OPC UA service), and no attacker command action exists in the capture to label. Across the whole A2 attack day only 15 of 18882114 labelled packets touch ports 502/4840/1883, all labelled 'nmap' with ipTotalLength 44 (bare SYN, zero payload), all aimed at the three designated pen-test hosts. The attacker never addressed the Modbus master 192.168.10.55 or slaves .61/.62/.63. The paper concedes it: 'the applicant did not introduce a single Modbus/TCP packet himself', and by design 'Machines that are part of the production system are only included for reconnaissance activities.' This is the OPPOSITE failure to Data4Cyber: granularity is sufficient (per-packet, attack-named) and the event is absent. See docs/data-campaign/manifests/tu-wien-pilot-factory.md.",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "evidence": "CONFIRMED by two independent surfaces (2026-08-29). (1) researchdata.tuwien.ac.at REST API record vs6hv-1vs74 rights field: 'Creative Commons Attribution 4.0 International (CC BY 4.0)'. (2) Computer Networks 255 (2024) 110804, p. 10 prose: 'The data set can be downloaded and used under the CC BY 4.0 license.' NOT the Elsevier article footer, which licenses the article rather than the data. Citation of the descriptor paper is required by the deposit.",
+        "permits_research_use": true
+      },
+      "citation": "B. Brenner, J. Fabini, M. Offermanns, S. Semper, T. Zseby, 'Malware communication in smart factories: A network traffic data set', Computer Networks 255 (2024) 110804. DOI 10.48436/vs6hv-1vs74. See docs/data-campaign/manifests/tu-wien-pilot-factory.md.",
+      "files": [
+        {
+          "url": "https://researchdata.tuwien.ac.at/api/records/vs6hv-1vs74/files/extractions.zip/content",
+          "filename": "extractions.zip",
+          "size_bytes": 5583930351,
+          "md5": "80e6f68d3a5024131fd7d8b69f788f20",
+          "role": "labels",
+          "note": "READ BY RANGE 2026-08-29, not downloaded whole. Holds 26 members (122.30 GB uncompressed): labeled/ and unlabeled/, a _flows_ and a _packets_ CSV per capture day. Not in FETCHABLE_STATUSES: reading the labels is not a labelled command corpus row (ADR 0040). The other 8 deposit files and their MD5s are tabled in the manifest."
+        }
+      ],
+      "labels": {
+        "column": "Label",
+        "attack_values": ["nmap", "fping", "gobuster", "revshell", "exfiltration(ftp)"],
+        "normal_values": ["BENIGN"],
+        "unlabelled_values": [],
+        "note": "VERIFIED ON THE FILES 2026-08-29. Per-row and attack-tool-named, on both the flow and packet CSVs \u2014 finer than Data4Cyber's 1 Hz process phases. Every attack value is an IT-layer tool; none is a control action. Neither schema carries an application-layer field, so a Modbus write and a Modbus read are indistinguishable in the labelled data. Week tf_a is 769903 flows, all BENIGN \u2014 a genuine corpus-declared attack-free learn stretch."
+      },
+      "quirks": [
+        "CRLF line endings: the Label field carries a trailing carriage return. Splitting on ',' without stripping it yields two distinct BENIGN tokens and misclassifies every benign row. This trap was hit during assessment \u2014 the first pass reported 10383 attack-labelled industrial-protocol flows against a true 15.",
+        "packetTotalCount in the flow CSVs is not a per-flow packet count: 0 ms scan flows carry 134162.0 and the value repeats across unrelated flows.",
+        "Port columns are floats in the packet CSVs ('1883.0') and integers in the flow CSVs. A join on port fails silently.",
+        "a_day2 is the THIRD capture day, not the second. The real second day was the DoS, dropped from the labelled set for size, then the days were renumbered. a_day_tuesday_dos.zip is downloadable but the paper states it was deliberately not labelled or analysed \u2014 treat as unlabelled, never as benign.",
+        "The attacker's IP (.91) is deliberately planted in the BENIGN training week of set S by temporarily assigning it to a trusted host. A model that learns '.91 is hostile' from set S's training week learns a fiction the authors inserted on purpose. Set A does not have this property."
+      ],
+      "caveats": [
+        "Not a labelled command corpus (ADR 0040). No attacker control action on any industrial protocol exists in the capture; the only attack-labelled industrial-port traffic is 15 nmap SYN probes, which ADR 0014 Decision 8 excludes as reconnaissance.",
+        "The labelled extraction has no application layer. Command lead cannot be scored from it, and re-deriving command labels from the attacker's IP is the tautology ADR 0040 rejected for Data4Cyber.",
+        "Two benign weeks and an unanonymised MAC/IP command graph (one Modbus master to three slaves, 684 flows per week) are real and usable for benign-behaviour work. They are not a row that can earn command lead, because nothing hostile ever appears on them.",
+        "Known-station 0/16 and unknown-master 1/4 stay separate, unpooled and diagnostic. This corpus does not change them."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "twos",
+      "title": "TWOS \u2014 The Wolf of SUTD (masquerader and traitor competition logs)",
+      "domain": "SENTIEL",
+      "homepage": "https://github.com/ivan-homoliak-sutd/twos",
+      "format": "multi-source",
+      "status": "operator-provided",
+      "status_note": "NOT DOWNLOADED. Track C exclusion. Access is gated by email to SUTD plus a signed PDF. The README email template requires 'I will use the data for only the research purposes described above.' JoWUA 2018: 'The TWOS dataset is publicly accessible for further research purposes.' Two surfaces agree the grant is research-only, which this campaign treats as commercially closed. Independently: test 1 fails (masquerader + traitor); test 2 fails on arithmetic (6 teams of 4, below PeerPolicy.min_group_size of 5, so every participant would be ungrouped). See docs/data-campaign/manifests/twos.md.",
+      "license": {
+        "spdx": null,
+        "name": "Per-requester research-purposes-only undertaking",
+        "url": "https://github.com/ivan-homoliak-sutd/twos",
+        "status": "form-required",
+        "evidence": "GitHub README (read 2026-08-24) email template condition 1: 'I will use the data for only the research purposes described above.' JoWUA 9(1) 2018: 'The TWOS dataset is publicly accessible for further research purposes.' PDF agreement was not opened; the README already forecloses a commercial grant.",
+        "permits_research_use": true
+      },
+      "citation": "Harilal, A. et al. (2018). TWOS: A Dataset of Malicious Insider Threat Behavior Based on a Gamified Competition. Journal of Wireless Mobile Networks, Ubiquitous Computing, and Dependable Applications, 9(1).",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "12 masquerader instances (90 min) and 5 traitor instances (120 min), as described. NOT verified against files."
+      },
+      "quirks": [
+        "Original host cyberlab.sutd.edu.sg/twos-dataset no longer resolves.",
+        "24 participants, 6 teams of 4. Below PHOS's five-member peer minimum."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md."
+      ]
+    },
+    {
+      "name": "orgforge-it",
+      "title": "OrgForge-IT \u2014 synthetic insider-threat benchmark (Aerie Security)",
+      "domain": "SENTIEL",
+      "homepage": "https://huggingface.co/datasets/aeriesec/orgforge-insider-threat",
+      "format": "parquet",
+      "status": "skipped-not-a-public-corpus",
+      "status_note": "NOT DOWNLOADED. Track C exclusion. A generator output, not a public observational corpus (ADR 0029). Test 1 fails by construction: 'Each subject behaves normally before their onset day' (arXiv:2603.22499). 51 people (48 innocent + 3 threat); per-role cardinalities not stated. MIT is quoted from GitHub LICENSE and Hugging Face cardData.license=mit; the paper says 'open source' and does not name MIT. Do not generate a peer-relative variant.",
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://opensource.org/licenses/MIT",
+        "status": "explicit",
+        "evidence": "GitHub aeriesec/orgforge LICENSE (read 2026-08-24) grants use, copy, modify, merge, publish, distribute, sublicense, and/or sell. Hugging Face dataset API cardData.license=mit and README 'MIT'. Two hosts, not one minted field twice. Paper does not independently name MIT.",
+        "permits_research_use": true
+      },
+      "citation": "Flynt, J. (2026). OrgForge-IT: A Verifiable Synthetic Benchmark for LLM-Based Insider Threat Detection. arXiv:2603.22499.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "Three named threat subjects (Jordan/Tasha/Jax) with onset days 5/10/18. Entity-scoped as described. Self-relative by construction. NOT verified against files."
+      },
+      "quirks": [
+        "Do not conflate with tenurehq/orgforge.",
+        "2,904 observable records / 51 simulated days \u2014 a fixture, not an estate corpus."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md.",
+        "A synthetic library is not a public corpus (ADR 0029)."
+      ]
+    },
+    {
+      "name": "spedia",
+      "title": "SPEDIA \u2014 System for Prediction and Early Detection of Insider Attacks (UPM)",
+      "domain": "SENTIEL",
+      "homepage": "https://doi.org/10.5281/zenodo.15525713",
+      "format": "csv",
+      "status": "skipped-not-a-peer-corpus",
+      "status_note": "NOT DOWNLOADED. Track C exclusion. Pin version v2 record 15525713 (25 columns, logs_SPEDIA_annotated_en.csv, 45703322 bytes, md5 e01e0baaf3b523a0b493fc9c52af2b1c), not concept DOI 10.5281/zenodo.15495571. v1.0 (15495572) had 23 columns. Test 1 fails: ATT&CK exercise events at ~57.5% malicious. Test 2 fails: three-host environment. Licence CC BY 4.0 is one minted Zenodo/DataCite field \u2014 read once, not confirmed. First-pass verdict was HELD; hold withdrawn in docs/data-campaign/manifests/spedia.md.",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "evidence": "Zenodo API for records 15495572 and 15525713 reports license.id cc-by-4.0. DataCite rightsIdentifier cc-by-4.0 is the same deposited field. GitHub UPM-RSTI/SPEDIA-Dataset is GPL-2.0 on scripts, not the CSV. Computers & Security paper was not licence-quoted.",
+        "permits_research_use": true
+      },
+      "citation": "\u00c1lvarez Mu\u00f1iz et al. (2026). Computers & Security 161:104743. Companion description: Mateo Mu\u00f1oz et al., Machine Learning with Applications (2026), doi:10.1016/j.mlwa.2026.100946.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "Event-level ATT&CK phase labels as described; ~57.5% malicious / 42.5% benign. NOT verified against the CSV. Benign CERT r4.2 rows are injected."
+      },
+      "quirks": [
+        "Column count moved 23 \u2192 25 between v1.0 and v2. Pin the version record.",
+        "CERT contamination: ExactData payload terms may travel with sampled rows."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md."
+      ]
+    },
+    {
+      "name": "darpa-optc",
+      "title": "DARPA OpTC \u2014 Operationally Transparent Cyber",
+      "domain": "SENTIEL",
+      "homepage": "https://github.com/FiveDirections/OpTC-data",
+      "format": "json",
+      "status": "skipped-not-a-peer-corpus",
+      "status_note": "NOT DOWNLOADED. Track C exclusion. External red team on Windows endpoints; no declared org. Public-domain paragraph is explicit on the GitHub README and reprinted on IEEE DataPort. DataPort files are login-gated ('Open Access dataset files are accessible to all logged in users'); use GitHub/Drive if this were ever acquired. ~1 TB. See docs/data-campaign/manifests/darpa-optc.md.",
+      "license": {
+        "spdx": null,
+        "name": "Public-domain dedication (DARPA)",
+        "url": "https://github.com/FiveDirections/OpTC-data",
+        "status": "explicit",
+        "evidence": "GitHub README (read 2026-08-24): 'DARPA is releasing these files in the public domain to stimulate further research.' IEEE DataPort abstract reprints the same paragraph plus Distribution Statement A. Two hosts, one official statement.",
+        "permits_research_use": true
+      },
+      "citation": "Arantes, R. et al. Operationally Transparent Cyber (OpTC). IEEE DataPort. doi:10.21227/edq8-nk52.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "OpTCRedTeamGroundTruth.pdf described as host-and-account bounded. NOT verified against files. Intrusion, not insider."
+      },
+      "quirks": [
+        "IEEE DataPort mirror is login-gated despite an Open Access badge.",
+        "Google Drive hosting for the GitHub route."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md."
+      ]
+    },
+    {
+      "name": "lanl-unified-host-2017",
+      "title": "LANL Unified Host and Network Data Set (2017)",
+      "domain": "SENTIEL",
+      "homepage": "https://csr.lanl.gov/data/2017/",
+      "format": "csv+json",
+      "status": "operator-provided",
+      "status_note": "NOT DOWNLOADED. Track C exclusion. Same LANL email-and-usage form as lanl-cyber1, then wget via data-fence. CC0 waiver on the page. Unlabelled: no attack or insider ground truth. No declared org. See docs/data-campaign/manifests/lanl-unified-host-2017.md.",
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "Public-domain dedication (copyright waived)",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "status": "explicit",
+        "evidence": "License section of https://csr.lanl.gov/data/2017/ (read 2026-08-24): 'To the extent possible under law, Los Alamos National Laboratory has waived all copyright and related or neighboring rights to Unified Host and Network DataSet.' Same host as the DOI; not a second independent surface.",
+        "permits_research_use": true
+      },
+      "citation": "Turcotte, M. J. M., Kent, A. D., Hash, C. (2018). Unified Host and Network Data Set. In Data Science for Cyber-Security. doi:10.1142/9781786345646_001.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "No attack annotations, as documented. NOT a labelled corpus."
+      },
+      "quirks": [
+        "Form-gated. Daily bz2 shards behind data-fence after the form."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md."
+      ]
+    },
+    {
+      "name": "chimeralog",
+      "title": "ChimeraLog \u2014 NDSS 2026 multi-agent insider simulation (unpublished payload)",
+      "domain": "SENTIEL",
+      "homepage": "https://github.com/fish98/Chimera",
+      "format": "unpublished",
+      "status": "skipped-not-a-public-corpus",
+      "status_note": "NOT DOWNLOADED \u2014 there is nothing to download. Authors stated in GitHub issue #1 (2026-08-11) that the raw experimental dataset is ~2 TB and they recommend generating data locally from the source. Track C: test 1 cannot be determined from the attack table; test 2 fails (20 employee agents per scenario). No LICENSE file (404 on 2026-08-24). Regenerating it would be ADR 0029.",
+      "license": {
+        "spdx": null,
+        "name": "No licence stated",
+        "url": null,
+        "status": "unverified",
+        "evidence": "https://raw.githubusercontent.com/fish98/Chimera/main/LICENSE returned 404 on 2026-08-24. Paper ethics paragraph is academic-purpose language, not a grant.",
+        "permits_research_use": null
+      },
+      "citation": "Yu, J. et al. (2026). Chimera: Harnessing Multi-Agent LLMs for Automatic Insider Threat Simulation. NDSS. arXiv:2508.07745.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "15 attack types from Homoliak 5W1H taxonomy, as described. Dataset not on disk. NOT verified."
+      },
+      "quirks": [
+        "post_process_scripts/ is referenced in README and gitignored; authors say the conversion to CERT-format was ad hoc."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md.",
+        "A synthetic library is not a public corpus (ADR 0029)."
+      ]
+    },
+    {
+      "name": "trace-it",
+      "title": "TRACE-IT \u2014 derived CERT r4.2/r5.2/r6.2 features plus a 10-user lab",
+      "domain": "SENTIEL",
+      "homepage": "https://ieee-dataport.org/documents/trace-it-insider-threat-data",
+      "format": "csv",
+      "status": "skipped-subscription-gated",
+      "status_note": "NOT DOWNLOADED. Track C exclusion. IEEE DataPort standard record: 'LOGIN TO ACCESS DATASET FILES.' No named dataset licence on the page. CERT-derived features inherit CERT's self-relative scenarios; lab half is 877 user-days from 10 users, 223 'rule-identified anomalous' days 'not confirmed insider incidents.' See docs/data-campaign/manifests/trace-it.md.",
+      "license": {
+        "spdx": null,
+        "name": "No licence stated; access gated by IEEE DataPort login",
+        "url": null,
+        "status": "form-required",
+        "evidence": "Page read 2026-08-24. 'LOGIN TO ACCESS DATASET FILES.' No named licence. CERT citation required for the derived half.",
+        "permits_research_use": null
+      },
+      "citation": "Sivakrishna, A. M., Rohini, V., Ramasundaram, M. TRACE IT: Real world & CERT Insider threat data. IEEE DataPort. doi:10.21227/bdg8-0565.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "CERT half: three/four/five insider scenarios by release, as described. Lab half: rule-identified user-days, explicitly not confirmed insiders. NOT verified against files."
+      },
+      "quirks": [
+        "CERT derivative. ExactData payload terms may travel with derived features."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md."
+      ]
+    },
+    {
+      "name": "unraveled",
+      "title": "Unraveled \u2014 ASU semi-synthetic APT dataset",
+      "domain": "SENTIEL",
+      "homepage": "https://gitlab.com/asu22/unraveled",
+      "format": "flows+logs",
+      "status": "skipped-licence-unclear",
+      "status_note": "NOT DOWNLOADED. Track C exclusion. APT, not insider. 15 employees; per-role cardinalities not stated. GitLab project lists GNU GPLv3; whether that covers the data was not verified against the LICENSE body this session. See docs/data-campaign/manifests/unraveled.md.",
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 (project listing; data coverage unverified)",
+        "url": "https://gitlab.com/asu22/unraveled/-/blob/master/LICENSE",
+        "status": "unverified",
+        "evidence": "GitLab project page lists GNU GPLv3. LICENSE file body was not read this session. GPL is not the campaign's commercial-safe dataset list (CC0 / CC BY / CC BY-SA / explicit commercial grant).",
+        "permits_research_use": null
+      },
+      "citation": "Myneni, S. et al. (2023). Unraveled \u2014 A semi-synthetic dataset for Advanced Persistent Threats. Computer Networks. doi:10.1016/j.comnet.2023.109688.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "APT activity over six weeks, as described. NOT verified against files."
+      },
+      "quirks": [
+        "EBG roles named (HR, Marketing, IT); 15 workers total."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md."
+      ]
+    },
+    {
+      "name": "ait-lds-v2",
+      "title": "AIT Log Data Set V2.0",
+      "domain": "SENTIEL",
+      "homepage": "https://doi.org/10.5281/zenodo.5789064",
+      "format": "logs+pcap",
+      "status": "skipped-non-commercial-licence",
+      "status_note": "NOT DOWNLOADED. Track C exclusion. Zenodo API license.id = cc-by-nc-sa-4.0 \u2014 commercially closed. Independently: external multi-step intrusion, not peer-relative insider. Pin record 5789064 / v2_0, not concept DOI 5789063. See docs/data-campaign/manifests/ait-lds-v2.md.",
+      "license": {
+        "spdx": "CC-BY-NC-SA-4.0",
+        "name": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International",
+        "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "status": "explicit",
+        "evidence": "Zenodo API for record 5789064 (read 2026-08-24): license.id cc-by-nc-sa-4.0. DataCite of the same record is the same deposited field. CC BY-NC-SA 4.0 deed: 'NonCommercial \u2014 You may not use the material for commercial purposes.'",
+        "permits_research_use": true
+      },
+      "citation": "Landauer, M. et al. (2023). Maintainable Log Datasets for Evaluation of Intrusion Detection Systems. IEEE TDSC 20(4). doi:10.1109/TDSC.2022.3201582.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "Per-line JSON labels joined by line number, as described. Intrusion steps, not insider. NOT verified against files."
+      },
+      "quirks": [
+        "Eight testbeds; unpacked sizes 14\u201339 GB each. Total listing 130.6 GB."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md.",
+        "Commercially closed. Do not treat as campaign-safe."
+      ]
+    },
+    {
+      "name": "beth",
+      "title": "BETH \u2014 BPF-extended tracking honeypot",
+      "domain": "SENTIEL",
+      "homepage": "https://doi.org/10.14469/hpc/9422",
+      "format": "kernel+dns",
+      "status": "skipped-licence-unclear",
+      "status_note": "NOT DOWNLOADED. Track C exclusion. 23 honeypot hosts, not people-peers; at most one attack per host. Paper is CC BY 4.0; that is a paper licence. Imperial HPC DOI was email-gated on 2026-08-24 during a repository migration. Kaggle terms unread. See docs/data-campaign/manifests/beth.md.",
+      "license": {
+        "spdx": null,
+        "name": "Dataset licence unverified (paper is CC BY 4.0)",
+        "url": "https://ceur-ws.org/Vol-3095/paper1.pdf",
+        "status": "unverified",
+        "evidence": "CEUR paper (read 2026-08-24): 'Use permitted under Creative Commons License Attribution 4.0 International (CC BY 4.0)' applies to the paper. Imperial data.hpc.ic.ac.uk was off the public network; external access is by email to rdm-enquiries@imperial.ac.uk.",
+        "permits_research_use": null
+      },
+      "citation": "Highnam, K. et al. (2021). BETH Dataset: Real Cybersecurity Data for Unsupervised Anomaly Detection Research. UDL 2021, CEUR-WS Vol-3095.",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "Host-level; at most one attack per honeypot, as described. NOT verified against files."
+      },
+      "quirks": [
+        "Archival DOI email-gated during 2026 Imperial HPC migration."
+      ],
+      "prepare": null,
+      "caveats": [
+        "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md."
+      ]
+    }
+  ]
+}

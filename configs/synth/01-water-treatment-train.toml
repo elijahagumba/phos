@@ -1,0 +1,19 @@
+#  Standard normal dataset — surface water treatment works, fitting corpus.
+#
+#  The payload this describes is NOT committed. It is regenerated from these five numbers by
+#  scripts/generate_synth.py, which is what makes storing it unnecessary and editing this file the
+#  only way to change the corpus.
+
+name = "synth-water-treatment-train"
+plant_id = "water-treatment"
+role = "train"
+seed = 2026001
+traffic_seed = 5101
+start = 2026-03-02T00:00:00Z
+duration_hours = 120.0
+sample_interval_seconds = 30.0
+note = """
+Five days at 30-second sampling: long enough for the filter to foul and be washed several times, \
+for the demand curve to repeat five times, and for every kind of operational event to occur more \
+than once. This is the corpus a behavioural model is fitted on.
+"""

@@ -1,0 +1,2584 @@
+{
+  "schema_version": 1,
+  "domain": "ATLAS",
+  "caveats": [
+    "THE DATASET LIBRARY IS NOT A PUBLIC CORPUS. It is generated from phos.synth plants and from hand-declared person-day personas. A detection rate measured here is an upper bound on this library, never a lower bound on reality, and it must not be quoted as HAI, BATADAL, batch-distillation, or CERT recall. Perturbation recall on distillation is a different ruler and is not this one. Public-data claims still require a confirmed licence and a harness row on that corpus.",
+    "A synthetic plant is a MODEL of an industrial process, not an industrial process. Its physics, its rhythms and its imperfections were written from public descriptions of how such processes behave, and its realism is a claim to be defended rather than a property to be assumed \u2014 PlantDescription.model_source is where each plant states what it was built from. A detection result measured on this data says that Atlas handles OUR MODEL of a plant. That is a necessary step toward handling a real one and is not evidence of it.",
+    "These are attacks WE designed. Atlas catching them shows that Atlas handles our imagination, not a real adversary's: the library was written by someone who could read the detector, and an attack nobody here thought of is not in it. Two consequences follow and both are load bearing. A detection rate measured here is an upper bound on this library, never a lower bound on reality. And if Atlas ever scores suspiciously well, the first hypothesis is a leaked fingerprint \u2014 some incidental tell in timing, formatting, ordering or numerical precision that lets the detector find the injection rather than the attack \u2014 and not brilliance. Rule that out before believing the number.",
+    "THE IT PERSONAS ARE BEHAVIOURAL FIXTURES WE WROTE. They emit ontology Observations (counts of logons, files, hosts, devices) with entity-scoped labels. They are not malware, not credential-theft tooling, and not a live directory. Sentiel catching a labelled 'insider_multi' user shows the scoring policy ranks the fixture we built, not that a SOC would catch a real insider. Peer-relative advantage on CERT remains unmeasured until a labelled peer-relative positive exists on that corpus (ADR 0023)."
+  ],
+  "n_packs": 18,
+  "n_scenarios": 342,
+  "sample_interval_seconds": 30.0,
+  "seeds": [
+    71001,
+    71002,
+    71003
+  ],
+  "subtleties": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    0.9
+  ],
+  "packs": [
+    {
+      "name": "lib-ot-water-treatment-process-s71001",
+      "plant_id": "water-treatment",
+      "seed": 71001,
+      "duration_hours": 114.0,
+      "n_attacks": 24,
+      "attacks": [
+        {
+          "id": "water-process-blatant-0p00-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p00-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.0,
+          "start_hours": 6.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p00-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p00-s71001",
+          "type": "LIAR",
+          "subtlety": 0.0,
+          "start_hours": 17.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p20-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.2,
+          "start_hours": 22.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p20-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.2,
+          "start_hours": 24.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p20-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.2,
+          "start_hours": 32.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p20-s71001",
+          "type": "LIAR",
+          "subtlety": 0.2,
+          "start_hours": 35.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p40-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.4,
+          "start_hours": 40.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p40-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.4,
+          "start_hours": 42.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p40-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.4,
+          "start_hours": 50.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p40-s71001",
+          "type": "LIAR",
+          "subtlety": 0.4,
+          "start_hours": 53.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p60-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.6,
+          "start_hours": 58.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p60-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.6,
+          "start_hours": 60.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p60-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.6,
+          "start_hours": 68.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p60-s71001",
+          "type": "LIAR",
+          "subtlety": 0.6,
+          "start_hours": 71.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p80-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.8,
+          "start_hours": 76.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p80-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.8,
+          "start_hours": 78.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p80-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.8,
+          "start_hours": 86.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p80-s71001",
+          "type": "LIAR",
+          "subtlety": 0.8,
+          "start_hours": 89.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p90-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.9,
+          "start_hours": 94.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p90-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.9,
+          "start_hours": 96.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p90-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.9,
+          "start_hours": 104.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p90-s71001",
+          "type": "LIAR",
+          "subtlety": 0.9,
+          "start_hours": 107.75,
+          "duration_hours": 3.0
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-water-treatment-process-s71002",
+      "plant_id": "water-treatment",
+      "seed": 71002,
+      "duration_hours": 114.0,
+      "n_attacks": 24,
+      "attacks": [
+        {
+          "id": "water-process-blatant-0p00-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p00-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.0,
+          "start_hours": 6.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p00-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p00-s71002",
+          "type": "LIAR",
+          "subtlety": 0.0,
+          "start_hours": 17.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p20-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.2,
+          "start_hours": 22.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p20-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.2,
+          "start_hours": 24.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p20-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.2,
+          "start_hours": 32.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p20-s71002",
+          "type": "LIAR",
+          "subtlety": 0.2,
+          "start_hours": 35.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p40-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.4,
+          "start_hours": 40.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p40-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.4,
+          "start_hours": 42.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p40-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.4,
+          "start_hours": 50.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p40-s71002",
+          "type": "LIAR",
+          "subtlety": 0.4,
+          "start_hours": 53.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p60-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.6,
+          "start_hours": 58.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p60-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.6,
+          "start_hours": 60.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p60-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.6,
+          "start_hours": 68.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p60-s71002",
+          "type": "LIAR",
+          "subtlety": 0.6,
+          "start_hours": 71.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p80-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.8,
+          "start_hours": 76.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p80-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.8,
+          "start_hours": 78.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p80-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.8,
+          "start_hours": 86.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p80-s71002",
+          "type": "LIAR",
+          "subtlety": 0.8,
+          "start_hours": 89.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p90-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.9,
+          "start_hours": 94.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p90-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.9,
+          "start_hours": 96.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p90-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.9,
+          "start_hours": 104.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p90-s71002",
+          "type": "LIAR",
+          "subtlety": 0.9,
+          "start_hours": 107.75,
+          "duration_hours": 3.0
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-water-treatment-process-s71003",
+      "plant_id": "water-treatment",
+      "seed": 71003,
+      "duration_hours": 114.0,
+      "n_attacks": 24,
+      "attacks": [
+        {
+          "id": "water-process-blatant-0p00-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p00-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.0,
+          "start_hours": 6.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p00-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p00-s71003",
+          "type": "LIAR",
+          "subtlety": 0.0,
+          "start_hours": 17.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p20-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.2,
+          "start_hours": 22.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p20-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.2,
+          "start_hours": 24.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p20-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.2,
+          "start_hours": 32.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p20-s71003",
+          "type": "LIAR",
+          "subtlety": 0.2,
+          "start_hours": 35.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p40-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.4,
+          "start_hours": 40.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p40-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.4,
+          "start_hours": 42.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p40-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.4,
+          "start_hours": 50.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p40-s71003",
+          "type": "LIAR",
+          "subtlety": 0.4,
+          "start_hours": 53.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p60-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.6,
+          "start_hours": 58.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p60-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.6,
+          "start_hours": 60.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p60-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.6,
+          "start_hours": 68.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p60-s71003",
+          "type": "LIAR",
+          "subtlety": 0.6,
+          "start_hours": 71.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p80-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.8,
+          "start_hours": 76.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p80-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.8,
+          "start_hours": 78.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p80-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.8,
+          "start_hours": 86.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p80-s71003",
+          "type": "LIAR",
+          "subtlety": 0.8,
+          "start_hours": 89.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "water-process-blatant-0p90-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.9,
+          "start_hours": 94.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-process-stealth_drift-0p90-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.9,
+          "start_hours": 96.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "water-process-correlation_break-0p90-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.9,
+          "start_hours": 104.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-process-liar-0p90-s71003",
+          "type": "LIAR",
+          "subtlety": 0.9,
+          "start_hours": 107.75,
+          "duration_hours": 3.0
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-power-generation-process-s71001",
+      "plant_id": "power-generation",
+      "seed": 71001,
+      "duration_hours": 114.0,
+      "n_attacks": 24,
+      "attacks": [
+        {
+          "id": "power-process-blatant-0p00-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p00-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.0,
+          "start_hours": 6.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p00-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p00-s71001",
+          "type": "LIAR",
+          "subtlety": 0.0,
+          "start_hours": 17.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p20-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.2,
+          "start_hours": 22.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p20-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.2,
+          "start_hours": 24.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p20-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.2,
+          "start_hours": 32.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p20-s71001",
+          "type": "LIAR",
+          "subtlety": 0.2,
+          "start_hours": 35.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p40-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.4,
+          "start_hours": 40.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p40-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.4,
+          "start_hours": 42.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p40-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.4,
+          "start_hours": 50.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p40-s71001",
+          "type": "LIAR",
+          "subtlety": 0.4,
+          "start_hours": 53.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p60-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.6,
+          "start_hours": 58.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p60-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.6,
+          "start_hours": 60.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p60-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.6,
+          "start_hours": 68.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p60-s71001",
+          "type": "LIAR",
+          "subtlety": 0.6,
+          "start_hours": 71.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p80-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.8,
+          "start_hours": 76.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p80-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.8,
+          "start_hours": 78.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p80-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.8,
+          "start_hours": 86.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p80-s71001",
+          "type": "LIAR",
+          "subtlety": 0.8,
+          "start_hours": 89.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p90-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.9,
+          "start_hours": 94.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p90-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.9,
+          "start_hours": 96.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p90-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.9,
+          "start_hours": 104.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p90-s71001",
+          "type": "LIAR",
+          "subtlety": 0.9,
+          "start_hours": 107.75,
+          "duration_hours": 3.0
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-power-generation-process-s71002",
+      "plant_id": "power-generation",
+      "seed": 71002,
+      "duration_hours": 114.0,
+      "n_attacks": 24,
+      "attacks": [
+        {
+          "id": "power-process-blatant-0p00-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p00-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.0,
+          "start_hours": 6.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p00-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p00-s71002",
+          "type": "LIAR",
+          "subtlety": 0.0,
+          "start_hours": 17.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p20-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.2,
+          "start_hours": 22.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p20-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.2,
+          "start_hours": 24.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p20-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.2,
+          "start_hours": 32.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p20-s71002",
+          "type": "LIAR",
+          "subtlety": 0.2,
+          "start_hours": 35.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p40-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.4,
+          "start_hours": 40.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p40-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.4,
+          "start_hours": 42.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p40-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.4,
+          "start_hours": 50.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p40-s71002",
+          "type": "LIAR",
+          "subtlety": 0.4,
+          "start_hours": 53.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p60-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.6,
+          "start_hours": 58.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p60-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.6,
+          "start_hours": 60.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p60-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.6,
+          "start_hours": 68.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p60-s71002",
+          "type": "LIAR",
+          "subtlety": 0.6,
+          "start_hours": 71.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p80-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.8,
+          "start_hours": 76.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p80-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.8,
+          "start_hours": 78.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p80-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.8,
+          "start_hours": 86.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p80-s71002",
+          "type": "LIAR",
+          "subtlety": 0.8,
+          "start_hours": 89.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p90-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.9,
+          "start_hours": 94.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p90-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.9,
+          "start_hours": 96.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p90-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.9,
+          "start_hours": 104.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p90-s71002",
+          "type": "LIAR",
+          "subtlety": 0.9,
+          "start_hours": 107.75,
+          "duration_hours": 3.0
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-power-generation-process-s71003",
+      "plant_id": "power-generation",
+      "seed": 71003,
+      "duration_hours": 114.0,
+      "n_attacks": 24,
+      "attacks": [
+        {
+          "id": "power-process-blatant-0p00-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p00-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.0,
+          "start_hours": 6.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p00-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p00-s71003",
+          "type": "LIAR",
+          "subtlety": 0.0,
+          "start_hours": 17.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p20-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.2,
+          "start_hours": 22.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p20-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.2,
+          "start_hours": 24.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p20-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.2,
+          "start_hours": 32.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p20-s71003",
+          "type": "LIAR",
+          "subtlety": 0.2,
+          "start_hours": 35.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p40-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.4,
+          "start_hours": 40.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p40-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.4,
+          "start_hours": 42.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p40-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.4,
+          "start_hours": 50.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p40-s71003",
+          "type": "LIAR",
+          "subtlety": 0.4,
+          "start_hours": 53.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p60-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.6,
+          "start_hours": 58.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p60-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.6,
+          "start_hours": 60.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p60-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.6,
+          "start_hours": 68.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p60-s71003",
+          "type": "LIAR",
+          "subtlety": 0.6,
+          "start_hours": 71.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p80-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.8,
+          "start_hours": 76.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p80-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.8,
+          "start_hours": 78.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p80-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.8,
+          "start_hours": 86.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p80-s71003",
+          "type": "LIAR",
+          "subtlety": 0.8,
+          "start_hours": 89.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "power-process-blatant-0p90-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.9,
+          "start_hours": 94.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-process-stealth_drift-0p90-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.9,
+          "start_hours": 96.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "power-process-correlation_break-0p90-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.9,
+          "start_hours": 104.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-process-liar-0p90-s71003",
+          "type": "LIAR",
+          "subtlety": 0.9,
+          "start_hours": 107.75,
+          "duration_hours": 3.0
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-batch-reactor-process-s71001",
+      "plant_id": "batch-reactor",
+      "seed": 71001,
+      "duration_hours": 114.0,
+      "n_attacks": 24,
+      "attacks": [
+        {
+          "id": "batch-process-blatant-0p00-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p00-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.0,
+          "start_hours": 6.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p00-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p00-s71001",
+          "type": "LIAR",
+          "subtlety": 0.0,
+          "start_hours": 17.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p20-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.2,
+          "start_hours": 22.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p20-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.2,
+          "start_hours": 24.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p20-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.2,
+          "start_hours": 32.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p20-s71001",
+          "type": "LIAR",
+          "subtlety": 0.2,
+          "start_hours": 35.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p40-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.4,
+          "start_hours": 40.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p40-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.4,
+          "start_hours": 42.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p40-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.4,
+          "start_hours": 50.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p40-s71001",
+          "type": "LIAR",
+          "subtlety": 0.4,
+          "start_hours": 53.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p60-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.6,
+          "start_hours": 58.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p60-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.6,
+          "start_hours": 60.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p60-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.6,
+          "start_hours": 68.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p60-s71001",
+          "type": "LIAR",
+          "subtlety": 0.6,
+          "start_hours": 71.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p80-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.8,
+          "start_hours": 76.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p80-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.8,
+          "start_hours": 78.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p80-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.8,
+          "start_hours": 86.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p80-s71001",
+          "type": "LIAR",
+          "subtlety": 0.8,
+          "start_hours": 89.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p90-s71001",
+          "type": "BLATANT",
+          "subtlety": 0.9,
+          "start_hours": 94.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p90-s71001",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.9,
+          "start_hours": 96.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p90-s71001",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.9,
+          "start_hours": 104.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p90-s71001",
+          "type": "LIAR",
+          "subtlety": 0.9,
+          "start_hours": 107.75,
+          "duration_hours": 3.0
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-batch-reactor-process-s71002",
+      "plant_id": "batch-reactor",
+      "seed": 71002,
+      "duration_hours": 114.0,
+      "n_attacks": 24,
+      "attacks": [
+        {
+          "id": "batch-process-blatant-0p00-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p00-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.0,
+          "start_hours": 6.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p00-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p00-s71002",
+          "type": "LIAR",
+          "subtlety": 0.0,
+          "start_hours": 17.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p20-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.2,
+          "start_hours": 22.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p20-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.2,
+          "start_hours": 24.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p20-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.2,
+          "start_hours": 32.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p20-s71002",
+          "type": "LIAR",
+          "subtlety": 0.2,
+          "start_hours": 35.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p40-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.4,
+          "start_hours": 40.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p40-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.4,
+          "start_hours": 42.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p40-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.4,
+          "start_hours": 50.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p40-s71002",
+          "type": "LIAR",
+          "subtlety": 0.4,
+          "start_hours": 53.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p60-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.6,
+          "start_hours": 58.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p60-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.6,
+          "start_hours": 60.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p60-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.6,
+          "start_hours": 68.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p60-s71002",
+          "type": "LIAR",
+          "subtlety": 0.6,
+          "start_hours": 71.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p80-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.8,
+          "start_hours": 76.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p80-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.8,
+          "start_hours": 78.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p80-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.8,
+          "start_hours": 86.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p80-s71002",
+          "type": "LIAR",
+          "subtlety": 0.8,
+          "start_hours": 89.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p90-s71002",
+          "type": "BLATANT",
+          "subtlety": 0.9,
+          "start_hours": 94.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p90-s71002",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.9,
+          "start_hours": 96.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p90-s71002",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.9,
+          "start_hours": 104.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p90-s71002",
+          "type": "LIAR",
+          "subtlety": 0.9,
+          "start_hours": 107.75,
+          "duration_hours": 3.0
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-batch-reactor-process-s71003",
+      "plant_id": "batch-reactor",
+      "seed": 71003,
+      "duration_hours": 114.0,
+      "n_attacks": 24,
+      "attacks": [
+        {
+          "id": "batch-process-blatant-0p00-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p00-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.0,
+          "start_hours": 6.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p00-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p00-s71003",
+          "type": "LIAR",
+          "subtlety": 0.0,
+          "start_hours": 17.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p20-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.2,
+          "start_hours": 22.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p20-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.2,
+          "start_hours": 24.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p20-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.2,
+          "start_hours": 32.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p20-s71003",
+          "type": "LIAR",
+          "subtlety": 0.2,
+          "start_hours": 35.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p40-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.4,
+          "start_hours": 40.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p40-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.4,
+          "start_hours": 42.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p40-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.4,
+          "start_hours": 50.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p40-s71003",
+          "type": "LIAR",
+          "subtlety": 0.4,
+          "start_hours": 53.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p60-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.6,
+          "start_hours": 58.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p60-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.6,
+          "start_hours": 60.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p60-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.6,
+          "start_hours": 68.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p60-s71003",
+          "type": "LIAR",
+          "subtlety": 0.6,
+          "start_hours": 71.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p80-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.8,
+          "start_hours": 76.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p80-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.8,
+          "start_hours": 78.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p80-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.8,
+          "start_hours": 86.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p80-s71003",
+          "type": "LIAR",
+          "subtlety": 0.8,
+          "start_hours": 89.75,
+          "duration_hours": 3.0
+        },
+        {
+          "id": "batch-process-blatant-0p90-s71003",
+          "type": "BLATANT",
+          "subtlety": 0.9,
+          "start_hours": 94.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "batch-process-stealth_drift-0p90-s71003",
+          "type": "STEALTH_DRIFT",
+          "subtlety": 0.9,
+          "start_hours": 96.75,
+          "duration_hours": 6.0
+        },
+        {
+          "id": "batch-process-correlation_break-0p90-s71003",
+          "type": "CORRELATION_BREAK",
+          "subtlety": 0.9,
+          "start_hours": 104.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-process-liar-0p90-s71003",
+          "type": "LIAR",
+          "subtlety": 0.9,
+          "start_hours": 107.75,
+          "duration_hours": 3.0
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-water-treatment-command-s71001",
+      "plant_id": "water-treatment",
+      "seed": 71001,
+      "duration_hours": 93.0,
+      "n_attacks": 18,
+      "attacks": [
+        {
+          "id": "water-command-mimic-0p00-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p00-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 9.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p00-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p20-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.2,
+          "start_hours": 18.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p20-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 24.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p20-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 28.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p40-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.4,
+          "start_hours": 33.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p40-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 38.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p40-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 43.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p60-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.6,
+          "start_hours": 47.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p60-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 53.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p60-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 57.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p80-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.8,
+          "start_hours": 62.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p80-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 67.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p80-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 72.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p90-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.9,
+          "start_hours": 76.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p90-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 82.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p90-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 86.5,
+          "duration_hours": 1.5
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-water-treatment-command-s71002",
+      "plant_id": "water-treatment",
+      "seed": 71002,
+      "duration_hours": 93.0,
+      "n_attacks": 18,
+      "attacks": [
+        {
+          "id": "water-command-mimic-0p00-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p00-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 9.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p00-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p20-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.2,
+          "start_hours": 18.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p20-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 24.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p20-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 28.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p40-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.4,
+          "start_hours": 33.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p40-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 38.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p40-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 43.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p60-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.6,
+          "start_hours": 47.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p60-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 53.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p60-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 57.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p80-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.8,
+          "start_hours": 62.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p80-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 67.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p80-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 72.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p90-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.9,
+          "start_hours": 76.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p90-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 82.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p90-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 86.5,
+          "duration_hours": 1.5
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-water-treatment-command-s71003",
+      "plant_id": "water-treatment",
+      "seed": 71003,
+      "duration_hours": 93.0,
+      "n_attacks": 18,
+      "attacks": [
+        {
+          "id": "water-command-mimic-0p00-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p00-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 9.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p00-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p20-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.2,
+          "start_hours": 18.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p20-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 24.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p20-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 28.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p40-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.4,
+          "start_hours": 33.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p40-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 38.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p40-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 43.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p60-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.6,
+          "start_hours": 47.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p60-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 53.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p60-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 57.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p80-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.8,
+          "start_hours": 62.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p80-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 67.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p80-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 72.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic-0p90-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.9,
+          "start_hours": 76.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "water-command-rogue_command-0p90-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 82.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "water-command-mimic_command-0p90-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 86.5,
+          "duration_hours": 1.5
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-power-generation-command-s71001",
+      "plant_id": "power-generation",
+      "seed": 71001,
+      "duration_hours": 93.0,
+      "n_attacks": 18,
+      "attacks": [
+        {
+          "id": "power-command-mimic-0p00-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p00-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 9.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p00-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p20-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.2,
+          "start_hours": 18.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p20-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 24.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p20-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 28.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p40-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.4,
+          "start_hours": 33.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p40-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 38.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p40-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 43.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p60-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.6,
+          "start_hours": 47.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p60-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 53.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p60-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 57.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p80-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.8,
+          "start_hours": 62.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p80-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 67.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p80-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 72.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p90-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.9,
+          "start_hours": 76.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p90-s71001",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 82.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p90-s71001",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 86.5,
+          "duration_hours": 1.5
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-power-generation-command-s71002",
+      "plant_id": "power-generation",
+      "seed": 71002,
+      "duration_hours": 93.0,
+      "n_attacks": 18,
+      "attacks": [
+        {
+          "id": "power-command-mimic-0p00-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p00-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 9.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p00-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p20-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.2,
+          "start_hours": 18.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p20-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 24.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p20-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 28.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p40-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.4,
+          "start_hours": 33.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p40-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 38.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p40-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 43.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p60-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.6,
+          "start_hours": 47.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p60-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 53.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p60-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 57.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p80-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.8,
+          "start_hours": 62.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p80-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 67.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p80-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 72.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p90-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.9,
+          "start_hours": 76.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p90-s71002",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 82.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p90-s71002",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 86.5,
+          "duration_hours": 1.5
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-power-generation-command-s71003",
+      "plant_id": "power-generation",
+      "seed": 71003,
+      "duration_hours": 93.0,
+      "n_attacks": 18,
+      "attacks": [
+        {
+          "id": "power-command-mimic-0p00-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p00-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 9.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p00-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.0,
+          "start_hours": 14.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p20-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.2,
+          "start_hours": 18.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p20-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 24.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p20-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.2,
+          "start_hours": 28.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p40-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.4,
+          "start_hours": 33.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p40-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 38.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p40-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.4,
+          "start_hours": 43.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p60-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.6,
+          "start_hours": 47.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p60-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 53.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p60-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.6,
+          "start_hours": 57.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p80-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.8,
+          "start_hours": 62.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p80-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 67.5,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p80-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.8,
+          "start_hours": 72.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic-0p90-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.9,
+          "start_hours": 76.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "power-command-rogue_command-0p90-s71003",
+          "type": "ROGUE_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 82.0,
+          "duration_hours": 1.5
+        },
+        {
+          "id": "power-command-mimic_command-0p90-s71003",
+          "type": "MIMIC_COMMAND",
+          "subtlety": 0.9,
+          "start_hours": 86.5,
+          "duration_hours": 1.5
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-batch-reactor-command-s71001",
+      "plant_id": "batch-reactor",
+      "seed": 71001,
+      "duration_hours": 39.0,
+      "n_attacks": 6,
+      "attacks": [
+        {
+          "id": "batch-command-mimic-0p00-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p20-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.2,
+          "start_hours": 9.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p40-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.4,
+          "start_hours": 15.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p60-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.6,
+          "start_hours": 20.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p80-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.8,
+          "start_hours": 26.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p90-s71001",
+          "type": "MIMIC",
+          "subtlety": 0.9,
+          "start_hours": 31.5,
+          "duration_hours": 2.5
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-batch-reactor-command-s71002",
+      "plant_id": "batch-reactor",
+      "seed": 71002,
+      "duration_hours": 39.0,
+      "n_attacks": 6,
+      "attacks": [
+        {
+          "id": "batch-command-mimic-0p00-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p20-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.2,
+          "start_hours": 9.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p40-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.4,
+          "start_hours": 15.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p60-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.6,
+          "start_hours": 20.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p80-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.8,
+          "start_hours": 26.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p90-s71002",
+          "type": "MIMIC",
+          "subtlety": 0.9,
+          "start_hours": 31.5,
+          "duration_hours": 2.5
+        }
+      ]
+    },
+    {
+      "name": "lib-ot-batch-reactor-command-s71003",
+      "plant_id": "batch-reactor",
+      "seed": 71003,
+      "duration_hours": 39.0,
+      "n_attacks": 6,
+      "attacks": [
+        {
+          "id": "batch-command-mimic-0p00-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.0,
+          "start_hours": 4.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p20-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.2,
+          "start_hours": 9.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p40-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.4,
+          "start_hours": 15.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p60-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.6,
+          "start_hours": 20.5,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p80-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.8,
+          "start_hours": 26.0,
+          "duration_hours": 2.5
+        },
+        {
+          "id": "batch-command-mimic-0p90-s71003",
+          "type": "MIMIC",
+          "subtlety": 0.9,
+          "start_hours": 31.5,
+          "duration_hours": 2.5
+        }
+      ]
+    }
+  ]
+}

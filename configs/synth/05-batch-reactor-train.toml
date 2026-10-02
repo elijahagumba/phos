@@ -1,0 +1,16 @@
+#  Standard normal dataset — jacketed batch reactor, fitting corpus.
+
+name = "synth-batch-reactor-train"
+plant_id = "batch-reactor"
+role = "train"
+seed = 2026021
+traffic_seed = 5121
+start = 2026-03-02T00:00:00Z
+duration_hours = 144.0
+sample_interval_seconds = 60.0
+note = """
+Six days at one-minute sampling, which is roughly forty batches. A batch plant's normal is a \
+sequence rather than an operating point, so the corpus has to hold many complete cycles for that \
+sequence to be learnable at all. This plant emits no capture: it is run from a DCS over a bus \
+Atlas cannot dissect, and inventing Modbus for it would be fake realism.
+"""

@@ -1,0 +1,29 @@
+{
+  "cache": "data/cert-insider-threat/r3.1-entity-day-traces.jsonl.gz",
+  "frozen": {
+    "alert_threshold": 13.700640148454447,
+    "dataset_name": "cert-r3.1-user-day-peer-test",
+    "detector_name": "aggregate:gaussian:peer set (34 features)",
+    "false_positives": 43,
+    "git_commit": "b71c40fd9dc7d6e647ea83de8352126094507baf",
+    "n_alerts": 48,
+    "n_observations": 210814,
+    "precision": 0.10416666666666667,
+    "recall_sample": 0.09433962264150944,
+    "seed": 7,
+    "window_recall": 0.5
+  },
+  "gate": "frozen-6b-row",
+  "passed": true,
+  "reproduced": {
+    "alert_threshold": 13.700640148454447,
+    "false_positives": 43,
+    "n_alerts": 48,
+    "n_observations": 210814,
+    "precision": 0.10416666666666667,
+    "recall_sample": 0.09433962264150944,
+    "window_recall": 0.5
+  },
+  "test_entity_days": 210814,
+  "training_observations": 4374362
+}

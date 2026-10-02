@@ -1,0 +1,36 @@
+#  Input-hostile corpus — a normal run of the works, with the FILE attacked one way.
+#
+#  Nothing in this corpus is a plant attack. It is one day of ordinary operation whose telemetry
+#  file has been corrupted, and it carries NO attack intervals at all — there is no route from an
+#  input-hostile case to something the evaluation harness would score as a missed detection, and
+#  the code enforces that rather than trusting anyone to remember it.
+#
+#  WHAT PASSING THIS PROVES, AND WHAT IT DOES NOT. Surviving it is evidence that Atlas's SOFTWARE
+#  handles hostile input safely: that it does not crash, does not corrupt its baseline, and does
+#  not produce a confident answer that is quietly wrong. It is NOT evidence that PHOS is secure
+#  against a real-world attacker. That claim needs a live deployment, an exposed attack surface
+#  and an adversary who did not read this file, none of which exist here. See
+#  INPUT_HOSTILE_IS_NOT_SECURITY_CAVEAT in the manifest.
+#
+#  ONE CORRUPTION PER CORPUS, deliberately. Four corruptions in one file mask each other: a
+#  malformed record can make the whole file unloadable, and then nothing is learned about what
+#  the out-of-range values or the poisoned baseline would have done. Separated, each corpus
+#  answers exactly one question.
+
+name = "synth-hostile-malformed-records"
+plant_id = "water-treatment"
+role = "input-hostile"
+seed = 90214
+traffic_seed = 5205
+start = 2026-05-01T00:00:00Z
+duration_hours = 24.0
+sample_interval_seconds = 30.0
+note = """
+One day of the works with one record in fifty made malformed, cycling through all five ways a record can violate the format: a field missing, a field too many, a value that is not a number, a timestamp that is not a timestamp, and a field left empty. The header is intact, so the file is well formed enough to attempt.
+"""
+
+[[hostile]]
+attack_id = "hostile-malformed-records"
+type = "MALFORMED_RECORD"
+fraction = 0.02
+note = "One record in fifty made malformed, cycling through every kind of damage."
