@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="brand/readme/hero.svg" width="100%" alt="PHOS. Security that tells you what it doesn't know. Behavioural security for industrial systems. Research pre-release.">
+  <img src="brand/readme/hero.svg" width="600" alt="PHOS. Security that tells you what it doesn't know. Behavioural security for industrial systems. Research pre-release.">
 </p>
 
 <br>
@@ -17,19 +17,19 @@
 <br>
 
 <p align="center">
-  <img src="brand/readme/alert.svg" width="100%" alt="An Atlas alert about an unexpected function code on a learned SCADA to PLC link. Assessment: unresolved, because unauthorised control activity and planned maintenance rest on exactly the same fact. What would settle it: a write from a device that has never commanded this target.">
+  <img src="brand/readme/alert.svg" width="600" alt="An Atlas alert about an unexpected function code on a learned SCADA to PLC link. Assessment: unresolved, because unauthorised control activity and planned maintenance rest on exactly the same fact. What would settle it: a write from a device that has never commanded this target.">
 </p>
 
 <br>
 
 <p align="center">
-  <img src="brand/readme/chain.svg" width="100%" alt="How it reasons: observation, a reading; deviation, a departure; evidence, a weighed fact; hypothesis, an explanation; narrative, the story with its rivals kept.">
+  <img src="brand/readme/chain.svg" width="600" alt="How it reasons: observation, a reading; deviation, a departure; evidence, a weighed fact; hypothesis, an explanation; narrative, the story with its rivals kept.">
 </p>
 
 <br>
 
 <p align="center">
-  <img src="brand/readme/boundary.svg" width="100%" alt="What Atlas can say: it treats the plant as one machine, keeps every explanation it can't rule out, names the fact that would settle it, and stays silent when explanations tie. What it can't say yet: tell maintenance from an attack without the work order, rank its own alert queue, learn from a labelled command capture, or prove itself on a real plant.">
+  <img src="brand/readme/boundary.svg" width="600" alt="What Atlas can say: it treats the plant as one machine, keeps every explanation it can't rule out, names the fact that would settle it, and stays silent when explanations tie. What it can't say yet: tell maintenance from an attack without the work order, rank its own alert queue, learn from a labelled command capture, or prove itself on a real plant.">
 </p>
 
 <br>
