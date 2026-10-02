@@ -1,64 +1,66 @@
 <p align="center">
-  <img src="brand/phos_logo_black_on_white.png" alt="PHOS" width="200">
+  <img src="brand/readme/hero.svg" width="100%" alt="PHOS. Security that tells you what it doesn't know. Behavioural security for industrial systems. Research pre-release.">
 </p>
 
-# PHOS
+<br>
 
-**Behavioural security for industrial systems. Every alert names the explanations it can't rule
-out, and the one fact that would settle it.**
+<p align="center">
+  An attacker with valid credentials breaks no signature.<br>
+  What they change is how the plant behaves.
+</p>
 
-Signature-based security catalogues attacks that are already known. An attacker who holds valid
-credentials and sends well-formed commands to a plant breaks no signature at all. What they do
-change is how the plant behaves.
+<p align="center">
+  PHOS learns how a plant behaves when nothing is wrong. When that changes,<br>
+  it writes down every explanation it can't rule out, and the one fact that would settle it.
+</p>
 
-PHOS learns what normal operation looks like and reports when the plant stops looking like itself.
-It does not stop at a score. Each alert carries:
+<br>
 
-1. **What happened**, in plain English, with the measurements behind it.
-2. **The explanations that are still possible.** Attack, maintenance, a fault, or not enough
-   evidence to say. The ones it cannot rule out stay on screen.
-3. **The one fact that would settle it**, for example whether a work order covered that unit at
-   that time.
+<p align="center">
+  <img src="brand/readme/alert.svg" width="100%" alt="An Atlas alert about an unexpected function code on a learned SCADA to PLC link. Assessment: unresolved, because unauthorised control activity and planned maintenance rest on exactly the same fact. What would settle it: a write from a device that has never commanded this target.">
+</p>
 
-When the data cannot support a conclusion, PHOS says so instead of guessing. That rule is enforced
-by the test suite, not left to good intentions.
+<br>
 
-## Status
+<p align="center">
+  <img src="brand/readme/chain.svg" width="100%" alt="How it reasons: observation, a reading; deviation, a departure; evidence, a weighed fact; hypothesis, an explanation; narrative, the story with its rivals kept.">
+</p>
 
-**Research pre-release.** PHOS is not deployable and has never run on a live plant. It is
-evaluated on published datasets and on simulated plants built to break it.
+<br>
 
-We publish what PHOS cannot do alongside what it can. Measurements and their limits:
-[Atlas report](docs/atlas-report.md) · [What PHOS refuses to claim, and why](docs/refusal-register.md) ·
-[How the simulated plants avoid fooling us](docs/synthetic-harness-method.md) ·
-[Design decisions](docs/adr/)
+<p align="center">
+  <img src="brand/readme/boundary.svg" width="100%" alt="What Atlas can say: it treats the plant as one machine, keeps every explanation it can't rule out, names the fact that would settle it, and stays silent when explanations tie. What it can't say yet: tell maintenance from an attack without the work order, rank its own alert queue, learn from a labelled command capture, or prove itself on a real plant.">
+</p>
 
-## The engines
+<br>
 
-- **Atlas** (industrial control systems) models a plant as one connected physical machine rather
-  than a set of independent sensors.
-- **Sentiel** (enterprise networks) models people rather than machines. Research only.
+<p align="center">
+  <a href="docs/atlas-report.md">Atlas report</a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="docs/refusal-register.md">Refusal register</a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="docs/synthetic-harness-method.md">Simulated plants</a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="docs/adr/">Design decisions</a>
+</p>
 
-Both write into one shared model, so every conclusion traces back to the observation that produced
-it.
+<br>
 
-## Run it
+### Run it
 
 ```bash
 uv sync
-uv run pytest -q          # the full suite, no datasets needed
+uv run pytest -q
 ```
 
-Public datasets are downloaded separately and never committed. See [data/README.md](data/README.md).
+The suite needs no datasets. Public corpora are downloaded separately and never committed; see
+[data/README.md](data/README.md).
 
-## How it is built
+<br>
 
-PHOS is built by one independent researcher working with AI coding agents. Every published number
-can be reproduced from this repository and the public datasets it names, and the rules that stop a
-result being overstated are written as tests that fail if anyone, human or agent, removes them.
-
-## Licence
-
-Source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE): free for research,
-study, teaching and personal use. Commercial use, including use inside a product or at a client
-site, requires a separate licence from the author.
+<p align="center">
+  <sub>Research pre-release. Not deployable, and never run on a live plant.</sub><br>
+  <sub>Atlas models industrial plants. Sentiel, its enterprise sibling, is research only.</sub><br>
+  <sub>Built by one researcher with AI coding agents. Every published number reproduces from this repository and the public datasets it names.</sub><br>
+  <sub>Source-available under the <a href="LICENSE">PolyForm Noncommercial License 1.0.0</a>. Commercial use requires a licence.</sub>
+</p>
