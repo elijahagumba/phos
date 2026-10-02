@@ -9,8 +9,10 @@ Two choices are the demo's, and both follow ``scripts/diagnose_u3_environment.py
 
 * **Every departure is promoted at full weight.** A calibrator needs labelled positives and the
   demo has none, so it uses the same certain calibrator U3 does. The brief never shows a
-  confidence, so this changes which facts reach the reasoning, not what the reader is told about
-  their strength.
+  confidence, but weights still feed the belief update, so this choice can change whether an
+  explanation overtakes the residual and therefore the assessment itself. The placeholder priors
+  and evidence strength (ADR 0008) matter as much: on a write from a never-seen device, the
+  residual still leads.
 * **Each capture is read once.** `phos.breaking.read_command_path` reads the baseline twice;
   here the dissected frames are kept and handed to the same functions, which produces identical
   evidence in about two thirds of the time.
