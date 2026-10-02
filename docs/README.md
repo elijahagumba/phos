@@ -43,6 +43,17 @@ the build fails. Of the three plants, one currently supports a detection claim.
 
 <br>
 
+### What Sentiel found, and the first open bet
+
+Sentiel, the engine that watches people, finds one of the two labelled insiders in CERT r3.1, a
+public insider-threat dataset, and cannot see the other. The reason is arithmetic: at least 14 of
+its 34 signals must move at once before anyone can be flagged. The fix, its success test and our
+own prediction that it won't be enough were all written down before any code.
+
+[Read Bet 001: the second insider →](bets/001-the-second-insider.md)
+
+<br>
+
 ### Why it is built this way
 
 More than eighty design decisions, each with what was chosen, what was rejected and what it cost.

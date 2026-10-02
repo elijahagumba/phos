@@ -35,6 +35,12 @@
 <br>
 
 <p align="center">
+  <a href="docs/bets/001-the-second-insider.md"><img src=".github/assets/readme/sentiel.svg" width="600" alt="Sentiel, the people engine, can't see the second insider. A public insider-threat dataset holds two labelled insiders and Sentiel finds one. At least 14 of its 34 signals must move at once before any alert, and 31 of the second insider's 42 days could never have raised one. The bet: let depth count, not just breadth. Success, written down before running: find both insiders in the top 48. Our own prediction: it won't be enough."></a>
+</p>
+
+<br>
+
+<p align="center">
   <a href="docs/"><b>Read the record</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
   everything PHOS has measured, including what didn't work
