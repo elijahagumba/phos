@@ -12,7 +12,11 @@ Two choices are the demo's, and both follow ``scripts/diagnose_u3_environment.py
   confidence, but weights still feed the belief update, so this choice can change whether an
   explanation overtakes the residual and therefore the assessment itself. The placeholder priors
   and evidence strength (ADR 0008) matter as much: on a write from a never-seen device, the
-  residual still leads.
+  residual still leads. Those priors are not retuned here.
+* **Command behaviour is an empirical quantile band** (ADR 0086), not the Gaussian baseline.
+  Interval and count features pile up on exact values a three-sigma band excludes. The Gaussian
+  model remains in the tree and still produces the frozen rows; only this demo fits the
+  empirical one.
 * **Each capture is read once.** `phos.breaking.read_command_path` reads the baseline twice;
   here the dissected frames are kept and handed to the same functions, which produces identical
   evidence in about two thirds of the time.
@@ -44,7 +48,7 @@ from phos.atlas import (
 from phos.atlas.command_evidence import CommandDeparture, GraphChange
 from phos.atlas.templates import atlas_library
 from phos.breaking import CommandPath
-from phos.models import GaussianBaseline
+from phos.models import BehaviouralModel, EmpiricalBaseline
 from phos.ontology import InMemoryEvidenceStore, Narrative
 from phos.reasoning import FittedPlattCalibrator, ReasoningEngine
 from phos.reasoning.analyst import NarrativeBrief, assess_narrative
@@ -142,10 +146,27 @@ class DemoResult:
     concerns_truth: bool
 
 
+def demo_command_baseline(baseline: BehaviouralModel | None = None) -> BehaviouralModel:
+    """Return the command-behaviour model the demo fits.
+
+    The demo uses `EmpiricalBaseline` (ADR 0086). A measurement of the Gaussian path may pass
+    that model instead. The ``phos demo`` command does not expose the choice, and neither call
+    changes template priors or evidence strength.
+
+    Args:
+        baseline: A model to fit in place of the empirical default, or ``None`` for the default.
+
+    Returns:
+        The model `run_demo` fits on command features.
+    """
+    return EmpiricalBaseline() if baseline is None else baseline
+
+
 def run_demo(
     scenario: Scenario = Scenario.UNAUTHORISED,
     seed: int = 11,
     on_stage: Callable[[Stage], None] | None = None,
+    behaviour: BehaviouralModel | None = None,
 ) -> DemoResult:
     """Run ``scenario`` through Atlas and return what a person needs to read.
 
@@ -153,10 +174,14 @@ def run_demo(
         scenario: The incident to stage.
         seed: Seeds both plant runs and both captures.
         on_stage: Called as each step finishes, so a terminal can show progress.
+        behaviour: Command-behaviour model to fit. ``None`` selects `EmpiricalBaseline`.
+            Passed only by the ADR 0086 measurement; the command line does not set it.
+            Named apart from the baseline capture this function dissects.
 
     Returns:
         The result, with ground truth read only after Atlas has written its brief.
     """
+    command_model = demo_command_baseline(behaviour)
     stages: list[Stage] = []
     clock = time.perf_counter()
 
@@ -188,7 +213,7 @@ def run_demo(
         registry = default_registry()
         baseline = list(dissect_capture(baseline_capture, registry))
         graph = learn_device_command_graph(baseline)
-        fitted = GaussianBaseline().fit(featurise_commands(baseline))
+        fitted = command_model.fit(featurise_commands(baseline))
         devices = len(description.control_network.nodes) if description.control_network else 0
         finish("Learning", f"{len(baseline):,} control messages between {devices} devices")
 

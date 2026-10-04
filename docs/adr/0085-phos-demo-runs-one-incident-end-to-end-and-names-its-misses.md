@@ -4,6 +4,8 @@
 - **Date:** 2026-10-02
 - **PART:** public pre-release
 - **Supersedes:** nothing. Moves no frozen row and appends nothing to `eval_runs/log.jsonl`.
+- **Superseded in part by:** [ADR 0086](0086-empirical-command-baseline.md) — the recurring
+  command-interval false alarm's disposition. The rest of this record stands.
 - **Depends on:** [ADR 0029](0029-synthetic-dataset-library-is-not-a-public-corpus.md),
   [ADR 0073](0073-a-synthetic-command-and-maintenance-harness-that-measures-nothing.md),
   [ADR 0078](0078-the-synthetic-diagnostic-environment-is-constructible-and-answers-its-four-questions.md),
@@ -62,13 +64,14 @@ actually happened beside it.
 - `attacker`: the catalogue attacker writes in the run's last minute and Atlas raises nothing about
   it: a miss. It raises the same unrelated interval incident.
 
-**Found while building it, recorded rather than fixed here.** The recurring false alarm in the
-`operator` and `attacker` runs is the Gaussian baseline on a discrete feature: in the 120-hour fit,
-the SCADA server's mean command interval is exactly 15 s in 36 of 7,197 one-minute windows, and
-the fitted band (mean plus three standard deviations, 13.15 s) excludes it. And a write from a
+**Found while building it.** The recurring false alarm in the `operator` and `attacker` runs is the
+Gaussian baseline on a discrete feature: in the 120-hour fit, the SCADA server's mean command
+interval is exactly 15 s in 36 of 7,197 one-minute windows, and the fitted band (mean plus three
+standard deviations, 13.15 s) excludes it. ADR 0086 is the disposition of that alarm: the demo now
+fits a separate empirical quantile band, and the twenty-seed count lives there. A write from a
 device that has never commanded the target, which contradicts maintenance, still leaves the
-residual leading under the placeholder priors and evidence strength (ADR 0008). Neither is tuned
-away in the demo.
+residual leading under the placeholder priors and evidence strength (ADR 0008). Those priors were
+not tuned in the demo, and ADR 0086 does not tune them either.
 
 **Not gained.** A measurement. One seed, one plant, our adversary (R4, R20). The demo is not a lead
 rate, not 0/16 or 1/4, and not a row anywhere.

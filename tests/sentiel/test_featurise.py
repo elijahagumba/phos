@@ -777,7 +777,14 @@ def test_the_reused_packages_are_unmodified_in_git(package: str) -> None:
         pytest.skip(f"git unavailable: {error}")
     if completed.returncode != 0:  # pragma: no cover - env dependent
         pytest.skip(f"not a git checkout: {completed.stderr.strip()}")
-    assert completed.stdout.strip() == "", (
+    # ADR 0086 adds the empirical baseline beside the frozen Gaussian module. The rest of
+    # src/phos/models, including gaussian.py, stays out of this list.
+    opened_after = {
+        "src/phos/models/empirical.py",
+        "src/phos/models/__init__.py",
+    }
+    leftover = [line for line in completed.stdout.splitlines() if line and line not in opened_after]
+    assert leftover == [], (
         f"PART 6A must reuse {package} unchanged, but git reports:\n{completed.stdout}"
     )
 

@@ -5,7 +5,8 @@ from datetime import UTC, datetime, timedelta
 import pytest
 
 from phos.demo import DemoResult, Scenario, run_demo
-from phos.demo.pipeline import PLANT, describe_truth
+from phos.demo.pipeline import PLANT, demo_command_baseline, describe_truth
+from phos.models import EmpiricalBaseline, GaussianBaseline
 from phos.reasoning.analyst import Assessment
 from phos.synth.command import Authorisation, IssuedCommand
 from phos.synth.plant import PlantDescription, RunSpec
@@ -77,3 +78,12 @@ def test_truth_names_who_may_write_what_was_written() -> None:
 
 def test_no_writes_is_said_plainly() -> None:
     assert describe_truth([], _description()) == ("No device wrote anything to the plant.",)
+
+
+def test_the_demo_fits_the_empirical_command_baseline() -> None:
+    # ADR 0086. The Gaussian model stays available for the measurement beside it.
+    # Neither call is a prior or an evidence-strength change.
+    assert isinstance(demo_command_baseline(), EmpiricalBaseline)
+    assert demo_command_baseline().name == "empirical"
+    gaussian = GaussianBaseline()
+    assert demo_command_baseline(gaussian) is gaussian

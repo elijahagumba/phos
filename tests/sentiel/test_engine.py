@@ -87,6 +87,18 @@ statement about the working tree rather than about the PART. Diffing against the
 from says the thing that was meant, permanently.
 """
 
+_MODELS_OPENED_AFTER_6B = frozenset(
+    {
+        "src/phos/models/empirical.py",  # ADR 0086: quantile band; Gaussian file untouched
+        "src/phos/models/__init__.py",  # ADR 0086: export the new baseline
+    }
+)
+"""Model files ADR 0086 had to open. The Gaussian, EWMA and IQR modules stay frozen at 6B.
+
+The empirical baseline is additive. `gaussian.py` is byte-identical to the 6B tree, and the
+frozen public rows still fit `GaussianBaseline`.
+"""
+
 _ONTOLOGY_OPENED_AFTER_6B = frozenset(
     {
         "src/phos/ontology/store.py",  # ADR 0038: causal edges must cite ids already on the story
@@ -311,18 +323,17 @@ class TestReuseNotFork:
         silently un-freezing the package: `store.py` (ADR 0038 causal-edge integrity),
         `narratives.py` (ADR 0045: ``overall_confidence`` optional), and `evidence.py` /
         `enums.py` / `__init__.py` (ADR 0070: the optional `facet_kind` / `facet` pair that
-        replaced summary-string parsing in Atlas's matchers).
+        replaced summary-string parsing in Atlas's matchers). Model files opened after 6B stay
+        named in `_MODELS_OPENED_AFTER_6B` (ADR 0086: the empirical command baseline and its
+        export). `gaussian.py` is not on that list.
         """
         if _git("cat-file", "-e", f"{SIXB_COMMIT}^{{commit}}") is None:  # pragma: no cover
             pytest.skip("the PART 6B commit is not in this checkout")
         changed = _git("diff", SIXB_COMMIT, "--name-only", "--", path)
         if changed is None:  # pragma: no cover - env dependent
             pytest.skip("git unavailable")
-        leftover = [
-            line
-            for line in changed.strip().splitlines()
-            if line and line not in _ONTOLOGY_OPENED_AFTER_6B
-        ]
+        opened = _ONTOLOGY_OPENED_AFTER_6B | _MODELS_OPENED_AFTER_6B
+        leftover = [line for line in changed.strip().splitlines() if line and line not in opened]
         assert leftover == [], f"PART 6C must reuse {path} unchanged, but git reports:\n{changed}"
 
     def test_atlas_reasons_with_exactly_the_templates_it_reasoned_with_before(self) -> None:

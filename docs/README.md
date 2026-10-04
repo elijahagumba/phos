@@ -52,6 +52,10 @@ own prediction that it won't be enough were all written down before any code.
 
 [Read Bet 001: the second insider →](bets/001-the-second-insider.md)
 
+The bar Atlas and Sentiel v1 must clear was fixed before any comparison was run.
+
+[Read Bet 002: what v1 has to do →](bets/002-atlas-and-sentiel-v1.md)
+
 <br>
 
 ### Why it is built this way

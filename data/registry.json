@@ -365,6 +365,581 @@
       }
     },
     {
+      "name": "hai-20.07",
+      "title": "HAI 20.07 \u2014 bug-fixed HAI 1.0 (HIL-based Augmented ICS Security Dataset)",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/icsdataset/hai/tree/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-20.07",
+      "format": "csv.gz",
+      "status": "registered-not-fetched",
+      "status_note": "Registered 2026-10-04. Not fetchable. The four files are plain git objects at the pinned commit, but each header read that day is semicolon-separated with a trailing CR, so the comma preparer used for integrated hai would misread them. HAI 1.0 (February 2020) is not a separate tree; the README says 20.07 is its bug-fixed release.",
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International",
+        "url": "http://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "explicit",
+        "evidence": "Read on 2026-10-04 at commit 2a814cebc9a66b06c9e5cd545e2d72e65d383737 of https://github.com/icsdataset/hai. The README heading '## License' states: This work is licensed under a Creative Commons Attribution-ShareAlike License (CC BY-SA 4.0), http://creativecommons.org/licenses/by-sa/4.0/. There is no LICENSE file in that tree. The same README's schema.org Dataset metadata table names CC BY 4.0 and links https://creativecommons.org/licenses/by/4.0/, dropping ShareAlike. The heading is the statement the integrated hai entry already treats as authoritative, so it is the statement recorded here. One statement covers every version; no version has its own licence file. The schema.org table is not a second confirming surface: it disagrees.",
+        "permits_research_use": true
+      },
+      "citation": "Shin, H.-K., Lee, W., Yun, J.-H., Kim, H. (2020). HAI 1.0: HIL-based Augmented ICS Security Dataset. USENIX CSET.",
+      "release": "2a814cebc9a66b06c9e5cd545e2d72e65d383737",
+      "files": [
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-20.07/train1.csv.gz",
+          "filename": "train1.csv.gz",
+          "size_bytes": 35252451,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-20.07/train2.csv.gz",
+          "filename": "train2.csv.gz",
+          "size_bytes": 26725939,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-20.07/test1.csv.gz",
+          "filename": "test1.csv.gz",
+          "size_bytes": 32813703,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-20.07/test2.csv.gz",
+          "filename": "test2.csv.gz",
+          "size_bytes": 16907509,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+        }
+      ],
+      "labels": {
+        "column": "attack",
+        "attack_values": [
+          "1"
+        ],
+        "normal_values": [
+          "0"
+        ],
+        "unlabelled_values": [],
+        "note": "Header and first data row of all four files read 2026-10-04. 64 semicolon-separated fields: time, 59 process points, attack, attack_P1, attack_P2, attack_P3. The first row of each file has attack 0. Attack windows were not enumerated."
+      },
+      "quirks": [
+        "TRAP: separator is semicolon, not comma, and rows end in CR. A comma load sees one column.",
+        "The README table's second 20.07 row repeats the names train1 and test1. The tree's second files are train2.csv.gz and test2.csv.gz.",
+        "HAI 1.0 (February 2020) is not registered as its own version: it is not in this tree."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "hai-21.03",
+      "title": "HAI 21.03 \u2014 full file list (the integrated hai entry is only train1 and test1)",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/icsdataset/hai/tree/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03",
+      "format": "csv.gz",
+      "status": "registered-not-fetched",
+      "status_note": "Registered 2026-10-04. Not fetchable, so scripts/fetch_datasets.py --all does not download the six files that are not on the integrated hai entry and does not rewrite data/hai/manifest.json. train1 and test1 are listed here so the version is complete; the prepared corpus those two files already produced stays on the entry named hai.",
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International",
+        "url": "http://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "explicit",
+        "evidence": "Read on 2026-10-04 at commit 2a814cebc9a66b06c9e5cd545e2d72e65d383737 of https://github.com/icsdataset/hai. The README heading '## License' states: This work is licensed under a Creative Commons Attribution-ShareAlike License (CC BY-SA 4.0), http://creativecommons.org/licenses/by-sa/4.0/. There is no LICENSE file in that tree. The same README's schema.org Dataset metadata table names CC BY 4.0 and links https://creativecommons.org/licenses/by/4.0/, dropping ShareAlike. The heading is the statement the integrated hai entry already treats as authoritative, so it is the statement recorded here. One statement covers every version; no version has its own licence file. The schema.org table is not a second confirming surface: it disagrees.",
+        "permits_research_use": true
+      },
+      "citation": "Shin, H.-K., Lee, W., Yun, J.-H., Min, B.-G. (2021). Two ICS Security Datasets and Anomaly Detection Contest on the HIL-based Augmented ICS Testbed. CSET '21. DOI 10.1145/3474718.3474719.",
+      "release": "2a814cebc9a66b06c9e5cd545e2d72e65d383737",
+      "files": [
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/train1.csv.gz",
+          "filename": "train1.csv.gz",
+          "size_bytes": 30651421,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/train2.csv.gz",
+          "filename": "train2.csv.gz",
+          "size_bytes": 31430645,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/train3.csv.gz",
+          "filename": "train3.csv.gz",
+          "size_bytes": 67961579,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test1.csv.gz",
+          "filename": "test1.csv.gz",
+          "size_bytes": 6149549,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test2.csv.gz",
+          "filename": "test2.csv.gz",
+          "size_bytes": 16765328,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test3.csv.gz",
+          "filename": "test3.csv.gz",
+          "size_bytes": 15477098,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test4.csv.gz",
+          "filename": "test4.csv.gz",
+          "size_bytes": 5602841,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test5.csv.gz",
+          "filename": "test5.csv.gz",
+          "size_bytes": 13199829,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+        }
+      ],
+      "labels": {
+        "column": "attack",
+        "attack_values": [
+          "1"
+        ],
+        "normal_values": [
+          "0"
+        ],
+        "unlabelled_values": [],
+        "note": "train1 and test1 were already verified for the integrated hai entry. Headers and first rows of train2, train3 and test2 through test5 were read 2026-10-04: 84 comma-separated columns ending attack, attack_P1, attack_P2, attack_P3, and the first row of each has attack 0. Attack windows in those six files were not enumerated."
+      },
+      "quirks": [
+        "84 columns on the six files read 2026-10-04: time, 79 signals, and four label columns. The README table says 78 data points; that discrepancy is already ADR 0010 for train1, and these files match train1's shape rather than the table.",
+        "attack_P1, attack_P2 and attack_P3 are numeric label columns. The integrated preparer drops them. This entry has no preparer.",
+        "Not a second prepared corpus. Frozen HAI rows stay on the integrated hai name."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "hai-22.04",
+      "title": "HAI 22.04 \u2014 HIL-based Augmented ICS Security Dataset",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/icsdataset/hai/tree/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04",
+      "format": "csv",
+      "status": "registered-not-fetched",
+      "status_note": "Registered 2026-10-04. Not fetchable. Each CSV blob is a Git LFS pointer. .gitattributes at this commit lists hai-23.05 and haiend-23.05 only, not hai-22.04, but the CSV blobs are pointers anyway. The summary texts are ordinary files and were read.",
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International",
+        "url": "http://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "explicit",
+        "evidence": "Read on 2026-10-04 at commit 2a814cebc9a66b06c9e5cd545e2d72e65d383737 of https://github.com/icsdataset/hai. The README heading '## License' states: This work is licensed under a Creative Commons Attribution-ShareAlike License (CC BY-SA 4.0), http://creativecommons.org/licenses/by-sa/4.0/. There is no LICENSE file in that tree. The same README's schema.org Dataset metadata table names CC BY 4.0 and links https://creativecommons.org/licenses/by/4.0/, dropping ShareAlike. The heading is the statement the integrated hai entry already treats as authoritative, so it is the statement recorded here. One statement covers every version; no version has its own licence file. The schema.org table is not a second confirming surface: it disagrees.",
+        "permits_research_use": true
+      },
+      "citation": "Shin, H.-K., Lee, W., Choi, S., Yun, J.-H., Min, B.-G. (2023). HAI security datasets. https://github.com/icsdataset/hai.",
+      "release": "2a814cebc9a66b06c9e5cd545e2d72e65d383737",
+      "files": [
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/train1.csv",
+          "filename": "train1.csv",
+          "size_bytes": 53190281,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "63383690ffc5344ba68a019c7000854a4d341a22d743ac035f5207072a197b33"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/train2.csv",
+          "filename": "train2.csv",
+          "size_bytes": 114199064,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "f496991bbef4a6ef5881505aa242fe05cc500b4d5c4cea0d2cf1cf79e4e99285"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/train3.csv",
+          "filename": "train3.csv",
+          "size_bytes": 69953332,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "4910c49dc07cce238e05c449972a30b7588139ef92d36067f32aadd820e63de7"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/train4.csv",
+          "filename": "train4.csv",
+          "size_bytes": 47917707,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "81a1c3a8e1726c92c9253602b8628b72d0508a9c260ff21109433ad2b82687bf"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/train5.csv",
+          "filename": "train5.csv",
+          "size_bytes": 131777589,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "298468467991e73689b61f3cd3975ca21685ef8ba5b5ced4d6a7874f304d9cf7"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/train6.csv",
+          "filename": "train6.csv",
+          "size_bytes": 143438209,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "717b37b7b88b40885cb6994c9fe00d08a941ec0c3c73801e378f84e846ae35d4"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/test1.csv",
+          "filename": "test1.csv",
+          "size_bytes": 50536532,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "19627f5dac40c3a5039e7468cfd6c6e4ccd37a85055671e8c349b6bce5f50ed1"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/test2.csv",
+          "filename": "test2.csv",
+          "size_bytes": 46616720,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "b2ba5d6665deee1c86870a3970417b51a3e640a2cc18b9f8de2d6d8a21979923"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/test3.csv",
+          "filename": "test3.csv",
+          "size_bytes": 35066591,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "f253f1c78a4a4654d843f8f670a24caa7a72ac91e4418b4505009822b3c55940"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/test4.csv",
+          "filename": "test4.csv",
+          "size_bytes": 72931406,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "2d2e99ed3364d75d27ab84f0a6523496f7295decf363c90b8a1b9b84e1070376"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train1.csv).txt",
+          "filename": "summary(train1.csv).txt",
+          "size_bytes": 1373,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train2.csv).txt",
+          "filename": "summary(train2.csv).txt",
+          "size_bytes": 1374,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train3.csv).txt",
+          "filename": "summary(train3.csv).txt",
+          "size_bytes": 1373,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train4.csv).txt",
+          "filename": "summary(train4.csv).txt",
+          "size_bytes": 1373,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train5.csv).txt",
+          "filename": "summary(train5.csv).txt",
+          "size_bytes": 1374,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train6.csv).txt",
+          "filename": "summary(train6.csv).txt",
+          "size_bytes": 1374,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(test1.csv).txt",
+          "filename": "summary(test1.csv).txt",
+          "size_bytes": 2156,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(test2.csv).txt",
+          "filename": "summary(test2.csv).txt",
+          "size_bytes": 2744,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(test3.csv).txt",
+          "filename": "summary(test3.csv).txt",
+          "size_bytes": 2336,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(test4.csv).txt",
+          "filename": "summary(test4.csv).txt",
+          "size_bytes": 3154,
+          "role": "summary",
+          "note": "Publisher summary. Not a series."
+        }
+      ],
+      "labels": {
+        "column": "Attack",
+        "attack_values": [
+          "1"
+        ],
+        "normal_values": [
+          "0"
+        ],
+        "unlabelled_values": [],
+        "note": "NOT verified against a CSV. The publisher summaries, which were read, name the last column Attack and do not list attack_P1, attack_P2 or attack_P3. The README says those per-process columns were dropped from 22.04. Train summaries say 0 attacks. Test summaries say 7, 17, 10 and 24 attacks."
+      },
+      "quirks": [
+        "CSV payloads were not read. Each CSV blob is a Git LFS pointer of about 130 bytes; size_bytes and sha256 are the pointer's size and oid.",
+        "gitattributes at this commit does not mention hai-22.04, so a clone may not smudge these pointers even though the blobs are pointers.",
+        "Summaries are plain text and were read. They are the source of the Attack column name and the attack counts above."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "hai-23.05",
+      "title": "HAI 23.05 \u2014 HIL-based Augmented ICS Security Dataset",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/icsdataset/hai/tree/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05",
+      "format": "csv",
+      "status": "registered-not-fetched",
+      "status_note": "Registered 2026-10-04. Not fetchable. .gitattributes marks hai-23.05/**/* as Git LFS, and every blob read that day was a pointer. No CSV and no summary payload was read. The README HTML table links the directory haiend-23.05 under the words HAI 23.05 and hai-23.05 under the words HAIEnd 23.05. This entry follows the directory name.",
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International",
+        "url": "http://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "explicit",
+        "evidence": "Read on 2026-10-04 at commit 2a814cebc9a66b06c9e5cd545e2d72e65d383737 of https://github.com/icsdataset/hai. The README heading '## License' states: This work is licensed under a Creative Commons Attribution-ShareAlike License (CC BY-SA 4.0), http://creativecommons.org/licenses/by-sa/4.0/. There is no LICENSE file in that tree. The same README's schema.org Dataset metadata table names CC BY 4.0 and links https://creativecommons.org/licenses/by/4.0/, dropping ShareAlike. The heading is the statement the integrated hai entry already treats as authoritative, so it is the statement recorded here. One statement covers every version; no version has its own licence file. The schema.org table is not a second confirming surface: it disagrees.",
+        "permits_research_use": true
+      },
+      "citation": "Shin, H.-K., Lee, W., Choi, S., Yun, J.-H., Min, B.-G. (2023). HAI security datasets. https://github.com/icsdataset/hai.",
+      "release": "2a814cebc9a66b06c9e5cd545e2d72e65d383737",
+      "files": [
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/hai-train1.csv",
+          "filename": "hai-train1.csv",
+          "size_bytes": 162418984,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "53007b0ba604fbf338e7ac2e08cd81d874b5d1388f3aecb213ddcba5bf2bec4a"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/hai-train2.csv",
+          "filename": "hai-train2.csv",
+          "size_bytes": 169121615,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "0e520e82bf78a661ab19ce4967f3c766bd809820f457a9c90c365102d4534c56"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/hai-train3.csv",
+          "filename": "hai-train3.csv",
+          "size_bytes": 72774793,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "bfcec2dc05adea103e7491546b0e28268faaa26d3cc717d10f4595c94b81e85d"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/hai-train4.csv",
+          "filename": "hai-train4.csv",
+          "size_bytes": 114494940,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "56658c83657d42a65db982b864362e0d0ffeb96d1f7b357d5e76e3a5c522d940"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/hai-test1.csv",
+          "filename": "hai-test1.csv",
+          "size_bytes": 31255559,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "78c7f1d4de1f2ab9ccc2f8c719f80f831033543adb0c81d0d78f84f40838d4be"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/hai-test2.csv",
+          "filename": "hai-test2.csv",
+          "size_bytes": 132946575,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "b2b8dd295aefd87e39260fe43cb4c73ee86d6264b0ac4b0761e7efb0c2b545c3"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/label-test1.csv",
+          "filename": "label-test1.csv",
+          "size_bytes": 1242017,
+          "role": "labels",
+          "note": "Label file stored separately from the series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "eaf69edb9c5834bc393afd7bf658b5e408d34fd7bfc3261f80516765fb818fbc"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/label-test2.csv",
+          "filename": "label-test2.csv",
+          "size_bytes": 4500018,
+          "role": "labels",
+          "note": "Label file stored separately from the series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "8090c44981176e39b0f01a7126a80248ac0b93355c00f9db4d4e2f2106452b92"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/summary_label1.txt",
+          "filename": "summary_label1.txt",
+          "size_bytes": 1591,
+          "role": "summary",
+          "note": "Publisher summary. Not a series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "9d8fb32ee1e816c88f93c8d661f90a7736802582d3572a1e1ebd953783353da6"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05/summary_label2.txt",
+          "filename": "summary_label2.txt",
+          "size_bytes": 2911,
+          "role": "summary",
+          "note": "Publisher summary. Not a series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "b564024a105981415a81dd1b338a48ad7ad5be511849884232540f1a6550e5c1"
+        }
+      ],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "Label column not read. Every file in this directory is a Git LFS pointer."
+      },
+      "quirks": [
+        "No payload was read. Not read: series, label files and summary texts are all Git LFS pointers.",
+        "The README's HTML anchors swap this directory with haiend-23.05. Directory names are what this entry follows."
+      ],
+      "prepare": null
+    },
+    {
+      "name": "haiend-23.05",
+      "title": "HAIEnd 23.05 \u2014 boiler DCS internal-logic tags, collected with HAI 23.05",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/icsdataset/hai/tree/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05",
+      "format": "csv",
+      "status": "registered-not-fetched",
+      "status_note": "Registered 2026-10-04. Not fetchable. .gitattributes marks haiend-23.05/**/* as Git LFS, and every blob read that day was a pointer. The README says HAIEnd collects tag values for the boiler DCS internal logic during the same experiment as HAI 23.05.",
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International",
+        "url": "http://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "explicit",
+        "evidence": "Read on 2026-10-04 at commit 2a814cebc9a66b06c9e5cd545e2d72e65d383737 of https://github.com/icsdataset/hai. The README heading '## License' states: This work is licensed under a Creative Commons Attribution-ShareAlike License (CC BY-SA 4.0), http://creativecommons.org/licenses/by-sa/4.0/. There is no LICENSE file in that tree. The same README's schema.org Dataset metadata table names CC BY 4.0 and links https://creativecommons.org/licenses/by/4.0/, dropping ShareAlike. The heading is the statement the integrated hai entry already treats as authoritative, so it is the statement recorded here. One statement covers every version; no version has its own licence file. The schema.org table is not a second confirming surface: it disagrees.",
+        "permits_research_use": true
+      },
+      "citation": "Shin, H.-K., Lee, W., Choi, S., Yun, J.-H., Min, B.-G. (2023). HAI security datasets. https://github.com/icsdataset/hai.",
+      "release": "2a814cebc9a66b06c9e5cd545e2d72e65d383737",
+      "files": [
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/end-train1.csv",
+          "filename": "end-train1.csv",
+          "size_bytes": 256552242,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "112ab5a553e53b14f48e6fc7c8b81a844ee82c2bf3284cc422345e129b3af476"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/end-train2.csv",
+          "filename": "end-train2.csv",
+          "size_bytes": 266924893,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "7f2367efabbb2fa5a65ef1e95c06b687c47836577f7b2e7fbee6238e00e41855"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/end-train3.csv",
+          "filename": "end-train3.csv",
+          "size_bytes": 115378733,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "92dbb6a92a4f05cbd5cf9d6d9747a9e9938d544ef7fe1edb1954cabce52a4c08"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/end-train4.csv",
+          "filename": "end-train4.csv",
+          "size_bytes": 180186249,
+          "role": "train",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "b995dabac6321a34e5b69bdd01abec08f7f844dbdc489bdb5f9935a8da0b2038"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/end-test1.csv",
+          "filename": "end-test1.csv",
+          "size_bytes": 49351620,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "e1929829ce3437281eddb97f549121ebc4676384a390136c2b052ce649eb8d58"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/end-test2.csv",
+          "filename": "end-test2.csv",
+          "size_bytes": 209737755,
+          "role": "test",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "587dc7a73eb92dd119dc7e3f902d2fa308b8af47352d1aa388ea5ef9da63390c"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/label-test1.csv",
+          "filename": "label-test1.csv",
+          "size_bytes": 1242017,
+          "role": "labels",
+          "note": "Label file stored separately from the series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "eaf69edb9c5834bc393afd7bf658b5e408d34fd7bfc3261f80516765fb818fbc"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/label-test2.csv",
+          "filename": "label-test2.csv",
+          "size_bytes": 4500018,
+          "role": "labels",
+          "note": "Label file stored separately from the series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "8090c44981176e39b0f01a7126a80248ac0b93355c00f9db4d4e2f2106452b92"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/summary_label1.txt",
+          "filename": "summary_label1.txt",
+          "size_bytes": 1591,
+          "role": "summary",
+          "note": "Publisher summary. Not a series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "9d8fb32ee1e816c88f93c8d661f90a7736802582d3572a1e1ebd953783353da6"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/haiend-23.05/summary_label2.txt",
+          "filename": "summary_label2.txt",
+          "size_bytes": 2911,
+          "role": "summary",
+          "note": "Publisher summary. Not a series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "sha256": "b564024a105981415a81dd1b338a48ad7ad5be511849884232540f1a6550e5c1"
+        }
+      ],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "Label column not read. label-test1.csv and label-test2.csv have the same Git LFS oid as hai-23.05's label files of the same name, and the two summary texts match the same way. The series files do not."
+      },
+      "quirks": [
+        "No payload was read. Not read: every blob is a Git LFS pointer.",
+        "label-test1.csv, label-test2.csv, summary_label1.txt and summary_label2.txt have the same oid as the hai-23.05 files of those names.",
+        "The README's HTML anchors call this directory HAI 23.05. The prose and the directory name call it HAIEnd."
+      ],
+      "prepare": null
+    },
+    {
       "name": "morris-power-system",
       "title": "Morris / Mississippi State \u2014 Power System Attack Datasets",
       "domain": "ATLAS",
@@ -678,14 +1253,14 @@
       "domain": "ATLAS",
       "homepage": "https://itrust.sutd.edu.sg/itrust-labs_datasets/",
       "format": "csv",
-      "status": "operator-provided",
-      "status_note": "NOT FETCHABLE by this script. Access requires signing and submitting a request form, which the acquisition rules forbid working around. If the operator obtains it, it is a labelled CSV time series and drops straight into LabelledCsvAdapter \u2014 add a registry entry with verified label semantics at that point.",
+      "status": "skipped-non-commercial-licence",
+      "status_note": "NOT REQUESTED. Reported 2026-10-03 by the operator from iTrust's request and terms-of-usage pages: access is by application with an institutional email address (personal addresses are rejected), use is non-commercial research only, the data may not be shared with anyone, publicly or privately, and publications must credit 'iTrust, Centre for Research in Cyber Security, Singapore University of Technology and Design'. Not yet read in this repository: the iTrust site is unreachable from the build environment, so confirm by reading the terms before relying on this either way. PHOS is a company and every public number must reproduce from the public repository, so these corpora can carry neither a commercial claim nor a public row. A commercial research arrangement would have to be agreed with iTrust directly.",
       "license": {
         "spdx": null,
-        "name": "Per-requester agreement signed with iTrust",
-        "url": "https://itrust.sutd.edu.sg/itrust-labs_datasets/",
-        "status": "form-required",
-        "evidence": "Access is gated behind a dataset request form; no anonymous direct download exists.",
+        "name": "iTrust custom research licence (per-requester agreement)",
+        "url": "https://www.sutd.edu.sg/itrust/itrust-labs/datasets/terms-of-usage/",
+        "status": "reported-not-read",
+        "evidence": "Operator's reading of the iTrust request page and terms of usage, 2026-10-03: non-commercial research use, institutional applicants, no redistribution, mandatory attribution. Not yet read in this repository.",
         "permits_research_use": null
       },
       "citation": "Goh, J., Adepu, S., Junejo, K. N., Mathur, A. (2016). A Dataset to Support Research in the Design of Secure Water Treatment Systems.",

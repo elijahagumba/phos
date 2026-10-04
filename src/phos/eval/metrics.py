@@ -40,14 +40,19 @@ from datetime import datetime, timedelta
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from phos.eval.budget import OPERATOR_SHIFT, recall_within_budget
 from phos.eval.datasets import Dataset, LabelledInterval
 from phos.eval.detectors import Detection
+from phos.eval.etapr import EtaPrResult, etapr
 
 __all__ = [
+    "OPERATOR_SHIFT",
+    "EtaPrResult",
     "OperatingPoint",
     "ReliabilityBin",
     "brier_score",
     "detection_latency",
+    "etapr",
     "expected_calibration_error",
     "f1",
     "false_positive_rate",
@@ -56,6 +61,7 @@ __all__ = [
     "precision",
     "precision_at_budget",
     "recall_sample",
+    "recall_within_budget",
     "reliability_table",
     "threshold_sweep",
     "unscored_alerts",
