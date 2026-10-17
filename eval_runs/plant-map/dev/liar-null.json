@@ -1,0 +1,24 @@
+{
+  "adr": "0109's control, chance diagnosis for 0123 \u00a79.2",
+  "champion": {
+    "runs": 90,
+    "passes": 9,
+    "by_plant": {
+      "water-treatment": 0,
+      "power-generation": 6,
+      "batch-reactor": 3
+    }
+  },
+  "challenger": {
+    "runs": 90,
+    "passes": 15,
+    "by_plant": {
+      "water-treatment": 3,
+      "power-generation": 5,
+      "batch-reactor": 7
+    }
+  },
+  "settings": "DEFAULT_SETTINGS (ADR 0123)",
+  "scorer_sha256": "7f9a47793bcb7492e74d846992d627f0db119a2704ea0f9e2c7a6c9b77bfbd42",
+  "written": "2026-10-15T09:49:21+00:00"
+}

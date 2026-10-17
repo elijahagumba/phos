@@ -1,0 +1,812 @@
+{
+  "adr": "0123 \u00a78, \u00a79.7, \u00a79.8, \u00a79.9; ADR 0128",
+  "summary": {
+    "training": [
+      "normal-96001",
+      "normal-96002",
+      "normal-96003"
+    ],
+    "liar_caught": {
+      "events": 20,
+      "caught": 18
+    },
+    "liar_champion_caught": {
+      "events": 20,
+      "champion_caught": 11
+    },
+    "liar_named_right": 7,
+    "liar_named_wrong": 0,
+    "true_reading_events": {
+      "events": 50,
+      "caught": 20
+    },
+    "true_reading_named_a_liar": 3,
+    "true_reading_plant_changed": 3,
+    "map_links": [
+      "tank_level_value -> tank_input_valve_status (level, 60 s, 5 s, share 0.633)",
+      "tank_input_valve_status -> tank_level_value (increment, 5 s, share 0.826)",
+      "bottle_level_value -> tank_level_value (increment, 60 s, 15 s, share 0.373)",
+      "conveyor_belt_engine_status -> tank_level_value (increment, 15 s, 60 s, share 0.371)",
+      "tank_output_flow_value -> tank_level_value (increment, 15 s, share 0.087)",
+      "bottle_level_value -> tank_output_valve_status (level, 15 s, share 0.554)",
+      "bottle_distance_to_filler_value -> tank_output_valve_status (level, 15 s, share 0.548)",
+      "conveyor_belt_engine_status -> tank_output_valve_status (level, 60 s, 120 s, share 0.246)",
+      "tank_output_flow_value -> tank_output_valve_status (level, 30 s, share 0.159)",
+      "conveyor_belt_engine_status -> tank_output_flow_value (increment, 15 s, share 0.165)",
+      "bottle_distance_to_filler_value -> tank_output_flow_value (increment, 15 s, share 0.180)",
+      "bottle_level_value -> tank_output_flow_value (increment, 5 s, 15 s, share 0.232)",
+      "tank_output_valve_status -> tank_output_flow_value (increment, 60 s, share 0.174)",
+      "bottle_level_value -> conveyor_belt_engine_status (level, 60 s, 15 s, share 0.560)",
+      "bottle_distance_to_filler_value -> conveyor_belt_engine_status (level, 15 s, 120 s, share 0.294)",
+      "tank_output_valve_status -> conveyor_belt_engine_status (level, 60 s, 15 s, share 0.303)",
+      "conveyor_belt_engine_status -> bottle_level_value (increment, 900 s, share 0.060)",
+      "bottle_distance_to_filler_value -> bottle_level_value (increment, 15 s, share 0.033)",
+      "conveyor_belt_engine_status -> bottle_distance_to_filler_value (increment, 900 s, share 0.050)"
+    ]
+  },
+  "events": [
+    {
+      "run": "mixed-96011",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96011",
+      "kind": "replay",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96011",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96011",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": "tank_level_value",
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96011",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96011",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96011",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 0.9347258485639687
+    },
+    {
+      "run": "mixed-96011",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96012",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96012",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96012",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": "tank_level_value",
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96012",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 0.6026058631921825,
+      "covered": 0.6091205211726385
+    },
+    {
+      "run": "mixed-96012",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": true,
+      "champion_caught": false,
+      "named": "tank_output_valve_status",
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96012",
+      "kind": "replay",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96012",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96012",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96013",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96013",
+      "kind": "replay",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": "tank_output_valve_status",
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96013",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": true
+    },
+    {
+      "run": "mixed-96013",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96013",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96013",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96013",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96013",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": "tank_level_value",
+      "plant_changed": false,
+      "near_share": 0.7966507177033493,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96014",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96014",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": true,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96014",
+      "kind": "replay",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96014",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96014",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96014",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96014",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96014",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96015",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": "tank_level_value",
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96015",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96015",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": true,
+      "champion_caught": true,
+      "named": "tank_level_value",
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96015",
+      "kind": "replay",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96015",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 0.28091872791519434,
+      "covered": 0.28975265017667845
+    },
+    {
+      "run": "mixed-96015",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96015",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96015",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96016",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96016",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96016",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": "tank_level_value",
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96016",
+      "kind": "replay",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96016",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96016",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 0.33966745843230406,
+      "covered": 0.43942992874109266
+    },
+    {
+      "run": "mixed-96016",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96016",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96017",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96017",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96017",
+      "kind": "replay",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96017",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96017",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": "tank_level_value",
+      "plant_changed": false,
+      "near_share": 0.8484848484848485,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96017",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96017",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 0.0,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96017",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96018",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96018",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96018",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": "tank_level_value",
+      "plant_changed": false,
+      "near_share": 0.484375,
+      "covered": 0.496875
+    },
+    {
+      "run": "mixed-96018",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96018",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 0.0,
+      "covered": 0.0
+    },
+    {
+      "run": "mixed-96018",
+      "kind": "replay",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96018",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96018",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96019",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96019",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96019",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96019",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96019",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": true
+    },
+    {
+      "run": "mixed-96019",
+      "kind": "replay",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96019",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96019",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 0.765807962529274,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96020",
+      "kind": "replay",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96020",
+      "kind": "mimic_maintenance",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96020",
+      "kind": "rogue_command",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": true
+    },
+    {
+      "run": "mixed-96020",
+      "kind": "maintenance",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96020",
+      "kind": "liar_freeze",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 0.6,
+      "covered": 1.0
+    },
+    {
+      "run": "mixed-96020",
+      "kind": "setpoint",
+      "label": "benign",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96020",
+      "kind": "recon",
+      "label": "attack",
+      "caught": false,
+      "champion_caught": false,
+      "named": null,
+      "plant_changed": false
+    },
+    {
+      "run": "mixed-96020",
+      "kind": "liar_offset",
+      "label": "attack",
+      "caught": true,
+      "champion_caught": true,
+      "named": null,
+      "plant_changed": false,
+      "near_share": 1.0,
+      "covered": 1.0
+    }
+  ],
+  "settings": "{\"detector\": \"atlas-plant-map-v1\", \"map\": {\"min_gain\": 0.03}}",
+  "scorer_sha256": "7f9a47793bcb7492e74d846992d627f0db119a2704ea0f9e2c7a6c9b77bfbd42",
+  "written": "2026-10-15T12:34:09+00:00"
+}

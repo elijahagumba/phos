@@ -1,0 +1,122 @@
+{
+  "adr": "0133 (ADR 0130 falsifiers 3, 4, 5)",
+  "synthetic": {
+    "water-treatment": {
+      "caught": 26,
+      "named_right": 0,
+      "named_wrong": 0,
+      "target": "clearwell_level_m",
+      "target_placed": true,
+      "trusted_drivers_of_target": [
+        "distribution_flow_m3ph",
+        "raw_inflow_m3ph"
+      ],
+      "trusted_targets": 7,
+      "full_links": 31,
+      "stable_links": 9,
+      "stable": {
+        "kept": 9,
+        "recovered_share": 0.21052631578947367,
+        "on_a_declared_path_share": 0.7777777777777778
+      }
+    },
+    "power-generation": {
+      "caught": 30,
+      "named_right": 0,
+      "named_wrong": 0,
+      "target": "feeder_voltage_kv",
+      "target_placed": true,
+      "trusted_drivers_of_target": [
+        "bus_voltage_kv",
+        "feeder_current_a",
+        "tap_position"
+      ],
+      "trusted_targets": 10,
+      "full_links": 48,
+      "stable_links": 40,
+      "stable": {
+        "kept": 40,
+        "recovered_share": 0.6363636363636364,
+        "on_a_declared_path_share": 0.575
+      }
+    },
+    "batch-reactor": {
+      "caught": 29,
+      "named_right": 0,
+      "named_wrong": 21,
+      "target": "reactor_temp_c",
+      "target_placed": true,
+      "trusted_drivers_of_target": [
+        "agitator_power_kw",
+        "jacket_temp_c"
+      ],
+      "trusted_targets": 10,
+      "full_links": 63,
+      "stable_links": 40,
+      "stable": {
+        "kept": 40,
+        "recovered_share": 0.5909090909090909,
+        "on_a_declared_path_share": 0.525
+      }
+    }
+  },
+  "hai-20.07": {
+    "full_links": 73,
+    "stable_links": 23,
+    "stable_share": 0.3150684931506849,
+    "trusted_targets": [
+      "P1_FCV01D",
+      "P1_FCV02D",
+      "P1_FCV03D",
+      "P1_LCV01D",
+      "P1_PCV01D",
+      "P1_PCV02D"
+    ]
+  },
+  "icssim": {
+    "a_pairs": [
+      "bottle_distance_to_filler_value -> conveyor_belt_engine_status",
+      "bottle_distance_to_filler_value -> tank_output_valve_status",
+      "bottle_level_max -> conveyor_belt_engine_status",
+      "bottle_level_max -> tank_output_valve_status",
+      "bottle_level_value -> conveyor_belt_engine_status",
+      "bottle_level_value -> tank_output_valve_status",
+      "tank_level_max -> tank_input_valve_status",
+      "tank_level_value -> tank_input_valve_status",
+      "tank_output_flow_value -> conveyor_belt_engine_status"
+    ],
+    "b_pairs": [
+      "tank_output_valve_mode -> bottle_distance_to_filler_value",
+      "tank_output_valve_mode -> bottle_level_value",
+      "tank_output_valve_mode -> conveyor_belt_engine_status",
+      "tank_output_valve_mode -> tank_output_flow_value",
+      "tank_output_valve_mode -> tank_output_valve_status"
+    ],
+    "c_pairs": [
+      "bottle_distance_to_filler_value -> tank_output_valve_status",
+      "bottle_level_max -> tank_input_valve_status",
+      "bottle_level_max -> tank_output_valve_status",
+      "bottle_level_value -> tank_output_valve_status",
+      "tank_output_flow_value -> conveyor_belt_engine_status"
+    ],
+    "trusted_targets": [
+      "conveyor_belt_engine_status",
+      "tank_input_valve_status",
+      "tank_output_valve_status"
+    ],
+    "target_placed": false,
+    "caught": 20,
+    "named_right": 0,
+    "named_wrong": 0
+  },
+  "naming_pooled": {
+    "caught": 105,
+    "named_right": 0,
+    "named_wrong": 21,
+    "right_share": 0.0,
+    "wrong_share": 0.2
+  },
+  "settings": "DEFAULT_SETTINGS (ADR 0123)",
+  "scorer_sha256": "55c1adc432b76f6b4d2ec7f452b79ab5a2e8eabe357b7bef35304d53aa3277c4",
+  "written": "2026-10-15T12:58:38+00:00"
+}

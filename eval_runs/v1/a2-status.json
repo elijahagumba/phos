@@ -1,0 +1,101 @@
+{
+  "detector": "atlas-v1-consistency",
+  "rows": [
+    {
+      "corpus": "hai-20.07",
+      "exposure": "development: the candidate was tuned against it",
+      "consistency_caught": 37,
+      "attacks": 38,
+      "consistency_source": "this run",
+      "best_grouped_checked_opponent": "g1-grouped:simple-minmax",
+      "opponent_caught": 32,
+      "opponent_source": "ADR 0100",
+      "strictly_higher": true,
+      "chance": {
+        "draws": 500,
+        "mean_caught": 4.478,
+        "percentile_95": 8.0,
+        "max_caught": 11
+      },
+      "above_every_chance_draw": true
+    },
+    {
+      "corpus": "hai-21.03",
+      "exposure": "held out once by the sandbox, now seen",
+      "consistency_caught": 42,
+      "attacks": 50,
+      "consistency_source": "this run",
+      "best_grouped_checked_opponent": "g1-grouped:simple-minmax",
+      "opponent_caught": 36,
+      "opponent_source": "ADR 0100",
+      "strictly_higher": true,
+      "chance": {
+        "draws": 500,
+        "mean_caught": 2.728,
+        "percentile_95": 5.0499999999999545,
+        "max_caught": 8
+      },
+      "above_every_chance_draw": true
+    },
+    {
+      "corpus": "hai-22.04",
+      "exposure": "scored once (ADR 0104), now seen",
+      "consistency_caught": 53,
+      "attacks": 58,
+      "consistency_source": "ADR 0104",
+      "best_grouped_checked_opponent": "g1-grouped:simple-minmax",
+      "opponent_caught": 10,
+      "opponent_source": "ADR 0102",
+      "strictly_higher": true,
+      "chance": {
+        "draws": 500,
+        "mean_caught": 3.808,
+        "percentile_95": 7.0,
+        "max_caught": 9
+      },
+      "above_every_chance_draw": true
+    },
+    {
+      "corpus": "hai-23.05",
+      "exposure": "scored once (ADR 0104), now seen",
+      "consistency_caught": 36,
+      "attacks": 52,
+      "consistency_source": "ADR 0104",
+      "best_grouped_checked_opponent": "g1-grouped:simple-minmax",
+      "opponent_caught": 6,
+      "opponent_source": "ADR 0102",
+      "strictly_higher": true,
+      "chance": {
+        "draws": 500,
+        "mean_caught": 3.06,
+        "percentile_95": 6.0,
+        "max_caught": 8
+      },
+      "above_every_chance_draw": true
+    },
+    {
+      "corpus": "batadal",
+      "exposure": "scored once (ADR 0113), now seen",
+      "consistency_caught": 5,
+      "attacks": 5,
+      "consistency_source": "ADR 0113",
+      "best_grouped_checked_opponent": "g1-grouped:simple-minmax",
+      "opponent_caught": 3,
+      "opponent_source": "ADR 0100",
+      "strictly_higher": true,
+      "chance": {
+        "draws": 500,
+        "mean_caught": 5.0,
+        "percentile_95": 5.0,
+        "max_caught": 5
+      },
+      "above_every_chance_draw": false
+    }
+  ],
+  "strictly_higher": 5,
+  "strictly_higher_and_above_every_chance_draw": 4,
+  "sandbox_reproduced": {
+    "hai-20.07": true,
+    "hai-21.03": true
+  }
+}

@@ -898,6 +898,7 @@ _REAL_EVENTS = 400_000
 """Enough real rows to cross every log and several weeks; far short of the 13 GB corpus."""
 
 
+@pytest.mark.slow
 @pytest.mark.skipif(
     MANIFEST_DATA is None,
     reason=(

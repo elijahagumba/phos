@@ -1,0 +1,43 @@
+{
+  "id": "water-liar",
+  "opened_at": "2026-10-12T20:00:00+00:00",
+  "learning_record_ids": [
+    "dec_ee68f7be7927",
+    "dec_2b0ebc1db8d4",
+    "dec_a2f819d18178",
+    "dec_d42a01db8767",
+    "dec_6ca9467b4e63"
+  ],
+  "mechanism": "inlet_subthreshold",
+  "capability": "The consistency inlet sees a falsified level that stops integrating its flows, so the T1 assembly can say the readings, not the plant, are wrong.",
+  "competing_explanations": [
+    "The relation is right but the attack is too small at these subtleties to see on any window.",
+    "The level's relation to its flows is not linear at a fixed lag, so no lag set captures it.",
+    "The calibrator, not the relation, is the bottleneck once a crossing exists (water 0.6 crosses at 1.344 with no calibrator)."
+  ],
+  "hypotheses": [
+    {
+      "id": "longer-lags",
+      "statement": "The frozen lags reach back one minute; a level that stops following its flows only disagrees with them over several minutes.",
+      "change": "Add lags of several minutes to the frozen set (0, 5, 15, 30, 60 s). Nothing else."
+    },
+    {
+      "id": "slower-detrend",
+      "statement": "Detrending subtracts the previous hour's median, which absorbs a lie held steady at a fixed deficit.",
+      "change": "Lengthen detrend_window (and, if needed, detrend_step). Nothing else."
+    },
+    {
+      "id": "both",
+      "statement": "Longer memory and slower detrending are each too weak alone, and together are enough.",
+      "change": "One lag extension and one detrend extension together."
+    }
+  ],
+  "runs_per_hypothesis": 6,
+  "expected_benefit": "Water-treatment liar runs pass on development seeds where the champion passes none, without losing a run the champion passes.",
+  "expected_regressions": "Longer lags may blur fast attacks on HAI 20.07; slower detrending may let normal drift through as false alarms, costing budget on HAI 20.07 and on the other liar plants.",
+  "regression_slices": [
+    "liar: every (plant, seed, subtlety) the champion passes on ARENA_LIAR_SEEDS",
+    "hai-20.07: recall within budget at least the champion's 37/38"
+  ],
+  "evaluation_plan": "Each attempt is scored on ARENA_LIAR_SEEDS and HAI 20.07 by scripts/arena.py. A candidate qualifies when it passes more water-treatment runs than the champion, regressions(champion, candidate) is empty, and HAI 20.07 is at least 37/38. Among qualifying candidates the one chosen has the most water passes, then the most passes in total, then the fewest changed window fields. The chosen candidate is then scored once on RED_TEAM_SEEDS beside the champion, and must again pass more water runs with no regression. Only then is it proposed for ADR 0117's gate (validation corpora once, with Elijah's acceptance) and for a declared T1 held-out run (ADR 0114). If none qualifies, that is the result, and the 360 runs stay held."
+}

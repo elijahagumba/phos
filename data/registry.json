@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "description": "Curated public corpora PHOS is evaluated against. This file is committed; the data it describes never is. Every entry records where the corpus came from, the licence that permits its use, and the label semantics that were verified by reading the actual file rather than the paper.",
   "verified_on": "2026-08-19",
   "size_confirm_threshold_bytes": 314572800,
@@ -12,6 +12,21 @@
       "format": "csv",
       "status": "integrated",
       "status_note": "Fitted on the attack-free training corpus and scored on the labelled one, which is how the corpus is designed to be used.",
+      "role": "validation",
+      "seen": [
+        {
+          "by": "G1 Atlas and checked opponents",
+          "evidence": "ADR 0095"
+        },
+        {
+          "by": "atlas-v1-consistency",
+          "evidence": "ADR 0113"
+        },
+        {
+          "by": "atlas-plant-map-v1 (attempt 6, ADR 0117 gate look 1)",
+          "evidence": "ADR 0143"
+        }
+      ],
       "license": {
         "spdx": "CC-BY-4.0",
         "name": "Creative Commons Attribution 4.0 International",
@@ -94,6 +109,13 @@
       "format": "csv",
       "status": "integrated",
       "status_note": "Licence CONFIRMED, payload acquired, and prepared as one mixture family (ternary_butan-1-ol+propan-2-ol+water) fitted on the 15 experiments both label sources call clean. See docs/data-campaign/manifests/batch-distillation.md and ADR 0024 / ADR 0025. ADR 0082 resolves the label classes from the descriptor paper: only class 2 is scored as anomalous, and classes 1 and 3 are unscored (removed from the false-positive denominator and from recall). Enforced in preparation and in the metrics (see labels.enforcement).",
+      "role": "development",
+      "seen": [
+        {
+          "by": "Atlas (designed protocol)",
+          "evidence": "eval_runs/log.jsonl: batch-distillation[designed]; ADR 0082"
+        }
+      ],
       "referral": {
         "by": "Indra Jungjohann (co-author of the descriptor paper, RPTU Kaiserslautern-Landau)",
         "recorded_on": "2026-09-23",
@@ -281,6 +303,17 @@
       "format": "csv.gz",
       "status": "integrated",
       "status_note": "Version 21.03 chosen over 23.05 because 23.05 is stored in Git LFS, which needs git-lfs installed and a ~533 MB clone; 21.03 is plain git objects fetchable per file.",
+      "role": "validation",
+      "seen": [
+        {
+          "by": "every Atlas detector since PART 2; this is HAI 21.03 train1/test1",
+          "evidence": "ADR 0004"
+        },
+        {
+          "by": "atlas-v1-consistency (as the frozen sandbox candidate until ADR 0107)",
+          "evidence": "ADR 0096"
+        }
+      ],
       "license": {
         "spdx": "CC-BY-SA-4.0",
         "name": "Creative Commons Attribution-ShareAlike 4.0 International",
@@ -372,6 +405,17 @@
       "format": "csv.gz",
       "status": "registered-not-fetched",
       "status_note": "Registered 2026-10-04. Not fetchable. The four files are plain git objects at the pinned commit, but each header read that day is semicolon-separated with a trailing CR, so the comma preparer used for integrated hai would misread them. HAI 1.0 (February 2020) is not a separate tree; the README says 20.07 is its bug-fixed release.",
+      "role": "development",
+      "seen": [
+        {
+          "by": "atlas-v1-consistency (as the frozen sandbox candidate until ADR 0107)",
+          "evidence": "ADR 0096 (developed on)"
+        },
+        {
+          "by": "G1 Atlas and checked opponents",
+          "evidence": "ADR 0095"
+        }
+      ],
       "license": {
         "spdx": "CC-BY-SA-4.0",
         "name": "Creative Commons Attribution-ShareAlike 4.0 International",
@@ -436,8 +480,23 @@
       "domain": "ATLAS",
       "homepage": "https://github.com/icsdataset/hai/tree/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03",
       "format": "csv.gz",
-      "status": "registered-not-fetched",
-      "status_note": "Registered 2026-10-04. Not fetchable, so scripts/fetch_datasets.py --all does not download the six files that are not on the integrated hai entry and does not rewrite data/hai/manifest.json. train1 and test1 are listed here so the version is complete; the prepared corpus those two files already produced stays on the entry named hai.",
+      "status": "on-disk",
+      "status_note": "On disk 2026-10-05. Each sha256 is the gzip payload. train1 and test1 are the copies already used by the integrated hai entry, at data/hai/hai-21.03-train1.csv.gz and data/hai/hai-21.03-test1.csv.gz. The other six are data/hai-21.03/<filename>. Status on-disk is outside FETCHABLE_STATUSES, so scripts/fetch_datasets.py --all does not download these URLs and does not rewrite data/hai/manifest.json. The payloads are not in git.",
+      "role": "validation",
+      "seen": [
+        {
+          "by": "G1 Atlas and checked opponents",
+          "evidence": "ADR 0095"
+        },
+        {
+          "by": "atlas-v1-consistency (as the frozen sandbox candidate until ADR 0107)",
+          "evidence": "ADR 0096 (scored once), ADR 0116"
+        },
+        {
+          "by": "atlas-plant-map-v1 (attempt 6, ADR 0117 gate look 1)",
+          "evidence": "ADR 0143"
+        }
+      ],
       "license": {
         "spdx": "CC-BY-SA-4.0",
         "name": "Creative Commons Attribution-ShareAlike 4.0 International",
@@ -454,56 +513,64 @@
           "filename": "train1.csv.gz",
           "size_bytes": 30651421,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read."
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read.",
+          "sha256": "fdd0162315b32817ba665e2cc8990eb09c47c4edc29683a86b11dc9df062b3a9"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/train2.csv.gz",
           "filename": "train2.csv.gz",
           "size_bytes": 31430645,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read."
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read.",
+          "sha256": "c330af06a24f5fe3df864dddc0e9cbbbfd27db2e005bd32dc8ab3eb2ab356337"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/train3.csv.gz",
           "filename": "train3.csv.gz",
           "size_bytes": 67961579,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read."
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read.",
+          "sha256": "de09120c617bad5f4f3cab86705137fe7ced4b1123fb67ffdf67fd645f3d1b8f"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test1.csv.gz",
           "filename": "test1.csv.gz",
           "size_bytes": 6149549,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read.",
+          "sha256": "532de41bed372206941609d05b763958f59abecfd63c8c123649f823452e445e"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test2.csv.gz",
           "filename": "test2.csv.gz",
           "size_bytes": 16765328,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read.",
+          "sha256": "c5572e0ed19906107ceb56c4b4f40e165153fc7ba87b3506230d53d2478c29bb"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test3.csv.gz",
           "filename": "test3.csv.gz",
           "size_bytes": 15477098,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read.",
+          "sha256": "bff835894baff0c73871bc01ece4f5cf759d455a049e808b012128767420caaf"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test4.csv.gz",
           "filename": "test4.csv.gz",
           "size_bytes": 5602841,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read.",
+          "sha256": "51380fd28fd985b94a10cae3d8b80926becb3af9f233f2d3a38ab8be9482a482"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-21.03/test5.csv.gz",
           "filename": "test5.csv.gz",
           "size_bytes": 13199829,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read."
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read.",
+          "sha256": "f0d59308b167ed95d0e81fb3e27c906682c9b21d3dba0ab4c4d696565df35179"
         }
       ],
       "labels": {
@@ -520,7 +587,8 @@
       "quirks": [
         "84 columns on the six files read 2026-10-04: time, 79 signals, and four label columns. The README table says 78 data points; that discrepancy is already ADR 0010 for train1, and these files match train1's shape rather than the table.",
         "attack_P1, attack_P2 and attack_P3 are numeric label columns. The integrated preparer drops them. This entry has no preparer.",
-        "Not a second prepared corpus. Frozen HAI rows stay on the integrated hai name."
+        "Not a second prepared corpus. Frozen HAI rows stay on the integrated hai name.",
+        "Payloads are on disk and are not in git. train1 and test1 live under data/hai/ with the integrated filenames. The other six live under data/hai-21.03/."
       ],
       "prepare": null
     },
@@ -530,8 +598,23 @@
       "domain": "ATLAS",
       "homepage": "https://github.com/icsdataset/hai/tree/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04",
       "format": "csv",
-      "status": "registered-not-fetched",
-      "status_note": "Registered 2026-10-04. Not fetchable. Each CSV blob is a Git LFS pointer. .gitattributes at this commit lists hai-23.05 and haiend-23.05 only, not hai-22.04, but the CSV blobs are pointers anyway. The summary texts are ordinary files and were read.",
+      "status": "on-disk",
+      "status_note": "On disk 2026-10-05 at data/hai-22.04/. git-lfs is not installed here, and the publisher LFS batch API returned 403 because the repository exceeded its LFS budget. The payloads were read from media.githubusercontent.com at commit 2a814ceb; a HEAD of test1.csv returned the registered size and an etag equal to the oid. Each payload sha256 equals that oid. Status on-disk is outside FETCHABLE_STATUSES, so --all does not download the raw URL, which is still pointer text. Not scored. Payloads are not in git.",
+      "role": "validation",
+      "seen": [
+        {
+          "by": "G1 Atlas and checked opponents",
+          "evidence": "ADR 0102"
+        },
+        {
+          "by": "atlas-v1-consistency (as the frozen sandbox candidate until ADR 0107)",
+          "evidence": "ADR 0104"
+        },
+        {
+          "by": "atlas-plant-map-v1 (attempt 6, ADR 0117 gate look 1)",
+          "evidence": "ADR 0143"
+        }
+      ],
       "license": {
         "spdx": "CC-BY-SA-4.0",
         "name": "Creative Commons Attribution-ShareAlike 4.0 International",
@@ -548,7 +631,7 @@
           "filename": "train1.csv",
           "size_bytes": 53190281,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "63383690ffc5344ba68a019c7000854a4d341a22d743ac035f5207072a197b33"
         },
         {
@@ -556,7 +639,7 @@
           "filename": "train2.csv",
           "size_bytes": 114199064,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "f496991bbef4a6ef5881505aa242fe05cc500b4d5c4cea0d2cf1cf79e4e99285"
         },
         {
@@ -564,7 +647,7 @@
           "filename": "train3.csv",
           "size_bytes": 69953332,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "4910c49dc07cce238e05c449972a30b7588139ef92d36067f32aadd820e63de7"
         },
         {
@@ -572,7 +655,7 @@
           "filename": "train4.csv",
           "size_bytes": 47917707,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "81a1c3a8e1726c92c9253602b8628b72d0508a9c260ff21109433ad2b82687bf"
         },
         {
@@ -580,7 +663,7 @@
           "filename": "train5.csv",
           "size_bytes": 131777589,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "298468467991e73689b61f3cd3975ca21685ef8ba5b5ced4d6a7874f304d9cf7"
         },
         {
@@ -588,7 +671,7 @@
           "filename": "train6.csv",
           "size_bytes": 143438209,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "717b37b7b88b40885cb6994c9fe00d08a941ec0c3c73801e378f84e846ae35d4"
         },
         {
@@ -596,7 +679,7 @@
           "filename": "test1.csv",
           "size_bytes": 50536532,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "19627f5dac40c3a5039e7468cfd6c6e4ccd37a85055671e8c349b6bce5f50ed1"
         },
         {
@@ -604,7 +687,7 @@
           "filename": "test2.csv",
           "size_bytes": 46616720,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "b2ba5d6665deee1c86870a3970417b51a3e640a2cc18b9f8de2d6d8a21979923"
         },
         {
@@ -612,7 +695,7 @@
           "filename": "test3.csv",
           "size_bytes": 35066591,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "f253f1c78a4a4654d843f8f670a24caa7a72ac91e4418b4505009822b3c55940"
         },
         {
@@ -620,7 +703,7 @@
           "filename": "test4.csv",
           "size_bytes": 72931406,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "2d2e99ed3364d75d27ab84f0a6523496f7295decf363c90b8a1b9b84e1070376"
         },
         {
@@ -628,70 +711,80 @@
           "filename": "summary(train1.csv).txt",
           "size_bytes": 1373,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "48d2253a35f7246766af00d49f85c09d7580b600379c59f60918b9d6a1be99b6"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train2.csv).txt",
           "filename": "summary(train2.csv).txt",
           "size_bytes": 1374,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "6c066e59804e48a76458fe41743d8b4fd8b2ed0ceebc395d2eb15d82282326c2"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train3.csv).txt",
           "filename": "summary(train3.csv).txt",
           "size_bytes": 1373,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "ab75f967b64231f6b89f423b2b99cdabfa1ce71dcd1e988bcb63736d53cc9350"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train4.csv).txt",
           "filename": "summary(train4.csv).txt",
           "size_bytes": 1373,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "b03204d67a64d249969bf9bcb9670d2e2fbcfaff41c001b92521f48deb5d1e99"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train5.csv).txt",
           "filename": "summary(train5.csv).txt",
           "size_bytes": 1374,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "4678ae22da79a24ec0782614ff60c66827782340aa2288c3e8c60d6c595d555c"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(train6.csv).txt",
           "filename": "summary(train6.csv).txt",
           "size_bytes": 1374,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "cd6b37fc81b022d157bc7c41749ee665716ba237999cf6a491e2bfc4e7649200"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(test1.csv).txt",
           "filename": "summary(test1.csv).txt",
           "size_bytes": 2156,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "f7c6e21fd74deb1d731f44344c0356378b49ce36a901e4a7433549f438abc77f"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(test2.csv).txt",
           "filename": "summary(test2.csv).txt",
           "size_bytes": 2744,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "87038e847085ec406f4da6933904ab84eb9b71fc11a266fb26170e5128c72568"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(test3.csv).txt",
           "filename": "summary(test3.csv).txt",
           "size_bytes": 2336,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "a09652b15036f7a31fc146935b5fa4c60c9bea330dffcae02b6e958b82dabad1"
         },
         {
           "url": "https://raw.githubusercontent.com/icsdataset/hai/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-22.04/summary/summary(test4.csv).txt",
           "filename": "summary(test4.csv).txt",
           "size_bytes": 3154,
           "role": "summary",
-          "note": "Publisher summary. Not a series."
+          "note": "Publisher summary. Not a series. sha256 is the text on disk.",
+          "sha256": "0cd5e9e78d02cce1eb980cdf090571601a9b4420ab9d53aa2cfb7c6f9d9581b9"
         }
       ],
       "labels": {
@@ -703,10 +796,10 @@
           "0"
         ],
         "unlabelled_values": [],
-        "note": "NOT verified against a CSV. The publisher summaries, which were read, name the last column Attack and do not list attack_P1, attack_P2 or attack_P3. The README says those per-process columns were dropped from 22.04. Train summaries say 0 attacks. Test summaries say 7, 17, 10 and 24 attacks."
+        "note": "The on-disk test1.csv header ends in Attack and has no attack_P1, attack_P2 or attack_P3. Publisher summaries say train files have 0 attacks and the tests have 7, 17, 10 and 24. Those windows were not enumerated here. Not scored."
       },
       "quirks": [
-        "CSV payloads were not read. Each CSV blob is a Git LFS pointer of about 130 bytes; size_bytes and sha256 are the pointer's size and oid.",
+        "Payloads are on disk at data/hai-22.04/ and are not in git. Each sha256 equals the Git LFS oid. The raw GitHub blob is still a pointer. Not scored.",
         "gitattributes at this commit does not mention hai-22.04, so a clone may not smudge these pointers even though the blobs are pointers.",
         "Summaries are plain text and were read. They are the source of the Attack column name and the attack counts above."
       ],
@@ -718,8 +811,23 @@
       "domain": "ATLAS",
       "homepage": "https://github.com/icsdataset/hai/tree/2a814cebc9a66b06c9e5cd545e2d72e65d383737/hai-23.05",
       "format": "csv",
-      "status": "registered-not-fetched",
-      "status_note": "Registered 2026-10-04. Not fetchable. .gitattributes marks hai-23.05/**/* as Git LFS, and every blob read that day was a pointer. No CSV and no summary payload was read. The README HTML table links the directory haiend-23.05 under the words HAI 23.05 and hai-23.05 under the words HAIEnd 23.05. This entry follows the directory name.",
+      "status": "on-disk",
+      "status_note": "On disk 2026-10-05 at data/hai-23.05/. git-lfs is not installed here, and the publisher LFS batch API returned 403 because the repository exceeded its LFS budget. The payloads were read from media.githubusercontent.com at commit 2a814ceb. Each payload sha256 equals the Git LFS oid. Status on-disk is outside FETCHABLE_STATUSES, so --all does not download the raw URL, which is still pointer text. Not scored. Payloads are not in git. The README HTML table links the directory haiend-23.05 under the words HAI 23.05 and hai-23.05 under the words HAIEnd 23.05. This entry follows the directory name.",
+      "role": "validation",
+      "seen": [
+        {
+          "by": "G1 Atlas and checked opponents",
+          "evidence": "ADR 0102"
+        },
+        {
+          "by": "atlas-v1-consistency (as the frozen sandbox candidate until ADR 0107)",
+          "evidence": "ADR 0104"
+        },
+        {
+          "by": "atlas-plant-map-v1 (attempt 6, ADR 0117 gate look 1)",
+          "evidence": "ADR 0143"
+        }
+      ],
       "license": {
         "spdx": "CC-BY-SA-4.0",
         "name": "Creative Commons Attribution-ShareAlike 4.0 International",
@@ -736,7 +844,7 @@
           "filename": "hai-train1.csv",
           "size_bytes": 162418984,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "53007b0ba604fbf338e7ac2e08cd81d874b5d1388f3aecb213ddcba5bf2bec4a"
         },
         {
@@ -744,7 +852,7 @@
           "filename": "hai-train2.csv",
           "size_bytes": 169121615,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "0e520e82bf78a661ab19ce4967f3c766bd809820f457a9c90c365102d4534c56"
         },
         {
@@ -752,7 +860,7 @@
           "filename": "hai-train3.csv",
           "size_bytes": 72774793,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "bfcec2dc05adea103e7491546b0e28268faaa26d3cc717d10f4595c94b81e85d"
         },
         {
@@ -760,7 +868,7 @@
           "filename": "hai-train4.csv",
           "size_bytes": 114494940,
           "role": "train",
-          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Train file in the publisher's layout. The role is the filename, not a claim that every row was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "56658c83657d42a65db982b864362e0d0ffeb96d1f7b357d5e76e3a5c522d940"
         },
         {
@@ -768,7 +876,7 @@
           "filename": "hai-test1.csv",
           "size_bytes": 31255559,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "78c7f1d4de1f2ab9ccc2f8c719f80f831033543adb0c81d0d78f84f40838d4be"
         },
         {
@@ -776,7 +884,7 @@
           "filename": "hai-test2.csv",
           "size_bytes": 132946575,
           "role": "test",
-          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Test file in the publisher's layout. The role is the filename. Attack windows are enumerated only where a quirk says a summary was read. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "b2b8dd295aefd87e39260fe43cb4c73ee86d6264b0ac4b0761e7efb0c2b545c3"
         },
         {
@@ -784,7 +892,7 @@
           "filename": "label-test1.csv",
           "size_bytes": 1242017,
           "role": "labels",
-          "note": "Label file stored separately from the series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Label file stored separately from the series. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "eaf69edb9c5834bc393afd7bf658b5e408d34fd7bfc3261f80516765fb818fbc"
         },
         {
@@ -792,7 +900,7 @@
           "filename": "label-test2.csv",
           "size_bytes": 4500018,
           "role": "labels",
-          "note": "Label file stored separately from the series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Label file stored separately from the series. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "8090c44981176e39b0f01a7126a80248ac0b93355c00f9db4d4e2f2106452b92"
         },
         {
@@ -800,7 +908,7 @@
           "filename": "summary_label1.txt",
           "size_bytes": 1591,
           "role": "summary",
-          "note": "Publisher summary. Not a series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Publisher summary. Not a series. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "9d8fb32ee1e816c88f93c8d661f90a7736802582d3572a1e1ebd953783353da6"
         },
         {
@@ -808,7 +916,7 @@
           "filename": "summary_label2.txt",
           "size_bytes": 2911,
           "role": "summary",
-          "note": "Publisher summary. Not a series. Git LFS pointer: the blob at this URL is the pointer text, not the payload. size_bytes is the pointer's size field and sha256 is its oid, both read 2026-10-04. The fetch script is not allowed to download this URL, because it would store the pointer and then fail this checksum.",
+          "note": "Publisher summary. Not a series. The raw URL still returns Git LFS pointer text. The payload is on disk, is not in git, and its sha256 equals the Git LFS oid. Not scored.",
           "sha256": "b564024a105981415a81dd1b338a48ad7ad5be511849884232540f1a6550e5c1"
         }
       ],
@@ -817,10 +925,10 @@
         "attack_values": [],
         "normal_values": [],
         "unlabelled_values": [],
-        "note": "Label column not read. Every file in this directory is a Git LFS pointer."
+        "note": "Series files have no Attack column; the first column is timestamp. Label files have columns timestamp and label. Not scored."
       },
       "quirks": [
-        "No payload was read. Not read: series, label files and summary texts are all Git LFS pointers.",
+        "Payloads are on disk at data/hai-23.05/ and are not in git. Each sha256 equals the Git LFS oid. The raw GitHub blob is still a pointer. Not scored.",
         "The README's HTML anchors swap this directory with haiend-23.05. Directory names are what this entry follows."
       ],
       "prepare": null
@@ -833,6 +941,13 @@
       "format": "csv",
       "status": "registered-not-fetched",
       "status_note": "Registered 2026-10-04. Not fetchable. .gitattributes marks haiend-23.05/**/* as Git LFS, and every blob read that day was a pointer. The README says HAIEnd collects tag values for the boiler DCS internal logic during the same experiment as HAI 23.05.",
+      "role": null,
+      "seen": [
+        {
+          "by": "by proxy: recorded during the same experiment as HAI 23.05, whose attack windows and scores are read",
+          "evidence": "ADR 0104"
+        }
+      ],
       "license": {
         "spdx": "CC-BY-SA-4.0",
         "name": "Creative Commons Attribution-ShareAlike 4.0 International",
@@ -1219,33 +1334,54 @@
     },
     {
       "name": "netresec-4sics-ics-pcap",
-      "title": "4SICS / Netresec ICS Lab PCAP captures",
+      "title": "4SICS Geek Lounge PCAPs, development days 151020 and 151021",
       "domain": "ATLAS",
       "homepage": "https://www.netresec.com/?page=PCAP4SICS",
       "format": "pcap",
-      "status": "noted-for-part-5",
-      "status_note": "NOT DOWNLOADED and deliberately not integrated. PHOS has no packet adapter; scapy-based PCAP parsing is PART 5 work. Recorded here so PART 5 starts from a known source rather than a search.",
+      "status": "declared",
+      "status_note": "Development half (ADR 0144): the first two published days. Not downloaded in the declaring commit. Unlabelled conference-lab traffic, not a command corpus (ADR 0040).",
+      "role": "development",
+      "seen": [],
       "license": {
         "spdx": null,
-        "name": "Publicly published capture files; terms stated on the source page",
+        "name": "Permission by email from Erik Hjelmvik; credit and a link required. The public page also asks for credit to CS3Sthlm and a link back.",
         "url": "https://www.netresec.com/?page=PCAP4SICS",
-        "status": "unverified",
-        "evidence": "Not verified \u2014 the corpus was out of scope for this task, so its licence was not checked. It MUST be verified before any download.",
-        "permits_research_use": null
+        "status": "operator-stated",
+        "evidence": "Page read 2026-10-17: 'We kindly ask you to credit CS3Sthlm ... if you will re-distribute this dataset or use it as part of a training. We would also appreciate a link back to this page.' No SPDX. docs/build-brief-2026-10.md states a separate permission by email from Erik Hjelmvik, with credit and a link required. That message is not in this repository.",
+        "permits_research_use": true
       },
-      "citation": "4SICS ICS Lab, published by Netresec.",
-      "files": [],
+      "citation": "4SICS ICS Lab, published by Netresec. Credit CS3Sthlm and link https://www.netresec.com/?page=PCAP4SICS.",
+      "files": [
+        {
+          "url": "https://share.netresec.com/s/xYj2qCNbsLEAd6M/download/4SICS-GeekLounge-151020.pcap",
+          "filename": "4SICS-GeekLounge-151020.pcap",
+          "size_bytes": 0,
+          "role": "data",
+          "note": "Development half (ADR 0144). The page says about 25 MB. Exact size and sha256 are not recorded: the file was not opened."
+        },
+        {
+          "url": "https://share.netresec.com/s/camL59aoxbCRyyZ/download/4SICS-GeekLounge-151021.pcap",
+          "filename": "4SICS-GeekLounge-151021.pcap",
+          "size_bytes": 0,
+          "role": "data",
+          "note": "Development half (ADR 0144). The page says about 134 MB. Exact size and sha256 are not recorded: the file was not opened."
+        }
+      ],
       "labels": {
         "column": null,
         "attack_values": [],
         "normal_values": [],
         "unlabelled_values": [],
-        "note": "Unlabelled captures from a conference ICS lab; ground truth would have to be established separately."
+        "note": "Unlabelled captures. Ground truth is not in the files."
       },
       "quirks": [
-        "PCAP. Needs the PART 5 packet adapter and scapy before it can produce a single Observation."
+        "PCAP from a conference ICS lab. Not a labelled command corpus.",
+        "Byte size on the web page is approximate. Record sha256 on download, before use."
       ],
-      "prepare": null
+      "prepare": null,
+      "caveats": [
+        "Credit Netresec, 4SICS and CS3Sthlm, and link the source page, in anything published."
+      ]
     },
     {
       "name": "itrust-swat-wadi",
@@ -1291,6 +1427,13 @@
       "format": "mixed-csv-pcapng",
       "status": "integrated",
       "status_note": "Track A process telemetry. Fit on S0, score S1 via grid_prepare. NOT a labelled command corpus: labels are 1 Hz process phases. Do not register format=pcap with attack_intervals copied from CSV clocks. 5880 normal seconds cannot be the FP/hour ruler. Payloads gitignored.",
+      "role": "development",
+      "seen": [
+        {
+          "by": "Atlas (designed protocol)",
+          "evidence": "eval_runs/log.jsonl: data4cyber[designed]"
+        }
+      ],
       "license": {
         "spdx": "CC-BY-4.0",
         "name": "Creative Commons Attribution 4.0 International",
@@ -1427,7 +1570,8 @@
       "homepage": "https://researchdata.tuwien.ac.at/records/vs6hv-1vs74",
       "format": "pcap+csv",
       "status": "confirmed-not-a-command-corpus",
-      "status_note": "NOT ACQUIRED beyond a 134.1 MB assessment slice read by HTTP range on 2026-08-29. Licence CONFIRMED by two independent surfaces. Refused as a labelled command corpus: the labelled extraction carries NO application layer (no Modbus function code, register, unit id, or OPC UA service), and no attacker command action exists in the capture to label. Across the whole A2 attack day only 15 of 18882114 labelled packets touch ports 502/4840/1883, all labelled 'nmap' with ipTotalLength 44 (bare SYN, zero payload), all aimed at the three designated pen-test hosts. The attacker never addressed the Modbus master 192.168.10.55 or slaves .61/.62/.63. The paper concedes it: 'the applicant did not introduce a single Modbus/TCP packet himself', and by design 'Machines that are part of the production system are only included for reconnaissance activities.' This is the OPPOSITE failure to Data4Cyber: granularity is sufficient (per-packet, attack-named) and the event is absent. See docs/data-campaign/manifests/tu-wien-pilot-factory.md.",
+      "status_note": "NOT ACQUIRED beyond a 134.1 MB assessment slice read by HTTP range on 2026-08-29. Licence CONFIRMED by two independent surfaces. Refused as a labelled command corpus: the labelled extraction carries NO application layer (no Modbus function code, register, unit id, or OPC UA service), and no attacker command action exists in the capture to label. Across the whole A2 attack day only 15 of 18882114 labelled packets touch ports 502/4840/1883, all labelled 'nmap' with ipTotalLength 44 (bare SYN, zero payload), all aimed at the three designated pen-test hosts. The attacker never addressed the Modbus master 192.168.10.55 or slaves .61/.62/.63. The paper concedes it: 'the applicant did not introduce a single Modbus/TCP packet himself', and by design 'Machines that are part of the production system are only included for reconnaissance activities.' This is the OPPOSITE failure to Data4Cyber: granularity is sufficient (per-packet, attack-named) and the event is absent. See docs/data-campaign/manifests/tu-wien-pilot-factory.md. ADR 0163 (2026-10-17) declares the split from the record metadata, before this lane downloads a file: development is tf_a.zip only, the publisher's benign training file; held-back is tf_s.zip. Attack-day zips, images.zip and extractions.zip are in neither scored half. Publisher checksum is MD5. sha256 is recorded on download, before use. The payload is not committed.",
+      "role": "development",
       "license": {
         "spdx": "CC-BY-4.0",
         "name": "Creative Commons Attribution 4.0 International",
@@ -1439,12 +1583,12 @@
       "citation": "B. Brenner, J. Fabini, M. Offermanns, S. Semper, T. Zseby, 'Malware communication in smart factories: A network traffic data set', Computer Networks 255 (2024) 110804. DOI 10.48436/vs6hv-1vs74. See docs/data-campaign/manifests/tu-wien-pilot-factory.md.",
       "files": [
         {
-          "url": "https://researchdata.tuwien.ac.at/api/records/vs6hv-1vs74/files/extractions.zip/content",
-          "filename": "extractions.zip",
-          "size_bytes": 5583930351,
-          "md5": "80e6f68d3a5024131fd7d8b69f788f20",
-          "role": "labels",
-          "note": "READ BY RANGE 2026-08-29, not downloaded whole. Holds 26 members (122.30 GB uncompressed): labeled/ and unlabeled/, a _flows_ and a _packets_ CSV per capture day. Not in FETCHABLE_STATUSES: reading the labels is not a labelled command corpus row (ADR 0040). The other 8 deposit files and their MD5s are tabled in the manifest."
+          "url": "https://researchdata.tuwien.ac.at/api/records/vs6hv-1vs74/files/tf_a.zip/content",
+          "filename": "tf_a.zip",
+          "size_bytes": 43271721723,
+          "md5": "e1e689c877b45858fc6c41fd000f85da",
+          "role": "data",
+          "note": "Development half (ADR 0163). Publisher: training file, benign operational data only. 43271721723 bytes. MD5 e1e689c877b45858fc6c41fd000f85da. No publisher sha256. The August 2026 range-read was of extractions.zip, which is not this half."
         }
       ],
       "labels": {
@@ -1804,6 +1948,655 @@
       "prepare": null,
       "caveats": [
         "Belongs to the consolidated finding in docs/data-campaign/peer-baselining-gap.md."
+      ]
+    },
+    {
+      "name": "ics-flow",
+      "title": "ICS-Flow — anomaly detection dataset for industrial control systems (ICSSim bottle-filling plant)",
+      "domain": "ATLAS",
+      "homepage": "https://www.kaggle.com/datasets/alirezadehlaghi/icssim",
+      "format": "csv",
+      "status": "skipped-non-commercial-licence",
+      "status_note": "Registered 2026-10-12, not downloaded. Network packets, network flows and process-variable logs from the same emulated runs (reconnaissance, replay, DDoS, man in the middle), the only public lead pairing traffic with process state (ADR 0117 §4 row 1). Its licence is CC BY-NC-SA 4.0, not the CC BY 4.0 the October hunt recorded from search results, so it is commercially closed like ait-lds-v2. Lifting it needs the authors' written permission for commercial use. Zenodo 17165850 is a different deposit (creator Didik Sudyana, 2025), not this corpus.",
+      "license": {
+        "spdx": "CC-BY-NC-SA-4.0",
+        "name": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International",
+        "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "status": "explicit",
+        "evidence": "Read 2026-10-12 from Kaggle's dataset metadata (https://www.kaggle.com/api/v1/datasets/view/alirezadehlaghi/icssim): licenseName \"CC BY-NC-SA 4.0\", owner Alireza Dehlaghi, title \"ICS-Flow\", 2,001,416,929 bytes, version 2, last updated 2023-07-19. One surface. The arXiv record of the descriptor (2305.09678) carries arXiv's non-exclusive distribution licence for the paper only and links no data host.",
+        "permits_research_use": true
+      },
+      "citation": "Dehlaghi-Ghadim, A., Helali Moghadam, M., Balador, A. and Hansson, H. (2023). Anomaly Detection Dataset for Industrial Control Systems. arXiv:2305.09678.",
+      "files": [],
+      "prepare": null,
+      "role": null,
+      "seen": [],
+      "caveats": [
+        "Emulated (ICSSim), so any result is diagnosis, never proof (R4).",
+        "Non-commercial: no PHOS product claim may rest on it without the authors' written permission."
+      ]
+    },
+    {
+      "name": "phos-icssim-dev",
+      "title": "PHOS ICSSim corpus, development runs (bottle-filling plant: process, true state, Modbus, labels)",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/AlirezaDehlaghi/ICSSIM",
+      "format": "csv",
+      "status": "generated",
+      "status_note": "Declared 2026-10-13 (ADR 0122). Generated by `python scripts/icssim/generate_corpus.py development` into data/phos-icssim-dev/, one directory per run: three 4-hour normal runs (seeds 96001-96003) and ten 2-hour mixed runs (seeds 96011-96020). Anyone may read these labels any number of times.",
+      "license": {
+        "spdx": null,
+        "name": "PHOS-generated data; generator ICSSim under the MIT License (copyright notice retained)",
+        "url": "https://github.com/AlirezaDehlaghi/ICSSIM/blob/bcfd1844d3f063850c69f2643f6a052bac03d8ec/LICENSE",
+        "status": "explicit",
+        "evidence": "The data is generated by PHOS (scripts/icssim/) and is PHOS's own. The generator runs ICSSim, whose LICENSE file at commit bcfd1844d3f063850c69f2643f6a052bac03d8ec (sha256 e54f1992...d2a8a8, checked by scripts/icssim/generate_corpus.py setup) is the MIT License, read 2026-10-13. Its copyright line names 'CodeRefinery', which appears to be template text; the grant is standard MIT. One surface: GitHub's API was not reachable from the build container, so the repository's own licence metadata is still to be read.",
+        "permits_research_use": true
+      },
+      "citation": "Generator: Dehlaghi-Ghadim, A., Balador, A., Helali Moghadam, M., Hansson, H. et al. (2023). ICSSIM: A Framework for Building Industrial Control Systems Security Testbeds. Computers in Industry. Runs and labels: PHOS (ADR 0122).",
+      "files": [],
+      "prepare": null,
+      "role": "development",
+      "seen": [
+        {
+          "by": "the generator's own checks while it was built",
+          "evidence": "ADR 0122 (seed 96001 mixed, 96002 mixed 15 min): events and their physical effects inspected"
+        }
+      ],
+      "caveats": [
+        "Emulated (ICSSim), so any result is diagnosis, never proof (R4).",
+        "Generated by PHOS, not ICS-Flow: same plant model, PHOS's own runs, attacks and labels.",
+        "process.csv is what the control system reports; truth.csv is the plant's real state and is for judging only (ADR 0017).",
+        "Thread scheduling varies, so a run reproduces its schedule and plant, not every byte."
+      ]
+    },
+    {
+      "name": "phos-icssim-heldout",
+      "title": "PHOS ICSSim corpus, held-out runs (bottle-filling plant: process, true state, Modbus, labels)",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/AlirezaDehlaghi/ICSSIM",
+      "format": "csv",
+      "status": "generated",
+      "status_note": "Declared 2026-10-13 (ADR 0122), before any run of it exists. Generated by `python scripts/icssim/generate_corpus.py held-out` into data/phos-icssim-heldout/: twenty 2-hour mixed runs, seeds 96101-96120. Nobody reads its labels until a declaration names the configuration and the command; then it is scored once and moves to validation.",
+      "license": {
+        "spdx": null,
+        "name": "PHOS-generated data; generator ICSSim under the MIT License (copyright notice retained)",
+        "url": "https://github.com/AlirezaDehlaghi/ICSSIM/blob/bcfd1844d3f063850c69f2643f6a052bac03d8ec/LICENSE",
+        "status": "explicit",
+        "evidence": "The data is generated by PHOS (scripts/icssim/) and is PHOS's own. The generator runs ICSSim, whose LICENSE file at commit bcfd1844d3f063850c69f2643f6a052bac03d8ec (sha256 e54f1992...d2a8a8, checked by scripts/icssim/generate_corpus.py setup) is the MIT License, read 2026-10-13. Its copyright line names 'CodeRefinery', which appears to be template text; the grant is standard MIT. One surface: GitHub's API was not reachable from the build container, so the repository's own licence metadata is still to be read.",
+        "permits_research_use": true
+      },
+      "citation": "Generator: Dehlaghi-Ghadim, A., Balador, A., Helali Moghadam, M., Hansson, H. et al. (2023). ICSSIM: A Framework for Building Industrial Control Systems Security Testbeds. Computers in Industry. Runs and labels: PHOS (ADR 0122).",
+      "files": [],
+      "prepare": null,
+      "role": "held-out",
+      "seen": [],
+      "caveats": [
+        "Emulated (ICSSim), so any result is diagnosis, never proof (R4).",
+        "Generated by PHOS, not ICS-Flow: same plant model, PHOS's own runs, attacks and labels.",
+        "process.csv is what the control system reports; truth.csv is the plant's real state and is for judging only (ADR 0017).",
+        "Thread scheduling varies, so a run reproduces its schedule and plant, not every byte."
+      ]
+    },
+    {
+      "name": "kelmarsh",
+      "title": "Kelmarsh wind farm \u2014 10-minute SCADA, development years 2016-2022",
+      "domain": "ATLAS",
+      "homepage": "https://doi.org/10.5281/zenodo.16807551",
+      "format": "zip-csv",
+      "status": "declared",
+      "status_note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+      "role": "development",
+      "seen": [],
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "permits_research_use": true,
+        "evidence": "Read 2026-10-17 from the Zenodo record API: metadata.license.id = cc-by-4.0. The same record's description says Cubico released it under CC-BY-4.0. That is one surface, restated, not a second publisher. The version DOI is pinned; the concept DOI is not."
+      },
+      "citation": "Plumley, Charlie. Cubico Sustainable Investments wind farm data (10.5281/zenodo.16807551). CC BY 4.0.",
+      "files": [
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_SCADA_2016_3082.zip/content",
+          "filename": "Kelmarsh_SCADA_2016_3082.zip",
+          "size_bytes": 97915553,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "ca8efbb6dbcfae3516583937eb5b5402"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_SCADA_2017_3083.zip/content",
+          "filename": "Kelmarsh_SCADA_2017_3083.zip",
+          "size_bytes": 174604722,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "c78263ee52ee0e48e2cb4bbaa1ba211a"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_SCADA_2018_3084.zip/content",
+          "filename": "Kelmarsh_SCADA_2018_3084.zip",
+          "size_bytes": 262157463,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "972e5280172216a5fe76dcab19c741b0"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_SCADA_2019_3085.zip/content",
+          "filename": "Kelmarsh_SCADA_2019_3085.zip",
+          "size_bytes": 311269947,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "14348a1572b722e1be10e53cd145c39a"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_SCADA_2020_3086.zip/content",
+          "filename": "Kelmarsh_SCADA_2020_3086.zip",
+          "size_bytes": 473677799,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "e189e02da98f32e74acc72e8559ef0db"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_SCADA_2021_4456.zip/content",
+          "filename": "Kelmarsh_SCADA_2021_4456.zip",
+          "size_bytes": 467454435,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "4e0ef3d65f067fd3d8f3d30e79ab01ae"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_SCADA_2022_4457.zip/content",
+          "filename": "Kelmarsh_SCADA_2022_4457.zip",
+          "size_bytes": 485620228,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "b695d2b21cd5a236b2e690e0a43df5ab"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_WT_static.csv/content",
+          "filename": "Kelmarsh_WT_static.csv",
+          "size_bytes": 807,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "af3a038f0f7fddfc1608ad0bfc8cf5ba"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_WT_dataSignalMapping.csv/content",
+          "filename": "Kelmarsh_WT_dataSignalMapping.csv",
+          "size_bytes": 3150,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "ca8fe399ab15ae7111d3214c632efd36"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_12.3MW_6xSenvion_MM92.kmz/content",
+          "filename": "Kelmarsh_12.3MW_6xSenvion_MM92.kmz",
+          "size_bytes": 38358,
+          "role": "data",
+          "note": "Development half (ADR 0144). SCADA years 2016-2022 mix all six turbines, so the holdout is the later year files, not a turbine. Schema files may be opened. No file was opened in the declaring commit.",
+          "md5": "9b40d215744e437f96786a4da2d2845d"
+        }
+      ],
+      "prepare": null,
+      "caveats": [
+        "Six Senvion MM92 turbines. Split by year file because the zips are not split by turbine (ADR 0144).",
+        "Real plant SCADA. Not attack-labelled. A false-alarm count here is not a detection claim.",
+        "Synthetic results are not this corpus, and this corpus is not proof the plant map detects attacks (ADR 0143)."
+      ]
+    },
+    {
+      "name": "kelmarsh-heldback",
+      "title": "Kelmarsh wind farm \u2014 held-back years and undated meters",
+      "domain": "ATLAS",
+      "homepage": "https://doi.org/10.5281/zenodo.16807551",
+      "format": "zip-csv",
+      "status": "declared",
+      "status_note": "Held back (ADR 0144). 2023-2024 SCADA, plus meter archives whose names do not separate those years. Do not open until a score declaration.",
+      "role": "held-out",
+      "seen": [],
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "permits_research_use": true,
+        "evidence": "Read 2026-10-17 from the Zenodo record API: metadata.license.id = cc-by-4.0. The same record's description says Cubico released it under CC-BY-4.0. That is one surface, restated, not a second publisher. The version DOI is pinned; the concept DOI is not."
+      },
+      "citation": "Plumley, Charlie. Cubico Sustainable Investments wind farm data (10.5281/zenodo.16807551). CC BY 4.0.",
+      "files": [
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_SCADA_2023_5961.zip/content",
+          "filename": "Kelmarsh_SCADA_2023_5961.zip",
+          "size_bytes": 716099870,
+          "role": "data",
+          "note": "Held back (ADR 0144). 2023-2024 SCADA, plus meter archives whose names do not separate those years. Do not open until a score declaration.",
+          "md5": "685d9589347d1866f6f2cfe45b9af4f4"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_SCADA_2024_5962.zip/content",
+          "filename": "Kelmarsh_SCADA_2024_5962.zip",
+          "size_bytes": 704598245,
+          "role": "data",
+          "note": "Held back (ADR 0144). 2023-2024 SCADA, plus meter archives whose names do not separate those years. Do not open until a score declaration.",
+          "md5": "e9e3318f5b393d8596ff1801f8da0414"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_PMU_4459.zip/content",
+          "filename": "Kelmarsh_PMU_4459.zip",
+          "size_bytes": 100032358,
+          "role": "data",
+          "note": "Held back (ADR 0144). 2023-2024 SCADA, plus meter archives whose names do not separate those years. Do not open until a score declaration.",
+          "md5": "10b5caa4ac9c65de60d186efe8bdc8f7"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_PMU_2023_2024_5968.zip/content",
+          "filename": "Kelmarsh_PMU_2023_2024_5968.zip",
+          "size_bytes": 42468224,
+          "role": "data",
+          "note": "Held back (ADR 0144). 2023-2024 SCADA, plus meter archives whose names do not separate those years. Do not open until a score declaration.",
+          "md5": "de6c2c9d66a28ec30995839ac3516097"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807551/files/Kelmarsh_Grid_Meter_4458.zip/content",
+          "filename": "Kelmarsh_Grid_Meter_4458.zip",
+          "size_bytes": 1723178,
+          "role": "data",
+          "note": "Held back (ADR 0144). 2023-2024 SCADA, plus meter archives whose names do not separate those years. Do not open until a score declaration.",
+          "md5": "2696caad88ea08ac22e5fa00da9c3c46"
+        }
+      ],
+      "prepare": null,
+      "caveats": [
+        "Held-back half of Kelmarsh. Not a second wind farm.",
+        "Real plant SCADA. Not attack-labelled. A false-alarm count here is not a detection claim.",
+        "Synthetic results are not this corpus, and this corpus is not proof the plant map detects attacks (ADR 0143)."
+      ]
+    },
+    {
+      "name": "penmanshiel",
+      "title": "Penmanshiel wind farm \u2014 WT01-10 development SCADA",
+      "domain": "ATLAS",
+      "homepage": "https://doi.org/10.5281/zenodo.16807304",
+      "format": "zip-csv",
+      "status": "declared",
+      "status_note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+      "role": "development",
+      "seen": [],
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "permits_research_use": true,
+        "evidence": "Read 2026-10-17 from the Zenodo record API: metadata.license.id = cc-by-4.0. The same record's description says Cubico released it under CC-BY-4.0. That is one surface, restated, not a second publisher. The version DOI is pinned; the concept DOI is not."
+      },
+      "citation": "Plumley, Charlie. Cubico Sustainable Investments wind farm data (10.5281/zenodo.16807304). CC BY 4.0.",
+      "files": [
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2016_WT01-10_3107.zip/content",
+          "filename": "Penmanshiel_SCADA_2016_WT01-10_3107.zip",
+          "size_bytes": 128926241,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "3819e1b2168b84da195b64e1e9d78b03"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2017_WT01-10_3114.zip/content",
+          "filename": "Penmanshiel_SCADA_2017_WT01-10_3114.zip",
+          "size_bytes": 273531678,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "c8279e34a5e33d688e2219aa9abab74e"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2018_WT01-10_3113.zip/content",
+          "filename": "Penmanshiel_SCADA_2018_WT01-10_3113.zip",
+          "size_bytes": 365016408,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "6389e5c4ea59d6565f6712db43a504ce"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2019_WT01-10_3112.zip/content",
+          "filename": "Penmanshiel_SCADA_2019_WT01-10_3112.zip",
+          "size_bytes": 473518587,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "78389603cb4ae20a6a9b878f5a84bc7b"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2020_WT01-10_3109.zip/content",
+          "filename": "Penmanshiel_SCADA_2020_WT01-10_3109.zip",
+          "size_bytes": 694483651,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "46f679f2e4ab3d69c04b31c8dc625106"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2021_WT01-10_4460.zip/content",
+          "filename": "Penmanshiel_SCADA_2021_WT01-10_4460.zip",
+          "size_bytes": 749666360,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "7a0839cf3cd5e7044d6ab814fef3c43f"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2022_WT01-10_4462.zip/content",
+          "filename": "Penmanshiel_SCADA_2022_WT01-10_4462.zip",
+          "size_bytes": 710776645,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "91351469cdeb3ca95be1a0414dcfec8f"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2023_02_WT_01-10_5981.zip/content",
+          "filename": "Penmanshiel_SCADA_2023_02_WT_01-10_5981.zip",
+          "size_bytes": 63977489,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "05ac6e90b516fa30db05dfe6361099a7"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2023_03_WT_01-10_5982.zip/content",
+          "filename": "Penmanshiel_SCADA_2023_03_WT_01-10_5982.zip",
+          "size_bytes": 68784330,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "6fae49a3603dd2a503126e5e518eaf55"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2023_Q2_WT_01-10_5977.zip/content",
+          "filename": "Penmanshiel_SCADA_2023_Q2_WT_01-10_5977.zip",
+          "size_bytes": 205040452,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "7ed1d095183469e399054695b8c4fb5e"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2023_Q3%20Q4_WT_01-10_5973.zip/content",
+          "filename": "Penmanshiel_SCADA_2023_Q3 Q4_WT_01-10_5973.zip",
+          "size_bytes": 452196453,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "f201240d4072dd4a5a8492725eb49787"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_WT_static.csv/content",
+          "filename": "Penmanshiel_WT_static.csv",
+          "size_bytes": 2029,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "c4cd4191234c1a67a391fe5d2978256b"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_WT_dataSignalMapping.xlsx/content",
+          "filename": "Penmanshiel_WT_dataSignalMapping.xlsx",
+          "size_bytes": 19359,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "2eae1b84a014619268a6e4f53e6b1c91"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_28.7MW_14xSenvion_MM82.kmz/content",
+          "filename": "Penmanshiel_28.7MW_14xSenvion_MM82.kmz",
+          "size_bytes": 21054,
+          "role": "data",
+          "note": "Development half (ADR 0144): the publisher's WT01-10 files, including that group's 2023 files, plus the static sheet, signal map and kmz. WT03 does not exist (publisher's description). No file was opened in the declaring commit.",
+          "md5": "a6743bdbda025e3279ecab38937c3069"
+        }
+      ],
+      "prepare": null,
+      "caveats": [
+        "Fourteen Senvion MM82 turbines in the publisher's description; no WT03. Development is the WT01-10 file group (ADR 0144).",
+        "Real plant SCADA. Not attack-labelled. A false-alarm count here is not a detection claim.",
+        "Synthetic results are not this corpus, and this corpus is not proof the plant map detects attacks (ADR 0143)."
+      ]
+    },
+    {
+      "name": "penmanshiel-heldback",
+      "title": "Penmanshiel wind farm \u2014 WT11-15 and site meters, held back",
+      "domain": "ATLAS",
+      "homepage": "https://doi.org/10.5281/zenodo.16807304",
+      "format": "zip-csv",
+      "status": "declared",
+      "status_note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+      "role": "held-out",
+      "seen": [],
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "status": "explicit",
+        "permits_research_use": true,
+        "evidence": "Read 2026-10-17 from the Zenodo record API: metadata.license.id = cc-by-4.0. The same record's description says Cubico released it under CC-BY-4.0. That is one surface, restated, not a second publisher. The version DOI is pinned; the concept DOI is not."
+      },
+      "citation": "Plumley, Charlie. Cubico Sustainable Investments wind farm data (10.5281/zenodo.16807304). CC BY 4.0.",
+      "files": [
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2016_WT11-15_3107.zip/content",
+          "filename": "Penmanshiel_SCADA_2016_WT11-15_3107.zip",
+          "size_bytes": 55917173,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "92c30453d43a38e985af3e2e305eedd4"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2017_WT11-15_3115.zip/content",
+          "filename": "Penmanshiel_SCADA_2017_WT11-15_3115.zip",
+          "size_bytes": 152896438,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "d41874e3d195e88506949492b5758cf6"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2018_WT11-15_3116.zip/content",
+          "filename": "Penmanshiel_SCADA_2018_WT11-15_3116.zip",
+          "size_bytes": 204798983,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "7c40dc00df6d6301427213e15170b927"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2019_WT11-15_3117.zip/content",
+          "filename": "Penmanshiel_SCADA_2019_WT11-15_3117.zip",
+          "size_bytes": 265354191,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "92747a976716c5f35d9ee6462958fd7a"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2020_WT11-15_3118.zip/content",
+          "filename": "Penmanshiel_SCADA_2020_WT11-15_3118.zip",
+          "size_bytes": 389300869,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "c73323f21451c08247dbdb5d1a1434a9"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2021_WT11-15_4461.zip/content",
+          "filename": "Penmanshiel_SCADA_2021_WT11-15_4461.zip",
+          "size_bytes": 418617876,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "f5804b90089ce4d50dc5117fda6f675c"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2022_WT11-15_4463.zip/content",
+          "filename": "Penmanshiel_SCADA_2022_WT11-15_4463.zip",
+          "size_bytes": 396724464,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "5f4743133a9cf65ad33de139b43f96b4"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2023_WT_11-15_5964.zip/content",
+          "filename": "Penmanshiel_SCADA_2023_WT_11-15_5964.zip",
+          "size_bytes": 633272988,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "813ad4635cf50b9d96b253ee53175086"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_SCADA_2024_WT_11-15_5966.zip/content",
+          "filename": "Penmanshiel_SCADA_2024_WT_11-15_5966.zip",
+          "size_bytes": 653879317,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "e0a700cad1d45f4130272feaef244b12"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_PMU_4465.zip/content",
+          "filename": "Penmanshiel_PMU_4465.zip",
+          "size_bytes": 87786512,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "abe55b62bf115463424beaf3e842ba5f"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_PMU_2023_2024_5969.zip/content",
+          "filename": "Penmanshiel_PMU_2023_2024_5969.zip",
+          "size_bytes": 43850032,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "7b74e50e6868b2510c442da729b3c9d6"
+        },
+        {
+          "url": "https://zenodo.org/api/records/16807304/files/Penmanshiel_Grid_4464.zip/content",
+          "filename": "Penmanshiel_Grid_4464.zip",
+          "size_bytes": 1608177,
+          "role": "data",
+          "note": "Held back (ADR 0144): WT11-15, plus site PMU and grid archives that are not split by turbine. Do not open until a score declaration.",
+          "md5": "92d014043c6709c959e56dfe22496f15"
+        }
+      ],
+      "prepare": null,
+      "caveats": [
+        "Held-back half of Penmanshiel. Not a second wind farm.",
+        "Real plant SCADA. Not attack-labelled. A false-alarm count here is not a detection claim.",
+        "Synthetic results are not this corpus, and this corpus is not proof the plant map detects attacks (ADR 0143)."
+      ]
+    },
+    {
+      "name": "netresec-4sics-heldout",
+      "title": "4SICS Geek Lounge PCAP, held-back day 151022",
+      "domain": "ATLAS",
+      "homepage": "https://www.netresec.com/?page=PCAP4SICS",
+      "format": "pcap",
+      "status": "declared",
+      "status_note": "Held back (ADR 0144). Do not open until a score declaration.",
+      "role": "held-out",
+      "seen": [],
+      "license": {
+        "spdx": null,
+        "name": "Permission by email from Erik Hjelmvik; credit and a link required. The public page also asks for credit to CS3Sthlm and a link back.",
+        "url": "https://www.netresec.com/?page=PCAP4SICS",
+        "status": "operator-stated",
+        "evidence": "Page read 2026-10-17: 'We kindly ask you to credit CS3Sthlm ... if you will re-distribute this dataset or use it as part of a training. We would also appreciate a link back to this page.' No SPDX. docs/build-brief-2026-10.md states a separate permission by email from Erik Hjelmvik, with credit and a link required. That message is not in this repository.",
+        "permits_research_use": true
+      },
+      "citation": "4SICS ICS Lab, published by Netresec. Credit CS3Sthlm and link https://www.netresec.com/?page=PCAP4SICS.",
+      "files": [
+        {
+          "url": "https://share.netresec.com/s/gw6Y2QzJHqDD5pr/download/4SICS-GeekLounge-151022.pcap",
+          "filename": "4SICS-GeekLounge-151022.pcap",
+          "size_bytes": 0,
+          "role": "data",
+          "note": "Held back (ADR 0144). The page says about 200 MB. Exact size and sha256 are not recorded: the file was not opened."
+        }
+      ],
+      "prepare": null,
+      "caveats": [
+        "Credit Netresec, 4SICS and CS3Sthlm, and link the source page, in anything published."
+      ]
+    },
+    {
+      "name": "grfics-v3",
+      "title": "GRFICSv3 development runs (generated outside this repository)",
+      "status_note": "Declared 2026-10-17 (ADR 0144) before any run exists. Pin Fortiphyd/GRFICSv3 commit 37bdf101f3ad0706a7595bd01d696ce7b84db436. LICENSE sha256 605e9047a563c5c8396ffb18232aa4304ec56586aee537c45064c6fb425e44ad. Generate outside this repository (Docker or another separate testbed) into data/grfics-dev/. Keep only the generated data. Never copy GRFICS code here. Development runs: 97201 physical frozen tank_level, 97202 physical frozen tank_pressure, 97203 physical drift flow_1, 97204 physical noise analyzer_a, 97205 physical dropout flow_2, 97206 cyber frozen tank_level, 97207 cyber noise tank_pressure, 97208 cyber stuck product, 97209 quiet none none, 97210 physical frozen analyzer_b. Each run is 10 quiet minutes then 20 minutes of the named event. flow_1-flow_4 and analyzer_a-analyzer_c follow the pinned engine's own order; stop if that order is not written down there.",
+      "role": "development",
+      "seen": [],
+      "domain": "ATLAS",
+      "homepage": "https://github.com/Fortiphyd/GRFICSv3",
+      "format": "generated",
+      "status": "declared-external-testbed",
+      "license": {
+        "spdx": "GPL-3.0",
+        "name": "GNU General Public License v3.0 for the testbed code. Fortiphyd permitted research use by email and asks for credit. Commercial GRFICS tiers are not used.",
+        "url": "https://github.com/Fortiphyd/GRFICSv3/blob/37bdf101f3ad0706a7595bd01d696ce7b84db436/LICENSE",
+        "status": "explicit",
+        "evidence": "Two surfaces for the code licence, both read 2026-10-17 at commit 37bdf101f3ad0706a7595bd01d696ce7b84db436: GitHub API license.spdx_id = GPL-3.0, and the LICENSE file sha256 605e9047a563c5c8396ffb18232aa4304ec56586aee537c45064c6fb425e44ad whose header is 'GNU GENERAL PUBLIC LICENSE Version 3'. The file was hashed and not committed. Research use is operator-stated in .cursor/rules/data-tiers.mdc (commit 70c524e): Fortiphyd permitted it by email and asks for credit, and Elijah has told them PHOS is a company. That message is not in this repository.",
+        "permits_research_use": true
+      },
+      "citation": "Formby, David, and Fortiphyd Logic. GRFICSv3, commit 37bdf101f3ad0706a7595bd01d696ce7b84db436. GPL-3.0. Credit Fortiphyd when publishing.",
+      "files": [],
+      "prepare": null,
+      "caveats": [
+        "Emulated chemical plant. Any result is diagnosis, not proof (R4).",
+        "GRFICS source is not part of this repository. Commercial tiers are not used.",
+        "Credit David Formby / Fortiphyd in publications."
+      ]
+    },
+    {
+      "name": "grfics-v3-heldout",
+      "title": "GRFICSv3 held-back runs (not generated until a declaration)",
+      "status_note": "Held back (ADR 0144). Same pin 37bdf101f3ad0706a7595bd01d696ce7b84db436. Do not generate into data/grfics-heldout/ and do not open it until a score declaration. Runs: 97301 physical frozen flow_3, 97302 physical drift analyzer_c, 97303 physical noise flow_4, 97304 physical dropout tank_level, 97305 cyber frozen flow_1, 97306 cyber dropout analyzer_a, 97307 cyber drift tank_level, 97308 cyber stuck f1, 97309 quiet none none, 97310 physical frozen flow_4.",
+      "role": "held-out",
+      "seen": [],
+      "domain": "ATLAS",
+      "homepage": "https://github.com/Fortiphyd/GRFICSv3",
+      "format": "generated",
+      "status": "declared-external-testbed",
+      "license": {
+        "spdx": "GPL-3.0",
+        "name": "GNU General Public License v3.0 for the testbed code. Fortiphyd permitted research use by email and asks for credit. Commercial GRFICS tiers are not used.",
+        "url": "https://github.com/Fortiphyd/GRFICSv3/blob/37bdf101f3ad0706a7595bd01d696ce7b84db436/LICENSE",
+        "status": "explicit",
+        "evidence": "Two surfaces for the code licence, both read 2026-10-17 at commit 37bdf101f3ad0706a7595bd01d696ce7b84db436: GitHub API license.spdx_id = GPL-3.0, and the LICENSE file sha256 605e9047a563c5c8396ffb18232aa4304ec56586aee537c45064c6fb425e44ad whose header is 'GNU GENERAL PUBLIC LICENSE Version 3'. The file was hashed and not committed. Research use is operator-stated in .cursor/rules/data-tiers.mdc (commit 70c524e): Fortiphyd permitted it by email and asks for credit, and Elijah has told them PHOS is a company. That message is not in this repository.",
+        "permits_research_use": true
+      },
+      "citation": "Formby, David, and Fortiphyd Logic. GRFICSv3, commit 37bdf101f3ad0706a7595bd01d696ce7b84db436. GPL-3.0. Credit Fortiphyd when publishing.",
+      "files": [],
+      "prepare": null,
+      "caveats": [
+        "Emulated chemical plant. Any result is diagnosis, not proof (R4).",
+        "GRFICS source is not part of this repository. Commercial tiers are not used.",
+        "Credit David Formby / Fortiphyd in publications."
+      ]
+    },
+    {
+      "name": "tu-wien-pilot-factory-heldout",
+      "title": "TU Wien pilot factory, benign training file tf_s.zip, held back",
+      "domain": "ATLAS",
+      "homepage": "https://researchdata.tuwien.ac.at/records/vs6hv-1vs74",
+      "format": "pcap-zip",
+      "status": "declared",
+      "status_note": "Held back (ADR 0163). tf_s.zip only, the other benign training file. Do not download and do not open until a score declaration. Declared from the record metadata before any file was downloaded.",
+      "role": "held-out",
+      "seen": [],
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+        "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+        "status": "explicit",
+        "evidence": "Record vs6hv-1vs74 metadata rights title, read 2026-10-17: Creative Commons Attribution 4.0 International (CC BY 4.0), link https://creativecommons.org/licenses/by/4.0/legalcode. The same rights text requires citation of Malware Communication in Smart Factories: A Network Traffic Data Set.",
+        "permits_research_use": true
+      },
+      "citation": "Brenner, Bernhard, Joachim Fabini, Magnus Offermanns, Sabrina Semper, and Tanja Zseby. Dataset of Publication \"Malware Communication in Smart Factories: A Network Traffic Data Set\". TU Wien Research Data, version 1.0.0, 2024. DOI 10.48436/vs6hv-1vs74. CC BY 4.0.",
+      "files": [
+        {
+          "url": "https://researchdata.tuwien.ac.at/api/records/vs6hv-1vs74/files/tf_s.zip/content",
+          "filename": "tf_s.zip",
+          "size_bytes": 57610245633,
+          "md5": "1a809db9022a5073ff4f30f00639addb",
+          "role": "data",
+          "note": "Held back (ADR 0163). Publisher: training file, benign operational data only. 57610245633 bytes. MD5 1a809db9022a5073ff4f30f00639addb. Not downloaded."
+        }
+      ],
+      "prepare": null,
+      "caveats": [
+        "Not downloaded. Not a catch corpus. A scan is not a command attack.",
+        "Attack-day zips, the unlabelled Tuesday DoS zip, images.zip and extractions.zip are in neither scored half. See ADR 0163."
       ]
     }
   ]

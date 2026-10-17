@@ -39,10 +39,10 @@ import urllib.request
 import zipfile
 from collections.abc import Sequence
 from pathlib import Path
-from typing import TYPE_CHECKING, Final
+from typing import TYPE_CHECKING, Final, Self
 
 import pandas
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 REPO_ROOT: Final = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT / "src") not in sys.path:
@@ -137,6 +137,26 @@ class RemoteFile(BaseModel):
     extract_to: str = ""
 
 
+#: ADR 0117's three tiers. ``development`` may be iterated on freely; ``validation`` is seen but
+#: kept from agents and read only at a promotion gate; ``held-out`` has never had a score read
+#: and is spent once, after a declaration. A corpus with no role is not usable yet.
+DATA_ROLES: Final = frozenset({"development", "validation", "held-out"})
+
+
+class SeenRecord(BaseModel):
+    """One reason a corpus can no longer judge a claim of performance on unseen data (ADR 0117).
+
+    Attributes:
+        by: What saw it: a detector's result name, or why it is seen by proxy.
+        evidence: Where that is recorded, an ADR or an ``eval_runs/log.jsonl`` name.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    by: str
+    evidence: str
+
+
 class PrepareStep(BaseModel):
     """How to turn one downloaded file into a CSV the shipped adapter can read.
 
@@ -197,6 +217,8 @@ class DatasetEntry(BaseModel):
             catalogue record and whose own bundled terms disagree is a fact a reader must be able
             to see, not a discrepancy for whoever wrote the registry to quietly resolve.
         caveats: Statements that must travel with every number computed from this corpus.
+        role: Its ADR 0117 tier, one of :data:`DATA_ROLES`, or ``None`` when it is not usable.
+        seen: Every recorded reason it is seen. A ``held-out`` corpus must have none.
     """
 
     model_config = ConfigDict(frozen=True, extra="ignore")
@@ -216,6 +238,16 @@ class DatasetEntry(BaseModel):
     release: str | None = None
     payload_license: LicenseInfo | None = None
     caveats: list[str] = Field(default_factory=list)
+    role: str | None = None
+    seen: list[SeenRecord] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _check_role(self) -> Self:
+        if self.role is not None and self.role not in DATA_ROLES:
+            raise ValueError(f"{self.name}: unknown role {self.role!r}")
+        if self.role == "held-out" and self.seen:
+            raise ValueError(f"{self.name}: a held-out corpus cannot have been seen")
+        return self
 
     @property
     def fetchable(self) -> bool:

@@ -8,8 +8,9 @@ prediction whose overlap is exactly zero is not pruned.
 
 Ranges are inclusive integer indexes, the unit the reference uses. A caller who has
 timestamps converts them before calling. ``theta_p`` and ``theta_r`` are required arguments.
-HAICon's published settings are not a default here, and the draft pass criteria in the v1
-roadmap are not applied.
+``REFERENCE_ETAPR`` is the reference CLI default. ``HAICON_2020`` records the four HAICon
+2020 parameters (ADR 0091). Their δ of 180 samples is not :func:`etapr`'s ``delta``.
+:func:`etapr_sample_tail` is the integer tail. It still has no ``alpha`` argument.
 """
 
 from __future__ import annotations
@@ -19,7 +20,16 @@ from collections.abc import Sequence
 
 from pydantic import BaseModel, ConfigDict, Field
 
-__all__ = ["EtaPrResult", "etapr"]
+__all__ = [
+    "HAICON_2020",
+    "REFERENCE_ETAPR",
+    "EtaPrResult",
+    "EtaprSetting",
+    "Haicon2020Parameters",
+    "etapr",
+    "etapr_at",
+    "etapr_sample_tail",
+]
 
 _Range = tuple[int, int]
 
@@ -46,6 +56,66 @@ class EtaPrResult(BaseModel):
     etar_portion: float = Field(ge=0.0)
     etap_detection: float = Field(ge=0.0)
     etap_portion: float = Field(ge=0.0)
+
+
+class EtaprSetting(BaseModel):
+    """Arguments :func:`etapr` accepts, named so a later score can say which one it used.
+
+    Attributes:
+        name: Stable name. ``reference-22.6.1`` is the reference command-line default.
+        theta_p: Precision pruning threshold. In ``[0, 1]``.
+        theta_r: Recall pruning threshold. In ``[0, 1]``.
+        delta: Ambiguous tail as a fraction of ``end - start``. In ``[0, 1]``.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    name: str
+    theta_p: float = Field(ge=0.0, le=1.0)
+    theta_r: float = Field(ge=0.0, le=1.0)
+    delta: float = Field(ge=0.0, le=1.0)
+
+
+REFERENCE_ETAPR = EtaprSetting(
+    name="reference-22.6.1",
+    theta_p=0.5,
+    theta_r=0.1,
+    delta=0.0,
+)
+
+
+class Haicon2020Parameters(BaseModel):
+    """The four values Shin, Lee, Yun and Min set for HAICon 2020.
+
+    CSET 2021, §4.1.2 sets alpha = 0.5, rho = 0.1, pi = 0.7, and delta = 180, and those
+    values are not allowed to change. ``theta_p`` is pi. ``theta_r`` is rho. ``alpha`` is
+    alpha. ``ambiguous_samples`` is delta.
+
+    :func:`etapr` accepts ``theta_p`` and ``theta_r``. It has no ``alpha`` argument: wheel
+    22.6.1 mixes detection and portion as ``(detection + detection * portion) / 2``.
+    ``ambiguous_samples`` is an integer sample count on the older TaPR ``compute`` shipped
+    in that same wheel. :func:`etapr`'s ``delta`` is a fraction in ``[0, 1]``, and 180 is
+    rejected. Calling :func:`etapr` at ``delta=0`` with these thresholds is not the HAICon
+    score.
+
+    Attributes:
+        name: ``haicon-2020``.
+        theta_p: Their pi, 0.7.
+        theta_r: Their rho, 0.1.
+        alpha: Their alpha, 0.5. Not an :func:`etapr` argument.
+        ambiguous_samples: Their δ, 180 samples. Not a fractional ``delta``.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    name: str = "haicon-2020"
+    theta_p: float = Field(default=0.7, ge=0.0, le=1.0)
+    theta_r: float = Field(default=0.1, ge=0.0, le=1.0)
+    alpha: float = Field(default=0.5, ge=0.0, le=1.0)
+    ambiguous_samples: int = Field(default=180, ge=0)
+
+
+HAICON_2020 = Haicon2020Parameters()
 
 
 def etapr(
@@ -81,17 +151,112 @@ def etapr(
     anomaly_ranges = _sorted_ranges("anomaly", anomalies)
     prediction_ranges = _checked_ranges("prediction", predictions)
     if not anomaly_ranges or not prediction_ranges:
-        return EtaPrResult(
-            etar=0.0,
-            etap=0.0,
-            f1=0.0,
-            etar_detection=0.0,
-            etar_portion=0.0,
-            etap_detection=0.0,
-            etap_portion=0.0,
-        )
+        return _zeros()
+    return _combine(
+        anomaly_ranges,
+        prediction_ranges,
+        _ambiguous_tails(anomaly_ranges, delta),
+        theta_p,
+        theta_r,
+    )
 
-    ambiguous = _ambiguous_tails(anomaly_ranges, delta)
+
+def etapr_at(
+    anomalies: Sequence[tuple[int, int]],
+    predictions: Sequence[tuple[int, int]],
+    setting: EtaprSetting,
+) -> EtaPrResult:
+    """Score ranges with a named :class:`EtaprSetting`.
+
+    ``HAICON_2020`` is not an :class:`EtaprSetting`. Its sample count does not fit ``delta``.
+
+    Args:
+        anomalies: Ground-truth ranges, as for :func:`etapr`.
+        predictions: Predicted ranges, as for :func:`etapr`.
+        setting: Named ``theta_p``, ``theta_r`` and fractional ``delta``.
+
+    Returns:
+        The same result as calling :func:`etapr` with that setting's three numbers.
+    """
+    return etapr(
+        anomalies,
+        predictions,
+        theta_p=setting.theta_p,
+        theta_r=setting.theta_r,
+        delta=setting.delta,
+    )
+
+
+def etapr_sample_tail(
+    anomalies: Sequence[tuple[int, int]],
+    predictions: Sequence[tuple[int, int]],
+    *,
+    theta_p: float,
+    theta_r: float,
+    ambiguous_samples: int,
+) -> EtaPrResult:
+    """Score ranges with an integer ambiguous tail, in samples.
+
+    The body is eTaPR 22.6.1. The tail is not that package's fractional ``delta``. After
+    each anomaly it covers ``ambiguous_samples`` indexes, inclusive, from ``end + 1``
+    through ``end + ambiguous_samples``, and it stops one index before the next anomaly.
+    A tail whose start is not strictly before its end scores nothing, the same edge as
+    :func:`etapr`. ``HAICON_2020.alpha`` is not an argument: the mix stays
+    ``(detection + detection * portion) / 2``.
+
+    Args:
+        anomalies: Ground-truth ranges, as for :func:`etapr`.
+        predictions: Predicted ranges, as for :func:`etapr`.
+        theta_p: Precision pruning threshold. HAICon's pi is 0.7.
+        theta_r: Recall pruning threshold. HAICon's rho is 0.1.
+        ambiguous_samples: Tail length in samples. HAICon's delta is 180. Not a fraction,
+            and not rescaled into seconds.
+
+    Returns:
+        The same fields as :func:`etapr`.
+
+    Raises:
+        ValueError: If a threshold is outside ``[0, 1]``, ``ambiguous_samples`` is
+            negative, or a range is inverted.
+    """
+    _check_unit_interval("theta_p", theta_p)
+    _check_unit_interval("theta_r", theta_r)
+    if ambiguous_samples < 0:
+        raise ValueError(f"ambiguous_samples must be >= 0, got {ambiguous_samples}")
+    anomaly_ranges = _sorted_ranges("anomaly", anomalies)
+    prediction_ranges = _checked_ranges("prediction", predictions)
+    if not anomaly_ranges or not prediction_ranges:
+        return _zeros()
+    return _combine(
+        anomaly_ranges,
+        prediction_ranges,
+        _sample_tails(anomaly_ranges, ambiguous_samples),
+        theta_p,
+        theta_r,
+    )
+
+
+def _zeros() -> EtaPrResult:
+    """An empty side scores zero. The reference wheel returns NaN or raises."""
+    return EtaPrResult(
+        etar=0.0,
+        etap=0.0,
+        f1=0.0,
+        etar_detection=0.0,
+        etar_portion=0.0,
+        etap_detection=0.0,
+        etap_portion=0.0,
+    )
+
+
+def _combine(
+    anomaly_ranges: Sequence[_Range],
+    prediction_ranges: Sequence[_Range],
+    ambiguous: Sequence[_Range],
+    theta_p: float,
+    theta_r: float,
+) -> EtaPrResult:
+    """Assemble detection and portion scores the way eTaPR 22.6.1 does."""
     anomaly_lengths = [end - start + 1 for start, end in anomaly_ranges]
     prediction_lengths = [end - start + 1 for start, end in prediction_ranges]
     weights = [math.sqrt(length) for length in prediction_lengths]
@@ -104,7 +269,6 @@ def etapr(
         for i in range(len(anomaly_ranges))
     ]
     pruned = _prune(overlap, anomaly_lengths, prediction_lengths, theta_p, theta_r)
-
     anomaly_scores = [sum(row) / anomaly_lengths[i] for i, row in enumerate(pruned)]
     prediction_scores = [
         sum(pruned[i][j] for i in range(len(pruned))) / prediction_lengths[j]
@@ -186,6 +350,28 @@ def _ambiguous_tails(anomalies: Sequence[_Range], delta: float) -> list[_Range]:
         start_id = end + 1
         end_id = start_id + int(delta * (end - anomalies[index][0]))
         if index + 1 < len(anomalies) and end_id > anomalies[index + 1][0]:
+            end_id = anomalies[index + 1][0] - 1
+        if start_id > end_id:
+            start_id, end_id = -2, -1
+        tails.append((start_id, end_id))
+    return tails
+
+
+def _sample_tails(anomalies: Sequence[_Range], samples: int) -> list[_Range]:
+    """Return an integer tail of ``samples`` indexes after each anomaly.
+
+    Inclusive, so 180 samples run from ``end + 1`` through ``end + 180``. The tail is
+    clipped to stop before the next anomaly. A one-sample tail has equal ends and
+    :func:`_pair_score` ignores it, matching the fractional scorer.
+    """
+    tails: list[_Range] = []
+    for index, (_, end) in enumerate(anomalies):
+        if samples <= 0:
+            tails.append((-2, -1))
+            continue
+        start_id = end + 1
+        end_id = start_id + samples - 1
+        if index + 1 < len(anomalies) and end_id >= anomalies[index + 1][0]:
             end_id = anomalies[index + 1][0] - 1
         if start_id > end_id:
             start_id, end_id = -2, -1

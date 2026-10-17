@@ -200,7 +200,11 @@ def truth_lines(run: AttackRun) -> tuple[str, ...]:
 
 
 def generate_attack_dataset(
-    config: AttackDatasetConfig, output: Path, *, with_capture: bool = True
+    config: AttackDatasetConfig,
+    output: Path,
+    *,
+    with_capture: bool = True,
+    allow_inert: bool = False,
 ) -> tuple[Path, AttackManifest]:
     """Generate one attack corpus and return its directory and the manifest written into it.
 
@@ -209,6 +213,8 @@ def generate_attack_dataset(
             never both.
         output: Directory to create the corpus directory inside. Created if absent.
         with_capture: Whether to write the pcap.
+        allow_inert: Permit attacks that change nothing: a zero-magnitude control, used only to
+            measure chance (ADR 0109). Off for every corpus that scores a detector.
 
     Returns:
         ``(corpus directory, manifest)``.
@@ -218,7 +224,7 @@ def generate_attack_dataset(
         ValueError: If an attack cannot be staged against this plant, if two windows overlap, or
             if an attack turned out to have changed nothing.
     """
-    run = inject(config.plant_id, config.run_spec(), config.attacks)
+    run = inject(config.plant_id, config.run_spec(), config.attacks, allow_inert=allow_inert)
     if not run.attacked.steps:
         raise AttackGenerationError(f"{config.name}: the configured run holds no samples")
 

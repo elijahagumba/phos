@@ -1,0 +1,489 @@
+{
+  "corpora": [
+    "hai-22.04",
+    "hai-23.05"
+  ],
+  "ungrouped": [
+    {
+      "corpus": "hai-22.04",
+      "judges": true,
+      "status": "scored",
+      "note": "Clean run, scored once. Fit on 1004402 benign rows, 68 Atlas signals, 0 attack rows excluded. Declared denominator 58. Not labelled seen.",
+      "sample_period_seconds": 1.0,
+      "declared_period_seconds": 1.0,
+      "scores": [
+        {
+          "detector": "g1-baseline:atlas-mahalanobis",
+          "attacks": 58,
+          "caught": 5,
+          "recall_within_budget": 0.08620689655172414,
+          "etapr_reference_f1": 0.09767053225601884,
+          "etapr_haicon_f1": 0.09632132383800227,
+          "point_adjusted_f1": 0.33448473813155033,
+          "alerts": 37574
+        },
+        {
+          "detector": "g1-baseline:simple-minmax",
+          "attacks": 58,
+          "caught": 6,
+          "recall_within_budget": 0.10344827586206896,
+          "etapr_reference_f1": 0.21202405859907755,
+          "etapr_haicon_f1": 0.21202405859907755,
+          "point_adjusted_f1": 0.19287938914889316,
+          "alerts": 2260
+        },
+        {
+          "detector": "g1-baseline:simple-steadytime",
+          "attacks": 58,
+          "caught": 3,
+          "recall_within_budget": 0.05172413793103448,
+          "etapr_reference_f1": 0.08560822654628686,
+          "etapr_haicon_f1": 0.08560822654628686,
+          "point_adjusted_f1": 0.06116790850805751,
+          "alerts": 251
+        },
+        {
+          "detector": "g1-baseline:simple-histogram",
+          "attacks": 58,
+          "caught": 3,
+          "recall_within_budget": 0.05172413793103448,
+          "etapr_reference_f1": 0.08560822654628686,
+          "etapr_haicon_f1": 0.08560822654628686,
+          "point_adjusted_f1": 0.06116790850805751,
+          "alerts": 251
+        }
+      ],
+      "files": [
+        {
+          "file": "test1.csv",
+          "scores": [
+            {
+              "detector": "g1-baseline:atlas-mahalanobis",
+              "attacks": 7,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.03857806685377257,
+              "point_adjusted_f1": 0.043389135633754704,
+              "alerts": 6547
+            },
+            {
+              "detector": "g1-baseline:simple-minmax",
+              "attacks": 7,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            },
+            {
+              "detector": "g1-baseline:simple-steadytime",
+              "attacks": 7,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            },
+            {
+              "detector": "g1-baseline:simple-histogram",
+              "attacks": 7,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            }
+          ]
+        },
+        {
+          "file": "test2.csv",
+          "scores": [
+            {
+              "detector": "g1-baseline:atlas-mahalanobis",
+              "attacks": 17,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.020460971447766516,
+              "etapr_haicon_f1": 0.020460971447766516,
+              "point_adjusted_f1": 0.32899955927721464,
+              "alerts": 7220
+            },
+            {
+              "detector": "g1-baseline:simple-minmax",
+              "attacks": 17,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            },
+            {
+              "detector": "g1-baseline:simple-steadytime",
+              "attacks": 17,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            },
+            {
+              "detector": "g1-baseline:simple-histogram",
+              "attacks": 17,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            }
+          ]
+        },
+        {
+          "file": "test3.csv",
+          "scores": [
+            {
+              "detector": "g1-baseline:atlas-mahalanobis",
+              "attacks": 10,
+              "caught": 1,
+              "recall_within_budget": 0.1,
+              "etapr_reference_f1": 0.2335378308710865,
+              "etapr_haicon_f1": 0.2305785991555556,
+              "point_adjusted_f1": 0.647926267281106,
+              "alerts": 12553
+            },
+            {
+              "detector": "g1-baseline:simple-minmax",
+              "attacks": 10,
+              "caught": 2,
+              "recall_within_budget": 0.2,
+              "etapr_reference_f1": 0.25666298001491805,
+              "etapr_haicon_f1": 0.25666298001491805,
+              "point_adjusted_f1": 0.3131313131313131,
+              "alerts": 720
+            },
+            {
+              "detector": "g1-baseline:simple-steadytime",
+              "attacks": 10,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            },
+            {
+              "detector": "g1-baseline:simple-histogram",
+              "attacks": 10,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            }
+          ]
+        },
+        {
+          "file": "test4.csv",
+          "scores": [
+            {
+              "detector": "g1-baseline:atlas-mahalanobis",
+              "attacks": 24,
+              "caught": 4,
+              "recall_within_budget": 0.16666666666666666,
+              "etapr_reference_f1": 0.12423650198025817,
+              "etapr_haicon_f1": 0.11095699201917233,
+              "point_adjusted_f1": 0.2926723200695803,
+              "alerts": 11254
+            },
+            {
+              "detector": "g1-baseline:simple-minmax",
+              "attacks": 24,
+              "caught": 4,
+              "recall_within_budget": 0.16666666666666666,
+              "etapr_reference_f1": 0.4054485666082216,
+              "etapr_haicon_f1": 0.4054485666082216,
+              "point_adjusted_f1": 0.335653809971778,
+              "alerts": 1540
+            },
+            {
+              "detector": "g1-baseline:simple-steadytime",
+              "attacks": 24,
+              "caught": 3,
+              "recall_within_budget": 0.125,
+              "etapr_reference_f1": 0.2068865474868599,
+              "etapr_haicon_f1": 0.2068865474868599,
+              "point_adjusted_f1": 0.147822445561139,
+              "alerts": 251
+            },
+            {
+              "detector": "g1-baseline:simple-histogram",
+              "attacks": 24,
+              "caught": 3,
+              "recall_within_budget": 0.125,
+              "etapr_reference_f1": 0.2068865474868599,
+              "etapr_haicon_f1": 0.2068865474868599,
+              "point_adjusted_f1": 0.147822445561139,
+              "alerts": 251
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "corpus": "hai-23.05",
+      "judges": true,
+      "status": "scored",
+      "note": "Clean run, scored once. Fit on 896400 benign rows, 66 Atlas signals, 0 attack rows excluded. Declared denominator 52. Not labelled seen. Labels are joined by row, not by timestamp text. summary_label2.txt says Attacks: 40 times; the label column has 38 runs, so the denominator is 52.",
+      "sample_period_seconds": 1.0,
+      "declared_period_seconds": 1.0,
+      "scores": [
+        {
+          "detector": "g1-baseline:atlas-mahalanobis",
+          "attacks": 52,
+          "caught": 3,
+          "recall_within_budget": 0.057692307692307696,
+          "etapr_reference_f1": 0.09121226294687322,
+          "etapr_haicon_f1": 0.09930083702869277,
+          "point_adjusted_f1": 0.5441099225156307,
+          "alerts": 6886
+        },
+        {
+          "detector": "g1-baseline:simple-minmax",
+          "attacks": 52,
+          "caught": 4,
+          "recall_within_budget": 0.07692307692307693,
+          "etapr_reference_f1": 0.1322921424883342,
+          "etapr_haicon_f1": 0.14661568615547063,
+          "point_adjusted_f1": 0.3381628964943132,
+          "alerts": 5507
+        },
+        {
+          "detector": "g1-baseline:simple-steadytime",
+          "attacks": 52,
+          "caught": 2,
+          "recall_within_budget": 0.038461538461538464,
+          "etapr_reference_f1": 0.026337007170737867,
+          "etapr_haicon_f1": 0.026337007170737867,
+          "point_adjusted_f1": 0.293669719401937,
+          "alerts": 209
+        },
+        {
+          "detector": "g1-baseline:simple-histogram",
+          "attacks": 52,
+          "caught": 2,
+          "recall_within_budget": 0.038461538461538464,
+          "etapr_reference_f1": 0.026337007170737867,
+          "etapr_haicon_f1": 0.026337007170737867,
+          "point_adjusted_f1": 0.293669719401937,
+          "alerts": 209
+        }
+      ],
+      "files": [
+        {
+          "file": "hai-test1.csv",
+          "scores": [
+            {
+              "detector": "g1-baseline:atlas-mahalanobis",
+              "attacks": 14,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.5814277192284749,
+              "alerts": 808
+            },
+            {
+              "detector": "g1-baseline:simple-minmax",
+              "attacks": 14,
+              "caught": 1,
+              "recall_within_budget": 0.07142857142857142,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.036878498518274606,
+              "alerts": 8
+            },
+            {
+              "detector": "g1-baseline:simple-steadytime",
+              "attacks": 14,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            },
+            {
+              "detector": "g1-baseline:simple-histogram",
+              "attacks": 14,
+              "caught": 0,
+              "recall_within_budget": 0.0,
+              "etapr_reference_f1": 0.0,
+              "etapr_haicon_f1": 0.0,
+              "point_adjusted_f1": 0.0,
+              "alerts": 0
+            }
+          ]
+        },
+        {
+          "file": "hai-test2.csv",
+          "scores": [
+            {
+              "detector": "g1-baseline:atlas-mahalanobis",
+              "attacks": 38,
+              "caught": 3,
+              "recall_within_budget": 0.07894736842105263,
+              "etapr_reference_f1": 0.12481678087466862,
+              "etapr_haicon_f1": 0.13588535593400064,
+              "point_adjusted_f1": 0.5303612605687933,
+              "alerts": 6078
+            },
+            {
+              "detector": "g1-baseline:simple-minmax",
+              "attacks": 38,
+              "caught": 3,
+              "recall_within_budget": 0.07894736842105263,
+              "etapr_reference_f1": 0.18103135287877312,
+              "etapr_haicon_f1": 0.20063199158117032,
+              "point_adjusted_f1": 0.449162411538117,
+              "alerts": 5499
+            },
+            {
+              "detector": "g1-baseline:simple-steadytime",
+              "attacks": 38,
+              "caught": 2,
+              "recall_within_budget": 0.05263157894736842,
+              "etapr_reference_f1": 0.03604011507574655,
+              "etapr_haicon_f1": 0.03604011507574655,
+              "point_adjusted_f1": 0.401863826550019,
+              "alerts": 209
+            },
+            {
+              "detector": "g1-baseline:simple-histogram",
+              "attacks": 38,
+              "caught": 2,
+              "recall_within_budget": 0.05263157894736842,
+              "etapr_reference_f1": 0.03604011507574655,
+              "etapr_haicon_f1": 0.03604011507574655,
+              "point_adjusted_f1": 0.401863826550019,
+              "alerts": 209
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "grouped": [
+    {
+      "corpus": "hai-22.04",
+      "exposure": null,
+      "scores": [
+        {
+          "detector": "g1-grouped:atlas-mahalanobis",
+          "attacks": 58,
+          "caught": 5,
+          "recall_within_budget": 0.08620689655172414,
+          "etapr_reference_f1": 0.0,
+          "etapr_haicon_f1": 0.0,
+          "point_adjusted_f1": 0.21093050043327796,
+          "alerts": 110
+        },
+        {
+          "detector": "g1-grouped:simple-minmax",
+          "attacks": 58,
+          "caught": 10,
+          "recall_within_budget": 0.1724137931034483,
+          "etapr_reference_f1": 0.0,
+          "etapr_haicon_f1": 0.0,
+          "point_adjusted_f1": 0.19287938914889316,
+          "alerts": 10
+        },
+        {
+          "detector": "g1-grouped:simple-steadytime",
+          "attacks": 58,
+          "caught": 4,
+          "recall_within_budget": 0.06896551724137931,
+          "etapr_reference_f1": 0.0,
+          "etapr_haicon_f1": 0.0,
+          "point_adjusted_f1": 0.06116790850805751,
+          "alerts": 4
+        },
+        {
+          "detector": "g1-grouped:simple-histogram",
+          "attacks": 58,
+          "caught": 4,
+          "recall_within_budget": 0.06896551724137931,
+          "etapr_reference_f1": 0.0,
+          "etapr_haicon_f1": 0.0,
+          "point_adjusted_f1": 0.06116790850805751,
+          "alerts": 4
+        }
+      ],
+      "beyond_grouping": -5,
+      "attacks_only_grouped_atlas": [
+        "test2.csv#0",
+        "test3.csv#9"
+      ],
+      "note": "Same fit as the published row: 1004402 benign rows, 68 Atlas signals, 0 attack rows excluded. Measured median step 1 s; declared 1 s. Each detector's published alerts pass through group_published_alerts. Beyond grouping uses the headline catch counts."
+    },
+    {
+      "corpus": "hai-23.05",
+      "exposure": null,
+      "scores": [
+        {
+          "detector": "g1-grouped:atlas-mahalanobis",
+          "attacks": 52,
+          "caught": 5,
+          "recall_within_budget": 0.09615384615384616,
+          "etapr_reference_f1": 0.0,
+          "etapr_haicon_f1": 0.0,
+          "point_adjusted_f1": 0.33258641641437736,
+          "alerts": 80
+        },
+        {
+          "detector": "g1-grouped:simple-minmax",
+          "attacks": 52,
+          "caught": 6,
+          "recall_within_budget": 0.11538461538461539,
+          "etapr_reference_f1": 0.0,
+          "etapr_haicon_f1": 0.0,
+          "point_adjusted_f1": 0.34577455732863505,
+          "alerts": 9
+        },
+        {
+          "detector": "g1-grouped:simple-steadytime",
+          "attacks": 52,
+          "caught": 2,
+          "recall_within_budget": 0.038461538461538464,
+          "etapr_reference_f1": 0.0,
+          "etapr_haicon_f1": 0.0,
+          "point_adjusted_f1": 0.293669719401937,
+          "alerts": 2
+        },
+        {
+          "detector": "g1-grouped:simple-histogram",
+          "attacks": 52,
+          "caught": 2,
+          "recall_within_budget": 0.038461538461538464,
+          "etapr_reference_f1": 0.0,
+          "etapr_haicon_f1": 0.0,
+          "point_adjusted_f1": 0.293669719401937,
+          "alerts": 2
+        }
+      ],
+      "beyond_grouping": -1,
+      "attacks_only_grouped_atlas": [
+        "hai-test2.csv#0",
+        "hai-test2.csv#3",
+        "hai-test2.csv#37"
+      ],
+      "note": "Same fit as the published row: 896400 benign rows, 66 Atlas signals, 0 attack rows excluded. Measured median step 1 s; declared 1 s. Each detector's published alerts pass through group_published_alerts. Beyond grouping uses the headline catch counts."
+    }
+  ]
+}

@@ -30,6 +30,8 @@ from phos.atlas import (
     SENSOR_OR_DEVICE_FAULT_TEMPLATE_ID,
     UNAUTHORISED_CONTROL_TEMPLATE_ID,
     CommandBehaviourPattern,
+    CommandResponsePattern,
+    ConsistencyPattern,
     GraphFindingPattern,
     SubsystemBreadthPattern,
     UntypedStructurePattern,
@@ -245,6 +247,16 @@ def test_the_malicious_and_the_benign_upset_differ_only_where_commands_reach() -
     entities does this fact name" and "how much of a unit departed" came apart, and so did "what
     kind is this fact" and "is this process telemetry". Comparing the roles two real telemetry
     facts earn says what the prose above says, and says it more strictly.
+
+    **ADR 0108 is the second PART this test anticipated.** A consistency fact, one reading that
+    disagrees with what the rest of the plant implies, contradicts the benign upset and says nothing
+    about the malicious one: a real upset keeps coupled signals consistent, an attacker moving
+    actuators does too, and only an instrument that is failing or being falsified breaks that.
+    So the two explanations now differ where commands reach *and* where a cross-signal mismatch
+    reaches. On a departure of some breadth on a unit, which is what this test reads, they still
+    agree exactly; `ConsistencyPattern` is excluded from the telemetry comparison below for the
+    same reason `CommandBehaviourPattern` is, and its asymmetry is asserted on its own in
+    ``tests/atlas/test_consistency_evidence.py``.
     """
     upset = LIBRARY.get(PROCESS_DISTURBANCE_TEMPLATE_ID, Domain.ATLAS)
     malicious = LIBRARY.get(UNAUTHORISED_CONTROL_TEMPLATE_ID, Domain.ATLAS)
@@ -280,12 +292,17 @@ def _telemetry_patterns(patterns: tuple[EvidencePattern, ...]) -> tuple[Evidence
     because that is the honest statement: it reads a device's commanding, which is a `DEVIATION`
     for the deliberate reason ADR 0014 gives — Constitution §3.1 forbids a second evidence format —
     and is not a reading off the plant. Excluding it here is what keeps this test about the
-    question 5C asked.
+    question 5C asked. `ConsistencyPattern` is excluded for the same kind of reason (ADR 0108):
+    it reads a declared relationship between readings, not one reading's departure or breadth.
+    `CommandResponsePattern` is excluded for the same reason (ADR 0160): it reads a declared
+    command whose actuator did not move, not one reading's breadth.
     """
     return tuple(
         pattern
         for pattern in _patterns_over(patterns, EvidenceKind.DEVIATION)
-        if not isinstance(pattern, CommandBehaviourPattern)
+        if not isinstance(
+            pattern, CommandBehaviourPattern | ConsistencyPattern | CommandResponsePattern
+        )
     )
 
 

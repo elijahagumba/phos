@@ -1,0 +1,262 @@
+{
+  "adr": "0123 \u00a77 (diagnosis, not a candidate)",
+  "liar": {
+    "seeds": [
+      4242,
+      95001,
+      95002,
+      95003,
+      95004
+    ],
+    "runs": 90,
+    "passes": 45,
+    "passes_by_plant": {
+      "water-treatment": 22,
+      "power-generation": 5,
+      "batch-reactor": 18
+    },
+    "passing": [
+      [
+        "batch-reactor",
+        4242,
+        0.0
+      ],
+      [
+        "batch-reactor",
+        4242,
+        0.4
+      ],
+      [
+        "batch-reactor",
+        4242,
+        0.8
+      ],
+      [
+        "batch-reactor",
+        4242,
+        0.9
+      ],
+      [
+        "batch-reactor",
+        95001,
+        0.0
+      ],
+      [
+        "batch-reactor",
+        95001,
+        0.4
+      ],
+      [
+        "batch-reactor",
+        95001,
+        0.6
+      ],
+      [
+        "batch-reactor",
+        95001,
+        0.8
+      ],
+      [
+        "batch-reactor",
+        95001,
+        0.9
+      ],
+      [
+        "batch-reactor",
+        95002,
+        0.0
+      ],
+      [
+        "batch-reactor",
+        95002,
+        0.4
+      ],
+      [
+        "batch-reactor",
+        95002,
+        0.8
+      ],
+      [
+        "batch-reactor",
+        95003,
+        0.0
+      ],
+      [
+        "batch-reactor",
+        95003,
+        0.4
+      ],
+      [
+        "batch-reactor",
+        95003,
+        0.8
+      ],
+      [
+        "batch-reactor",
+        95004,
+        0.0
+      ],
+      [
+        "batch-reactor",
+        95004,
+        0.4
+      ],
+      [
+        "batch-reactor",
+        95004,
+        0.8
+      ],
+      [
+        "power-generation",
+        4242,
+        0.0
+      ],
+      [
+        "power-generation",
+        95001,
+        0.0
+      ],
+      [
+        "power-generation",
+        95002,
+        0.0
+      ],
+      [
+        "power-generation",
+        95003,
+        0.0
+      ],
+      [
+        "power-generation",
+        95004,
+        0.0
+      ],
+      [
+        "water-treatment",
+        4242,
+        0.0
+      ],
+      [
+        "water-treatment",
+        4242,
+        0.4
+      ],
+      [
+        "water-treatment",
+        4242,
+        0.6
+      ],
+      [
+        "water-treatment",
+        4242,
+        0.8
+      ],
+      [
+        "water-treatment",
+        95001,
+        0.0
+      ],
+      [
+        "water-treatment",
+        95001,
+        0.2
+      ],
+      [
+        "water-treatment",
+        95001,
+        0.4
+      ],
+      [
+        "water-treatment",
+        95001,
+        0.6
+      ],
+      [
+        "water-treatment",
+        95001,
+        0.8
+      ],
+      [
+        "water-treatment",
+        95002,
+        0.0
+      ],
+      [
+        "water-treatment",
+        95002,
+        0.2
+      ],
+      [
+        "water-treatment",
+        95002,
+        0.4
+      ],
+      [
+        "water-treatment",
+        95002,
+        0.6
+      ],
+      [
+        "water-treatment",
+        95003,
+        0.0
+      ],
+      [
+        "water-treatment",
+        95003,
+        0.2
+      ],
+      [
+        "water-treatment",
+        95003,
+        0.4
+      ],
+      [
+        "water-treatment",
+        95003,
+        0.6
+      ],
+      [
+        "water-treatment",
+        95003,
+        0.8
+      ],
+      [
+        "water-treatment",
+        95004,
+        0.2
+      ],
+      [
+        "water-treatment",
+        95004,
+        0.4
+      ],
+      [
+        "water-treatment",
+        95004,
+        0.6
+      ],
+      [
+        "water-treatment",
+        95004,
+        0.8
+      ]
+    ],
+    "mechanisms": {
+      "inlet_not_promoted": 18,
+      "inlet_subthreshold": 19,
+      "insufficient_observations": 7,
+      "not_separable": 1,
+      "passed": 45
+    },
+    "seconds": 119.2
+  },
+  "hai-20.07": {
+    "caught": 37,
+    "attacks": 38
+  },
+  "compute_seconds": 203.1,
+  "settings": "DEFAULT_SETTINGS (ADR 0123)",
+  "scorer_sha256": "7f9a47793bcb7492e74d846992d627f0db119a2704ea0f9e2c7a6c9b77bfbd42",
+  "written": "2026-10-15T09:47:10+00:00"
+}

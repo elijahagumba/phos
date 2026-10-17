@@ -58,6 +58,7 @@ from typing import Final, Self
 from pydantic import BaseModel, ConfigDict, model_validator
 
 from phos.atlas.command_evidence import CommandEvidence
+from phos.atlas.consistency_evidence import ConsistencyEvidence
 from phos.atlas.grouping import group_evidence
 from phos.atlas.templates import atlas_library
 from phos.atlas.topology import SubsystemMap
@@ -274,6 +275,7 @@ class AtlasEngine:
         dataset: Dataset,
         commands: CommandEvidence | None = None,
         work_orders: WorkOrderEvidence | None = None,
+        consistency: ConsistencyEvidence | None = None,
     ) -> list[Narrative]:
         """Run the whole vertical over one corpus and return the stories it produced.
 
@@ -285,6 +287,9 @@ class AtlasEngine:
                 sensor-only one, which is what a corpus with no capture beside it must get.
             work_orders: Optional sanctioned-change facts (Session E3). Omitted or empty, the
                 run is byte-identical to the commands-off path for this inlet.
+            consistency: Optional consistency departures from `phos.atlas.consistency_evidence`
+                (ADR 0108): readings that disagree with what the rest of the plant implies.
+                Omitted or empty, the run is byte-identical to the run without this inlet.
 
         Returns:
             One `Narrative` per story, earliest first. Each carries its competing explanations
@@ -320,7 +325,8 @@ class AtlasEngine:
 
         from_commands = self._record(commands)
         from_work_orders = self._record_work_orders(work_orders)
-        extra = (*from_commands, *from_work_orders)
+        from_consistency = self._record_consistency(consistency)
+        extra = (*from_commands, *from_work_orders, *from_consistency)
 
         reasoning = ReasoningEngine(self._library, self._store, self._config.reasoning)
         reasoning.ingest(_interleaved(events, extra))
@@ -333,7 +339,8 @@ class AtlasEngine:
 
         logger.info(
             "%s explained %s: %d observation(s) -> %d piece(s) of evidence -> %d subsystem "
-            "event(s) + %d from commands + %d from work orders -> %d narrative(s)",
+            "event(s) + %d from commands + %d from work orders + %d from consistency -> %d "
+            "narrative(s)",
             self.name,
             dataset.name,
             len(dataset.observations),
@@ -341,6 +348,7 @@ class AtlasEngine:
             len(events),
             len(from_commands),
             len(from_work_orders),
+            len(from_consistency),
             len(narratives),
         )
         return narratives
@@ -384,6 +392,21 @@ class AtlasEngine:
             if self._store.get_observation(fact.observation.id) is None:
                 self._store.add_observation(fact.observation)
         evidence = work_orders.evidence()
+        for item in evidence:
+            if self._store.get_evidence(item.id) is None:
+                self._store.add_evidence(item)
+        return evidence
+
+    def _record_consistency(self, consistency: ConsistencyEvidence | None) -> tuple[Evidence, ...]:
+        """Store consistency facts and their chain. Empty or omitted is a no-op (ADR 0108)."""
+        if consistency is None:
+            return ()
+        for fact in consistency.facts:
+            if self._store.get_observation(fact.observation.id) is None:
+                self._store.add_observation(fact.observation)
+            if self._store.get_deviation(fact.deviation.id) is None:
+                self._store.add_deviation(fact.deviation)
+        evidence = consistency.evidence()
         for item in evidence:
             if self._store.get_evidence(item.id) is None:
                 self._store.add_evidence(item)

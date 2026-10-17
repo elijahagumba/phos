@@ -730,6 +730,7 @@ def hai_vertical() -> tuple[AtlasEngine, Dataset, list[Narrative]]:
 
 
 @needs_hai
+@pytest.mark.slow
 def test_the_whole_vertical_runs_on_hai_and_explains_a_real_subsystem_event() -> None:
     """The worked example: one narrative from real industrial telemetry, inspected in full."""
     engine, _, narratives = hai_vertical()
@@ -748,6 +749,7 @@ def test_the_whole_vertical_runs_on_hai_and_explains_a_real_subsystem_event() ->
 
 
 @needs_hai
+@pytest.mark.slow
 def test_grouping_leaves_an_operator_materially_fewer_things_to_investigate_on_hai() -> None:
     """The counting claim, on the corpus it was written for — and only the counting claim."""
     engine, _, _ = hai_vertical()
@@ -760,6 +762,7 @@ def test_grouping_leaves_an_operator_materially_fewer_things_to_investigate_on_h
 
 
 @needs_hai
+@pytest.mark.slow
 def test_grouping_on_hai_discards_no_evidence_at_all() -> None:
     """The constraint the counting win must not be bought with: coverage is untouched."""
     engine, _, _ = hai_vertical()
@@ -773,6 +776,7 @@ def test_grouping_on_hai_discards_no_evidence_at_all() -> None:
 
 
 @needs_hai
+@pytest.mark.slow
 def test_grouping_on_hai_keeps_every_attack_window_it_had_covered() -> None:
     """Recall at the grouped level, measured rather than assumed unchanged (§9.7).
 

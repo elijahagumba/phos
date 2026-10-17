@@ -1,0 +1,157 @@
+{
+  "detector": "atlas-v1-consistency",
+  "scorer_sha256": "7f9a47793bcb7492e74d846992d627f0db119a2704ea0f9e2c7a6c9b77bfbd42",
+  "scorecard": {
+    "liar": {
+      "seeds": [
+        4242,
+        95001,
+        95002,
+        95003,
+        95004
+      ],
+      "runs": 90,
+      "passes": 24,
+      "passes_by_plant": {
+        "water-treatment": 0,
+        "power-generation": 12,
+        "batch-reactor": 12
+      },
+      "passing": [
+        [
+          "batch-reactor",
+          4242,
+          0.0
+        ],
+        [
+          "batch-reactor",
+          4242,
+          0.4
+        ],
+        [
+          "batch-reactor",
+          95001,
+          0.0
+        ],
+        [
+          "batch-reactor",
+          95001,
+          0.2
+        ],
+        [
+          "batch-reactor",
+          95001,
+          0.4
+        ],
+        [
+          "batch-reactor",
+          95001,
+          0.6
+        ],
+        [
+          "batch-reactor",
+          95002,
+          0.0
+        ],
+        [
+          "batch-reactor",
+          95002,
+          0.4
+        ],
+        [
+          "batch-reactor",
+          95003,
+          0.0
+        ],
+        [
+          "batch-reactor",
+          95003,
+          0.4
+        ],
+        [
+          "batch-reactor",
+          95004,
+          0.0
+        ],
+        [
+          "batch-reactor",
+          95004,
+          0.4
+        ],
+        [
+          "power-generation",
+          4242,
+          0.0
+        ],
+        [
+          "power-generation",
+          95001,
+          0.0
+        ],
+        [
+          "power-generation",
+          95001,
+          0.2
+        ],
+        [
+          "power-generation",
+          95002,
+          0.0
+        ],
+        [
+          "power-generation",
+          95002,
+          0.2
+        ],
+        [
+          "power-generation",
+          95002,
+          0.4
+        ],
+        [
+          "power-generation",
+          95002,
+          0.9
+        ],
+        [
+          "power-generation",
+          95003,
+          0.0
+        ],
+        [
+          "power-generation",
+          95003,
+          0.2
+        ],
+        [
+          "power-generation",
+          95003,
+          0.4
+        ],
+        [
+          "power-generation",
+          95004,
+          0.0
+        ],
+        [
+          "power-generation",
+          95004,
+          0.2
+        ]
+      ],
+      "mechanisms": {
+        "inlet_not_promoted": 10,
+        "inlet_subthreshold": 45,
+        "inlet_unavailable": 4,
+        "insufficient_observations": 7,
+        "passed": 24
+      },
+      "seconds": 130.4
+    },
+    "hai-20.07": {
+      "caught": 37,
+      "attacks": 38
+    }
+  },
+  "compute_seconds": 178.0
+}

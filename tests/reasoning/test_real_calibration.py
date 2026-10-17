@@ -61,12 +61,16 @@ def available() -> list[str]:
 
 CORPORA = available()
 
-pytestmark = pytest.mark.skipif(
-    not CORPORA,
-    reason=(
-        f"no real corpus present; run scripts/fetch_datasets.py --all (see {DATA_DIR}/README.md)"
+pytestmark = [
+    pytest.mark.slow,
+    pytest.mark.skipif(
+        not CORPORA,
+        reason=(
+            "no real corpus present; run scripts/fetch_datasets.py --all "
+            f"(see {DATA_DIR}/README.md)"
+        ),
     ),
-)
+]
 
 
 @cache

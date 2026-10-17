@@ -103,7 +103,7 @@ row in `eval_runs/log.jsonl`.
 | # | Refusal | Evidence | What would lift it |
 |---|---|---|---|
 | R23 | Cannot settle Sentiel competing explanations from behaviour facts the templates declare | Sentiel templates declare no contradictory patterns (`src/phos/sentiel/templates.py`). U4's settling ask therefore names a declared sanction record (HR change, project assignment, change ticket) and states that no corpus PHOS reads carries one (`phos.reasoning.analyst_settling`) | A corpus or partner feed that carries sanction evidence, plus templates that declare the contradiction. Not invented behaviour |
-| R24 | Cannot render a Sentiel ranking without documenting its depth-blind ceiling | Gate 2 binding condition; `depth_blind_ceiling_notice()` prints that at the 48-alert point at least 14 of 34 features must speak at once, and 31 of CCH0959's 42 malicious entity-days were structurally unalertable (ADR 0076 JSON, pinned) | A non-saturating aggregation measured under its own ADR. **ADR 0084 opened that session 2026-09-27; not implemented.** Until a candidate meets its criterion, the ceiling travels with every Sentiel render |
+| R24 | Cannot render a Sentiel ranking without documenting its depth-blind ceiling | Gate 2 binding condition; `depth_blind_ceiling_notice()` prints that at the 48-alert point at least 14 of 34 features must speak at once, and 31 of CCH0959's 42 malicious entity-days were structurally unalertable (ADR 0076 JSON, pinned) | A non-saturating aggregation measured under its own ADR. **ADR 0084 opened that session 2026-09-27. ADR 0093 declares three candidates; none is scored.** Until a candidate meets its criterion, the ceiling travels with every Sentiel render |
 
 ### U5 — Human decision usefulness (ADR 0080)
 
@@ -141,7 +141,7 @@ algorithmic:
 - **U3's four questions answered on a real plant** — R20. Constructible here; not evidence about the world.
 - **A fact that carries command intent, or an unknown-master write** — R21. A known-station write still cannot uniquely lead.
 - **A declared sanction record for Sentiel** — R23. Behaviour alone cannot split the enterprise competing set.
-- **A non-saturating aggregation (ours to build; opened by ADR 0084, not implemented)** — R24. Until then the 14-of-34 ceiling travels with every Sentiel render.
+- **A non-saturating aggregation (ours to build; ADR 0084 opened it, ADR 0093 declared three candidates, none scored)** — R24. Until then the 14-of-34 ceiling travels with every Sentiel render.
 
 Most of those are things only a design partner can supply. That is the P1 wall the category
 roadmap names, stated as a specification instead of as a complaint — and it is what U7 turns into a

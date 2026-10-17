@@ -18,7 +18,14 @@ from tests.eval.test_metrics import (
 )
 
 from phos.eval.datasets import Dataset
-from phos.eval.metrics import etapr, recall_within_budget
+from phos.eval.metrics import (
+    HAICON_2020,
+    REFERENCE_ETAPR,
+    etapr,
+    etapr_at,
+    etapr_sample_tail,
+    recall_within_budget,
+)
 from phos.ontology import Domain
 
 # Anomalies (0, 9) and (30, 34). Predictions (2, 8), (32, 40), (50, 52).
@@ -161,3 +168,110 @@ def test_unscored_alert_still_spends_a_slot() -> None:
     # The real hit at 660 is dropped even though 1500 is not an attack.
     alerts = [detect(1500, score=10.0), detect(660, score=1.0)]
     assert recall_within_budget(alerts, _fixture_a(), 1) == 0.0
+
+
+# Anomaly (0, 19). Predictions (0, 9) and (14, 23). The second prediction's overlap
+# ratio is 0.6, so theta_p 0.5 keeps it and theta_p 0.7 prunes it. Wheel 22.6.1
+# evaluate_w_ranges, theta_r 0.1, delta 0. The ADR 0088 hand case does not separate
+# these two thresholds; this one does.
+_SPLIT_ANOMALIES = ((0, 19),)
+_SPLIT_PREDICTIONS = ((0, 9), (14, 23))
+
+
+def test_reference_setting_matches_the_hand_built_case() -> None:
+    assert REFERENCE_ETAPR.name == "reference-22.6.1"
+    assert REFERENCE_ETAPR.theta_p == 0.5
+    assert REFERENCE_ETAPR.theta_r == 0.1
+    assert REFERENCE_ETAPR.delta == 0.0
+    direct = etapr(_BASE_ANOMALIES, _BASE_PREDICTIONS, theta_p=0.5, theta_r=0.1, delta=0.0)
+    assert etapr_at(_BASE_ANOMALIES, _BASE_PREDICTIONS, REFERENCE_ETAPR) == direct
+
+
+def test_the_reference_hand_case_does_not_separate_haicon_theta_p() -> None:
+    at_half = etapr(_BASE_ANOMALIES, _BASE_PREDICTIONS, theta_p=0.5, theta_r=0.1, delta=0.0)
+    at_pi = etapr(
+        _BASE_ANOMALIES,
+        _BASE_PREDICTIONS,
+        theta_p=HAICON_2020.theta_p,
+        theta_r=HAICON_2020.theta_r,
+        delta=0.0,
+    )
+    assert at_pi == at_half
+
+
+def test_haicon_parameters_are_the_cset_2021_values() -> None:
+    assert HAICON_2020.name == "haicon-2020"
+    assert HAICON_2020.theta_p == 0.7
+    assert HAICON_2020.theta_r == 0.1
+    assert HAICON_2020.alpha == 0.5
+    assert HAICON_2020.ambiguous_samples == 180
+
+
+def test_haicon_sample_count_is_not_a_fractional_delta() -> None:
+    with pytest.raises(ValueError, match="delta"):
+        etapr(
+            _BASE_ANOMALIES,
+            _BASE_PREDICTIONS,
+            theta_p=HAICON_2020.theta_p,
+            theta_r=HAICON_2020.theta_r,
+            delta=float(HAICON_2020.ambiguous_samples),
+        )
+
+
+def test_haicon_precision_threshold_matches_the_wheel_and_differs_from_the_default() -> None:
+    """Thresholds only. Fractional delta stays 0. This is not HAICon's δ of 180."""
+    reference = etapr(
+        _SPLIT_ANOMALIES,
+        _SPLIT_PREDICTIONS,
+        theta_p=REFERENCE_ETAPR.theta_p,
+        theta_r=REFERENCE_ETAPR.theta_r,
+        delta=REFERENCE_ETAPR.delta,
+    )
+    haicon_thresholds = etapr(
+        _SPLIT_ANOMALIES,
+        _SPLIT_PREDICTIONS,
+        theta_p=HAICON_2020.theta_p,
+        theta_r=HAICON_2020.theta_r,
+        delta=REFERENCE_ETAPR.delta,
+    )
+    assert reference.etar == pytest.approx(0.9)
+    assert reference.etap == pytest.approx(0.9000000000000001)
+    assert reference.f1 == pytest.approx(0.9)
+    assert haicon_thresholds.etar == pytest.approx(0.75)
+    assert haicon_thresholds.etap == pytest.approx(0.5)
+    assert haicon_thresholds.f1 == pytest.approx(0.6)
+    assert haicon_thresholds.etar_detection == pytest.approx(1.0)
+    assert haicon_thresholds.etar_portion == pytest.approx(0.5)
+    assert haicon_thresholds.etap_detection == pytest.approx(0.5)
+    assert haicon_thresholds.etap_portion == pytest.approx(0.5)
+    assert haicon_thresholds != reference
+
+
+def test_sample_tail_of_zero_matches_fractional_delta_zero() -> None:
+    fractional = etapr(_BASE_ANOMALIES, _BASE_PREDICTIONS, theta_p=0.5, theta_r=0.1, delta=0.0)
+    sampled = etapr_sample_tail(
+        _BASE_ANOMALIES,
+        _BASE_PREDICTIONS,
+        theta_p=0.5,
+        theta_r=0.1,
+        ambiguous_samples=0,
+    )
+    assert sampled.f1 == pytest.approx(fractional.f1)
+    assert sampled.etar == pytest.approx(fractional.etar)
+    assert sampled.etap == pytest.approx(fractional.etap)
+
+
+def test_sample_tail_scores_a_prediction_the_fractional_zero_misses() -> None:
+    anomalies = ((0, 9),)
+    predictions = ((11, 13),)
+    missed = etapr(anomalies, predictions, theta_p=0.5, theta_r=0.1, delta=0.0)
+    caught = etapr_sample_tail(
+        anomalies,
+        predictions,
+        theta_p=0.5,
+        theta_r=0.1,
+        ambiguous_samples=5,
+    )
+    assert missed.etar == pytest.approx(0.0)
+    assert caught.etar > missed.etar
+    assert "alpha" not in etapr_sample_tail.__code__.co_varnames

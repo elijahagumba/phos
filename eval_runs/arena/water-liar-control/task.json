@@ -1,0 +1,33 @@
+{
+  "id": "water-liar-control",
+  "opened_at": "2026-10-12T20:00:00+00:00",
+  "learning_record_ids": [
+    "dec_ee68f7be7927",
+    "dec_2b0ebc1db8d4",
+    "dec_a2f819d18178",
+    "dec_d42a01db8767",
+    "dec_6ca9467b4e63"
+  ],
+  "mechanism": "inlet_subthreshold",
+  "capability": "The consistency inlet sees a falsified level that stops integrating its flows, so the T1 assembly can say the readings, not the plant, are wrong.",
+  "competing_explanations": [
+    "The relation is right but the attack is too small at these subtleties to see on any window.",
+    "The level's relation to its flows is not linear at a fixed lag, so no lag set captures it.",
+    "The calibrator, not the relation, is the bottleneck once a crossing exists (water 0.6 crosses at 1.344 with no calibrator)."
+  ],
+  "hypotheses": [
+    {
+      "id": "untargeted",
+      "statement": "No diagnosis: a random change to the window set does as well.",
+      "change": "The 18 declared candidates in candidates.json, in order."
+    }
+  ],
+  "runs_per_hypothesis": 18,
+  "expected_benefit": "Water-treatment liar runs pass on development seeds where the champion passes none, without losing a run the champion passes.",
+  "expected_regressions": "Longer lags may blur fast attacks on HAI 20.07; slower detrending may let normal drift through as false alarms, costing budget on HAI 20.07 and on the other liar plants.",
+  "regression_slices": [
+    "liar: every (plant, seed, subtlety) the champion passes on ARENA_LIAR_SEEDS",
+    "hai-20.07: recall within budget at least the champion's 37/38"
+  ],
+  "evaluation_plan": "The control arm for ADR 0121: the same failure, scorer, slices and qualifying rule as water-liar, 18 runs, candidates drawn before scoring by scripts/arena_control.py (seed 20261012). Compared with water-liar on qualifying candidates, best water passes, and the red-team verdict of each arm's chosen candidate."
+}

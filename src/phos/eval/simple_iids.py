@@ -9,6 +9,10 @@ and Steadytime's back-dated alarm. Gradient is in the paper and is not an IDS in
 These are named detectors for the harness. They are not Atlas, and they do not retune a
 prior or ``EVIDENCE_STRENGTH``. ``Detection.confidence`` is 0: the score is the code's
 likelihood, which is not a calibrated probability.
+
+ADR 0090 ran the authors' ``ipal-iids`` on hai-20.07. The alert rows match these three
+detectors. They do not match the paper's TPA/FPA row. The rules here were not changed to
+chase that row.
 """
 
 from __future__ import annotations

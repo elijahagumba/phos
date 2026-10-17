@@ -43,21 +43,39 @@ from pydantic import BaseModel, ConfigDict, Field
 from phos.eval.budget import OPERATOR_SHIFT, recall_within_budget
 from phos.eval.datasets import Dataset, LabelledInterval
 from phos.eval.detectors import Detection
-from phos.eval.etapr import EtaPrResult, etapr
+from phos.eval.etapr import (
+    HAICON_2020,
+    REFERENCE_ETAPR,
+    EtaPrResult,
+    EtaprSetting,
+    Haicon2020Parameters,
+    etapr,
+    etapr_at,
+    etapr_sample_tail,
+)
+from phos.eval.point_adjust import PointAdjustResult, point_adjusted_f1
 
 __all__ = [
+    "HAICON_2020",
     "OPERATOR_SHIFT",
+    "REFERENCE_ETAPR",
     "EtaPrResult",
+    "EtaprSetting",
+    "Haicon2020Parameters",
     "OperatingPoint",
+    "PointAdjustResult",
     "ReliabilityBin",
     "brier_score",
     "detection_latency",
     "etapr",
+    "etapr_at",
+    "etapr_sample_tail",
     "expected_calibration_error",
     "f1",
     "false_positive_rate",
     "false_positives",
     "false_positives_per_day",
+    "point_adjusted_f1",
     "precision",
     "precision_at_budget",
     "recall_sample",

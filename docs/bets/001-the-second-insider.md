@@ -1,7 +1,7 @@
 # Bet 001 — The second insider
 
-**Status: open.** The success test was fixed on 27 September 2026, before any code was written. No
-candidate has been run.
+**Status: open.** The success test was fixed on 27 September 2026. The three formulas were
+fixed on 4 October 2026. No candidate has been run.
 
 ## The problem
 
@@ -53,8 +53,24 @@ If the bet fails, that is still a result: it moves the problem from how Sentiel 
 what evidence it collects. Its signals count *how many* hosts and recipients a person touches,
 never *which ones*, and this insider's activity was about which.
 
+## The three formulas
+
+Written down before any of them is scored. All three will be reported. None is selected yet,
+because none has been run. A fourth formula is a new bet.
+
+1. **Depth above the bar.** Add up, for each measured signal, how far it sits above 1.0. That
+   1.0 is the bar the scorer already uses to decide a signal spoke. A signal the model could
+   not measure adds nothing.
+2. **How rare, under a bell curve.** Add up, for each measured signal, the negative log of the
+   chance a standard bell curve gives to a departure at least that large. A signal the model
+   could not measure adds nothing.
+3. **One voice per kind of behaviour.** Inside each kind of behaviour Sentiel already groups
+   together, keep only the largest measured departure. Add those largest values up. Counting
+   the same behaviour several ways does not get several votes.
+
+No signal is weighted. The published 0.104 at 48 alerts is not overwritten by declaring these.
+
 ## What happens next
 
-1. The candidate formulas are published here, in a commit that comes before any result.
-2. They are run once, under the rules above.
-3. The result is published on this page, whichever way it goes.
+1. They are run once, under the rules above.
+2. The result is published on this page, whichever way it goes.

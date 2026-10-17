@@ -8,9 +8,11 @@ semicolon-separated, so the existing comma preparer would misread it.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
+import pytest
 from scripts.fetch_datasets import FETCHABLE_STATUSES, load_registry
 
 REPO = Path(__file__).resolve().parents[2]
@@ -32,16 +34,36 @@ HAI_20_07: tuple[FileRow, ...] = (
     row("hai-20.07/test1.csv.gz", 32_813_703, "test"),
     row("hai-20.07/test2.csv.gz", 16_907_509, "test"),
 )
+_T1 = "fdd0162315b32817ba665e2cc8990eb09c47c4edc29683a86b11dc9df062b3a9"
+_T2 = "c330af06a24f5fe3df864dddc0e9cbbbfd27db2e005bd32dc8ab3eb2ab356337"
+_T3 = "de09120c617bad5f4f3cab86705137fe7ced4b1123fb67ffdf67fd645f3d1b8f"
+_E1 = "532de41bed372206941609d05b763958f59abecfd63c8c123649f823452e445e"
+_E2 = "c5572e0ed19906107ceb56c4b4f40e165153fc7ba87b3506230d53d2478c29bb"
+_E3 = "bff835894baff0c73871bc01ece4f5cf759d455a049e808b012128767420caaf"
+_E4 = "51380fd28fd985b94a10cae3d8b80926becb3af9f233f2d3a38ab8be9482a482"
+_E5 = "f0d59308b167ed95d0e81fb3e27c906682c9b21d3dba0ab4c4d696565df35179"
 HAI_21_03: tuple[FileRow, ...] = (
-    row("hai-21.03/train1.csv.gz", 30_651_421, "train"),
-    row("hai-21.03/train2.csv.gz", 31_430_645, "train"),
-    row("hai-21.03/train3.csv.gz", 67_961_579, "train"),
-    row("hai-21.03/test1.csv.gz", 6_149_549, "test"),
-    row("hai-21.03/test2.csv.gz", 16_765_328, "test"),
-    row("hai-21.03/test3.csv.gz", 15_477_098, "test"),
-    row("hai-21.03/test4.csv.gz", 5_602_841, "test"),
-    row("hai-21.03/test5.csv.gz", 13_199_829, "test"),
+    row("hai-21.03/train1.csv.gz", 30_651_421, "train", _T1),
+    row("hai-21.03/train2.csv.gz", 31_430_645, "train", _T2),
+    row("hai-21.03/train3.csv.gz", 67_961_579, "train", _T3),
+    row("hai-21.03/test1.csv.gz", 6_149_549, "test", _E1),
+    row("hai-21.03/test2.csv.gz", 16_765_328, "test", _E2),
+    row("hai-21.03/test3.csv.gz", 15_477_098, "test", _E3),
+    row("hai-21.03/test4.csv.gz", 5_602_841, "test", _E4),
+    row("hai-21.03/test5.csv.gz", 13_199_829, "test", _E5),
 )
+# train1 and test1 are the integrated copies. The other six live beside them.
+HAI_21_03_DISK: dict[str, Path] = {
+    "train1.csv.gz": REPO / "data" / "hai" / "hai-21.03-train1.csv.gz",
+    "train2.csv.gz": REPO / "data" / "hai-21.03" / "train2.csv.gz",
+    "train3.csv.gz": REPO / "data" / "hai-21.03" / "train3.csv.gz",
+    "test1.csv.gz": REPO / "data" / "hai" / "hai-21.03-test1.csv.gz",
+    "test2.csv.gz": REPO / "data" / "hai-21.03" / "test2.csv.gz",
+    "test3.csv.gz": REPO / "data" / "hai-21.03" / "test3.csv.gz",
+    "test4.csv.gz": REPO / "data" / "hai-21.03" / "test4.csv.gz",
+    "test5.csv.gz": REPO / "data" / "hai-21.03" / "test5.csv.gz",
+}
+ON_DISK = frozenset({"hai-21.03", "hai-22.04", "hai-23.05"})
 HAI_22_04: tuple[FileRow, ...] = (
     row(
         "hai-22.04/train1.csv",
@@ -103,16 +125,66 @@ HAI_22_04: tuple[FileRow, ...] = (
         "test",
         "2d2e99ed3364d75d27ab84f0a6523496f7295decf363c90b8a1b9b84e1070376",
     ),
-    row("hai-22.04/summary/summary(train1.csv).txt", 1_373, "summary"),
-    row("hai-22.04/summary/summary(train2.csv).txt", 1_374, "summary"),
-    row("hai-22.04/summary/summary(train3.csv).txt", 1_373, "summary"),
-    row("hai-22.04/summary/summary(train4.csv).txt", 1_373, "summary"),
-    row("hai-22.04/summary/summary(train5.csv).txt", 1_374, "summary"),
-    row("hai-22.04/summary/summary(train6.csv).txt", 1_374, "summary"),
-    row("hai-22.04/summary/summary(test1.csv).txt", 2_156, "summary"),
-    row("hai-22.04/summary/summary(test2.csv).txt", 2_744, "summary"),
-    row("hai-22.04/summary/summary(test3.csv).txt", 2_336, "summary"),
-    row("hai-22.04/summary/summary(test4.csv).txt", 3_154, "summary"),
+    row(
+        "hai-22.04/summary/summary(train1.csv).txt",
+        1_373,
+        "summary",
+        "48d2253a35f7246766af00d49f85c09d7580b600379c59f60918b9d6a1be99b6",
+    ),
+    row(
+        "hai-22.04/summary/summary(train2.csv).txt",
+        1_374,
+        "summary",
+        "6c066e59804e48a76458fe41743d8b4fd8b2ed0ceebc395d2eb15d82282326c2",
+    ),
+    row(
+        "hai-22.04/summary/summary(train3.csv).txt",
+        1_373,
+        "summary",
+        "ab75f967b64231f6b89f423b2b99cdabfa1ce71dcd1e988bcb63736d53cc9350",
+    ),
+    row(
+        "hai-22.04/summary/summary(train4.csv).txt",
+        1_373,
+        "summary",
+        "b03204d67a64d249969bf9bcb9670d2e2fbcfaff41c001b92521f48deb5d1e99",
+    ),
+    row(
+        "hai-22.04/summary/summary(train5.csv).txt",
+        1_374,
+        "summary",
+        "4678ae22da79a24ec0782614ff60c66827782340aa2288c3e8c60d6c595d555c",
+    ),
+    row(
+        "hai-22.04/summary/summary(train6.csv).txt",
+        1_374,
+        "summary",
+        "cd6b37fc81b022d157bc7c41749ee665716ba237999cf6a491e2bfc4e7649200",
+    ),
+    row(
+        "hai-22.04/summary/summary(test1.csv).txt",
+        2_156,
+        "summary",
+        "f7c6e21fd74deb1d731f44344c0356378b49ce36a901e4a7433549f438abc77f",
+    ),
+    row(
+        "hai-22.04/summary/summary(test2.csv).txt",
+        2_744,
+        "summary",
+        "87038e847085ec406f4da6933904ab84eb9b71fc11a266fb26170e5128c72568",
+    ),
+    row(
+        "hai-22.04/summary/summary(test3.csv).txt",
+        2_336,
+        "summary",
+        "a09652b15036f7a31fc146935b5fa4c60c9bea330dffcae02b6e958b82dabad1",
+    ),
+    row(
+        "hai-22.04/summary/summary(test4.csv).txt",
+        3_154,
+        "summary",
+        "0cd5e9e78d02cce1eb980cdf090571601a9b4420ab9d53aa2cfb7c6f9d9581b9",
+    ),
 )
 _LABEL_1 = "eaf69edb9c5834bc393afd7bf658b5e408d34fd7bfc3261f80516765fb818fbc"
 _LABEL_2 = "8090c44981176e39b0f01a7126a80248ac0b93355c00f9db4d4e2f2106452b92"
@@ -234,7 +306,10 @@ def test_every_hai_version_is_registered_and_not_fetchable() -> None:
     registry = load_registry()
     for name, expected in CATALOGUE.items():
         entry = registry.by_name(name)
-        assert entry.status == "registered-not-fetched"
+        if name in ON_DISK:
+            assert entry.status == "on-disk"
+        else:
+            assert entry.status == "registered-not-fetched"
         assert entry.status not in FETCHABLE_STATUSES
         assert entry.fetchable is False
         assert entry.prepare is None
@@ -270,13 +345,50 @@ def test_licence_contradiction_and_file_traps_are_written_down() -> None:
     assert "train2" in " ".join(twenty["quirks"])
     full = by_name["hai-21.03"]
     assert "84" in " ".join(full["quirks"])
+    assert full["status"] == "on-disk"
+    assert "not in git" in " ".join(full["quirks"]).lower()
     later = by_name["hai-22.04"]
     later_text = " ".join(later["quirks"]).lower()
+    assert later["status"] == "on-disk"
     assert "pointer" in later_text
     assert "gitattributes" in later_text
+    assert "not scored" in later_text
     may = by_name["hai-23.05"]
-    assert "not read" in " ".join(may["quirks"]).lower()
+    may_text = " ".join(may["quirks"]).lower()
+    assert may["status"] == "on-disk"
+    assert "on disk" in may_text
+    assert "not scored" in may_text
     end = by_name["haiend-23.05"]
     end_text = " ".join(end["quirks"]).lower()
     assert "identical" in end_text or "same oid" in end_text
     assert end["files"]  # the label oids are pinned by the catalogue test
+
+
+def test_hai_21_03_payloads_match_the_registered_sha256() -> None:
+    """The checksums are of the files on disk. A missing payload skips; a wrong one fails."""
+    missing = [path for path in HAI_21_03_DISK.values() if not path.is_file()]
+    if missing:
+        pytest.skip("hai-21.03 payloads are gitignored and not on this machine")
+    expected = {path.rsplit("/", 1)[-1]: digest for path, _size, _role, digest in HAI_21_03}
+    for filename, path in HAI_21_03_DISK.items():
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        assert digest == expected[filename]
+
+
+def test_later_hai_payloads_match_the_registered_sha256() -> None:
+    """22.04 and 23.05 checksums are the files on disk. Missing payloads skip; a mismatch fails."""
+    registry = load_registry()
+    missing: list[Path] = []
+    pairs: list[tuple[Path, str]] = []
+    for name in ("hai-22.04", "hai-23.05"):
+        for item in registry.by_name(name).files:
+            folder = "summary" if "/summary/" in item.url else ""
+            path = REPO / "data" / name / folder / item.filename
+            if path.is_file():
+                pairs.append((path, item.sha256 or ""))
+            else:
+                missing.append(path)
+    if missing:
+        pytest.skip("later HAI payloads are gitignored and not on this machine")
+    for path, expected in pairs:
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == expected

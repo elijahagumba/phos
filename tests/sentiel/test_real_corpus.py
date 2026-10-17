@@ -46,15 +46,19 @@ def _manifest() -> dict[str, object] | None:
 
 MANIFEST_DATA = _manifest()
 
-pytestmark = pytest.mark.skipif(
-    MANIFEST_DATA is None,
-    reason=(
-        "the real CERT release is not present. Fetch it with:\n"
-        "    python scripts/fetch_datasets.py cert-insider-threat --yes\n"
-        "which downloads ~4.25 GB into data/cert-insider-threat/ and unpacks r3.1/ (~13 GB) and "
-        "answers/ beside it. Both are git-ignored; only sentiel-manifest.json is committed."
+pytestmark = [
+    pytest.mark.slow,
+    pytest.mark.skipif(
+        MANIFEST_DATA is None,
+        reason=(
+            "the real CERT release is not present. Fetch it with:\n"
+            "    python scripts/fetch_datasets.py cert-insider-threat --yes\n"
+            "which downloads ~4.25 GB into data/cert-insider-threat/ and unpacks "
+            "r3.1/ (~13 GB) and "
+            "answers/ beside it. Both are git-ignored; only sentiel-manifest.json is committed."
+        ),
     ),
-)
+]
 
 
 @pytest.fixture(scope="module")

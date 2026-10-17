@@ -1,0 +1,263 @@
+[
+  {
+    "corpus": "hai-20.07",
+    "exposure": "seen",
+    "beyond_grouping": -9,
+    "attacks_only_grouped_atlas": [
+      "test1.csv.gz#11",
+      "test1.csv.gz#27",
+      "test1.csv.gz#5"
+    ],
+    "scores": [
+      {
+        "detector": "g1-grouped:atlas-mahalanobis",
+        "attacks": 38,
+        "caught": 23,
+        "recall_within_budget": 0.6052631578947368,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.7908372134681233,
+        "alerts": 96
+      },
+      {
+        "detector": "g1-grouped:simple-minmax",
+        "attacks": 38,
+        "caught": 32,
+        "recall_within_budget": 0.8421052631578947,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.92711857191864,
+        "alerts": 48
+      },
+      {
+        "detector": "g1-grouped:simple-steadytime",
+        "attacks": 38,
+        "caught": 7,
+        "recall_within_budget": 0.18421052631578946,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.3092758007595121,
+        "alerts": 12
+      },
+      {
+        "detector": "g1-grouped:simple-histogram",
+        "attacks": 38,
+        "caught": 7,
+        "recall_within_budget": 0.18421052631578946,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.3092758007595121,
+        "alerts": 12
+      }
+    ],
+    "note": "Same fit as the published row: 550024 benign rows, 51 Atlas signals, 776 attack rows excluded. Measured median step 1 s; declared 1 s. Each detector's published alerts pass through group_published_alerts. Beyond grouping uses the headline catch counts. Seen: the grouping constants were chosen on HAI 20.07 and held out on HAI 21.03."
+  },
+  {
+    "corpus": "hai-21.03",
+    "exposure": "seen",
+    "beyond_grouping": -21,
+    "attacks_only_grouped_atlas": [
+      "test3.csv.gz#7"
+    ],
+    "scores": [
+      {
+        "detector": "g1-grouped:atlas-mahalanobis",
+        "attacks": 50,
+        "caught": 15,
+        "recall_within_budget": 0.3,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.3551497664190522,
+        "alerts": 126
+      },
+      {
+        "detector": "g1-grouped:simple-minmax",
+        "attacks": 50,
+        "caught": 36,
+        "recall_within_budget": 0.72,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.8288263823051432,
+        "alerts": 42
+      },
+      {
+        "detector": "g1-grouped:simple-steadytime",
+        "attacks": 50,
+        "caught": 14,
+        "recall_within_budget": 0.28,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.4380025065369817,
+        "alerts": 16
+      },
+      {
+        "detector": "g1-grouped:simple-histogram",
+        "attacks": 50,
+        "caught": 14,
+        "recall_within_budget": 0.28,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.43808204372815596,
+        "alerts": 14
+      }
+    ],
+    "note": "Same fit as the published row: 921603 benign rows, 57 Atlas signals, 0 attack rows excluded. Measured median step 1 s; declared 1 s. Each detector's published alerts pass through group_published_alerts. Beyond grouping uses the headline catch counts. Seen: the grouping constants were chosen on HAI 20.07 and held out on HAI 21.03."
+  },
+  {
+    "corpus": "batadal",
+    "exposure": null,
+    "beyond_grouping": 2,
+    "attacks_only_grouped_atlas": [
+      "batadal-test-prepared.csv#3"
+    ],
+    "scores": [
+      {
+        "detector": "g1-grouped:atlas-mahalanobis",
+        "attacks": 5,
+        "caught": 5,
+        "recall_within_budget": 1.0,
+        "etapr_reference_f1": 0.49065596012079266,
+        "etapr_haicon_f1": 0.6523243304962558,
+        "point_adjusted_f1": 0.8326996197718632,
+        "alerts": 182
+      },
+      {
+        "detector": "g1-grouped:simple-minmax",
+        "attacks": 5,
+        "caught": 3,
+        "recall_within_budget": 0.6,
+        "etapr_reference_f1": 0.2198827562578182,
+        "etapr_haicon_f1": 0.40110529454945826,
+        "point_adjusted_f1": 0.7574931880108993,
+        "alerts": 34
+      },
+      {
+        "detector": "g1-grouped:simple-steadytime",
+        "attacks": 5,
+        "caught": 2,
+        "recall_within_budget": 0.4,
+        "etapr_reference_f1": 0.4516721204251084,
+        "etapr_haicon_f1": 0.6900501444182673,
+        "point_adjusted_f1": 0.5927835051546392,
+        "alerts": 144
+      },
+      {
+        "detector": "g1-grouped:simple-histogram",
+        "attacks": 5,
+        "caught": 2,
+        "recall_within_budget": 0.4,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.4874460801488147,
+        "point_adjusted_f1": 0.3458646616541354,
+        "alerts": 442
+      }
+    ],
+    "note": "Same fit as the published row: 8761 benign rows, 36 Atlas signals, 0 attack rows excluded. Measured median step 3600 s; declared 3600 s. Each detector's published alerts pass through group_published_alerts. Beyond grouping uses the headline catch counts."
+  },
+  {
+    "corpus": "batch-distillation",
+    "exposure": null,
+    "beyond_grouping": -7,
+    "attacks_only_grouped_atlas": [
+      "batch-distillation-test-prepared.csv#0",
+      "batch-distillation-test-prepared.csv#109",
+      "batch-distillation-test-prepared.csv#115",
+      "batch-distillation-test-prepared.csv#120",
+      "batch-distillation-test-prepared.csv#15",
+      "batch-distillation-test-prepared.csv#47",
+      "batch-distillation-test-prepared.csv#67"
+    ],
+    "scores": [
+      {
+        "detector": "g1-grouped:atlas-mahalanobis",
+        "attacks": 126,
+        "caught": 26,
+        "recall_within_budget": 0.20634920634920634,
+        "etapr_reference_f1": 0.022614503816793894,
+        "etapr_haicon_f1": 0.02965186774782956,
+        "point_adjusted_f1": 0.7375375375375376,
+        "alerts": 92
+      },
+      {
+        "detector": "g1-grouped:simple-minmax",
+        "attacks": 126,
+        "caught": 33,
+        "recall_within_budget": 0.2619047619047619,
+        "etapr_reference_f1": 0.04867137390179486,
+        "etapr_haicon_f1": 0.062152536793791846,
+        "point_adjusted_f1": 0.659149072296865,
+        "alerts": 58
+      },
+      {
+        "detector": "g1-grouped:simple-steadytime",
+        "attacks": 126,
+        "caught": 22,
+        "recall_within_budget": 0.1746031746031746,
+        "etapr_reference_f1": 0.03645659664332555,
+        "etapr_haicon_f1": 0.03645659664332555,
+        "point_adjusted_f1": 0.47364108167167446,
+        "alerts": 34
+      },
+      {
+        "detector": "g1-grouped:simple-histogram",
+        "attacks": 126,
+        "caught": 17,
+        "recall_within_budget": 0.1349206349206349,
+        "etapr_reference_f1": 0.03801576263328697,
+        "etapr_haicon_f1": 0.03801576263328697,
+        "point_adjusted_f1": 0.43660789252728804,
+        "alerts": 24
+      }
+    ],
+    "note": "Same fit as the published row: 10904 benign rows, 27 Atlas signals, 0 attack rows excluded. Measured median step 10 s; declared 10 s. Each detector's published alerts pass through group_published_alerts. Beyond grouping uses the headline catch counts. Perturbation recall, not attack recall. Reported only."
+  },
+  {
+    "corpus": "data4cyber",
+    "exposure": null,
+    "beyond_grouping": 0,
+    "attacks_only_grouped_atlas": [],
+    "scores": [
+      {
+        "detector": "g1-grouped:atlas-mahalanobis",
+        "attacks": 2,
+        "caught": 1,
+        "recall_within_budget": 0.5,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.9928453494771602,
+        "alerts": 3
+      },
+      {
+        "detector": "g1-grouped:simple-minmax",
+        "attacks": 2,
+        "caught": 1,
+        "recall_within_budget": 0.5,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.9928453494771602,
+        "alerts": 3
+      },
+      {
+        "detector": "g1-grouped:simple-steadytime",
+        "attacks": 2,
+        "caught": 0,
+        "recall_within_budget": 0.0,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.0,
+        "alerts": 1
+      },
+      {
+        "detector": "g1-grouped:simple-histogram",
+        "attacks": 2,
+        "caught": 0,
+        "recall_within_budget": 0.0,
+        "etapr_reference_f1": 0.0,
+        "etapr_haicon_f1": 0.0,
+        "point_adjusted_f1": 0.0,
+        "alerts": 1
+      }
+    ],
+    "note": "Same fit as the published row: 1798 benign rows, 145 Atlas signals, 0 attack rows excluded. Measured median step 1 s; declared 1 s. Each detector's published alerts pass through group_published_alerts. Beyond grouping uses the headline catch counts. Process-phase recall, not attack recall. Reported only."
+  }
+]

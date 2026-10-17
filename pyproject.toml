@@ -34,7 +34,7 @@ packages = ["src/phos"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--strict-markers --strict-config --import-mode=importlib"
+addopts = '--strict-markers --strict-config --import-mode=importlib -m "not slow"'
 # `tests/` mirrors `src/phos/` package by package, so two packages legitimately want a module of
 # the same name — `tests/atlas/test_engine.py` and `tests/reasoning/test_engine.py` both test the
 # engine of their own package. The default `prepend` import mode identifies a test module by its
@@ -53,6 +53,7 @@ pythonpath = ["src", "."]
 # them everywhere else.
 markers = [
     "lab_only: reads a record that is not published; skipped in the public repository",
+    "slow: real-corpus run of at least five seconds when the payload is on disk; omitted from the default suite (ADR 0092)",
 ]
 
 [tool.coverage.run]
@@ -66,6 +67,8 @@ show_missing = true
 line-length = 100
 src = ["src", "tests", "scripts"]
 target-version = "py312"
+# Experiment folders keep the exact files that were scored, byte for byte (ADR 0096).
+extend-exclude = ["experiments"]
 
 [tool.ruff.lint]
 select = [
@@ -121,6 +124,14 @@ ignore_missing_imports = true
 # to plain floats immediately, so no untyped value reaches a signature or a stored field.
 module = ["sklearn.*"]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# The ICSSim harness (ADR 0122) runs in ICSSim's own interpreter and patches ICSSim's untyped
+# modules, which are loaded at run time from outside the lab and are not installed here. Strict
+# typing there would check nothing real. It writes only CSV and JSON, and imports nothing from
+# `phos`; its schedule, the part tests rely on, is exercised by tests/scripts/test_phos_icssim.py.
+module = ["scripts.icssim.phos_icssim"]
+ignore_errors = true
 
 [tool.pydantic-mypy]
 init_typed = true

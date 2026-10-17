@@ -1,0 +1,50 @@
+[
+  {
+    "corpus": "hai-22.04",
+    "port_path": "port-float32-grouping",
+    "feature_scores_identical": true,
+    "alert_lists_identical": true,
+    "alerts": 101,
+    "reference_alerts": 101,
+    "alerts_not_in_reference": 0,
+    "own_grouping_caught": 53,
+    "reference_caught": 53,
+    "attacks": 58
+  },
+  {
+    "corpus": "hai-22.04",
+    "port_path": "port-float64-grouping",
+    "feature_scores_identical": true,
+    "alert_lists_identical": true,
+    "alerts": 101,
+    "reference_alerts": 101,
+    "alerts_not_in_reference": 0,
+    "own_grouping_caught": 53,
+    "reference_caught": 53,
+    "attacks": 58
+  },
+  {
+    "corpus": "hai-23.05",
+    "port_path": "port-float32-grouping",
+    "feature_scores_identical": true,
+    "alert_lists_identical": true,
+    "alerts": 73,
+    "reference_alerts": 73,
+    "alerts_not_in_reference": 0,
+    "own_grouping_caught": 36,
+    "reference_caught": 36,
+    "attacks": 52
+  },
+  {
+    "corpus": "hai-23.05",
+    "port_path": "port-float64-grouping",
+    "feature_scores_identical": true,
+    "alert_lists_identical": true,
+    "alerts": 73,
+    "reference_alerts": 73,
+    "alerts_not_in_reference": 0,
+    "own_grouping_caught": 36,
+    "reference_caught": 36,
+    "attacks": 52
+  }
+]

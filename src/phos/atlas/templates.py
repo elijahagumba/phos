@@ -81,6 +81,19 @@ closed loop answers a real upset by commanding differently — the structural as
 commands whom, which an upset cannot change, and not about how much an existing commander commands,
 which it changes routinely. The command **graph** therefore remains the only command signal an OT
 template can *discriminate* on; behaviour is the only one it can now *weigh*.
+
+**A reading that disagrees with the rest of the plant now routes, and it discriminates (ADR 0108).**
+`phos.atlas.consistency_evidence` promotes a departure carried by the consistency detector's loop
+score: the reading is not what every other signal, now and over the last minute, implies.
+`ConsistencyPattern` reads that facet. It supports `sensor_or_device_fault` and contradicts
+`process_disturbance`, and the asymmetry is a claim about physics, not a tuning choice: a real
+process upset propagates through physically coupled signals, so the relationships between them
+keep holding while the readings move; one instrument that stops agreeing with everything coupled to
+it is the instrument, or the equipment it measures, not the process. An unmodelled physical event
+such as a leak breaks a mass balance too, and is read as equipment failing, which is the label that
+fits it. The fact bears on neither `engineering_maintenance` nor `unauthorised_control_activity`: a
+falsified reading and a failed transmitter leave the same fact, and separating them needs other
+evidence, such as who commanded what. No prior moved.
 """
 
 import logging
@@ -91,6 +104,10 @@ from typing import Final, Self
 from pydantic import Field, field_validator, model_validator
 
 from phos.atlas.command_evidence import command_behaviour_feature_of, graph_finding_feature_of
+from phos.atlas.consistency_evidence import (
+    COMMAND_TO_RESPONSE_MISMATCH,
+    consistency_feature_of,
+)
 from phos.atlas.grouping import is_subsystem_event
 from phos.atlas.packet import (
     SILENT_COMMAND_RELATIONSHIP,
@@ -117,6 +134,8 @@ __all__ = [
     "SENSOR_OR_DEVICE_FAULT_TEMPLATE_ID",
     "UNAUTHORISED_CONTROL_TEMPLATE_ID",
     "CommandBehaviourPattern",
+    "CommandResponsePattern",
+    "ConsistencyPattern",
     "GraphFindingPattern",
     "SubsystemBreadthPattern",
     "UntypedStructurePattern",
@@ -272,6 +291,15 @@ class SubsystemBreadthPattern(EvidencePattern):
             and other.subsystem_events_only is not self.subsystem_events_only
         ):
             return False
+        if (
+            isinstance(other, ConsistencyPattern | CommandResponsePattern)
+            and self.subsystem_events_only
+        ):
+            # Neither fact is a grouped subsystem event. ConsistencyPattern says so for a
+            # cross-signal mismatch; CommandResponsePattern says so for a command the actuator
+            # ignored (ADR 0160). The reverse call already returns false. This direction has to
+            # as well, or a breadth band is treated as the same fact.
+            return False
         low, high = _band(other)
         return _reaches(self.min_signals, high) and _reaches(low, self.max_signals)
 
@@ -301,6 +329,49 @@ _BROAD: Final = SubsystemBreadthPattern(
     kinds=(EvidenceKind.DEVIATION,), min_signals=ONE_DEVICE_MAX_SIGNALS + 1
 )
 """More of a unit departed than any one device accounts for."""
+
+
+class CommandResponsePattern(EvidencePattern):
+    """A declared command whose actuator did not move (ADR 0160).
+
+    The fact is `FacetKind.CONSISTENCY` with `COMMAND_TO_RESPONSE_MISMATCH`, promoted by
+    `phos.atlas.command_response` from a plant's declared control coupling. It is not a
+    known-link graph finding and it does not retune those matchers.
+
+    It supports a sensor or device fault: the actuator was told to move and did not. It
+    contradicts engineering maintenance: a completed planned change would have moved the
+    actuator. `ConsistencyPattern` still matches the same fact, so a real process upset stays
+    contradicted (ADR 0108). It is silent on unauthorised control. A known station's write
+    still supports both maintenance and an attack; this fact does not break that tie.
+    """
+
+    def matches(self, evidence: Evidence, entities: Mapping[EntityId, Entity]) -> bool:
+        """Return whether this fact is a command-to-response mismatch and not a grouped event."""
+        if not super().matches(evidence, entities):
+            return False
+        if is_subsystem_event(evidence):
+            return False
+        return consistency_feature_of(evidence) == COMMAND_TO_RESPONSE_MISMATCH
+
+    def overlaps(self, other: EvidencePattern) -> bool:
+        """Disjoint from grouped events, command behaviour, and relationship changes."""
+        if isinstance(other, SubsystemBreadthPattern) and other.subsystem_events_only:
+            return False
+        if isinstance(other, CommandBehaviourPattern):
+            return False
+        if isinstance(
+            other,
+            GraphFindingPattern
+            | UntypedStructurePattern
+            | WorkOrderPattern
+            | CommandStructurePattern,
+        ):
+            return False
+        return super().overlaps(other)
+
+
+_COMMAND_RESPONSE: Final = CommandResponsePattern(kinds=(EvidenceKind.DEVIATION,))
+"""A declared command's actuator did not move — the device failed to answer, not a finished job."""
 
 
 class CommandBehaviourPattern(EvidencePattern):
@@ -388,11 +459,51 @@ class CommandBehaviourPattern(EvidencePattern):
         """
         if isinstance(other, SubsystemBreadthPattern) and other.subsystem_events_only:
             return False
+        if isinstance(other, ConsistencyPattern | CommandResponsePattern):
+            # One fact carries one facet, so command behaviour is not a consistency fact.
+            return False
         return super().overlaps(other)
 
 
 _COMMAND_BEHAVIOUR: Final = CommandBehaviourPattern(kinds=(EvidenceKind.DEVIATION,))
 """A device's commanding departed from its learned band — control activity, not a reading."""
+
+
+class ConsistencyPattern(EvidencePattern):
+    """An `EvidencePattern` that reads a declared consistency departure (ADR 0108).
+
+    A consistency fact says one thing: *this reading is not what the rest of the plant implies*.
+    It is promoted by `phos.atlas.consistency_evidence` for one signal at one instant, so it names
+    one entity and is never a grouped subsystem event. That is checked here rather than assumed,
+    for the reason `CommandBehaviourPattern` gives: `_BROAD` supports `process_disturbance`, which
+    this fact contradicts, and the two must be provably disjoint for the template to be
+    single-valued. Reading `phos.atlas.grouping.is_subsystem_event` makes the disjointness a fact
+    about a declared marker.
+
+    Any declared consistency feature matches. `CROSS_SIGNAL_MISMATCH` is emitted here.
+    `COMMAND_TO_RESPONSE_MISMATCH` is emitted by `phos.atlas.command_response` and still matches,
+    so a command the actuator ignored contradicts a real upset (ADR 0108, ADR 0160).
+    """
+
+    def matches(self, evidence: Evidence, entities: Mapping[EntityId, Entity]) -> bool:
+        """Return whether this fact declares a consistency facet and is not a grouped event."""
+        if not super().matches(evidence, entities):
+            return False
+        if is_subsystem_event(evidence):
+            return False
+        return consistency_feature_of(evidence) is not None
+
+    def overlaps(self, other: EvidencePattern) -> bool:
+        """Disjoint from grouped-event patterns and from command behaviour; else the base answer."""
+        if isinstance(other, SubsystemBreadthPattern) and other.subsystem_events_only:
+            return False
+        if isinstance(other, CommandBehaviourPattern):
+            return False
+        return super().overlaps(other)
+
+
+_CONSISTENCY_MISMATCH: Final = ConsistencyPattern(kinds=(EvidenceKind.DEVIATION,))
+"""A reading disagrees with what the rest of the plant implies — the instrument, not the process."""
 
 
 class WorkOrderPattern(EvidencePattern):
@@ -552,7 +663,9 @@ def atlas_templates() -> tuple[HypothesisTemplate, ...]:
             domain=Domain.ATLAS,
             # Rank 2: the modal cause of unexpected behaviour in a running plant.
             prior=prior_at_rank(2),
-            supported_by=(_LOCALISED,),
+            # `_CONSISTENCY_MISMATCH` (ADR 0108): one reading that stopped agreeing with everything
+            # coupled to it is the instrument or the equipment it measures.
+            supported_by=(_LOCALISED, _CONSISTENCY_MISMATCH, _COMMAND_RESPONSE),
             contradicted_by=(_BROAD,),
         ),
         HypothesisTemplate(
@@ -572,7 +685,9 @@ def atlas_templates() -> tuple[HypothesisTemplate, ...]:
             # `_COMMAND_BEHAVIOUR` is ADR 0071's addition and argues for this explanation for the
             # plainest reason available: altering how a device commands is what the work is.
             supported_by=(_UNTYPED_STRUCTURE, _KNOWN_LINK_CHANGE, _WORK_ORDER, _COMMAND_BEHAVIOUR),
-            contradicted_by=(_UNKNOWN_MASTER,),
+            # A command whose actuator did not move is not a completed planned change (ADR 0160).
+            # Known-link function changes stay on ``supported_by``; this is a different fact.
+            contradicted_by=(_UNKNOWN_MASTER, _COMMAND_RESPONSE),
         ),
         HypothesisTemplate(
             template_id=PROCESS_DISTURBANCE_TEMPLATE_ID,
@@ -585,7 +700,9 @@ def atlas_templates() -> tuple[HypothesisTemplate, ...]:
             # A real upset moves readings; it does not make a workstation start commanding a PLC,
             # silence a link that always polled, or put an unfamiliar function code on the wire.
             # A change in the command structure is therefore evidence *against* this explanation.
-            contradicted_by=(_LOCALISED, _STRUCTURE_CHANGED),
+            # So is `_CONSISTENCY_MISMATCH` (ADR 0108): a real upset moves coupled signals together,
+            # so the relationships between them keep holding.
+            contradicted_by=(_LOCALISED, _STRUCTURE_CHANGED, _CONSISTENCY_MISMATCH),
         ),
         HypothesisTemplate(
             template_id=UNAUTHORISED_CONTROL_TEMPLATE_ID,

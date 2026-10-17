@@ -1,0 +1,58 @@
+{
+  "adr": "0132 (ADR 0130 falsifier 2, grade B)",
+  "training": [
+    "normal-96001",
+    "normal-96002",
+    "normal-96003"
+  ],
+  "changes": {
+    "tank_level_max": 11,
+    "tank_output_valve_mode": 14
+  },
+  "links": 5,
+  "true": 5,
+  "precision": 1.0,
+  "chance_precision": 0.5833333333333334,
+  "true_pairs_found": 5,
+  "true_pairs": 14,
+  "found": [
+    {
+      "driver": "tank_output_valve_mode",
+      "driven": "tank_output_valve_status",
+      "responses": 14,
+      "changes": 14,
+      "on_a_true_path": true
+    },
+    {
+      "driver": "tank_output_valve_mode",
+      "driven": "tank_output_flow_value",
+      "responses": 14,
+      "changes": 14,
+      "on_a_true_path": true
+    },
+    {
+      "driver": "tank_output_valve_mode",
+      "driven": "conveyor_belt_engine_status",
+      "responses": 14,
+      "changes": 14,
+      "on_a_true_path": true
+    },
+    {
+      "driver": "tank_output_valve_mode",
+      "driven": "bottle_level_value",
+      "responses": 11,
+      "changes": 14,
+      "on_a_true_path": true
+    },
+    {
+      "driver": "tank_output_valve_mode",
+      "driven": "bottle_distance_to_filler_value",
+      "responses": 14,
+      "changes": 14,
+      "on_a_true_path": true
+    }
+  ],
+  "settings": "DEFAULT_SETTINGS (ADR 0123)",
+  "scorer_sha256": "7f9a47793bcb7492e74d846992d627f0db119a2704ea0f9e2c7a6c9b77bfbd42",
+  "written": "2026-10-15T12:52:12+00:00"
+}

@@ -1,0 +1,84 @@
+{
+  "throughput": {
+    "learning_records": 18,
+    "failures_diagnosed": 14,
+    "failures_by_mechanism": {
+      "inlet_not_promoted": 2,
+      "inlet_subthreshold": 10,
+      "inlet_unavailable": 1,
+      "insufficient_observations": 1
+    },
+    "eligible_failures": 14,
+    "tasks": 2,
+    "attempts": 30,
+    "compute_seconds": 3458.4
+  },
+  "progress": {
+    "survived_red_team": [],
+    "passed_the_gate": [],
+    "survived_held_out": [],
+    "validated_improvements": 0
+  },
+  "tasks": [
+    {
+      "task": "water-liar",
+      "hypotheses": [
+        "longer-lags",
+        "slower-detrend",
+        "both"
+      ],
+      "budget": 18,
+      "attempts": 12,
+      "compute_seconds": 1488.5,
+      "champion_water": 0,
+      "champion_passes": 24,
+      "best_water": 23,
+      "qualifying": 7,
+      "chosen": {
+        "hypothesis": "both",
+        "candidate": {
+          "lags": [
+            0,
+            5,
+            15,
+            30,
+            60,
+            300,
+            900
+          ],
+          "detrend_window": 43200
+        }
+      },
+      "red_team": "fails",
+      "minutes_from_failure_to_first_attempt": 23.7,
+      "scorer_sha256s": [
+        "4843c9e38aa79c3dc089845982d8bd80a820f694adc5a8e1e251186154533a9f"
+      ]
+    },
+    {
+      "task": "water-liar-control",
+      "hypotheses": [
+        "untargeted"
+      ],
+      "budget": 18,
+      "attempts": 18,
+      "compute_seconds": 1969.9,
+      "champion_water": 0,
+      "champion_passes": 24,
+      "best_water": 13,
+      "qualifying": 2,
+      "chosen": {
+        "hypothesis": "untargeted",
+        "candidate": {
+          "fit_step": 2,
+          "detrend_step": 240
+        }
+      },
+      "red_team": "fails",
+      "minutes_from_failure_to_first_attempt": 80.7,
+      "scorer_sha256s": [
+        "4843c9e38aa79c3dc089845982d8bd80a820f694adc5a8e1e251186154533a9f"
+      ]
+    }
+  ]
+}

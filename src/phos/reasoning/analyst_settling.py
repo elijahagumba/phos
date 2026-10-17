@@ -115,6 +115,7 @@ def describe_pattern(pattern: EvidencePattern) -> str:
     )
     from phos.atlas.templates import (
         CommandBehaviourPattern,
+        CommandResponsePattern,
         CommandStructurePattern,
         GraphFindingPattern,
         SubsystemBreadthPattern,
@@ -143,6 +144,8 @@ def describe_pattern(pattern: EvidencePattern) -> str:
         return "a change in who commands whom (not a work-order stamp)"
     if isinstance(pattern, CommandBehaviourPattern):
         return "a change in how a known device commands (rate, register mix, or function share)"
+    if isinstance(pattern, CommandResponsePattern):
+        return "a declared command whose actuator did not move"
     if isinstance(pattern, SubsystemBreadthPattern):
         if pattern.max_signals is not None:
             return f"a departure confined to at most {pattern.max_signals} signals on the same unit"

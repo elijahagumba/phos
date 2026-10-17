@@ -84,6 +84,8 @@ class FacetKind(str, Enum):
     GRAPH_FINDING = "GRAPH_FINDING"
     COMMAND_BEHAVIOUR = "COMMAND_BEHAVIOUR"
     WORK_ORDER = "WORK_ORDER"
+    CONSISTENCY = "CONSISTENCY"
+    """A reading that disagrees with what the rest of the plant implies (ADR 0108)."""
 
 
 class EvidenceRole(str, Enum):

@@ -1,0 +1,145 @@
+{
+  "adr": "0130 falsifier 1 (grade C)",
+  "training": [
+    "normal-96001",
+    "normal-96002",
+    "normal-96003"
+  ],
+  "score": {
+    "claims": 4,
+    "true": 4,
+    "precision": 1.0,
+    "narrowed": 2,
+    "narrowed_true": 2,
+    "loops_declared": 6,
+    "loops_visible_on_the_network": 3,
+    "visible_loops_found": 3,
+    "recall_of_visible": 1.0
+  },
+  "claims": [
+    {
+      "controller": "plc1",
+      "point": "bottle_distance_to_filler_value",
+      "drives_one_of": [
+        "tank_input_valve_status",
+        "tank_output_valve_status"
+      ],
+      "narrowed_to": "tank_output_valve_status",
+      "reads": 192487
+    },
+    {
+      "controller": "plc1",
+      "point": "bottle_level_max",
+      "drives_one_of": [
+        "tank_input_valve_status",
+        "tank_output_valve_status"
+      ],
+      "narrowed_to": null,
+      "reads": 192487
+    },
+    {
+      "controller": "plc1",
+      "point": "bottle_level_value",
+      "drives_one_of": [
+        "tank_input_valve_status",
+        "tank_output_valve_status"
+      ],
+      "narrowed_to": "tank_output_valve_status",
+      "reads": 192490
+    },
+    {
+      "controller": "plc2",
+      "point": "tank_output_flow_value",
+      "drives_one_of": [
+        "conveyor_belt_engine_status"
+      ],
+      "narrowed_to": null,
+      "reads": 215078
+    }
+  ],
+  "runs_with_the_same_claims": 13,
+  "runs": 13,
+  "claims_by_run": {
+    "normal-96001": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "normal-96002": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "normal-96003": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96011": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96012": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96013": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96014": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96015": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96016": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96017": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96018": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96019": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ],
+    "mixed-96020": [
+      "plc1:bottle_distance_to_filler_value",
+      "plc1:bottle_level_max",
+      "plc1:bottle_level_value",
+      "plc2:tank_output_flow_value"
+    ]
+  },
+  "settings": "DEFAULT_SETTINGS (ADR 0123)",
+  "scorer_sha256": "7f9a47793bcb7492e74d846992d627f0db119a2704ea0f9e2c7a6c9b77bfbd42",
+  "written": "2026-10-15T12:33:07+00:00"
+}

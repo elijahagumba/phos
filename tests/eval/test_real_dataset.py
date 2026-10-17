@@ -8,7 +8,9 @@ This is what proves the PART 2/3 code path works on real telemetry rather than o
 synthetic generator — and it is deliberately parametrised over every corpus, because the traps
 that break a real load (a label column whose sentinel means "unlabelled", column names that
 differ between a corpus's own train and test files, ambiguous day-first dates) are per-corpus and
-would not be caught by testing one of them.
+would not be caught by testing one of them. The module is marked ``slow`` (ADR 0092). With
+the payloads on disk the two batch-distillation scores are about nine minutes each, and the
+default suite omits the marker.
 """
 
 import json
@@ -74,6 +76,7 @@ CASES = [pytest.param(config, id=case_id) for case_id, config in MANIFESTS] or [
 ]
 
 pytestmark = [
+    pytest.mark.slow,
     pytest.mark.skipif(
         not MANIFESTS,
         reason=(

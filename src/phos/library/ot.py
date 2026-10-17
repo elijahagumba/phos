@@ -28,14 +28,18 @@ from phos.synth.generate import generate_dataset
 
 __all__ = [
     "LIBRARY_DIRNAME",
+    "PROCESS_GAP_HOURS",
     "SAMPLE_INTERVAL_SECONDS",
     "SEEDS",
     "SUBTLETIES",
     "generate_ot_library",
+    "lay_out",
+    "liar_recipe",
     "ot_catalogue_payload",
     "ot_packs",
     "ot_scenario_count",
     "ot_trains",
+    "pack_start",
     "write_ot_catalogue",
 ]
 
@@ -241,6 +245,38 @@ def _layout(
             plans.append(recipe.to_plan(attack_id, subtlety, cursor))
             cursor += recipe.duration_hours + gap_hours
     return tuple(plans), cursor + _TAIL_HOURS
+
+
+PROCESS_GAP_HOURS: Final = _PROCESS_GAP_HOURS
+"""Hours between consecutive process-pack attacks."""
+
+
+def lay_out(
+    plant_id: str,
+    kind: str,
+    recipes: Sequence[AttackRecipe],
+    seed: int,
+    gap_hours: float,
+) -> tuple[tuple[AttackPlan, ...], float]:
+    """The library's layout, public: every recipe at every subtlety, non-overlapping."""
+    return _layout(plant_id, kind, recipes, seed, gap_hours)
+
+
+def pack_start() -> datetime:
+    """When every library pack opens."""
+    return _START
+
+
+def liar_recipe(plant_id: str) -> AttackRecipe:
+    """The one ``LIAR`` recipe in a plant's process pack.
+
+    Raises:
+        ValueError: If the plant has no process pack, or not exactly one liar in it.
+    """
+    recipes = [r for r in _PROCESS.get(plant_id, ()) if r.attack_type is AttackType.LIAR]
+    if len(recipes) != 1:
+        raise ValueError(f"{plant_id!r} has {len(recipes)} liar recipe(s) in its process pack")
+    return recipes[0]
 
 
 def ot_packs() -> tuple[AttackDatasetConfig, ...]:

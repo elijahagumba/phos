@@ -1,0 +1,340 @@
+{
+  "chance": {
+    "hai-22.04": {
+      "draws": 500,
+      "mean_caught": 3.808,
+      "percentile_95": 7.0,
+      "max_caught": 9
+    },
+    "hai-23.05": {
+      "draws": 500,
+      "mean_caught": 3.06,
+      "percentile_95": 6.0,
+      "max_caught": 8
+    }
+  },
+  "drivers": {
+    "hai-22.04": {
+      "caught": 53,
+      "features": [
+        {
+          "feature": "P1_PCV01D",
+          "attacks": 11,
+          "range": 0,
+          "loop": 11,
+          "tie": 0,
+          "flagged": true
+        },
+        {
+          "feature": "P1_FT03Z",
+          "attacks": 8,
+          "range": 0,
+          "loop": 8,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P3_LCV01D",
+          "attacks": 6,
+          "range": 0,
+          "loop": 6,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_LIT01",
+          "attacks": 5,
+          "range": 0,
+          "loop": 5,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_LCV01D",
+          "attacks": 4,
+          "range": 0,
+          "loop": 4,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P2_AutoSD",
+          "attacks": 4,
+          "range": 3,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_B3005",
+          "attacks": 3,
+          "range": 0,
+          "loop": 3,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P2_SCO",
+          "attacks": 3,
+          "range": 3,
+          "loop": 0,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_PP04",
+          "attacks": 2,
+          "range": 2,
+          "loop": 0,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_B4005",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_FCV01D",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_TIT02",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P2_ManualSD",
+          "attacks": 1,
+          "range": 1,
+          "loop": 0,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P2_SIT01",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P2_VT01",
+          "attacks": 1,
+          "range": 1,
+          "loop": 0,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P3_LH01",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        }
+      ]
+    },
+    "hai-23.05": {
+      "caught": 36,
+      "features": [
+        {
+          "feature": "P1_FT03Z",
+          "attacks": 6,
+          "range": 0,
+          "loop": 6,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_PCV01D",
+          "attacks": 6,
+          "range": 0,
+          "loop": 6,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "x1002_07_SETPOINT_OUT",
+          "attacks": 5,
+          "range": 0,
+          "loop": 5,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_PIT01",
+          "attacks": 4,
+          "range": 0,
+          "loop": 4,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_FCV01D",
+          "attacks": 3,
+          "range": 0,
+          "loop": 3,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "x1002_08_SETPOINT_OUT",
+          "attacks": 3,
+          "range": 0,
+          "loop": 3,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P2_SCO",
+          "attacks": 2,
+          "range": 2,
+          "loop": 0,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P2_VT01",
+          "attacks": 2,
+          "range": 2,
+          "loop": 0,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_FCV02Z",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_LCV01Z",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_LIT01",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_PCV01Z",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        },
+        {
+          "feature": "P1_PCV02D",
+          "attacks": 1,
+          "range": 0,
+          "loop": 1,
+          "tie": 0,
+          "flagged": false
+        }
+      ]
+    }
+  },
+  "controls": {
+    "hai-22.04": [
+      {
+        "detector": "sandbox-control:minmax-events",
+        "caught": 21,
+        "attacks": 58,
+        "beyond_grouped_minmax": 11,
+        "point_adjusted_f1": 0.4618154585396108
+      },
+      {
+        "detector": "sandbox-control:no-loop",
+        "caught": 21,
+        "attacks": 58,
+        "beyond_grouped_minmax": 11,
+        "point_adjusted_f1": 0.4618154585396108
+      }
+    ],
+    "hai-23.05": [
+      {
+        "detector": "sandbox-control:minmax-events",
+        "caught": 15,
+        "attacks": 52,
+        "beyond_grouped_minmax": 9,
+        "point_adjusted_f1": 0.5435215434667239
+      },
+      {
+        "detector": "sandbox-control:no-loop",
+        "caught": 15,
+        "attacks": 52,
+        "beyond_grouped_minmax": 9,
+        "point_adjusted_f1": 0.5435215434667239
+      }
+    ]
+  },
+  "independence": {
+    "hai-22.04": {
+      "same_alert_list": false,
+      "same_timestamps": false,
+      "rows": [
+        {
+          "detector": "sandbox-candidate:own-grouping",
+          "events_before_budget": 83,
+          "alerts_after_budget": 101,
+          "alerts_kept": 101,
+          "point_adjusted_from": "own-grouping budget output passed to _score_detector",
+          "point_adjusted_alerts": 101
+        },
+        {
+          "detector": "sandbox-candidate:shared-wrapper",
+          "events_before_budget": 83,
+          "alerts_after_budget": 83,
+          "alerts_kept": 83,
+          "point_adjusted_from": "group_published_alerts output passed to _score_detector",
+          "point_adjusted_alerts": 83
+        }
+      ]
+    },
+    "hai-23.05": {
+      "same_alert_list": false,
+      "same_timestamps": true,
+      "rows": [
+        {
+          "detector": "sandbox-candidate:own-grouping",
+          "events_before_budget": 85,
+          "alerts_after_budget": 73,
+          "alerts_kept": 73,
+          "point_adjusted_from": "own-grouping budget output passed to _score_detector",
+          "point_adjusted_alerts": 73
+        },
+        {
+          "detector": "sandbox-candidate:shared-wrapper",
+          "events_before_budget": 85,
+          "alerts_after_budget": 73,
+          "alerts_kept": 73,
+          "point_adjusted_from": "group_published_alerts output passed to _score_detector",
+          "point_adjusted_alerts": 73
+        }
+      ]
+    }
+  }
+}
