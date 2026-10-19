@@ -23,7 +23,12 @@ from phos.eval.build_declaration import (
     GRFICS_DEVELOPMENT_RUNS,
     GRFICS_HELD_BACK_RUNS,
     GRFICS_LICENSE_SHA256,
+    LANE_R_HELD_BACK_SEEDS,
+    QUEUE_DEVELOPMENT_SEEDS,
+    QUEUE_HELD_BACK_SEEDS,
     SCORECARD,
+    TRUSTED_DEVELOPMENT_SEEDS,
+    TRUSTED_HELD_BACK_SEEDS,
     W5_DEVELOPMENT_SEEDS,
     W5_HELD_BACK_SEEDS,
     build_seed_blocks,
@@ -78,6 +83,19 @@ def test_new_seed_blocks_are_disjoint_from_every_used_set() -> None:
     assert W5_DEVELOPMENT_SEEDS == tuple(range(97401, 97421))
     assert W5_HELD_BACK_SEEDS == tuple(range(97501, 97521))
     assert not frozenset(W5_DEVELOPMENT_SEEDS) & frozenset(W5_HELD_BACK_SEEDS)
+    assert LANE_R_HELD_BACK_SEEDS == tuple(range(97701, 97721))
+    assert not frozenset(LANE_R_HELD_BACK_SEEDS) & frozenset(W5_DEVELOPMENT_SEEDS)
+    assert not frozenset(LANE_R_HELD_BACK_SEEDS) & frozenset(W5_HELD_BACK_SEEDS)
+    assert TRUSTED_DEVELOPMENT_SEEDS == tuple(range(97801, 97821))
+    assert TRUSTED_HELD_BACK_SEEDS == tuple(range(97901, 97921))
+    assert not frozenset(TRUSTED_DEVELOPMENT_SEEDS) & frozenset(TRUSTED_HELD_BACK_SEEDS)
+    assert not frozenset(range(97601, 97671)) & frozenset(TRUSTED_DEVELOPMENT_SEEDS)
+    assert not frozenset(range(97701, 97721)) & frozenset(TRUSTED_HELD_BACK_SEEDS)
+    assert QUEUE_DEVELOPMENT_SEEDS == tuple(range(97651, 97671))
+    assert QUEUE_HELD_BACK_SEEDS == tuple(range(97601, 97621))
+    assert not frozenset(QUEUE_DEVELOPMENT_SEEDS) & frozenset(QUEUE_HELD_BACK_SEEDS)
+    assert len(QUEUE_DEVELOPMENT_SEEDS) == 20
+    assert len(QUEUE_HELD_BACK_SEEDS) == 20
 
 
 def test_the_scorecard_names_the_brief_and_nothing_is_a_number() -> None:

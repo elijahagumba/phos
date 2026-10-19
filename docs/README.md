@@ -41,12 +41,20 @@ unchanged detector raised 74 alerts in about 26,000 shifts; the turbines' own st
 **What does not work yet.** On harder simulated cases, such as a fault during maintenance or two
 sensors failing together, the leading explanation was right 33 times in 54, and right and wrong
 answers carried the same confidence, so no confidence figure is shown
-([ADR 0176](adr/0176-w5-held-back-confidence-is-declared.md)). On real network captures from the
+([ADR 0176](adr/0176-w5-held-back-confidence-is-declared.md)). A later version of the reasoning,
+built to look for the evidence that tells two explanations apart, was right on all 60 held-back
+cases where it named one and declined to name one on the rest. Those cases came from the same five
+kinds of situation it was built around, and its confidence is still not shown
+([ADR 0260](adr/0260-build-d-is-merged-and-its-bars-stand.md)). On real network captures from the
 4SICS lab, most traffic was Siemens S7, which Atlas does not decode yet
 ([ADR 0177](adr/0177-4sics-development-days-are-declared.md)). And its queue still does not rank:
 across five corpora, looked at once, 57 of 203 attacks had a true alert in the top tenth of their
 shift's queue, where half was the bar
-([ADR 0212](adr/0212-a3-queue-rank-is-declared.md)).
+([ADR 0212](adr/0212-a3-queue-rank-is-declared.md)). Reordering cannot fix most of that: many
+shifts hold more attacks than there are top slots, and on the one corpus Atlas was built on even a
+perfect ordering reaches only 21 of 38. On simulated plants, a hostile command from a station the
+plant already trusts is still not named, though the new evidence for it appeared on every hostile
+write and on no legitimate one ([ADR 0260](adr/0260-build-d-is-merged-and-its-bars-stand.md)).
 
 [How the current detector entered the engine →](adr/0107-the-consistency-detector-enters-the-engine.md)
 

@@ -23,10 +23,15 @@ __all__ = [
     "KELMARSH_DEVELOPMENT_FILES",
     "KELMARSH_HELD_BACK_FILES",
     "KELMARSH_RECORD",
+    "LANE_R_HELD_BACK_SEEDS",
     "PENMANSHIEL_DEVELOPMENT_FILES",
     "PENMANSHIEL_HELD_BACK_FILES",
     "PENMANSHIEL_RECORD",
+    "QUEUE_DEVELOPMENT_SEEDS",
+    "QUEUE_HELD_BACK_SEEDS",
     "SCORECARD",
+    "TRUSTED_DEVELOPMENT_SEEDS",
+    "TRUSTED_HELD_BACK_SEEDS",
     "W5_DEVELOPMENT_SEEDS",
     "W5_HELD_BACK_SEEDS",
     "GrficsRun",
@@ -43,6 +48,17 @@ BUILD_HELD_BACK_SEEDS: Final[tuple[int, ...]] = tuple(range(97101, 97121))
 W5_DEVELOPMENT_SEEDS: Final[tuple[int, ...]] = tuple(range(97401, 97421))
 #: Round-3 confidence scenarios. One score, after a declaration. Not generated before ADR 0175.
 W5_HELD_BACK_SEEDS: Final[tuple[int, ...]] = tuple(range(97501, 97521))
+#: Lane Q mixed-queue shifts. Iterate freely. Not generated before ADR 0231.
+QUEUE_DEVELOPMENT_SEEDS: Final[tuple[int, ...]] = tuple(range(97651, 97671))
+#: Lane Q mixed-queue shifts. One score, after a declaration. Not generated before that record.
+QUEUE_HELD_BACK_SEEDS: Final[tuple[int, ...]] = tuple(range(97601, 97621))
+#: Lane R held-back hard cases. One score, after ADR 0240. Same five scenarios as ADR 0176.
+LANE_R_HELD_BACK_SEEDS: Final[tuple[int, ...]] = tuple(range(97701, 97721))
+#: Lane T trusted-station runs. Iterate freely. Disjoint from every used set,
+#: including 976xx and 977xx.
+TRUSTED_DEVELOPMENT_SEEDS: Final[tuple[int, ...]] = tuple(range(97801, 97821))
+#: Lane T trusted-station runs. One score, after a declaration. Not generated before that commit.
+TRUSTED_HELD_BACK_SEEDS: Final[tuple[int, ...]] = tuple(range(97901, 97921))
 
 #: What a lane's report has to carry. Names only: no number is filled in here.
 SCORECARD: Final[tuple[str, ...]] = (
@@ -198,9 +214,9 @@ _MODES: Final = frozenset({"frozen", "drift", "noise", "dropout", "stuck", "none
 def build_seed_blocks() -> dict[str, frozenset[int]]:
     """Return the seed blocks these declarations add.
 
-    The blocks are the October synthetic batches, the two GRFICS batches, and
-    the round-3 confidence batches (ADR 0175). A test checks them against the
-    sets that were already used.
+    The blocks are the October synthetic batches, the two GRFICS batches, the
+    round-3 confidence batches (ADR 0175), and the build D seed batches
+    (ADRs 0231, 0240, 0250). A test checks them against the sets that were already used.
     """
     return {
         "build-development": frozenset(BUILD_DEVELOPMENT_SEEDS),
@@ -209,6 +225,11 @@ def build_seed_blocks() -> dict[str, frozenset[int]]:
         "grfics-held-back": frozenset(run.seed for run in GRFICS_HELD_BACK_RUNS),
         "w5-development": frozenset(W5_DEVELOPMENT_SEEDS),
         "w5-held-back": frozenset(W5_HELD_BACK_SEEDS),
+        "queue-development": frozenset(QUEUE_DEVELOPMENT_SEEDS),
+        "queue-held-back": frozenset(QUEUE_HELD_BACK_SEEDS),
+        "lane-r-held-back": frozenset(LANE_R_HELD_BACK_SEEDS),
+        "trusted-development": frozenset(TRUSTED_DEVELOPMENT_SEEDS),
+        "trusted-held-back": frozenset(TRUSTED_HELD_BACK_SEEDS),
     }
 
 

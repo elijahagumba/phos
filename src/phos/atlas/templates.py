@@ -103,6 +103,7 @@ from typing import Final, Self
 
 from pydantic import Field, field_validator, model_validator
 
+from phos.atlas.command_effect import command_effect_feature_of
 from phos.atlas.command_evidence import command_behaviour_feature_of, graph_finding_feature_of
 from phos.atlas.consistency_evidence import (
     COMMAND_TO_RESPONSE_MISMATCH,
@@ -115,7 +116,7 @@ from phos.atlas.packet import (
     UNKNOWN_COMMAND_RELATIONSHIP,
 )
 from phos.atlas.work_orders import work_order_feature_of
-from phos.ontology import Domain, Entity, EntityId, Evidence, EvidenceKind
+from phos.ontology import Domain, Entity, EntityId, Evidence, EvidenceKind, FacetKind
 from phos.reasoning import (
     EVIDENCE_STRENGTH,
     EvidencePattern,
@@ -133,11 +134,14 @@ __all__ = [
     "RANK_ODDS_FACTOR",
     "SENSOR_OR_DEVICE_FAULT_TEMPLATE_ID",
     "UNAUTHORISED_CONTROL_TEMPLATE_ID",
+    "UNCOVERED_SETPOINT",
     "CommandBehaviourPattern",
+    "CommandEffectPattern",
     "CommandResponsePattern",
     "ConsistencyPattern",
     "GraphFindingPattern",
     "SubsystemBreadthPattern",
+    "UncoveredSetpointPattern",
     "UntypedStructurePattern",
     "WorkOrderPattern",
     "atlas_library",
@@ -291,14 +295,18 @@ class SubsystemBreadthPattern(EvidencePattern):
             and other.subsystem_events_only is not self.subsystem_events_only
         ):
             return False
+        if isinstance(other, UncoveredSetpointPattern):
+            # A setpoint the work order does not cover is not a breadth count.
+            return False
         if (
-            isinstance(other, ConsistencyPattern | CommandResponsePattern)
+            isinstance(other, ConsistencyPattern | CommandResponsePattern | CommandEffectPattern)
             and self.subsystem_events_only
         ):
             # Neither fact is a grouped subsystem event. ConsistencyPattern says so for a
             # cross-signal mismatch; CommandResponsePattern says so for a command the actuator
-            # ignored (ADR 0160). The reverse call already returns false. This direction has to
-            # as well, or a breadth band is treated as the same fact.
+            # ignored (ADR 0160). CommandEffectPattern says so for what a write did to the plant
+            # (ADR 0250). The reverse call already returns false. This direction has to as well,
+            # or a breadth band is treated as the same fact.
             return False
         low, high = _band(other)
         return _reaches(self.min_signals, high) and _reaches(low, self.max_signals)
@@ -357,7 +365,9 @@ class CommandResponsePattern(EvidencePattern):
         """Disjoint from grouped events, command behaviour, and relationship changes."""
         if isinstance(other, SubsystemBreadthPattern) and other.subsystem_events_only:
             return False
-        if isinstance(other, CommandBehaviourPattern):
+        if isinstance(
+            other, CommandBehaviourPattern | UncoveredSetpointPattern | CommandEffectPattern
+        ):
             return False
         if isinstance(
             other,
@@ -372,6 +382,54 @@ class CommandResponsePattern(EvidencePattern):
 
 _COMMAND_RESPONSE: Final = CommandResponsePattern(kinds=(EvidenceKind.DEVIATION,))
 """A declared command's actuator did not move — the device failed to answer, not a finished job."""
+
+
+class CommandEffectPattern(EvidencePattern):
+    """What a setpoint write did to the plant, not who sent it (ADR 0250).
+
+    The fact is `FacetKind.COMMAND_EFFECT`. It supports unauthorised control only. A known-link
+    function change is a different fact and still supports both maintenance and an attack.
+
+    Attributes:
+        features: Which command-effect feature names match. Empty matches any declared one.
+    """
+
+    features: tuple[str, ...] = ()
+
+    def matches(self, evidence: Evidence, entities: Mapping[EntityId, Entity]) -> bool:
+        """Return whether this fact declares a command effect and is not a grouped event."""
+        if not super().matches(evidence, entities):
+            return False
+        if is_subsystem_event(evidence):
+            return False
+        feature = command_effect_feature_of(evidence)
+        if feature is None:
+            return False
+        return not self.features or feature in self.features
+
+    def overlaps(self, other: EvidencePattern) -> bool:
+        """Disjoint from grouped events, other deviation facets, and relationship changes."""
+        if isinstance(other, SubsystemBreadthPattern) and other.subsystem_events_only:
+            return False
+        if isinstance(other, CommandBehaviourPattern | ConsistencyPattern | CommandResponsePattern):
+            return False
+        if isinstance(
+            other,
+            GraphFindingPattern
+            | UntypedStructurePattern
+            | WorkOrderPattern
+            | CommandStructurePattern,
+        ):
+            return False
+        if isinstance(other, CommandEffectPattern):
+            if not self.features or not other.features:
+                return True
+            return bool(set(self.features) & set(other.features))
+        return super().overlaps(other)
+
+
+_COMMAND_EFFECT: Final = CommandEffectPattern(kinds=(EvidenceKind.DEVIATION,))
+"""A write moved the plant toward a limit against the call. Not a known-link function change."""
 
 
 class CommandBehaviourPattern(EvidencePattern):
@@ -459,8 +517,15 @@ class CommandBehaviourPattern(EvidencePattern):
         """
         if isinstance(other, SubsystemBreadthPattern) and other.subsystem_events_only:
             return False
-        if isinstance(other, ConsistencyPattern | CommandResponsePattern):
-            # One fact carries one facet, so command behaviour is not a consistency fact.
+        if isinstance(
+            other,
+            ConsistencyPattern
+            | CommandResponsePattern
+            | UncoveredSetpointPattern
+            | CommandEffectPattern,
+        ):
+            # One fact carries one facet, so command behaviour is not a consistency fact,
+            # an uncovered setpoint, or a command-effect fact.
             return False
         return super().overlaps(other)
 
@@ -497,7 +562,9 @@ class ConsistencyPattern(EvidencePattern):
         """Disjoint from grouped-event patterns and from command behaviour; else the base answer."""
         if isinstance(other, SubsystemBreadthPattern) and other.subsystem_events_only:
             return False
-        if isinstance(other, CommandBehaviourPattern):
+        if isinstance(
+            other, CommandBehaviourPattern | UncoveredSetpointPattern | CommandEffectPattern
+        ):
             return False
         return super().overlaps(other)
 
@@ -644,6 +711,35 @@ _KNOWN_LINK_CHANGE: Final = GraphFindingPattern(
 _UNTYPED_STRUCTURE: Final = UntypedStructurePattern(kinds=(EvidenceKind.RELATIONSHIP_CHANGE,))
 """A structural change whose finding type was not declared — the P3 fixture shape."""
 
+UNCOVERED_SETPOINT: Final = "uncovered_setpoint"
+"""A setpoint moved outside the quiet-train envelope and the work order does not name it."""
+
+
+class UncoveredSetpointPattern(EvidencePattern):
+    """A setpoint the open work order does not cover (Lane R, H2).
+
+    Not a graph finding. It does not match `unexpected_command_function` or a silent known
+    link. It supports unauthorised control, and it counts against maintenance and against
+    reading the same move as a sensor fault.
+    """
+
+    def matches(self, evidence: Evidence, entities: Mapping[EntityId, Entity]) -> bool:
+        """Return whether this fact declares the uncovered-setpoint facet."""
+        if not super().matches(evidence, entities):
+            return False
+        return (
+            evidence.facet_kind is FacetKind.UNCOVERED_SETPOINT
+            and evidence.facet == UNCOVERED_SETPOINT
+        )
+
+    def overlaps(self, other: EvidencePattern) -> bool:
+        """Disjoint from every other Atlas pattern: one facet, one role."""
+        return isinstance(other, UncoveredSetpointPattern) and super().overlaps(other)
+
+
+_UNCOVERED_SETPOINT: Final = UncoveredSetpointPattern(kinds=(EvidenceKind.DEVIATION,))
+"""The work order is open, and this setpoint is not what it covers."""
+
 
 def atlas_templates() -> tuple[HypothesisTemplate, ...]:
     """Return the five OT explanations Atlas reasons with, in registration order.
@@ -666,7 +762,7 @@ def atlas_templates() -> tuple[HypothesisTemplate, ...]:
             # `_CONSISTENCY_MISMATCH` (ADR 0108): one reading that stopped agreeing with everything
             # coupled to it is the instrument or the equipment it measures.
             supported_by=(_LOCALISED, _CONSISTENCY_MISMATCH, _COMMAND_RESPONSE),
-            contradicted_by=(_BROAD,),
+            contradicted_by=(_BROAD, _UNCOVERED_SETPOINT),
         ),
         HypothesisTemplate(
             template_id=ENGINEERING_MAINTENANCE_TEMPLATE_ID,
@@ -687,7 +783,7 @@ def atlas_templates() -> tuple[HypothesisTemplate, ...]:
             supported_by=(_UNTYPED_STRUCTURE, _KNOWN_LINK_CHANGE, _WORK_ORDER, _COMMAND_BEHAVIOUR),
             # A command whose actuator did not move is not a completed planned change (ADR 0160).
             # Known-link function changes stay on ``supported_by``; this is a different fact.
-            contradicted_by=(_UNKNOWN_MASTER, _COMMAND_RESPONSE),
+            contradicted_by=(_UNKNOWN_MASTER, _COMMAND_RESPONSE, _UNCOVERED_SETPOINT),
         ),
         HypothesisTemplate(
             template_id=PROCESS_DISTURBANCE_TEMPLATE_ID,
@@ -721,7 +817,17 @@ def atlas_templates() -> tuple[HypothesisTemplate, ...]:
             # an attacker operating a device changes how it commands, and so does an engineer, so
             # the fact supports both and separates neither. It is disjoint from `_LOCALISED` by
             # the subsystem-event marker, which is what keeps the role single-valued.
-            supported_by=(_BROAD, _STRUCTURE_CHANGED, _COMMAND_BEHAVIOUR),
+            # `_UNCOVERED_SETPOINT` is a setpoint the work order does not name.
+            # `_COMMAND_EFFECT` (ADR 0250) is what the write did to the plant. Neither is a
+            # known-link function change: those stay on `_KNOWN_LINK_CHANGE` and still support
+            # maintenance as well.
+            supported_by=(
+                _BROAD,
+                _STRUCTURE_CHANGED,
+                _COMMAND_BEHAVIOUR,
+                _UNCOVERED_SETPOINT,
+                _COMMAND_EFFECT,
+            ),
             contradicted_by=(_LOCALISED, _WORK_ORDER),
         ),
         insufficient_evidence_template(Domain.ATLAS),

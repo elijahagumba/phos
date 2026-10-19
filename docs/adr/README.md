@@ -273,6 +273,18 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0220](0220-tag-suggestions-are-not-declarations.md) | The onboarding tool's tag suggestions are not declarations | ADR 0123 | 2026-10-19 | Accepted |
 | [0221](0221-the-v1-command-checks-the-record.md) | The v1 command checks the committed record without rescoring | ADR 0116 | 2026-10-19 | Accepted |
 | [0230](0230-v1-stands-at-six-of-twelve.md) | v1 stands at 6 of 12 after the sprint; S2 is not met, by Elijah's decision, because an empty register names nothing | ADR 0204, ADR 0212 | 2026-10-19 | Accepted |
+| [0231](0231-queue-rankers-and-mixed-shifts-are-declared.md) | Six queue reorderings and mixed-shift seeds 97651–97670 and 97601–97620 are declared before any ranker runs | ADR 0212 | 2026-10-19 | Accepted |
+| [0232](0232-familiarity-is-frozen-before-the-held-back-queue.md) | Familiarity is the only reorder that did not lower recall; it is frozen before seeds 97601–97620 | ADR 0231 | 2026-10-19 | Accepted |
+| [0233](0233-familiarity-held-back-queue-did-not-beat-the-champion.md) | Familiarity on seeds 97601–97620 is 20 of 20, the same as the champion; the bar is not met | ADR 0232 | 2026-10-19 | Accepted |
+| [0234](0234-the-familiarity-queue-gate-is-not-run.md) | The five-corpus gate for familiarity is named and not run; v1 A3 stays 57 of 203 | ADR 0212, ADR 0233 | 2026-10-19 | Accepted |
+| [0240](0240-lane-r-held-back-confidence-is-declared.md) | Lane R held-back seeds 97701-97720 are declared before the one score | ADR 0175, ADR 0176 | 2026-10-19 | Accepted |
+| [0250](0250-a-command-effect-is-not-a-known-link-change.md) | A command effect is a new facet; known-link function changes still support both explanations; lane T seeds 97801–97820 and 97901–97920 | ADR 0034, ADR 0073 | 2026-10-19 | Accepted |
+| [0251](0251-h1-attaches-and-does-not-lead.md) | H1 attaches on 20 of 20 hostile development writes and uniquely leads on 0 of 20; authorised false alarms 0.00 | ADR 0250 | 2026-10-19 | Accepted |
+| [0252](0252-h2-is-rejected-for-false-alarms.md) | H2 is rejected: setpoint jumps false-alarm on 20 of 20 authorised development runs | ADR 0250, ADR 0086 | 2026-10-19 | Accepted |
+| [0253](0253-h3-is-kept-and-does-not-lead.md) | H3 is kept; H1+H3 uniquely leads on 0 of 20 development seeds and false-alarms at 0.00 | ADR 0251, ADR 0252 | 2026-10-19 | Accepted |
+| [0254](0254-trusted-station-held-back-is-declared.md) | Held-back seeds 97901-97920 are declared for one score of H1+H3; the score is not run in this record | ADR 0253 | 2026-10-19 | Accepted |
+| [0255](0255-trusted-station-held-back-lead-bar-is-not-met.md) | Held-back unique leads 0 of 20, not met; false alarms 0.00, met; known-link tests green, met | ADR 0254 | 2026-10-19 | Accepted |
+| [0260](0260-build-d-is-merged-and-its-bars-stand.md) | Build D is merged; no ranker beat the champion, W5's high flag cannot reach 0.8 by construction, and the trusted-station facts do not lead | ADR 0234, ADR 0240, ADR 0255 | 2026-10-19 | Accepted |
 
 ## Related reading
 

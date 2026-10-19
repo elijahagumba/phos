@@ -87,6 +87,12 @@ class FacetKind(str, Enum):
     CONSISTENCY = "CONSISTENCY"
     """A reading that disagrees with what the rest of the plant implies (ADR 0108)."""
 
+    UNCOVERED_SETPOINT = "UNCOVERED_SETPOINT"
+    """A setpoint left its training envelope and the work order does not name it."""
+
+    COMMAND_EFFECT = "COMMAND_EFFECT"
+    """What a setpoint write did to the plant, apart from who sent it (ADR 0250)."""
+
 
 class EvidenceRole(str, Enum):
     """How a piece of evidence bears on a hypothesis.

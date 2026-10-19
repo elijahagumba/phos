@@ -108,6 +108,12 @@ _ONTOLOGY_OPENED_AFTER_6B = frozenset(
         "src/phos/ontology/__init__.py",  # ADR 0070: FacetKind export
     }
 )
+
+_SENTIEL_OPENED_AFTER_6B = frozenset(
+    {
+        "src/phos/sentiel/cert.py",  # ADR 0203: optional r4.2 email columns, read when present
+    }
+)
 """Ontology files later cycle ADRs had to open. The rest of the package stays frozen at 6B.
 
 Each entry is named with the record that opened it, so the freeze is narrowed on purpose rather
@@ -325,14 +331,16 @@ class TestReuseNotFork:
         `enums.py` / `__init__.py` (ADR 0070: the optional `facet_kind` / `facet` pair that
         replaced summary-string parsing in Atlas's matchers). Model files opened after 6B stay
         named in `_MODELS_OPENED_AFTER_6B` (ADR 0086: the empirical command baseline and its
-        export). `gaussian.py` is not on that list.
+        export). `gaussian.py` is not on that list. Sentiel intake opened after 6B stays named
+        in `_SENTIEL_OPENED_AFTER_6B` (ADR 0203: optional r4.2 email columns). The other spine
+        files on this list stay frozen at 6B.
         """
         if _git("cat-file", "-e", f"{SIXB_COMMIT}^{{commit}}") is None:  # pragma: no cover
             pytest.skip("the PART 6B commit is not in this checkout")
         changed = _git("diff", SIXB_COMMIT, "--name-only", "--", path)
         if changed is None:  # pragma: no cover - env dependent
             pytest.skip("git unavailable")
-        opened = _ONTOLOGY_OPENED_AFTER_6B | _MODELS_OPENED_AFTER_6B
+        opened = _ONTOLOGY_OPENED_AFTER_6B | _MODELS_OPENED_AFTER_6B | _SENTIEL_OPENED_AFTER_6B
         leftover = [line for line in changed.strip().splitlines() if line and line not in opened]
         assert leftover == [], f"PART 6C must reuse {path} unchanged, but git reports:\n{changed}"
 

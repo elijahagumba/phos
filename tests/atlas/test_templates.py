@@ -30,6 +30,7 @@ from phos.atlas import (
     SENSOR_OR_DEVICE_FAULT_TEMPLATE_ID,
     UNAUTHORISED_CONTROL_TEMPLATE_ID,
     CommandBehaviourPattern,
+    CommandEffectPattern,
     CommandResponsePattern,
     ConsistencyPattern,
     GraphFindingPattern,
@@ -45,6 +46,7 @@ from phos.atlas.packet import (
     UNEXPECTED_COMMAND_FUNCTION,
     UNKNOWN_COMMAND_RELATIONSHIP,
 )
+from phos.atlas.templates import UncoveredSetpointPattern
 from phos.ontology import Domain, Evidence, EvidenceKind, EvidenceRole
 from phos.reasoning import (
     EVIDENCE_STRENGTH,
@@ -296,12 +298,20 @@ def _telemetry_patterns(patterns: tuple[EvidencePattern, ...]) -> tuple[Evidence
     it reads a declared relationship between readings, not one reading's departure or breadth.
     `CommandResponsePattern` is excluded for the same reason (ADR 0160): it reads a declared
     command whose actuator did not move, not one reading's breadth.
+    `UncoveredSetpointPattern` is excluded because it reads a setpoint the work order does not
+    name, not one reading's breadth. `CommandEffectPattern` is excluded because it reads what a
+    write did to the plant, not one reading's breadth.
     """
     return tuple(
         pattern
         for pattern in _patterns_over(patterns, EvidenceKind.DEVIATION)
         if not isinstance(
-            pattern, CommandBehaviourPattern | ConsistencyPattern | CommandResponsePattern
+            pattern,
+            CommandBehaviourPattern
+            | ConsistencyPattern
+            | CommandResponsePattern
+            | UncoveredSetpointPattern
+            | CommandEffectPattern,
         )
     )
 

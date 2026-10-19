@@ -101,6 +101,10 @@ DISTRIBUTION_FLOW: Final = "distribution_flow_m3ph"
 DISTRIBUTION_PRESSURE: Final = "distribution_pressure_bar"
 BOOSTER_SPEED: Final = "booster_pump_speed_pct"
 LEVEL_SETPOINT: Final = "clearwell_level_setpoint_m"
+LEVEL_SETPOINT_OPERATING_LOW: Final = 2.6
+"""Lowest clearwell setpoint an ordinary operator write on this plant already uses."""
+LEVEL_SETPOINT_OPERATING_HIGH: Final = 3.8
+"""Highest clearwell setpoint an ordinary operator write on this plant already uses."""
 RESIDUAL_SETPOINT: Final = "chlorine_residual_setpoint_mgpl"
 PRESSURE_SETPOINT: Final = "distribution_pressure_setpoint_bar"
 ENGINEERING: Final = "engineering"
@@ -491,7 +495,9 @@ _EVENT_PLANS: Final = (
         label="Operator moves the clearwell level setpoint",
         duration_steps=0,
         writes=(LEVEL_SETPOINT,),
-        parameter_ranges={LEVEL_SETPOINT: (2.6, 3.8)},
+        parameter_ranges={
+            LEVEL_SETPOINT: (LEVEL_SETPOINT_OPERATING_LOW, LEVEL_SETPOINT_OPERATING_HIGH)
+        },
         detail="new clearwell level setpoint:",
     ),
     EventPlan(
