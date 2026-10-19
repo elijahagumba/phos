@@ -5,6 +5,15 @@
 
 ---
 
+> **Superseded as Atlas's current status.** This report records Atlas as it stood in August 2026,
+> and its numbers and verdict describe that design. Since 7 October Atlas's detector is
+> `atlas-v1-consistency` ([ADR 0107](adr/0107-the-consistency-detector-enters-the-engine.md)),
+> measured by attacks caught within the 8 alerts an operator can read in a shift: on HAI 21.03,
+> 22.04 and 23.05 it caught 42 of 50, 53 of 58 and 36 of 52, against 36, 10 and 6 for the best
+> baseline checked, above every random draw of the same budget
+> ([ADR 0116](adr/0116-a2-status-four-of-five-beyond-chance.md)). Current results are on the
+> [record page](README.md). The report below is kept as written.
+
 > **Scope and currency.** This is a point-in-time record of Atlas at PARTs 5A to 5C, kept as written
 > rather than revised. Work has landed since, and two statements below have been overtaken by it.
 > The packet adapter this report lists as missing was built in PARTs P1 to P3, which retired the two

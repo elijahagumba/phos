@@ -6,7 +6,7 @@
 
 ### Start here
 
-1. **What Atlas does on real data:** the section below, then the [Atlas report](atlas-report.md).
+1. **What Atlas does on real data:** the section below, each result linked to its record.
 2. **What it will not claim:** the [refusal register](refusal-register.md).
 3. **How each number was earned:** every result has a decision record in [adr/](adr/), written
    before the score it reports.
@@ -36,7 +36,7 @@ reconstructed the true value within 5% of the instrument's range.
 unchanged detector raised 74 alerts in about 26,000 shifts; the turbines' own status logs explained
 57 of them. [ADR 0165](adr/0165-kelmarsh-round-2-trains-on-2018.md)
 
-[Read the Atlas report →](atlas-report.md)
+[How the current detector entered the engine →](adr/0107-the-consistency-detector-enters-the-engine.md)
 
 <details>
 <summary>Earlier measurements, before the current detector</summary>
@@ -48,6 +48,8 @@ left about 53 false alarms an hour, and the slice held only two attack windows. 
 only on ordinary operation read 3.55 an hour; it is
 [recorded beside the original number](adr/0083-calibrator-without-labelled-positives.md). The
 current detector replaced that approach and is measured by attacks caught within the alert budget.
+
+[Read the August 2026 Atlas report, kept as written →](atlas-report.md)
 
 </details>
 
