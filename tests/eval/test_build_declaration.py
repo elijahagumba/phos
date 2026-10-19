@@ -24,6 +24,8 @@ from phos.eval.build_declaration import (
     GRFICS_HELD_BACK_RUNS,
     GRFICS_LICENSE_SHA256,
     SCORECARD,
+    W5_DEVELOPMENT_SEEDS,
+    W5_HELD_BACK_SEEDS,
     build_seed_blocks,
     grfics_run_ok,
     registry_file_halves,
@@ -73,6 +75,9 @@ def test_new_seed_blocks_are_disjoint_from_every_used_set() -> None:
     assert len(BUILD_HELD_BACK_SEEDS) == 20
     assert BUILD_DEVELOPMENT_SEEDS[0] == 97001
     assert BUILD_HELD_BACK_SEEDS[0] == 97101
+    assert W5_DEVELOPMENT_SEEDS == tuple(range(97401, 97421))
+    assert W5_HELD_BACK_SEEDS == tuple(range(97501, 97521))
+    assert not frozenset(W5_DEVELOPMENT_SEEDS) & frozenset(W5_HELD_BACK_SEEDS)
 
 
 def test_the_scorecard_names_the_brief_and_nothing_is_a_number() -> None:

@@ -27,6 +27,8 @@ __all__ = [
     "PENMANSHIEL_HELD_BACK_FILES",
     "PENMANSHIEL_RECORD",
     "SCORECARD",
+    "W5_DEVELOPMENT_SEEDS",
+    "W5_HELD_BACK_SEEDS",
     "GrficsRun",
     "build_seed_blocks",
     "registry_file_halves",
@@ -37,6 +39,10 @@ __all__ = [
 BUILD_DEVELOPMENT_SEEDS: Final[tuple[int, ...]] = tuple(range(97001, 97021))
 #: Synthetic-plant seeds scored once, after a committed declaration, and not before.
 BUILD_HELD_BACK_SEEDS: Final[tuple[int, ...]] = tuple(range(97101, 97121))
+#: Round-3 confidence scenarios. Iterate freely. Disjoint from every used set (ADR 0175).
+W5_DEVELOPMENT_SEEDS: Final[tuple[int, ...]] = tuple(range(97401, 97421))
+#: Round-3 confidence scenarios. One score, after a declaration. Not generated before ADR 0175.
+W5_HELD_BACK_SEEDS: Final[tuple[int, ...]] = tuple(range(97501, 97521))
 
 #: What a lane's report has to carry. Names only: no number is filled in here.
 SCORECARD: Final[tuple[str, ...]] = (
@@ -190,17 +196,19 @@ _MODES: Final = frozenset({"frozen", "drift", "noise", "dropout", "stuck", "none
 
 
 def build_seed_blocks() -> dict[str, frozenset[int]]:
-    """Return the four seed blocks this declaration adds.
+    """Return the seed blocks these declarations add.
 
-    The blocks are the synthetic development batch, the synthetic held-back
-    batch, and the two GRFICS batches. A test checks them against the sets
-    that were already used.
+    The blocks are the October synthetic batches, the two GRFICS batches, and
+    the round-3 confidence batches (ADR 0175). A test checks them against the
+    sets that were already used.
     """
     return {
         "build-development": frozenset(BUILD_DEVELOPMENT_SEEDS),
         "build-held-back": frozenset(BUILD_HELD_BACK_SEEDS),
         "grfics-development": frozenset(run.seed for run in GRFICS_DEVELOPMENT_RUNS),
         "grfics-held-back": frozenset(run.seed for run in GRFICS_HELD_BACK_RUNS),
+        "w5-development": frozenset(W5_DEVELOPMENT_SEEDS),
+        "w5-held-back": frozenset(W5_HELD_BACK_SEEDS),
     }
 
 

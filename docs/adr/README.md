@@ -250,6 +250,11 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0171](0171-explanation-confidence-is-calibrated-by-evidence-shape.md) | Explanation confidence is calibrated by the shape of its evidence | ADR 0144 | 2026-10-19 | Accepted |
 | [0172](0172-root-cause-ranking-points-an-alert-upstream.md) | Root-cause ranking points an alert at the signal its deviation started from | ADR 0144 | 2026-10-19 | Accepted |
 | [0173](0173-four-atlas-capabilities-were-not-scored.md) | Four Atlas capabilities were not scored this round | ADR 0144 | 2026-10-19 | Accepted |
+| [0174](0174-kelmarsh-held-back-score-is-declared.md) | Kelmarsh held-back score is declared before it runs: unchanged consistency scorer, ADR 0165 status-log rule, 2023–2024 only after sha256 | ADR 0144, ADR 0165 | 2026-10-19 | Accepted |
+| [0175](0175-w5-seeds-and-scenarios-are-declared.md) | W5 seeds 97401–97420 and 97501–97520, and five scenario kinds, declared before any plant is built | ADR 0144, ADR 0171 | 2026-10-19 | Accepted |
+| [0176](0176-w5-held-back-confidence-is-declared.md) | W5 held-back confidence score is declared after development: 28 of 46 right, 18 wrong, no high band, bar not met | ADR 0171, ADR 0175 | 2026-10-19 | Accepted |
+| [0177](0177-4sics-development-days-are-declared.md) | 4SICS development days: learn the command graph on 151020, compare 151021, no catches, 151022 stays closed | ADR 0144, ADR 0040 | 2026-10-19 | Accepted |
+| [0178](0178-kelmarsh-held-back-years-were-scored-once.md) | Kelmarsh 2023–2024 scored once: 29 alerts, 23 explained by the turbine log; meters not scored | ADR 0174 | 2026-10-19 | Accepted |
 | [0190](0190-depth-counting-one-loud-signal.md) | Depth counting: one loud signal can match many quiet ones | ADR 0144 | 2026-10-19 | Accepted |
 | [0191](0191-behaviour-chains-are-declared-shapes.md) | Behaviour chains are declared shapes, not host names | ADR 0144 | 2026-10-19 | Accepted |
 | [0192](0192-peer-groups-by-role-and-time.md) | Peer groups are role and time of day, not a new 6B peer feature | ADR 0144 | 2026-10-19 | Accepted |

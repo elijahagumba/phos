@@ -20,7 +20,7 @@ import logging
 import re
 import zipfile
 from bisect import bisect_right
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -335,14 +335,20 @@ def _header_cells(line: str) -> list[str] | None:
 
 def parse_turbine_lines(
     lines: Iterable[str],
+    *,
+    half_of: Callable[[datetime], Half] | None = None,
 ) -> tuple[list[tuple[int, tuple[float, float, float, float, float], Half]], int, int, int]:
     """Parse one turbine CSV into kept rows.
 
     A row with any of the five signals missing is dropped, not filled with zero.
-    Rows outside the train and score windows are counted and dropped.
+    Rows the half function calls outside are counted and dropped. The default
+    half is `which_half` (ADR 0152). A caller that scores a later window passes
+    its own function; `which_half` itself is unchanged (ADR 0165).
 
     Args:
         lines: The CSV, including Greenbyte's ``#`` preamble.
+        half_of: How a timestamp becomes train, score, or outside. Defaults to
+            `which_half`.
 
     Returns:
         Kept ``(unix, five values, half)`` rows, the missing-signal drop count,
@@ -352,6 +358,7 @@ def parse_turbine_lines(
         SchemaError: If the declared signal columns are absent, or the file is not
             ten-minute SCADA.
     """
+    classify = which_half if half_of is None else half_of
     header: list[str] | None = None
     indexes: tuple[int, int, int, int, int] | None = None
     kept: list[tuple[int, tuple[float, float, float, float, float], Half]] = []
@@ -384,7 +391,7 @@ def parse_turbine_lines(
         if parsed is None:
             dropped_missing += 1
             continue
-        half = which_half(stamped)
+        half = classify(stamped)
         if half == "outside":
             continue
         kept.append((stamp, parsed, half))

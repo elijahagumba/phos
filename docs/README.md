@@ -34,7 +34,16 @@ reconstructed the true value within 5% of the instrument's range.
 
 **A real plant with no attacks.** On six wind turbines at Kelmarsh over 2019 to 2022, the
 unchanged detector raised 74 alerts in about 26,000 shifts; the turbines' own status logs explained
-57 of them. [ADR 0165](adr/0165-kelmarsh-round-2-trains-on-2018.md)
+57 of them. On 2023 and 2024, held back and scored once, it raised 29 and the logs explained 23.
+[ADR 0165](adr/0165-kelmarsh-round-2-trains-on-2018.md),
+[ADR 0178](adr/0178-kelmarsh-held-back-years-were-scored-once.md)
+
+**What does not work yet.** On harder simulated cases, such as a fault during maintenance or two
+sensors failing together, the leading explanation was right 33 times in 54, and right and wrong
+answers carried the same confidence, so no confidence figure is shown
+([ADR 0176](adr/0176-w5-held-back-confidence-is-declared.md)). On real network captures from the
+4SICS lab, most traffic was Siemens S7, which Atlas does not decode yet
+([ADR 0177](adr/0177-4sics-development-days-are-declared.md)).
 
 [How the current detector entered the engine →](adr/0107-the-consistency-detector-enters-the-engine.md)
 
