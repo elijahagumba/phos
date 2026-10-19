@@ -4,20 +4,52 @@
 
 <br>
 
+### Start here
+
+1. **What Atlas does on real data:** the section below, then the [Atlas report](atlas-report.md).
+2. **What it will not claim:** the [refusal register](refusal-register.md).
+3. **How each number was earned:** every result has a decision record in [adr/](adr/), written
+   before the score it reports.
+
+<br>
+
 ### What Atlas measured
 
-Atlas was tested on HAI, a public dataset recorded from a hardware-in-the-loop industrial testbed.
-Treating the plant as one connected machine, rather than watching each sensor alone, cut false alarms
-from **8,390** to **647** an hour without missing an attack. Grouping alarms by physical unit cut what
-an operator would have to read by a further **12 times**.
+**On real testbed data.** HAI is a public dataset recorded from a hardware-in-the-loop industrial
+testbed. On its three editions not used to build the detector, at the budget of 8 alerts an
+operator can read in a shift, Atlas caught **42 of 50**, **53 of 58** and **36 of 52** attacks. The
+best baseline checked, scored the same way, caught 36, 10 and 6. On all three, Atlas was above
+every one of 500 random draws of the same budget.
+[ADR 0116](adr/0116-a2-status-four-of-five-beyond-chance.md)
 
-That still leaves about **53** false alarms an hour, far more than any control room would accept, and
-the slice measured holds only **two** attack windows. A later calibration fitted only on ordinary
-operation reads **3.55** an hour; it is
-[recorded beside the original number](adr/0083-calibrator-without-labelled-positives.md), not in place
-of it.
+**A better idea that failed the real test.** A learned map of the plant, which caught far more
+falsified sensors on simulated plants, was taken once to those same editions. It caught fewer
+attacks than the current detector on two of them and more on none, so it was not adopted.
+[ADR 0143](adr/0143-the-plant-map-fails-the-gate.md)
+
+**Naming the lying sensor, on simulated plants.** Explaining the current detector's alerts, the
+plant map named the falsified instrument on **146 of 150** runs it had never seen, none wrong, and
+reconstructed the true value within 5% of the instrument's range.
+[ADR 0170](adr/0170-every-control-coupling-is-a-loop-and-bars-only-its-outputs.md)
+
+**A real plant with no attacks.** On six wind turbines at Kelmarsh over 2019 to 2022, the
+unchanged detector raised 74 alerts in about 26,000 shifts; the turbines' own status logs explained
+57 of them. [ADR 0165](adr/0165-kelmarsh-round-2-trains-on-2018.md)
 
 [Read the Atlas report →](atlas-report.md)
+
+<details>
+<summary>Earlier measurements, before the current detector</summary>
+
+An earlier Atlas, treating the plant as one connected machine rather than watching each sensor
+alone, cut false alarms on a slice of HAI from 8,390 to 647 an hour without missing an attack, and
+grouping alarms by physical unit cut what an operator would read by a further 12 times. That still
+left about 53 false alarms an hour, and the slice held only two attack windows. A calibration fitted
+only on ordinary operation read 3.55 an hour; it is
+[recorded beside the original number](adr/0083-calibrator-without-labelled-positives.md). The
+current detector replaced that approach and is measured by attacks caught within the alert budget.
+
+</details>
 
 <br>
 
@@ -48,7 +80,9 @@ the build fails. Of the three plants, one currently supports a detection claim.
 Sentiel, the engine that watches people, finds one of the two labelled insiders in CERT r3.1, a
 public insider-threat dataset, and cannot see the other. The reason is arithmetic: at least 14 of
 its 34 signals must move at once before anyone can be flagged. The fix, its success test and our
-own prediction that it won't be enough were all written down before any code.
+own prediction that it won't be enough were all written down before any code. The bet was run once
+on 18 October 2026 and lost: no declared formula put the second insider in the top 48.
+[ADR 0148](adr/0148-bet-001-is-scored-once.md)
 
 [Read Bet 001: the second insider →](bets/001-the-second-insider.md)
 
@@ -60,7 +94,7 @@ The bar Atlas and Sentiel v1 must clear was fixed before any comparison was run.
 
 ### Why it is built this way
 
-More than eighty design decisions, each with what was chosen, what was rejected and what it cost.
+More than 170 design decisions, each with what was chosen, what was rejected and what it cost.
 Several exist only to record a result that did not work. Five places to start:
 
 - [The joint model, and the model that lost](adr/0009-joint-modelling-per-signal-attribution-and-the-model-that-lost.md)

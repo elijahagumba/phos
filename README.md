@@ -23,7 +23,7 @@
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/results.svg" width="600" alt="Measured. On simulated runs it never saw, the lying sensor was named in 146 of 150, none named wrong. 0 of 80 simulated attacks were closed as maintenance, including 40 disguised as maintenance. On a real wind farm with no attacks in it, 17 alerts in four years were not explained by any log. Simulated plants are a diagnosis, not a real-plant result.">
+  <img src=".github/assets/readme/results.svg" width="600" alt="Measured. On three editions of HAI, a real industrial testbed, Atlas caught 131 of 160 attacks at 8 alerts a shift; the best baseline checked caught 52. On simulated runs it never saw, the lying sensor was named in 146 of 150, none named wrong. 0 of 80 simulated attacks were closed as maintenance, including 40 disguised as maintenance. On a real wind farm with no attacks in it, 17 alerts in four years were not explained by any log. Simulated plants are a diagnosis, not a real-plant result.">
 </p>
 
 <br>
@@ -57,6 +57,14 @@
   &nbsp;&nbsp;·&nbsp;&nbsp;
   everything PHOS has measured, including what didn't work
 </p>
+
+<br>
+
+### Run a plant?
+
+PHOS is looking for its first plant to run alongside, passively, learning from historian data and a
+copy of the network traffic. If you operate or secure an industrial site and want to see what Atlas
+makes of it, write to [elijah.phosfounder@proton.me](mailto:elijah.phosfounder@proton.me).
 
 <br>
 

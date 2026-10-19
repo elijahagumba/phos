@@ -256,6 +256,7 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0193](0193-rare-links-among-declared-peers.md) | Rare user–machine–site links are scored, not drawn on the org graph | ADR 0144 | 2026-10-19 | Accepted |
 | [0194](0194-kept-scorer-is-still-6b-r42-unscored.md) | The kept scorer is still 6B; r4.2 stays unscored | ADR 0144 | 2026-10-19 | Accepted |
 | [0200](0200-the-public-repository-takes-the-house-style.md) | The public front page takes the house style of `brand/phos_pdf.py` before week 13, by Elijah's decision: monochrome, white logo once on a black cover, black callouts, grey stat panels; a results card; Bet 001's loss recorded | ADR 0044, ADR 0170 | 2026-10-19 | Accepted |
+| [0201](0201-the-front-page-leads-with-real-data-and-a-contact.md) | The front page leads with real data (131 of 160 HAI attacks at 8 alerts a shift, against 52 for the best baseline checked); the record page opens with current numbers and "start here"; one public contact address, with the guard still refusing every other Proton address | ADR 0116, ADR 0200 | 2026-10-19 | Accepted |
 
 ## Related reading
 
