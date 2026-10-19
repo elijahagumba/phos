@@ -1,30 +1,25 @@
-"""Regenerate the G1 baseline table.
+"""Regenerate the G1 baseline table from the committed record.
 
-One Atlas configuration, the three checked opponents, and the corpora named in
-``docs/v1-roadmap.md`` weeks 1-3. Writes ``eval_runs/v1/g1-baseline-table.md`` and
-``.json``. Does not append the experiment log and does not reuse a frozen result name.
-
-HAI 22.04 and 23.05 are Git LFS pointers (ADR 0087). They are rows, and they are not
-scored. A judging corpus that cannot be scored counts as not won.
+Recomputes the development corpora on disk (hai-20.07, batch-distillation, data4cyber)
+and checks every published field against ``eval_runs/v1/g1-baseline-table.json``.
+Reprints hai-21.03, hai-22.04, hai-23.05 and batadal from that JSON. Does not open
+those files. Writes the markdown only when the rebuilt text is the committed
+markdown, so no recorded digit changes. Does not append the experiment log and does
+not reuse a frozen result name.
 """
 
 from __future__ import annotations
 
-import json
 import logging
 import math
-from dataclasses import asdict
 from pathlib import Path
 
 import numpy
 import pandas
 
-from phos.eval.baseline_report import recall_comparison, render_report
 from phos.eval.baseline_table import (
-    DETECTORS,
     ROUTING_REGISTERS,
     CorpusReport,
-    FileScore,
     SeriesGrid,
     benign_matrix,
     grid_from_columns,
@@ -32,6 +27,7 @@ from phos.eval.baseline_table import (
     score_splits,
 )
 from phos.eval.datasets import _label_key, default_attack_when
+from phos.eval.g1_record import RecordMismatchError, corpora_from_json, rebuild_markdown
 
 logger = logging.getLogger(__name__)
 
@@ -54,59 +50,47 @@ DECLARED_PERIOD_SECONDS = {
 
 
 def main() -> None:
-    """Score the declared files once and write the table."""
+    """Recompute development corpora, reprint validation rows, and write only if unchanged."""
     logging.basicConfig(level=logging.INFO, format="%(message)s")
-    reports = (
-        _hai(
+    record_path = OUT_DIR / "g1-baseline-table.json"
+    markdown_path = OUT_DIR / "g1-baseline-table.md"
+    if not record_path.is_file() or not markdown_path.is_file():
+        raise SystemExit("the committed G1 table is missing; nothing written")
+    recorded_md = markdown_path.read_text(encoding="utf-8")
+    try:
+        recorded = corpora_from_json(record_path.read_text(encoding="utf-8"))
+        rebuilt = rebuild_markdown(recorded_md, recorded, _development_reports())
+    except RecordMismatchError as error:
+        raise SystemExit(f"not written:\n{error}") from error
+    markdown_path.write_text(rebuilt, encoding="utf-8")
+    print(rebuilt)
+
+
+def _development_reports() -> dict[str, CorpusReport]:
+    """Score hai-20.07, batch distillation and Data4Cyber. No validation path is opened."""
+    return {
+        "hai-20.07": _hai(
             "hai-20.07",
             DATA / "hai-20.07",
             ("train1.csv.gz", "train2.csv.gz"),
             ("test1.csv.gz", "test2.csv.gz"),
             sep=";",
         ),
-        _hai(
-            "hai-21.03",
-            DATA / "hai-21.03",
-            ("train1.csv.gz", "train2.csv.gz", "train3.csv.gz"),
-            ("test1.csv.gz", "test2.csv.gz", "test3.csv.gz", "test4.csv.gz", "test5.csv.gz"),
-            sep=",",
-            extra_roots=((DATA / "hai", "hai-21.03-"),),
-        ),
-        _absent("hai-22.04", "Git LFS pointer (ADR 0087); the CSV is not on disk"),
-        _absent("hai-23.05", "Git LFS pointer (ADR 0087); the CSV is not on disk"),
-        _prepared(
-            "batadal",
-            DATA / "batadal" / "batadal-train-prepared.csv",
-            DATA / "batadal" / "batadal-test-prepared.csv",
-            judges=True,
-            unscored=(),
-        ),
-        _prepared(
+        "batch-distillation": _prepared(
             "batch-distillation",
             DATA / "batch-distillation" / "batch-distillation-train-prepared.csv",
             DATA / "batch-distillation" / "batch-distillation-test-prepared.csv",
             judges=False,
             unscored=("-1",),
         ),
-        _prepared(
+        "data4cyber": _prepared(
             "data4cyber",
             DATA / "data4cyber" / "data4cyber-s0-train-prepared.csv",
             DATA / "data4cyber" / "data4cyber-s1-test-prepared.csv",
             judges=False,
             unscored=(),
         ),
-    )
-    text = render_report(reports)
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    (OUT_DIR / "g1-baseline-table.md").write_text(text)
-    payload = {
-        "result_names": list(DETECTORS),
-        "alert_threshold": 3.0,
-        "alerts_per_shift": 8,
-        "corpora": [_payload(report) for report in reports],
     }
-    (OUT_DIR / "g1-baseline-table.json").write_text(json.dumps(payload, indent=2) + "\n")
-    print(text)
 
 
 def _hai(
@@ -306,24 +290,6 @@ def _missing(value: object) -> bool:
     if isinstance(value, float | numpy.floating):
         return math.isnan(float(value))
     return False
-
-
-def _payload(report: CorpusReport) -> dict[str, object]:
-    return {
-        "corpus": report.corpus,
-        "judges": report.judges,
-        "status": report.status,
-        "note": report.note,
-        "sample_period_seconds": report.sample_period_seconds,
-        "declared_period_seconds": report.declared_period_seconds,
-        "comparison": recall_comparison(report),
-        "scores": [asdict(score) for score in report.scores],
-        "files": [_file_payload(file) for file in report.files],
-    }
-
-
-def _file_payload(file: FileScore) -> dict[str, object]:
-    return {"file": file.file, "scores": [asdict(score) for score in file.scores]}
 
 
 if __name__ == "__main__":

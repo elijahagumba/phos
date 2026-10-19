@@ -264,6 +264,15 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0201](0201-the-front-page-leads-with-real-data-and-a-contact.md) | The front page leads with real data (131 of 160 HAI attacks at 8 alerts a shift, against 52 for the best baseline checked); the record page opens with current numbers and "start here"; one public contact address, with the guard still refusing every other Proton address | ADR 0116, ADR 0200 | 2026-10-19 | Accepted |
 | [0195](0195-a-return-to-a-host-nobody-else-has-used.md) | A return to a host nobody else has used is the one Sentiel challenger | Sentiel investigation | 2026-10-19 | Accepted |
 | [0196](0196-exclusive-host-return-is-the-r42-one-shot.md) | exclusive-host-return is the r4.2 one-shot, and it is not run | Sentiel investigation | 2026-10-19 | Accepted |
+| [0202](0202-forty-eight-tickets-a-day-supersedes-the-top-48.md) | S3 is scored at 48 tickets a day, positive scores only, beside frozen 6B and a label-free chance null; declared before the r4.2 holdout lift | ADR 0196 | 2026-10-19 | Accepted |
+| [0203](0203-r42-email-columns-are-read-when-present.md) | r4.2's extra email columns (user, pc, cc, bcc) are read when present; nothing else changes | ADR 0202 | 2026-10-19 | Accepted |
+| [0204](0204-the-identity-register-stays-empty.md) | The identity register stays empty for the S2 score, so the six features score zero | ADR 0146 | 2026-10-19 | Accepted |
+| [0210](0210-the-g1-table-reprints-its-validation-rows.md) | The G1 table's one command checks development rows and reprints validation rows | ADR 0095 | 2026-10-19 | Accepted |
+| [0211](0211-a6-is-one-configuration.md) | A6 holds: the per-corpus differences are the declared sample-period rule | ADR 0112 | 2026-10-19 | Accepted |
+| [0212](0212-a3-queue-rank-is-declared.md) | A3's queue rank is declared before the one look; the look finds 57 of 203 | ADR 0112 | 2026-10-19 | Accepted |
+| [0220](0220-tag-suggestions-are-not-declarations.md) | The onboarding tool's tag suggestions are not declarations | ADR 0123 | 2026-10-19 | Accepted |
+| [0221](0221-the-v1-command-checks-the-record.md) | The v1 command checks the committed record without rescoring | ADR 0116 | 2026-10-19 | Accepted |
+| [0230](0230-v1-stands-at-six-of-twelve.md) | v1 stands at 6 of 12 after the sprint; S2 is not met, by Elijah's decision, because an empty register names nothing | ADR 0204, ADR 0212 | 2026-10-19 | Accepted |
 
 ## Related reading
 

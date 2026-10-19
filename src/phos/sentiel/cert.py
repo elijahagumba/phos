@@ -72,6 +72,7 @@ from phos.sentiel.events import (
     domain_of,
     host_of,
 )
+from phos.sentiel.mail_actor import email_actor, recipient_addresses
 
 __all__ = ["CERT_TIMESTAMP_FORMAT", "CertFormatError", "CertReader", "CertRelease", "LogSpec"]
 
@@ -102,6 +103,8 @@ class LogSpec(BaseModel):
         ignored: Columns this reader knows about and deliberately does not read — CERT's free-text
             ``content`` bodies, chiefly, which are megabytes per thousand rows and feed no starter
             feature. Listing them is what lets an *unlisted* column be treated as a schema change.
+        optional: Columns some releases carry and some do not. Present ones are read. Absent
+            ones are not a missing-column error. An unlisted column is still a schema change.
     """
 
     model_config = ConfigDict(frozen=True)
@@ -109,10 +112,11 @@ class LogSpec(BaseModel):
     filename: str
     required: frozenset[str]
     ignored: frozenset[str] = frozenset()
+    optional: frozenset[str] = frozenset()
 
     def known_columns(self) -> frozenset[str]:
         """Return every column this spec accounts for."""
-        return self.required | self.ignored
+        return self.required | self.ignored | self.optional
 
 
 _COMMON: Final = frozenset({"id", "date", "user", "pc"})
@@ -128,9 +132,10 @@ HTTP_SPEC: Final = LogSpec(
 )
 EMAIL_SPEC: Final = LogSpec(
     filename="email.csv",
-    # No `user` and no `pc`: r3.1's email log identifies its actor by the `from` address alone.
+    # r3.1 has no user and no pc: the actor is the `from` address. r4.2 adds user, pc, cc, bcc.
     required=frozenset({"id", "date", "to", "from"}),
     ignored=frozenset({"size", "attachments", "content"}),
+    optional=frozenset({"user", "pc", "cc", "bcc"}),
 )
 FILE_SPEC: Final = LogSpec(
     filename="file.csv",
@@ -302,14 +307,10 @@ class CertReader(BaseModel):
             those rather than discarding them silently.
         """
         sender = row.get("from", "").strip().lower()
-        user_id = self.email_senders.get(sender)
+        user_id = email_actor(row.get("user", ""), sender, self.email_senders)
         if user_id is None:
             return None
-        recipients = [
-            address.strip()
-            for address in row.get("to", "").split(DETAIL_VALUE_SEPARATOR)
-            if address.strip()
-        ]
+        recipients = recipient_addresses(row, ("to", "cc", "bcc"))
         domains = sorted({domain for address in recipients if (domain := domain_of(address))})
         return EnterpriseEvent(
             timestamp=stamp,
@@ -411,7 +412,8 @@ def _check_header(header: Sequence[str], path: Path, spec: LogSpec) -> dict[str,
             f"for {', '.join(sorted(spec.known_columns()))}; a release with a different schema "
             "must have the reader taught it rather than have the column silently dropped."
         )
-    return {name: header.index(name) for name in sorted(spec.required)}
+    readable = spec.required | (spec.optional & present)
+    return {name: header.index(name) for name in sorted(readable)}
 
 
 def _parse_timestamp(text: str, path: Path, line_number: int) -> datetime:

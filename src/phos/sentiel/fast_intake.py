@@ -70,6 +70,7 @@ from phos.sentiel.events import (
     host_of,
 )
 from phos.sentiel.featurise import WorkingHours
+from phos.sentiel.mail_actor import email_actor
 from phos.sentiel.traces import DeclaredToken, EntityDayTrace
 
 __all__ = [
@@ -223,6 +224,8 @@ def _rows_of(
         i_filename = get("filename", -1)
         i_url = get("url", -1)
         i_to = get("to", -1)
+        i_cc = get("cc", -1)
+        i_bcc = get("bcc", -1)
         i_from = get("from", -1)
 
         previous: tuple[int, int, int, int] | None = None
@@ -277,15 +280,19 @@ def _rows_of(
                     off_hours,
                 )
             else:
+                named = raw[i_user].strip() if i_user >= 0 else ""
                 sender = raw[i_from].strip().lower()
-                user_id = senders.get(sender)
+                user_id = email_actor(named, sender, senders)
                 if user_id is None:
                     continue
-                recipients = [
-                    address.strip()
-                    for address in raw[i_to].strip().split(DETAIL_VALUE_SEPARATOR)
-                    if address.strip()
-                ]
+                recipients: list[str] = []
+                for index in (i_to, i_cc, i_bcc):
+                    if index < 0:
+                        continue
+                    for address in raw[index].strip().split(DETAIL_VALUE_SEPARATOR):
+                        cleaned = address.strip()
+                        if cleaned:
+                            recipients.append(cleaned)
                 domains = {domain for address in recipients if (domain := domain_of(address))}
                 yield RawRow(
                     key,

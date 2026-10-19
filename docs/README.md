@@ -43,7 +43,10 @@ sensors failing together, the leading explanation was right 33 times in 54, and 
 answers carried the same confidence, so no confidence figure is shown
 ([ADR 0176](adr/0176-w5-held-back-confidence-is-declared.md)). On real network captures from the
 4SICS lab, most traffic was Siemens S7, which Atlas does not decode yet
-([ADR 0177](adr/0177-4sics-development-days-are-declared.md)).
+([ADR 0177](adr/0177-4sics-development-days-are-declared.md)). And its queue still does not rank:
+across five corpora, looked at once, 57 of 203 attacks had a true alert in the top tenth of their
+shift's queue, where half was the bar
+([ADR 0212](adr/0212-a3-queue-rank-is-declared.md)).
 
 [How the current detector entered the engine →](adr/0107-the-consistency-detector-enters-the-engine.md)
 
@@ -86,7 +89,7 @@ the build fails. Of the three plants, one currently supports a detection claim.
 
 <br>
 
-### What Sentiel found, and the first open bet
+### What Sentiel found, and what failed
 
 Sentiel, the engine that watches people, finds one of the two labelled insiders in CERT r3.1, a
 public insider-threat dataset, and cannot see the other. The reason is arithmetic: at least 14 of
@@ -98,22 +101,26 @@ on 18 October 2026 and lost: no declared formula put the second insider in the t
 A later investigation found a signal that puts both insiders in the alerts on that dataset: a
 return to a web host nobody else uses. We treat it with caution. In this dataset no innocent person ever
 returns to such a host, which may be how the dataset was generated rather than how people
-behave, and the result was counted before it was declared. It will be tested once on a larger
-release it has not seen, with a declared check for exactly that question.
+behave, and the result was counted before it was declared. It was tested once on a larger
+release it had not seen, CERT r4.2, at 48 alerts a day, and failed: it surfaced 1 of the labelled
+insiders where the unchanged scorer surfaced 59, against 35 expected by chance. None of the 930
+innocent people in that release used a web host nobody else used, so the signal was reading how the
+dataset was made.
 [ADR 0195](adr/0195-a-return-to-a-host-nobody-else-has-used.md),
-[ADR 0196](adr/0196-exclusive-host-return-is-the-r42-one-shot.md)
+[ADR 0202](adr/0202-forty-eight-tickets-a-day-supersedes-the-top-48.md)
 
 [Read Bet 001: the second insider →](bets/001-the-second-insider.md)
 
-The bar Atlas and Sentiel v1 must clear was fixed before any comparison was run.
+The bar Atlas and Sentiel v1 must clear was fixed before any comparison was run. As of 19 October
+2026, 6 of its 12 criteria are met, and two that were scored once are not.
 
-[Read Bet 002: what v1 has to do →](bets/002-atlas-and-sentiel-v1.md)
+[Read Bet 002: what v1 has to do, and where it stands →](bets/002-atlas-and-sentiel-v1.md)
 
 <br>
 
 ### Why it is built this way
 
-More than 170 design decisions, each with what was chosen, what was rejected and what it cost.
+More than 180 design decisions, each with what was chosen, what was rejected and what it cost.
 Several exist only to record a result that did not work. Five places to start:
 
 - [The joint model, and the model that lost](adr/0009-joint-modelling-per-signal-attribution-and-the-model-that-lost.md)

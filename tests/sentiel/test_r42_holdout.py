@@ -1,4 +1,4 @@
-"""CERT r4.2 is named, held out, and neither fetched nor scored."""
+"""CERT r4.2 may be fetched and scored once (ADR 0202). This module does not do either."""
 
 from __future__ import annotations
 
@@ -20,11 +20,11 @@ def test_r42_is_the_held_out_release() -> None:
     assert CERT_R42.scored is False
 
 
-def test_r42_is_not_scored_even_as_a_call() -> None:
-    assert r42_may_be_scored() is False
+def test_r42_may_be_scored_after_adr_0202() -> None:
+    assert r42_may_be_scored() is True
 
 
-def test_the_archive_hosts_are_outside_the_allow_list() -> None:
+def test_the_archive_hosts_are_on_the_allow_list() -> None:
     assert ALLOWED_FETCH_HOSTS == (
         "zenodo.org",
         "www.netresec.com",
@@ -34,11 +34,13 @@ def test_the_archive_hosts_are_outside_the_allow_list() -> None:
         "pypi.org",
         "files.pythonhosted.org",
         "researchdata.tuwien.ac.at",
+        "kilthub.cmu.edu",
+        "ndownloader.figshare.com",
     )
     assert CERT_R42.archive_hosts == ("kilthub.cmu.edu", "ndownloader.figshare.com")
-    assert r42_fetch_allowed() is False
+    assert r42_fetch_allowed() is True
     for host in CERT_R42.archive_hosts:
-        assert host not in ALLOWED_FETCH_HOSTS
+        assert host in ALLOWED_FETCH_HOSTS
 
 
 def test_the_declaration_module_does_not_fetch() -> None:

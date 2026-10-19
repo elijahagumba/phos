@@ -54,6 +54,25 @@ class TestEquivalenceWithTheAuthority:
         assert not agree
         assert "count differs" in reason
 
+    def test_r42_email_columns_agree_with_the_authority(self, release_dir: Path) -> None:
+        """The fast reader must see the same actor, machine and copied recipients as CertReader."""
+        (release_dir / "email.csv").write_text(
+            "id,date,user,pc,to,cc,bcc,from,size,attachments,content\n"
+            "{E1},01/04/2010 22:45:00,MALLORY9,PC-7,friend@gmail.com,boss@dtaa.com,"
+            "hidden@dtaa.com,not-in-ldap@dtaa.com,100,0,words\n",
+            encoding="utf-8",
+        )
+        release = CertRelease.discover(release_dir)
+        reader = CertReader.for_release(release)
+        fast = list(fast_trace_stream(release, reader.email_senders, WorkingHours(), ORG))
+        authority = list(trace_stream(reader.events(), WorkingHours(), ORG))
+        agree, reason = traces_agree(fast, authority)
+        assert agree, reason
+        mallory = next(trace for trace in fast if trace.user_id == "MALLORY9")
+        assert "PC-7" in mallory.pcs
+        assert "boss@dtaa.com" in mallory.recipients
+        assert "hidden@dtaa.com" in mallory.recipients
+
     def test_inbound_mail_is_skipped_by_both_readers(self, release_dir: Path) -> None:
         """The fixture's outsider sends one message in; neither reader may attribute it."""
         release = CertRelease.discover(release_dir)

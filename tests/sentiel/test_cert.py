@@ -10,6 +10,7 @@ from phos.sentiel import (
     DETAIL_FILENAME,
     DETAIL_PC,
     DETAIL_RECIPIENT_DOMAINS,
+    DETAIL_RECIPIENTS,
     DETAIL_SENDER,
     DETAIL_URL_HOST,
     CertFormatError,
@@ -101,6 +102,27 @@ def test_email_actor_is_resolved_from_the_from_address(release_dir: Path) -> Non
     assert [event.user_id for event in emails] == ["MALLORY9", "ALICE001"]
     assert emails[0].details[DETAIL_SENDER] == "mallory.m.nine@dtaa.com"
     assert emails[0].details[DETAIL_RECIPIENT_DOMAINS] == "dtaa.com;gmail.com"
+
+
+def test_r42_email_columns_name_the_actor_and_keep_cc_and_bcc(release_dir: Path) -> None:
+    """r4.2 adds user, pc, cc and bcc. The user cell is the actor.
+
+    r3.1's from-address path stays for a header that does not carry ``user``.
+    """
+    (release_dir / "email.csv").write_text(
+        "id,date,user,pc,to,cc,bcc,from,size,attachments,content\n"
+        "{E1},01/04/2010 22:45:00,MALLORY9,PC-7,friend@gmail.com,boss@dtaa.com,"
+        "hidden@dtaa.com,not-in-ldap@dtaa.com,100,0,words\n"
+        "{E2},01/05/2010 09:31:00,,PC-9,alice.a.one@dtaa.com,,,"
+        "outsider@elsewhere.com,100,0,words\n",
+        encoding="utf-8",
+    )
+    emails = [
+        event for event in _reader(release_dir).events() if event.event_kind is EventKind.EMAIL_SEND
+    ]
+    assert [event.user_id for event in emails] == ["MALLORY9"]
+    assert emails[0].details[DETAIL_PC] == "PC-7"
+    assert emails[0].details[DETAIL_RECIPIENTS] == "friend@gmail.com;boss@dtaa.com;hidden@dtaa.com"
 
 
 def test_email_from_a_non_employee_is_skipped_and_counted(

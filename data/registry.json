@@ -1284,6 +1284,17 @@
           "sha256": "9f891291fb76e05c5d9e6b9780bce0d18096e8df993088b26a3e945e65e7510d",
           "extract": true,
           "extract_to": "r3.1"
+        },
+        {
+          "url": "https://ndownloader.figshare.com/files/24856766",
+          "filename": "r4.2.tar.bz2",
+          "size_bytes": 4824287500,
+          "role": "held-out",
+          "note": "Release 4.2, held out, not scored. Figshare API article 12841247 on 2026-10-19, metadata only: file id 24856766, size_bytes 4824287500, download_url https://ndownloader.figshare.com/files/24856766. sha256 is the publisher checksum already in CHECKSUMS-sha256.txt from the r3.1 integration; the archive was not downloaded and no r4.2 event file was opened. Deposit licence is this dataset's recorded CC BY 4.0. ExactData payload terms are this dataset's payload_license, recorded the same way as r3.1; r4.2/license.txt was not opened. The October allow-list does not include kilthub.cmu.edu or ndownloader.figshare.com. Brief C orders this fetch, so the host list will change in the next ADR. r42_may_be_scored stays false.",
+          "sha256": "586446b00e83ce5cdabf9dc889b0b6e7a9f44556cee3c03d39445d790122556c",
+          "extract": true,
+          "extract_to": "r4.2",
+          "scored": false
         }
       ],
       "deferred_files": [
