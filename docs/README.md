@@ -95,6 +95,14 @@ own prediction that it won't be enough were all written down before any code. Th
 on 18 October 2026 and lost: no declared formula put the second insider in the top 48.
 [ADR 0148](adr/0148-bet-001-is-scored-once.md)
 
+A later investigation found a signal that puts both insiders in the alerts on that dataset: a
+return to a web host nobody else uses. We treat it with caution. In this dataset no innocent person ever
+returns to such a host, which may be how the dataset was generated rather than how people
+behave, and the result was counted before it was declared. It will be tested once on a larger
+release it has not seen, with a declared check for exactly that question.
+[ADR 0195](adr/0195-a-return-to-a-host-nobody-else-has-used.md),
+[ADR 0196](adr/0196-exclusive-host-return-is-the-r42-one-shot.md)
+
 [Read Bet 001: the second insider →](bets/001-the-second-insider.md)
 
 The bar Atlas and Sentiel v1 must clear was fixed before any comparison was run.
