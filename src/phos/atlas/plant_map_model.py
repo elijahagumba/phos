@@ -66,7 +66,14 @@ class MapSettings:
     #: How the challenger's facts are weighted in the liar assembly: ADR 0114's isotonic step
     #: function, or a Platt logistic, strictly increasing in magnitude (ADR 0137).
     calibrator: str = "isotonic"
+    #: What a declared loop bars from the level form of the reading it holds. ``"reach"`` is
+    #: ADR 0126: the loop's outputs and every signal they reach in the preliminary graph.
+    #: ``"outputs"`` is ADR 0170: the loop's declared outputs only.
+    loop_bar: str = "reach"
 
+
+LOOP_BARS: Final = ("reach", "outputs")
+"""The level-form bars a declared loop may apply (ADR 0126, ADR 0170)."""
 
 DEFAULT_SETTINGS: Final = MapSettings()
 

@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -12,7 +13,6 @@ from scripts.gate import (
     DECLARED_SHA256,
     OUT,
     PUBLISHED,
-    declared_sha256,
     roles_for,
     verdict,
 )
@@ -131,9 +131,22 @@ def test_the_gate_never_appends_the_log() -> None:
 ADR_0142 = ROOT / "docs" / "adr" / "0142-the-plant-map-gate-is-declared.md"
 
 
-def test_the_declared_files_are_the_ones_adr_0142_pins() -> None:
-    assert declared_sha256() == DECLARED_SHA256
+def test_the_gate_ran_on_the_files_adr_0142_pins() -> None:
+    """The pin holds at the commit the gate ran on; later commits may extend those files."""
     assert f"`{DECLARED_SHA256}`" in ADR_0142.read_text(encoding="utf-8")
+    commit = json.loads(OUT.read_text(encoding="utf-8"))["commit"]
+    shown = subprocess.run(
+        ["git", "cat-file", "-e", f"{commit}^{{commit}}"], cwd=ROOT, capture_output=True
+    )
+    if shown.returncode != 0:
+        pytest.skip(f"gate commit {commit} is not in this checkout's history")
+    digest = hashlib.sha256()
+    for name in DECLARED_FILES:
+        blob = subprocess.run(
+            ["git", "show", f"{commit}:{name}"], cwd=ROOT, capture_output=True, check=True
+        ).stdout
+        digest.update(name.encode("utf-8") + b"\0" + blob + b"\0")
+    assert digest.hexdigest() == DECLARED_SHA256
 
 
 def test_adr_0142_pins_this_gate_script() -> None:

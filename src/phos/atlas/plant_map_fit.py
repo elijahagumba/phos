@@ -15,6 +15,7 @@ from numpy.typing import NDArray
 from phos.atlas.consistency import TrainFile
 from phos.atlas.plant_map_model import (
     DEFAULT_SETTINGS,
+    LOOP_BARS,
     Equation,
     Form,
     Link,
@@ -191,6 +192,7 @@ def _level_exclusions(
     graph: Mapping[int, set[int]],
     modelled: Sequence[int],
     descendants: Mapping[int, tuple[int, ...]],
+    loop_bar: str = "reach",
 ) -> dict[int, tuple[int, ...]]:
     """The signals barred from each target's level form (ADR 0123 §3, narrowed by ADR 0126).
 
@@ -198,14 +200,22 @@ def _level_exclusions(
     does bars a loop's outputs, and everything they reach, from the level form of the reading the
     loop holds; where the loop names no reading, from every signal with a path into its outputs.
     A loop that names a reading but no output leaves that reading under ADR 0123's rule.
+    With ``loop_bar="outputs"`` (ADR 0170) a loop bars its declared outputs only.
+
+    Raises:
+        ValueError: If ``loop_bar`` is not one of `LOOP_BARS`.
     """
+    if loop_bar not in LOOP_BARS:
+        raise ValueError(f"unknown loop bar {loop_bar!r}")
     if not roles.loops:
         return {y: descendants[y] for y in modelled}
     index = {name: column for column, name in enumerate(names)}
     barred: dict[int, set[int]] = {y: set() for y in modelled}
     for loop in roles.loops:
         outputs = [index[output] for output in loop.outputs]
-        reach = set(outputs) | {x for o in outputs for x in _reachable(graph, o)}
+        reach = set(outputs)
+        if loop_bar == "reach":
+            reach |= {x for o in outputs for x in _reachable(graph, o)}
         if loop.reading is None:
             holders = [y for y in modelled if any(o in descendants[y] for o in outputs)]
         else:
@@ -290,7 +300,7 @@ def fit_map(
         y: {int(layout.drivers[t]) for t in (*first_level[y], *increment[y])} for y in modelled
     }
     descendants = {y: _reachable(graph, y) for y in modelled}
-    barred = _level_exclusions(roles, names, graph, modelled, descendants)
+    barred = _level_exclusions(roles, names, graph, modelled, descendants, settings.loop_bar)
     targets: dict[int, TargetModel] = {}
     for y in modelled:
         allowed_terms = admissible(y) & ~numpy.isin(layout.drivers, barred[y])

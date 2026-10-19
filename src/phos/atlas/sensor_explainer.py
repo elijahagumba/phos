@@ -18,7 +18,7 @@ map's centre and that true value, divided by the signal's span.
 from __future__ import annotations
 
 import logging
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from typing import Final
@@ -229,12 +229,18 @@ def roles_from_plant(description: PlantDescription) -> SignalRoles:
 
 
 def score_subject(
-    subject: LiarSubject, *, split: str, seeds: Sequence[int] | None = None
+    subject: LiarSubject,
+    *,
+    split: str,
+    seeds: Sequence[int] | None = None,
+    settings: MapSettings = EXPLAINER_SETTINGS,
+    roles_for: Callable[[PlantDescription], SignalRoles] | None = None,
 ) -> SubjectResult:
     """Score one subject on ``split``. The champion is fit on seed 97001.
 
     ``seeds`` restricts the score to a subset of that split. A seed from another split is
-    refused before any plant is built.
+    refused before any plant is built. ``settings`` and ``roles_for`` default to this module's
+    explainer; a later explainer (ADR 0170) passes its own without changing this one.
 
     Raises:
         ValueError: If ``split`` is not a build split, or a requested seed is outside it.
@@ -252,12 +258,13 @@ def score_subject(
     values, keys = _matrix(train)
     trained = TrainFile(values=values, attack=numpy.zeros(subject.n_steps, dtype=numpy.bool_))
     champion = fit([trained], windows_for_period(float(subject.sample_seconds)))
+    roles = roles_from_plant(description) if roles_for is None else roles_for(description)
     plant_map = fit_map(
         [trained],
         keys,
-        roles_from_plant(description),
+        roles,
         float(subject.sample_seconds),
-        EXPLAINER_SETTINGS,
+        settings,
     )
     column = keys.index(subject.signal)
     span = spec.high - spec.low
@@ -300,9 +307,7 @@ def score_subject(
         right = True
         wrong = False
         for row, col in window_cells:
-            naming = name_instrument(
-                plant_map, reported, row, col, rules=EXPLAINER_SETTINGS.naming_rules
-            )
+            naming = name_instrument(plant_map, reported, row, col, rules=settings.naming_rules)
             if naming.verdict is Verdict.NAMED and naming.instrument == column:
                 error = _reconstruction_error(naming, row, truth[row], span)
                 if error is None:

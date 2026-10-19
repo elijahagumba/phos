@@ -226,6 +226,16 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0142](0142-the-plant-map-gate-is-declared.md) | ADR 0117's gate for attempt 6, declared and not run: `scripts/gate.py` pinned by sha256 with the detector, candidate and role files; committed tree only; reproduces the champion's published rows before fitting the challenger; one look, result to Elijah | ADR 0117 §3, ADR 0141 | 2026-10-15 | Accepted |
 | [0143](0143-the-plant-map-fails-the-gate.md) | ADR 0117's gate, run once: challenger 40/50, 53/58, 35/52, 5/5 against the champion's 42, 53, 36, 5; fewer on two HAI editions, more on none; fails. Champion unchanged; no claim of real-plant improvement | ADR 0142 | 2026-10-16 | Accepted |
 | [0144](0144-the-october-build-is-declared.md) | October build declared before any new file is opened: seeds 97001–97020 and 97101–97120; Kelmarsh year split; Penmanshiel WT01–10 / WT11–15; 4SICS days; GRFICS runs outside the repo; scorecard names only. No score | ADR 0117, ADR 0122 | 2026-10-17 | Accepted |
+| [0145](0145-bet-001-not-run.md) | Bet 001 is not run: the CERT payload and the trace cache are absent | ADR 0144 | 2026-10-19 | Accepted |
+| [0146](0146-identity-features-keep-the-thirty-four-symmetric.md) | Identity features name declared hosts, destinations and machines | ADR 0144 | 2026-10-19 | Accepted |
+| [0147](0147-cert-r42-held-out-and-not-fetched.md) | CERT r4.2 is declared held out, and it is not fetched | ADR 0144 | 2026-10-19 | Accepted |
+| [0148](0148-bet-001-is-scored-once.md) | Bet 001 is scored once, with the ranking fixed first | ADR 0144 | 2026-10-19 | Accepted |
+| [0149](0149-lane-a-dev-loop-does-not-touch-6b.md) | Lane A's development loop does not touch 6B | ADR 0144 | 2026-10-19 | Accepted |
+| [0150](0150-maintenance-alerts-close-only-with-a-citation.md) | A maintenance alert closes only when a work order is cited | ADR 0144 | 2026-10-19 | Accepted |
+| [0151](0151-the-maintenance-closure-harness-is-declared.md) | The maintenance-closure harness is declared before it is scored | ADR 0144 | 2026-10-19 | Accepted |
+| [0152](0152-kelmarsh-log-rule.md) | The Kelmarsh log rule is declared before it is scored | ADR 0144 | 2026-10-19 | Accepted |
+| [0153](0153-maintenance-closure-on-the-development-seeds.md) | Maintenance closure on seeds 97001–97020 | ADR 0144 | 2026-10-19 | Accepted |
+| [0154](0154-the-kelmarsh-score-did-not-run.md) | The Kelmarsh score did not run | ADR 0144 | 2026-10-19 | Accepted |
 | [0155](0155-incident-types-are-template-ids.md) | An incident type in a notification report is the template id already stored, not a new taxonomy | ADR 0144 | 2026-10-17 | Accepted |
 | [0156](0156-the-report-checker-fails-closed.md) | The report checker fails closed: a sentence without an evidence id rejects the report; confidence is left off the page | ADR 0155 | 2026-10-17 | Accepted |
 | [0157](0157-notification-stages-quote-the-store.md) | NIS2 (24 h, 72 h) and UK (initial, full) notification stages quote the store and add nothing it does not hold | ADR 0156 | 2026-10-17 | Accepted |
@@ -233,6 +243,18 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0161](0161-the-plant-map-names-the-champions-alerts.md) | The plant map as an explainer on the champion's alerts: three sensors (chosen on development) named 59/60 and 60/60 held back; across all nine surveyed, 96 of 156 right (62%), 1 wrong. Corrected at merge: W2 not met | ADR 0135, ADR 0143 | 2026-10-17 | Accepted |
 | [0162](0162-explanation-confidence-is-not-a-probability.md) | Explanation confidence is not shown as a probability: right and wrong leads share one raw figure; nothing reaches 80%; W5 not met | ADR 0144 | 2026-10-17 | Accepted |
 | [0163](0163-the-tu-wien-pilot-factory-is-registered.md) | TU Wien pilot factory registered (CC BY 4.0, 147 GB): development tf_a.zip, held back tf_s.zip; benign behaviour only, never a catch count | ADR 0144 | 2026-10-17 | Accepted |
+| [0164](0164-the-held-back-maintenance-check-is-declared.md) | The held-back maintenance check is declared before it runs | ADR 0144 | 2026-10-19 | Accepted |
+| [0165](0165-kelmarsh-round-2-trains-on-2018.md) | This Kelmarsh run trains on 2018 and scores 2019–2022 | ADR 0144 | 2026-10-19 | Accepted |
+| [0166](0166-kelmarsh-modes-are-declared-states.md) | Kelmarsh operating modes are declared states | ADR 0144 | 2026-10-19 | Accepted |
+| [0170](0170-every-control-coupling-is-a-loop-and-bars-only-its-outputs.md) | The lane E explainer reads every control coupling as a loop, and a loop bars only its outputs | ADR 0144 | 2026-10-19 | Accepted |
+| [0171](0171-explanation-confidence-is-calibrated-by-evidence-shape.md) | Explanation confidence is calibrated by the shape of its evidence | ADR 0144 | 2026-10-19 | Accepted |
+| [0172](0172-root-cause-ranking-points-an-alert-upstream.md) | Root-cause ranking points an alert at the signal its deviation started from | ADR 0144 | 2026-10-19 | Accepted |
+| [0173](0173-four-atlas-capabilities-were-not-scored.md) | Four Atlas capabilities were not scored this round | ADR 0144 | 2026-10-19 | Accepted |
+| [0190](0190-depth-counting-one-loud-signal.md) | Depth counting: one loud signal can match many quiet ones | ADR 0144 | 2026-10-19 | Accepted |
+| [0191](0191-behaviour-chains-are-declared-shapes.md) | Behaviour chains are declared shapes, not host names | ADR 0144 | 2026-10-19 | Accepted |
+| [0192](0192-peer-groups-by-role-and-time.md) | Peer groups are role and time of day, not a new 6B peer feature | ADR 0144 | 2026-10-19 | Accepted |
+| [0193](0193-rare-links-among-declared-peers.md) | Rare user–machine–site links are scored, not drawn on the org graph | ADR 0144 | 2026-10-19 | Accepted |
+| [0194](0194-kept-scorer-is-still-6b-r42-unscored.md) | The kept scorer is still 6B; r4.2 stays unscored | ADR 0144 | 2026-10-19 | Accepted |
 
 ## Related reading
 

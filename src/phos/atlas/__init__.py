@@ -212,6 +212,13 @@ from phos.atlas.grouping import (
     is_subsystem_event,
     member_evidence_ids,
 )
+from phos.atlas.maintenance_closure import (
+    OVERLAP_IS_NOT_CLOSURE,
+    AlertClosure,
+    JobCitation,
+    OpenAlert,
+    close_maintenance_alerts,
+)
 from phos.atlas.multivariate import (
     MANIFOLD_BREAK_CONDITIONS,
     SNAPSHOT_ASSUMPTIONS,
@@ -342,6 +349,7 @@ __all__ = [
     "MAXIMO_SCHEMA",
     "NO_OBSERVATION",
     "ONE_DEVICE_MAX_SIGNALS",
+    "OVERLAP_IS_NOT_CLOSURE",
     "POOLED_GRAPH_CALIBRATION_CAVEAT",
     "PROCESS_DISTURBANCE_TEMPLATE_ID",
     "QUEUE_CAVEATS",
@@ -364,6 +372,7 @@ __all__ = [
     "WORK_ORDER_COVERAGE_IS_NOT_INNOCENCE",
     "WORK_ORDER_FEATURE",
     "WORK_ORDER_MARKER",
+    "AlertClosure",
     "AtlasConfig",
     "AtlasEngine",
     "BudgetOutcome",
@@ -389,6 +398,7 @@ __all__ = [
     "GraphFindingPattern",
     "InnerFittedModel",
     "InnerModel",
+    "JobCitation",
     "JointMomentDetector",
     "LinearDynamicsFittedModel",
     "LinearDynamicsModel",
@@ -397,6 +407,7 @@ __all__ = [
     "ModbusDissector",
     "MultivariateFittedModel",
     "MultivariateModel",
+    "OpenAlert",
     "PcaResidualFittedModel",
     "PcaResidualModel",
     "PhaseConditionalFittedModel",
@@ -425,6 +436,7 @@ __all__ = [
     "atlas_templates",
     "attachable_graph_changes",
     "baseline_similarity",
+    "close_maintenance_alerts",
     "command_act_entities",
     "command_act_entities_near",
     "command_behaviour_feature_of",

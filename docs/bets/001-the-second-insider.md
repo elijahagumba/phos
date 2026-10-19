@@ -1,7 +1,9 @@
 # Bet 001 — The second insider
 
-**Status: open.** The success test was fixed on 27 September 2026. The three formulas were
-fixed on 4 October 2026. No candidate has been run.
+**Status: lost (18 October 2026).** The success test was fixed on 27 September 2026. The three
+formulas were fixed on 4 October 2026. The ranking was fixed by commit before the one run
+(ADR 0148). All three formulas were run once. None of them put a day of the second insider in
+the top 48. One of them lost the first insider too.
 
 ## The problem
 
@@ -70,7 +72,26 @@ because none has been run. A fourth formula is a new bet.
 
 No signal is weighted. The published 0.104 at 48 alerts is not overwritten by declaring these.
 
-## What happens next
+## The result
 
-1. They are run once, under the rules above.
-2. The result is published on this page, whichever way it goes.
+Run once on 18 October 2026 by `uv run python scripts/lane_a_bet001.py`. The published 6B row
+was reproduced first (threshold 13.7006, precision 0.104, 43 false positives) and is not
+overwritten. Nothing was added to the experiment log. The second insider is `CCH0959` (42
+labelled days); the first is `CSF0929` (11 labelled days). A random 48 of the 210,814
+person-days would hold 0.012 malicious days.
+
+| Formula | Second insider in top 48 | Its best day ranked | First insider's days in top 48 | Precision at 48 |
+| --- | --- | ---: | ---: | ---: |
+| Published 6B (capped sum) | no | 957 | 5 | 0.104 |
+| Depth above the bar | no | 1,497 | 6 | 0.125 |
+| How rare, under a bell curve | no | 2,689 | 2 | 0.042 |
+| One voice per kind of behaviour | no | 1,356 | 0 | 0.000 |
+
+**The bet is lost.** Every formula ranked the second insider's best day lower than the capped
+sum already did. Depth above the bar found one more day of the first insider, which the
+success test says does not count. One voice per kind of behaviour lost the first insider.
+
+This is what the prediction said would happen. The second insider's behaviour barely moved on
+the 34 signals Sentiel counts, so no way of adding those signals up reaches them. The problem
+now belongs to what Sentiel measures: which hosts, recipients and machines a person touches,
+not only how many. Result file: `eval_runs/build/lane-a/bet-001.json`.
