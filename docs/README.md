@@ -125,6 +125,16 @@ measured.
 
 [Read Bet 002: what v1 has to do, and where it stands →](bets/002-atlas-and-sentiel-v1.md)
 
+After that failure was read properly, a third bet was fixed on 20 October 2026. Atlas's shift
+queues turned out to be shorter than the eight alerts an operator can read, so the criterion that
+failed had been asking the attack to be the loudest alert of its shift rather than to be inside
+the reading. Measured in alerts instead of percentages, 172 of 203 attacks appear in the shift
+they began in, every one of them within the first nine alerts. The new bars are about the
+thirty-one that appear in no alert at all, and about handing the operator a story rather than a
+row.
+
+[Read Bet 003: the first shift →](bets/003-the-first-shift.md)
+
 <br>
 
 ### Why it is built this way

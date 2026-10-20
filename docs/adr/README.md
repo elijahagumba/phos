@@ -293,6 +293,7 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0266](0266-the-programme-counter-is-written-from-evidence-not-by-hand.md) | The programme counter is written from the repository's evidence by `scripts/roadmap_state.py`; the roadmap freeze narrows to the contract and stops pinning `current_session` | ADR 0049, ADR 0061, ADR 0265 | 2026-10-20 | Accepted |
 | [0267](0267-role-files-reach-the-public-tree.md) | Role files reach the public tree; absent experiment pins skip; the log prefix carries the lab digest and the exported digest | ADR 0118, ADR 0123 | 2026-10-20 | Accepted |
 | [0268](0268-the-build-record-reaches-the-public-tree.md) | The build record reaches the public tree, so the cited scorecard resolves; the failing pin is not made to skip | ADR 0044, ADR 0144, ADR 0267 | 2026-10-20 | Accepted |
+| [0269](0269-bet-003-the-first-shift.md) | Bet 003 `atlas-first-shift`, bars frozen: A3's top-10% fraction is retired as an instrument because the shift queue is shorter than the budget; coverage, position, story and load replace it | ADR 0068, ADR 0164, ADR 0212, ADR 0230, ADR 0234 | 2026-10-20 | Accepted |
 
 ## Related reading
 
