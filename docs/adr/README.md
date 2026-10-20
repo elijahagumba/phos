@@ -292,6 +292,7 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0265](0265-the-always-apply-rules-load-themselves.md) | The always-apply rules load themselves: the bodies stay in `.cursor/rules/`, `docs/rules/*.md` symlinks to them, a committed root `CLAUDE.md` imports them, and the skills restate no figure | ADR 0044, ADR 0049 | 2026-10-20 | Accepted, amended |
 | [0266](0266-the-programme-counter-is-written-from-evidence-not-by-hand.md) | The programme counter is written from the repository's evidence by `scripts/roadmap_state.py`; the roadmap freeze narrows to the contract and stops pinning `current_session` | ADR 0049, ADR 0061, ADR 0265 | 2026-10-20 | Accepted |
 | [0267](0267-role-files-reach-the-public-tree.md) | Role files reach the public tree; absent experiment pins skip; the log prefix carries the lab digest and the exported digest | ADR 0118, ADR 0123 | 2026-10-20 | Accepted |
+| [0268](0268-the-build-record-reaches-the-public-tree.md) | The build record reaches the public tree, so the cited scorecard resolves; the failing pin is not made to skip | ADR 0044, ADR 0144, ADR 0267 | 2026-10-20 | Accepted |
 
 ## Related reading
 

@@ -1,0 +1,1102 @@
+[
+  {
+    "seed": 97401,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97401,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97401,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.7411462993148437
+  },
+  {
+    "seed": 97401,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97401,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.6230769230769232
+  },
+  {
+    "seed": 97402,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97402,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97402,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97402,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9957066447994158
+  },
+  {
+    "seed": 97402,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97403,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97403,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97403,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97403,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97403,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97404,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97404,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97404,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97404,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97404,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8321917808219179
+  },
+  {
+    "seed": 97405,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97405,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97405,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97405,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97405,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97406,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97406,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97406,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97406,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97406,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.7411462993148437
+  },
+  {
+    "seed": 97407,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97407,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97407,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97407,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97407,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97408,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.99751672410298
+  },
+  {
+    "seed": 97408,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.99751672410298
+  },
+  {
+    "seed": 97408,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97408,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97408,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97409,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97409,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97409,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8321917808219179
+  },
+  {
+    "seed": 97409,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97409,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97410,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97410,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97410,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97410,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97410,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97411,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97411,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97411,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97411,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97411,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97412,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97412,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97412,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97412,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97412,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97413,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97413,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97413,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97413,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97413,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97414,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97414,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97414,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97414,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97414,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97415,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97415,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97415,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97415,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97415,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97416,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97416,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97416,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97416,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97416,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97417,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97417,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9925869894099849
+  },
+  {
+    "seed": 97417,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97417,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97417,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97418,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97418,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97418,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.8957199079479781
+  },
+  {
+    "seed": 97418,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97418,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  },
+  {
+    "seed": 97419,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97419,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97419,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97419,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97419,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97420,
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97420,
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9626429015384121
+  },
+  {
+    "seed": 97420,
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9780858676207514
+  },
+  {
+    "seed": 97420,
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": true,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9872295902088284
+  },
+  {
+    "seed": 97420,
+    "scenario": "mimic_with_work_order",
+    "lead": "sensor_or_device_fault",
+    "contentful": true,
+    "correct": false,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "raw_confidence": 0.9370179948586117
+  }
+]

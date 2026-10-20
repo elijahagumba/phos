@@ -1,0 +1,2343 @@
+{
+  "diagnosis": {
+    "a3_block": "HAI and BATADAL are validation corpora and gate look 1 is spent (ADR 0143). They were not opened. A3 is not re-scored here.",
+    "a3_scored": false,
+    "a4_bar_met": true,
+    "a4_seeds_passed": 20,
+    "a4_seeds_scored": 20,
+    "champion_follow_alerts_in_window": 1.0,
+    "champion_result_name": "atlas-v1-consistency",
+    "champion_train_seed": 97001,
+    "gained_pair": [
+      "engineering_maintenance",
+      "sensor_or_device_fault"
+    ]
+  },
+  "result_name": "lane-d-command-physics-development",
+  "scorecard": {
+    "calibration": null,
+    "catches_within_budget": 1.0,
+    "false_alerts_per_shift": 0.0,
+    "falsified_sensor_passes": null,
+    "maintenance_closures": null,
+    "margin_over_best_simple_rival": null,
+    "margin_over_chance": null,
+    "naming_right": null,
+    "naming_wrong": null,
+    "reconstruction_error": null,
+    "runtime": 0.5974753870004861
+  },
+  "seeds": [
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8,
+            31
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8,
+            30,
+            37,
+            33
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 67.5449371462005,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.22206343047345456
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97001,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            22,
+            8,
+            26
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            0,
+            23,
+            19,
+            39
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.42961442562509,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.021292572367912044
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97002,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            24,
+            8,
+            34
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            0,
+            23,
+            31,
+            34
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.86770851034262,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.17433567151044116
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97003,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            1,
+            22,
+            8,
+            24
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            21,
+            1,
+            34,
+            19
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.83845596899545,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.22734892191176215
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97004,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            5,
+            23,
+            8,
+            36
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            6,
+            22,
+            36,
+            36
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 67.34393206245699,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.17613073734302986
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97005,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            24,
+            8,
+            35
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            22,
+            0,
+            39,
+            19
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.97728531785752,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.14829117108451584
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97006,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            1,
+            23,
+            8,
+            36
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            1,
+            26,
+            38,
+            36
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.35366908483412,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.5479852404010757
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97007,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            2,
+            24,
+            8,
+            31
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8,
+            22,
+            37,
+            37
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 67.45615823590754,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.1739779305989373
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97008,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            21,
+            8,
+            23
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8,
+            21,
+            39,
+            36
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 67.96194502103928,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.1620955258917931
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97009,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            22,
+            8,
+            30
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            0,
+            24,
+            19,
+            32
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.38741680563314,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.018474889880629064
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97010,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            23,
+            8,
+            33
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            0,
+            26,
+            39,
+            39
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.70894552307165,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.1450161777502359
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97011,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            21,
+            8,
+            31
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            0,
+            21,
+            19,
+            39
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.69174819776244,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.02838946511538154
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97012,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            2,
+            30,
+            8,
+            35
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            2,
+            23,
+            34,
+            31
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.75116020573257,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.3364459354389311
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97013,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            2,
+            24,
+            8,
+            27
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            2,
+            24,
+            35,
+            27
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 67.80374885050388,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.09135171972897638
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97014,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            25,
+            8,
+            28
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            0,
+            23,
+            19,
+            38
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.58422636842181,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.028921907660901525
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97015,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            21,
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            0,
+            22,
+            19,
+            39
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 66.65734662292053,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.3454953072653524
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97016,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            24,
+            8,
+            27
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            0,
+            23,
+            39,
+            31
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 67.32353304088457,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.051702301837622144
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97017,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            2,
+            22,
+            8,
+            34
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            2,
+            22,
+            34,
+            34
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 67.5072808902985,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.19695821381821332
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97018,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            0,
+            21,
+            8,
+            39
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            0,
+            21,
+            39,
+            30
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 67.74879230211579,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.20976555810648279
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97019,
+      "split": "development"
+    },
+    {
+      "passed": true,
+      "plants": [
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            2,
+            22,
+            8,
+            35
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            2,
+            22,
+            37,
+            35
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 67.1996538162548,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "water-treatment",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.02757464523276809
+        },
+        {
+          "champion_alert_in_window": true,
+          "champion_alert_rows": [
+            8
+          ],
+          "champion_follow_alert_in_window": true,
+          "champion_follow_alert_rows": [
+            8
+          ],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": 0.0,
+          "follow_mismatch_count": 0,
+          "follow_travel": 3.0,
+          "gained_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "joint_pairs": [
+            [
+              "engineering_maintenance",
+              "sensor_or_device_fault"
+            ],
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "physics_pairs": [
+            [
+              "process_disturbance",
+              "sensor_or_device_fault"
+            ]
+          ],
+          "plant_id": "power-generation",
+          "skip_reason": "",
+          "skipped": false,
+          "stuck_mismatch_count": 1,
+          "stuck_travel": 0.0
+        },
+        {
+          "champion_alert_in_window": null,
+          "champion_alert_rows": [],
+          "champion_follow_alert_in_window": null,
+          "champion_follow_alert_rows": [],
+          "champion_result_name": "atlas-v1-consistency",
+          "command_pairs": [],
+          "false_alerts_per_shift": null,
+          "follow_mismatch_count": 0,
+          "follow_travel": null,
+          "gained_pairs": [],
+          "joint_pairs": [],
+          "physics_pairs": [],
+          "plant_id": "batch-reactor",
+          "skip_reason": "batch-reactor declares no control network, so there is no wire command to put against the physics",
+          "skipped": true,
+          "stuck_mismatch_count": 0,
+          "stuck_travel": null
+        }
+      ],
+      "seed": 97020,
+      "split": "development"
+    }
+  ],
+  "split": "development"
+}

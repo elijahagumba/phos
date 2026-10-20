@@ -1,0 +1,89 @@
+{
+  "contentful": 60,
+  "right": 60,
+  "wrong": 0,
+  "fraction": 1.0,
+  "high": 0,
+  "high_right": 0,
+  "high_right_share": null,
+  "high_bar_met": false,
+  "scores_separate": false,
+  "right_scores": [
+    0.666666666667,
+    0.875,
+    0.888888888889,
+    0.9,
+    0.909090909091,
+    0.923076923077,
+    0.941176470588
+  ],
+  "wrong_scores": [],
+  "bins": [
+    {
+      "low": 0.0,
+      "high": 0.2,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    },
+    {
+      "low": 0.2,
+      "high": 0.4,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    },
+    {
+      "low": 0.4,
+      "high": 0.6,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    },
+    {
+      "low": 0.6,
+      "high": 0.8,
+      "count": 5,
+      "correct": 5,
+      "mean_confidence": 0.6666666666666666,
+      "observed": 1.0
+    },
+    {
+      "low": 0.8,
+      "high": 1.0000001,
+      "count": 55,
+      "correct": 55,
+      "mean_confidence": 0.9162319825154049,
+      "observed": 1.0
+    }
+  ],
+  "contentful_bar": "33/54",
+  "contentful_bar_met": true,
+  "both_bars_met": false,
+  "result_name": "build-d:reasoning-heldback",
+  "seeds": [
+    97701,
+    97702,
+    97703,
+    97704,
+    97705,
+    97706,
+    97707,
+    97708,
+    97709,
+    97710,
+    97711,
+    97712,
+    97713,
+    97714,
+    97715,
+    97716,
+    97717,
+    97718,
+    97719,
+    97720
+  ]
+}

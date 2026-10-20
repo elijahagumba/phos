@@ -1,0 +1,47 @@
+{
+  "release": "r3.1",
+  "register": {
+    "hosts": [],
+    "destinations": [],
+    "pcs": []
+  },
+  "register_sha256": "2c284a6e2f41061c514104f6eb6e885b55664d0a7eb18b9b0278a1c3f74f168b",
+  "register_note": "Empty. ADR 0146 forbids filling the register from a labelled day, and no other register was committed before this score.",
+  "features": {
+    "declared_host_count": {
+      "n": 340171,
+      "sum": 0.0,
+      "max": 0.0
+    },
+    "declared_new_host_count": {
+      "n": 340171,
+      "sum": 0.0,
+      "max": 0.0
+    },
+    "declared_destination_count": {
+      "n": 340171,
+      "sum": 0.0,
+      "max": 0.0
+    },
+    "declared_new_destination_count": {
+      "n": 340171,
+      "sum": 0.0,
+      "max": 0.0
+    },
+    "declared_pc_count": {
+      "n": 340171,
+      "sum": 0.0,
+      "max": 0.0
+    },
+    "declared_new_pc_count": {
+      "n": 340171,
+      "sum": 0.0,
+      "max": 0.0
+    }
+  },
+  "all_zero": true,
+  "n_observations": 2041026,
+  "n_labelled_insiders": 2,
+  "weights_on_the_34": null,
+  "seconds": 81.4
+}

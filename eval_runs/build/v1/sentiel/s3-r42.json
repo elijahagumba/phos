@@ -1,0 +1,808 @@
+{
+  "command": "uv run python scripts/score_s3_r42.py --out eval_runs/build/v1/sentiel/s3-r42.json",
+  "release": "r4.2",
+  "budget_per_day": 48,
+  "rank_key": "(-score, user_id, timestamp)",
+  "alerting": "phos.sentiel.exclusive_return.alerting",
+  "n_labelled_insiders": 70,
+  "n_person_days": 217393,
+  "n_calendar_days": 341,
+  "challenger": {
+    "result_name": "exclusive-host-return:cert-r4.2@48-per-day",
+    "distinct_labelled_insiders": 1,
+    "surfaced_user_ids": [
+      "KPC0073"
+    ],
+    "alerts_raised": 2,
+    "labelled_days_among_alerts": 1,
+    "precision_over_alerts_raised": 0.5,
+    "per_insider": {
+      "CSC0217": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "PNL0301": {
+        "malicious_person_days": 35,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "LCC0819": {
+        "malicious_person_days": 38,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "GTD0219": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "RMW0542": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "AAF0535": {
+        "malicious_person_days": 38,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "RAR0725": {
+        "malicious_person_days": 32,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "IJM0776": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "KPC0073": {
+        "malicious_person_days": 6,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "RHL0992": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "RKD0604": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "BIH0745": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "JMB0308": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "MOS0047": {
+        "malicious_person_days": 40,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "JGT0221": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "JTM0223": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "EHB0824": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "DIB0285": {
+        "malicious_person_days": 34,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "BDV0168": {
+        "malicious_person_days": 7,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "LJR0523": {
+        "malicious_person_days": 9,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "EGD0132": {
+        "malicious_person_days": 40,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "PSF0133": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "XHW0498": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "CAH0936": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "BBS0039": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "HXL0968": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "JJM0203": {
+        "malicious_person_days": 32,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "VSS0154": {
+        "malicious_person_days": 38,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "AJR0932": {
+        "malicious_person_days": 6,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "RAB0589": {
+        "malicious_person_days": 8,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "LQC0479": {
+        "malicious_person_days": 6,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "MCF0600": {
+        "malicious_person_days": 3,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "BLS0678": {
+        "malicious_person_days": 7,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "MAS0025": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "BSS0369": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "EHD0584": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "AKR0057": {
+        "malicious_person_days": 38,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "IUB0565": {
+        "malicious_person_days": 37,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "BTL0226": {
+        "malicious_person_days": 6,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "CCA0046": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "TNM0961": {
+        "malicious_person_days": 37,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "EDB0714": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "RGG0064": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "AAM0658": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "TAP0551": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "ABC0174": {
+        "malicious_person_days": 46,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "MPM0220": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "GHL0460": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "DRR0162": {
+        "malicious_person_days": 33,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "HJB0742": {
+        "malicious_person_days": 4,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "KRL0501": {
+        "malicious_person_days": 37,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "FTM0406": {
+        "malicious_person_days": 4,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "MSO0222": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "MYD0978": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "IKR0401": {
+        "malicious_person_days": 37,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "CCL0068": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "MDH0580": {
+        "malicious_person_days": 42,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "FMG0527": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "FSC0601": {
+        "malicious_person_days": 42,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "JRG0207": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "DCH0843": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "CEJ0109": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "NWT0098": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "MAR0955": {
+        "malicious_person_days": 3,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "PPF0435": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "KLH0596": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "HBO0413": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "CQW0652": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "WDD0366": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "JLM0364": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      }
+    },
+    "code": "phos.sentiel.exclusive_return.exclusive_return_scores"
+  },
+  "frozen_6b": {
+    "result_name": "6b:cert-r4.2@48-per-day",
+    "distinct_labelled_insiders": 59,
+    "surfaced_user_ids": [
+      "AAF0535",
+      "AAM0658",
+      "ABC0174",
+      "AJR0932",
+      "AKR0057",
+      "BDV0168",
+      "BTL0226",
+      "CAH0936",
+      "CCA0046",
+      "CCL0068",
+      "CEJ0109",
+      "CQW0652",
+      "CSC0217",
+      "DIB0285",
+      "DRR0162",
+      "EDB0714",
+      "EGD0132",
+      "EHB0824",
+      "EHD0584",
+      "FMG0527",
+      "FSC0601",
+      "FTM0406",
+      "GTD0219",
+      "HBO0413",
+      "HJB0742",
+      "HXL0968",
+      "IJM0776",
+      "IKR0401",
+      "IUB0565",
+      "JGT0221",
+      "JJM0203",
+      "JMB0308",
+      "JRG0207",
+      "JTM0223",
+      "KPC0073",
+      "KRL0501",
+      "LCC0819",
+      "LJR0523",
+      "LQC0479",
+      "MAR0955",
+      "MCF0600",
+      "MDH0580",
+      "MOS0047",
+      "MSO0222",
+      "MYD0978",
+      "NWT0098",
+      "PNL0301",
+      "PSF0133",
+      "RAB0589",
+      "RAR0725",
+      "RGG0064",
+      "RHL0992",
+      "RKD0604",
+      "RMW0542",
+      "TAP0551",
+      "TNM0961",
+      "VSS0154",
+      "WDD0366",
+      "XHW0498"
+    ],
+    "alerts_raised": 15927,
+    "labelled_days_among_alerts": 428,
+    "precision_over_alerts_raised": 0.02687260626608903,
+    "per_insider": {
+      "CSC0217": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "PNL0301": {
+        "malicious_person_days": 35,
+        "malicious_days_alerted": 12,
+        "surfaced": true
+      },
+      "LCC0819": {
+        "malicious_person_days": 38,
+        "malicious_days_alerted": 9,
+        "surfaced": true
+      },
+      "GTD0219": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "RMW0542": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 14,
+        "surfaced": true
+      },
+      "AAF0535": {
+        "malicious_person_days": 38,
+        "malicious_days_alerted": 17,
+        "surfaced": true
+      },
+      "RAR0725": {
+        "malicious_person_days": 32,
+        "malicious_days_alerted": 8,
+        "surfaced": true
+      },
+      "IJM0776": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 8,
+        "surfaced": true
+      },
+      "KPC0073": {
+        "malicious_person_days": 6,
+        "malicious_days_alerted": 3,
+        "surfaced": true
+      },
+      "RHL0992": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 16,
+        "surfaced": true
+      },
+      "RKD0604": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "BIH0745": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "JMB0308": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "MOS0047": {
+        "malicious_person_days": 40,
+        "malicious_days_alerted": 17,
+        "surfaced": true
+      },
+      "JGT0221": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "JTM0223": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "EHB0824": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "DIB0285": {
+        "malicious_person_days": 34,
+        "malicious_days_alerted": 9,
+        "surfaced": true
+      },
+      "BDV0168": {
+        "malicious_person_days": 7,
+        "malicious_days_alerted": 3,
+        "surfaced": true
+      },
+      "LJR0523": {
+        "malicious_person_days": 9,
+        "malicious_days_alerted": 3,
+        "surfaced": true
+      },
+      "EGD0132": {
+        "malicious_person_days": 40,
+        "malicious_days_alerted": 16,
+        "surfaced": true
+      },
+      "PSF0133": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 14,
+        "surfaced": true
+      },
+      "XHW0498": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 9,
+        "surfaced": true
+      },
+      "CAH0936": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "BBS0039": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "HXL0968": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 11,
+        "surfaced": true
+      },
+      "JJM0203": {
+        "malicious_person_days": 32,
+        "malicious_days_alerted": 5,
+        "surfaced": true
+      },
+      "VSS0154": {
+        "malicious_person_days": 38,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "AJR0932": {
+        "malicious_person_days": 6,
+        "malicious_days_alerted": 3,
+        "surfaced": true
+      },
+      "RAB0589": {
+        "malicious_person_days": 8,
+        "malicious_days_alerted": 3,
+        "surfaced": true
+      },
+      "LQC0479": {
+        "malicious_person_days": 6,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "MCF0600": {
+        "malicious_person_days": 3,
+        "malicious_days_alerted": 3,
+        "surfaced": true
+      },
+      "BLS0678": {
+        "malicious_person_days": 7,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "MAS0025": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "BSS0369": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "EHD0584": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "AKR0057": {
+        "malicious_person_days": 38,
+        "malicious_days_alerted": 23,
+        "surfaced": true
+      },
+      "IUB0565": {
+        "malicious_person_days": 37,
+        "malicious_days_alerted": 13,
+        "surfaced": true
+      },
+      "BTL0226": {
+        "malicious_person_days": 6,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "CCA0046": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "TNM0961": {
+        "malicious_person_days": 37,
+        "malicious_days_alerted": 20,
+        "surfaced": true
+      },
+      "EDB0714": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 14,
+        "surfaced": true
+      },
+      "RGG0064": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "AAM0658": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "TAP0551": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "ABC0174": {
+        "malicious_person_days": 46,
+        "malicious_days_alerted": 20,
+        "surfaced": true
+      },
+      "MPM0220": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "GHL0460": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "DRR0162": {
+        "malicious_person_days": 33,
+        "malicious_days_alerted": 6,
+        "surfaced": true
+      },
+      "HJB0742": {
+        "malicious_person_days": 4,
+        "malicious_days_alerted": 4,
+        "surfaced": true
+      },
+      "KRL0501": {
+        "malicious_person_days": 37,
+        "malicious_days_alerted": 9,
+        "surfaced": true
+      },
+      "FTM0406": {
+        "malicious_person_days": 4,
+        "malicious_days_alerted": 3,
+        "surfaced": true
+      },
+      "MSO0222": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 1,
+        "surfaced": true
+      },
+      "MYD0978": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "IKR0401": {
+        "malicious_person_days": 37,
+        "malicious_days_alerted": 9,
+        "surfaced": true
+      },
+      "CCL0068": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 13,
+        "surfaced": true
+      },
+      "MDH0580": {
+        "malicious_person_days": 42,
+        "malicious_days_alerted": 9,
+        "surfaced": true
+      },
+      "FMG0527": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "FSC0601": {
+        "malicious_person_days": 42,
+        "malicious_days_alerted": 15,
+        "surfaced": true
+      },
+      "JRG0207": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "DCH0843": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "CEJ0109": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 10,
+        "surfaced": true
+      },
+      "NWT0098": {
+        "malicious_person_days": 41,
+        "malicious_days_alerted": 19,
+        "surfaced": true
+      },
+      "MAR0955": {
+        "malicious_person_days": 3,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "PPF0435": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "KLH0596": {
+        "malicious_person_days": 0,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      },
+      "HBO0413": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 11,
+        "surfaced": true
+      },
+      "CQW0652": {
+        "malicious_person_days": 39,
+        "malicious_days_alerted": 13,
+        "surfaced": true
+      },
+      "WDD0366": {
+        "malicious_person_days": 5,
+        "malicious_days_alerted": 2,
+        "surfaced": true
+      },
+      "JLM0364": {
+        "malicious_person_days": 1,
+        "malicious_days_alerted": 0,
+        "surfaced": false
+      }
+    },
+    "detector_name": "aggregate:gaussian:peer set (34 features) (6B)",
+    "policy": "AggregationPolicy()"
+  },
+  "chance_null_expected_distinct_insiders": 35.2855319099821,
+  "s3_met": false,
+  "s3_rule": "met only if the challenger surfaces more distinct labelled insiders than frozen 6B",
+  "realism": {
+    "source": "phos.sentiel.exclusive_return.single_user_host_owners",
+    "scope": "whole release",
+    "innocent_users": 930,
+    "innocent_users_with_single_user_host": 0,
+    "share_of_innocent_users": 0.0
+  },
+  "frozen_r31_row_written": false,
+  "log_jsonl_appended": false,
+  "seconds": 447.6
+}

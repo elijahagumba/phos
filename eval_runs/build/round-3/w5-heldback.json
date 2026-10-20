@@ -1,0 +1,74 @@
+{
+  "contentful": 54,
+  "right": 33,
+  "high": 0,
+  "high_right": 0,
+  "high_right_share": null,
+  "shared_calibrated_scores": [
+    0.604166666667
+  ],
+  "shared_raw_scores": [
+    0.355263157895,
+    0.488332796325,
+    0.623076923077,
+    0.741146299315
+  ],
+  "right_calibrated_range": [
+    0.604166666667,
+    0.604166666667
+  ],
+  "wrong_calibrated_range": [
+    0.604166666667,
+    0.604166666667
+  ],
+  "wrong": 21,
+  "wrong_low": 0,
+  "wrong_high": 0,
+  "wrong_mostly_low": false,
+  "high_bar_met": false,
+  "bar_met": false,
+  "k_liar": 3.0,
+  "bins": [
+    {
+      "low": 0.0,
+      "high": 0.2,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    },
+    {
+      "low": 0.2,
+      "high": 0.4,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    },
+    {
+      "low": 0.4,
+      "high": 0.6,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    },
+    {
+      "low": 0.6,
+      "high": 0.8,
+      "count": 54,
+      "correct": 33,
+      "mean_confidence": 0.6041666666666666,
+      "observed": 0.6111111111111112
+    },
+    {
+      "low": 0.8,
+      "high": 1.0000001,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    }
+  ],
+  "split": "held-back"
+}

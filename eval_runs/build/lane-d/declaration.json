@@ -1,0 +1,16 @@
+{
+  "code_sha256": {
+    "combined": "344dd5c222c3b078d5272974174942f84ed3667e7245f0fdeee667ddde3adb0d",
+    "scripts/lane_d_score.py": "120f6a13916660503fc59d6ab6bbf3b9c30de16e87325171f1fe496a8161bc39",
+    "src/phos/atlas/command_physics.py": "1d5b0e8921f2d729b227c0da4d2596f99fec952cd11a15e7eb6d544734f6ba07",
+    "src/phos/atlas/command_response.py": "4e2a3c0dbe0a0be21f9baddad1d4435ac2d7872e3e69e57fd3b066caf596b4f2",
+    "src/phos/atlas/consistency_evidence.py": "7768639af21608666e1683d9c784248181798cd2ddbd8f5d92df867e4c1ce9a5",
+    "src/phos/atlas/explanation_calibration.py": "dc6784d3bac5aa06d3b5a166bb3b447cc143cc01ef944a6c51c98d173edd8b8d",
+    "src/phos/atlas/sensor_explainer.py": "d98078da8273601f36c045d19da9e4c7630f858f378f86755247858b5e78b802",
+    "src/phos/atlas/templates.py": "77133caf7dc4d5b0aa96013670ca65a0b84a96b7a96f704e77e960cd67ca7167"
+  },
+  "command": "uv run python scripts/lane_d_score.py --split held-back",
+  "note": "One look at seeds 97101-97120. The command scores command-against-physics, the lying-sensor explainer, and the reliability chart. The chart does not fit a Platt map. Do not edit the scored files between this declaration and the run. A mismatch refuses the run.",
+  "result_name": "lane-d-heldback",
+  "seeds": "97101-97120"
+}

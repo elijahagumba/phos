@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "note": "Pinned sha256 and digits of committed v1 records. Not a new measurement. ADR 0221.",
+  "records": [
+    {
+      "path": "eval_runs/v1/a2-status.json",
+      "sha256": "097aa6bf92fc872250bebb4d86be116936522920855c91a4c0a0e76d404ce834",
+      "digits": {
+        "rows[corpus=hai-20.07].consistency_caught": "37",
+        "rows[corpus=hai-20.07].attacks": "38",
+        "rows[corpus=hai-20.07].opponent_caught": "32",
+        "rows[corpus=hai-21.03].consistency_caught": "42",
+        "rows[corpus=hai-21.03].attacks": "50",
+        "rows[corpus=hai-21.03].opponent_caught": "36",
+        "rows[corpus=hai-22.04].consistency_caught": "53",
+        "rows[corpus=hai-22.04].attacks": "58",
+        "rows[corpus=hai-22.04].opponent_caught": "10",
+        "rows[corpus=hai-23.05].consistency_caught": "36",
+        "rows[corpus=hai-23.05].attacks": "52",
+        "rows[corpus=hai-23.05].opponent_caught": "6",
+        "rows[corpus=batadal].consistency_caught": "5",
+        "rows[corpus=batadal].attacks": "5",
+        "rows[corpus=batadal].opponent_caught": "3",
+        "strictly_higher": "5",
+        "strictly_higher_and_above_every_chance_draw": "4"
+      }
+    },
+    {
+      "path": "eval_runs/v1/g1-baseline-table.json",
+      "sha256": "b07ea632d9bb6e0ca36adbdb1a0a8505669de47a1ea22b22e919a633266ffc4e",
+      "digits": {
+        "corpora[corpus=hai-20.07].scores[detector=g1-baseline:atlas-mahalanobis].recall_within_budget": "0.236842105263",
+        "corpora[corpus=hai-20.07].scores[detector=g1-baseline:atlas-mahalanobis].caught": "9",
+        "corpora[corpus=hai-20.07].scores[detector=g1-baseline:atlas-mahalanobis].attacks": "38",
+        "corpora[corpus=hai-21.03].scores[detector=g1-baseline:atlas-mahalanobis].recall_within_budget": "0.14",
+        "corpora[corpus=hai-21.03].scores[detector=g1-baseline:atlas-mahalanobis].caught": "7",
+        "corpora[corpus=hai-21.03].scores[detector=g1-baseline:atlas-mahalanobis].attacks": "50",
+        "corpora[corpus=hai-22.04].scores[detector=g1-baseline:atlas-mahalanobis].recall_within_budget": "0.0862068965517",
+        "corpora[corpus=hai-22.04].scores[detector=g1-baseline:atlas-mahalanobis].caught": "5",
+        "corpora[corpus=hai-22.04].scores[detector=g1-baseline:atlas-mahalanobis].attacks": "58",
+        "corpora[corpus=hai-23.05].scores[detector=g1-baseline:atlas-mahalanobis].recall_within_budget": "0.0576923076923",
+        "corpora[corpus=hai-23.05].scores[detector=g1-baseline:atlas-mahalanobis].caught": "3",
+        "corpora[corpus=hai-23.05].scores[detector=g1-baseline:atlas-mahalanobis].attacks": "52",
+        "corpora[corpus=batadal].scores[detector=g1-baseline:atlas-mahalanobis].recall_within_budget": "1",
+        "corpora[corpus=batadal].scores[detector=g1-baseline:atlas-mahalanobis].caught": "5",
+        "corpora[corpus=batadal].scores[detector=g1-baseline:atlas-mahalanobis].attacks": "5",
+        "corpora[corpus=batch-distillation].scores[detector=g1-baseline:atlas-mahalanobis].recall_within_budget": "0.166666666667",
+        "corpora[corpus=batch-distillation].scores[detector=g1-baseline:atlas-mahalanobis].caught": "21",
+        "corpora[corpus=batch-distillation].scores[detector=g1-baseline:atlas-mahalanobis].attacks": "126",
+        "corpora[corpus=data4cyber].scores[detector=g1-baseline:atlas-mahalanobis].recall_within_budget": "0",
+        "corpora[corpus=data4cyber].scores[detector=g1-baseline:atlas-mahalanobis].caught": "0",
+        "corpora[corpus=data4cyber].scores[detector=g1-baseline:atlas-mahalanobis].attacks": "2"
+      }
+    },
+    {
+      "path": "eval_runs/benchmark/phos-benchmark-v1.json",
+      "sha256": "c20b1717165b181564ed7b8be0913bc8fe2232332fd9d8758a604011a9cf3a98",
+      "digits": {
+        "rows[dataset=hai][detector=atlas-mahalanobis].fp_per_normal_hour": "646.58",
+        "rows[dataset=batch-distillation][detector=atlas-mahalanobis].fp_per_normal_hour": "18.72",
+        "rows[dataset=batch-distillation][detector=atlas-mahalanobis].window_recall": "0.6",
+        "rows[dataset=cert-r3.1][detector=aggregate:gaussian:peer-set-6B].precision_at_budget": "0.104",
+        "rows[dataset=cert-r3.1][detector=aggregate:gaussian:peer-set-6B].window_recall": "0.5",
+        "rows[dataset=synth-water-power-graded][detector=known-station].unique_leads": "0",
+        "rows[dataset=synth-water-power-graded][detector=known-station].n": "16",
+        "rows[dataset=synth-water-unknown-master][detector=unknown-master].unique_leads": "1",
+        "rows[dataset=synth-water-unknown-master][detector=unknown-master].n": "4"
+      }
+    },
+    {
+      "path": "eval_runs/v1/consistency-batadal.json",
+      "sha256": "ee853c8f16a41e8445dd998b51b15871e8d81c22e52a965fc4549b73105e6735",
+      "digits": {
+        "score.caught": "5",
+        "score.attacks": "5",
+        "score.recall_within_budget": "1"
+      }
+    },
+    {
+      "path": "eval_runs/v1/consistency-identity-hai.json",
+      "sha256": "d32501f66bd5d670bf3e5a8bd3f1f2a6d733eee035c4d7e9510658bb64a1774d",
+      "digits": {
+        "[corpus=hai-22.04][port_path=port-float64-grouping].own_grouping_caught": "53",
+        "[corpus=hai-22.04][port_path=port-float64-grouping].attacks": "58",
+        "[corpus=hai-23.05][port_path=port-float64-grouping].own_grouping_caught": "36",
+        "[corpus=hai-23.05][port_path=port-float64-grouping].attacks": "52"
+      }
+    },
+    {
+      "path": "eval_runs/v1/a2-status.md",
+      "sha256": "3b50c457ca4d92279fe0a2e31a5d94e0c95ee44d8e6c31edc7c2b39c4a70542d",
+      "digits": {}
+    },
+    {
+      "path": "eval_runs/v1/g1-baseline-table.md",
+      "sha256": "f8e8dd09697ca6d6e1b6a01c4600e52e8e43c0eb084a46d8e3d45c707488f99c",
+      "digits": {}
+    },
+    {
+      "path": "eval_runs/benchmark/phos-benchmark-v1.md",
+      "sha256": "283314af20653e7b298d06d2d90ce972c6a8f0269cdde2057dcb77d505fa8c62",
+      "digits": {}
+    },
+    {
+      "path": "eval_runs/v1/consistency-batadal.md",
+      "sha256": "f5ea9786d1a87cbad97a44ace46c380bb1f61326e4b2a56bb0d612ce103b3e04",
+      "digits": {}
+    },
+    {
+      "path": "eval_runs/v1/consistency-identity-hai.md",
+      "sha256": "53afdb4f44960352049c82fafc94d80058f2363142e92e9bca581d182560a4a7",
+      "digits": {}
+    }
+  ]
+}

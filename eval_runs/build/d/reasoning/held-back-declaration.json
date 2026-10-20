@@ -1,0 +1,30 @@
+{
+  "authorized": true,
+  "result_name": "build-d:reasoning-heldback",
+  "command": "PYTHONPATH=src .venv/bin/python scripts/lane_r_heldback.py",
+  "mode": "h2b",
+  "seeds": [
+    97701,
+    97702,
+    97703,
+    97704,
+    97705,
+    97706,
+    97707,
+    97708,
+    97709,
+    97710,
+    97711,
+    97712,
+    97713,
+    97714,
+    97715,
+    97716,
+    97717,
+    97718,
+    97719,
+    97720
+  ],
+  "contentful_bar": "strictly greater than 33/54",
+  "high_bar": "high-confidence leads right at least 80 percent of the time; zero high leads means not met"
+}

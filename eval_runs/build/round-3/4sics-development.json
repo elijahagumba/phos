@@ -1,0 +1,120 @@
+{
+  "result_name": "round-3:4sics-development",
+  "credit": "https://www.netresec.com/?page=PCAP4SICS",
+  "learn": "4SICS-GeekLounge-151020.pcap",
+  "score": "4SICS-GeekLounge-151021.pcap",
+  "catches": null,
+  "note": "Unlabelled conference-lab traffic. Graph findings are not attacks. Hypothesis confidence is not reported. Day 151022 was not opened.",
+  "learn_coverage": {
+    "filename": "4SICS-GeekLounge-151020.pcap",
+    "frames_read": 246137,
+    "frames_yielded": 145613,
+    "frames_undecodable": 9610,
+    "frames_without_payload": 90914,
+    "decoded": {},
+    "malformed": {},
+    "undissected_ports": {
+      "port 102 (S7comm)": 47449,
+      "port 49156 (unassigned)": 47428,
+      "port 53 (unassigned)": 15139,
+      "port 949 (unassigned)": 12330,
+      "port 49909 (unassigned)": 254,
+      "port 52872 (unassigned)": 42,
+      "port 192 (unassigned)": 32,
+      "port 56127 (unassigned)": 10,
+      "port 52260 (unassigned)": 9,
+      "port 52266 (unassigned)": 9,
+      "port 52267 (unassigned)": 9,
+      "port 52268 (unassigned)": 9
+    },
+    "first": "2015-10-20T15:10:34.524710+00:00",
+    "last": "2015-10-20T22:10:32.197760+00:00"
+  },
+  "score_coverage": {
+    "filename": "4SICS-GeekLounge-151021.pcap",
+    "frames_read": 1253100,
+    "frames_yielded": 606138,
+    "frames_undecodable": 36817,
+    "frames_without_payload": 610145,
+    "decoded": {
+      "modbus": 19
+    },
+    "malformed": {},
+    "undissected_ports": {
+      "port 102 (S7comm)": 172710,
+      "port 49156 (unassigned)": 172652,
+      "port 53 (unassigned)": 52508,
+      "port 949 (unassigned)": 42983,
+      "port 80 (unassigned)": 5800,
+      "port 47016 (unassigned)": 2293,
+      "port 443 (unassigned)": 1159,
+      "port 55464 (unassigned)": 1156,
+      "port 49159 (unassigned)": 1045,
+      "port 23 (unassigned)": 680,
+      "port 43838 (unassigned)": 565,
+      "port 43655 (unassigned)": 407
+    },
+    "first": "2015-10-20T22:10:32.198781+00:00",
+    "last": "2015-10-21T22:10:34.995270+00:00"
+  },
+  "graph": [],
+  "graph_text": "0 command relationship(s) among 0 device(s), learned from 0 command(s)\n  (no command relationships observed)",
+  "findings": 8,
+  "findings_by_feature": {
+    "unknown_command_relationship": 8
+  },
+  "finding_rows": [
+    {
+      "feature": "unknown_command_relationship",
+      "issuer": "192.168.2.42",
+      "target": "192.168.88.100",
+      "commands": 2.0
+    },
+    {
+      "feature": "unknown_command_relationship",
+      "issuer": "192.168.2.42",
+      "target": "192.168.88.20",
+      "commands": 2.0
+    },
+    {
+      "feature": "unknown_command_relationship",
+      "issuer": "192.168.2.42",
+      "target": "192.168.88.50",
+      "commands": 1.0
+    },
+    {
+      "feature": "unknown_command_relationship",
+      "issuer": "192.168.2.42",
+      "target": "192.168.88.50",
+      "commands": 1.0
+    },
+    {
+      "feature": "unknown_command_relationship",
+      "issuer": "192.168.2.42",
+      "target": "192.168.88.60",
+      "commands": 1.0
+    },
+    {
+      "feature": "unknown_command_relationship",
+      "issuer": "192.168.2.42",
+      "target": "192.168.88.61",
+      "commands": 1.0
+    },
+    {
+      "feature": "unknown_command_relationship",
+      "issuer": "192.168.2.42",
+      "target": "192.168.88.100",
+      "commands": 2.0
+    },
+    {
+      "feature": "unknown_command_relationship",
+      "issuer": "192.168.2.42",
+      "target": "192.168.88.95",
+      "commands": 1.0
+    }
+  ],
+  "alerts_per_hour": 0.33332254475891354,
+  "score_span_start": "2015-10-20T22:10:32.198781+00:00",
+  "score_span_end": "2015-10-21T22:10:34.995270+00:00",
+  "learn_commands": 0
+}

@@ -1,0 +1,17 @@
+{
+  "result_name": "round-3:w5-heldback",
+  "command": "uv run python scripts/round3_w5.py --split held-back",
+  "scorer": "atlas-v1-consistency",
+  "calibration": "ADR 0171 shape map, fit on development outcomes only",
+  "k_liar": 3.0,
+  "n_steps": 160,
+  "sample_seconds": 30,
+  "seeds": "97501-97520",
+  "authorized": true,
+  "development_outcomes_sha256": "d3a61bc967f7e981a5c79acf534e7d191a0a994bc8228a56af73da6c86ab4c43",
+  "code_sha256": {
+    "src/phos/atlas/conformal_confidence.py": "98f0080481a4e44bb482b220ac7ddaf66081b51e32bbdb7f09da7c518ea32dbf",
+    "src/phos/eval/w5_confidence.py": "e4eabb1a592899e140075f5c6748c9bf5e301833e17ef68284887712736312c0",
+    "scripts/round3_w5.py": "f545da67fe1dc66772858cc4078c2905523e21e46dffa45308a7a840b7f169df"
+  }
+}

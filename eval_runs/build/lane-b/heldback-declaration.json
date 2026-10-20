@@ -1,0 +1,19 @@
+{
+  "result_name": "lane-b-maintenance-closure-heldback",
+  "command": "uv run python scripts/lane_b_heldback.py --run",
+  "code_sha256": {
+    "src/phos/atlas/maintenance_closure.py": "b7e6125704a3394001c56de2345f24b16d20364e9c999ad567b3cd3e8be3a4b9",
+    "src/phos/atlas/cmms.py": "49cbab51676f3dd6fc3944b0cc1abd80ea9ad8b84c26f73b1de3f6082acbd4cf",
+    "src/phos/atlas/consistency.py": "71aeebfea7ee491117316f9a7db32c9ae2c4aced4f17baf4575a078a48ff5911",
+    "src/phos/eval/maintenance_harness.py": "a0d4a92092da89b170c28d9857a643dc83c7500e87a6f836a9036f02f6bb65d0",
+    "src/phos/synth/maintenance.py": "2ecb33e57b0a54b16e55ab34a8c0070e59ad2ae92270be9fa5b5d3e93233c7f6",
+    "scripts/lane_b_heldback.py": "37cccbefc9189a51e9bd03d52ae863da221cd5caa3d9b762bc3f233abec6042a",
+    "combined": "10e148676eab8c050dc3a4646a5aa1d0256f57c5bf5f75a5897b7c3718cf9bb2"
+  },
+  "seeds": "97101-97120",
+  "bars": {
+    "maintenance_closure_rate": ">= 0.70",
+    "attack_and_mimic_closed": "0"
+  },
+  "note": "One look at seeds 97101-97120 with the ADR 0151 harness as committed. Do not edit a scored file between this declaration and the run."
+}

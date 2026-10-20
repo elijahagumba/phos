@@ -1,0 +1,1277 @@
+{
+  "bar_met": false,
+  "report": {
+    "bins": [
+      {
+        "correct": 0,
+        "count": 0,
+        "high": 0.2,
+        "low": 0.0,
+        "mean_confidence": null,
+        "observed": null
+      },
+      {
+        "correct": 30,
+        "count": 33,
+        "high": 0.4,
+        "low": 0.2,
+        "mean_confidence": 0.35526315789473695,
+        "observed": 0.9090909090909091
+      },
+      {
+        "correct": 3,
+        "count": 3,
+        "high": 0.6,
+        "low": 0.4,
+        "mean_confidence": 0.48833279632534904,
+        "observed": 1.0
+      },
+      {
+        "correct": 0,
+        "count": 0,
+        "high": 0.8,
+        "low": 0.6,
+        "mean_confidence": null,
+        "observed": null
+      },
+      {
+        "correct": 0,
+        "count": 0,
+        "high": 1.0000001,
+        "low": 0.8,
+        "mean_confidence": null,
+        "observed": null
+      }
+    ],
+    "contentful": 36,
+    "contentful_correct": 33,
+    "expected_calibration_error": 0.5503143722360454,
+    "map_flat": true,
+    "note": "Hypothesis confidence is not shown as a probability. A flat Platt map repeats the base rate of this scenario mix, and that mix is one this measurement chose.",
+    "outcomes": [
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97001
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97001
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97001
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97001
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97001
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97001
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97002
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97002
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97002
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97002
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97002
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97002
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97003
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97003
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97003
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97003
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97003
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97003
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97004
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97004
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97004
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97004
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97004
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97004
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97005
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97005
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": false,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97005
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97005
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97005
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97005
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97006
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97006
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97006
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97006
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97006
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97006
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97007
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97007
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97007
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97007
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97007
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97007
+      },
+      {
+        "confidence": 0.48833279632534904,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 3,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97008
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97008
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97008
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97008
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97008
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97008
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97009
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97009
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97009
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97009
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97009
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97009
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97010
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97010
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97010
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97010
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97010
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97010
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97011
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97011
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97011
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97011
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97011
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97011
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97012
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97012
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97012
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97012
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97012
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97012
+      },
+      {
+        "confidence": 0.48833279632534904,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 3,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97013
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": false,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97013
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97013
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97013
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97013
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97013
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97014
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97014
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97014
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97014
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97014
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97014
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97015
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97015
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97015
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97015
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97015
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97015
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97016
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97016
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97016
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97016
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97016
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97016
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97017
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97017
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97017
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97017
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97017
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97017
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97018
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97018
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97018
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97018
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97018
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97018
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97019
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97019
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97019
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97019
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97019
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97019
+      },
+      {
+        "confidence": 0.48833279632534904,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 3,
+        "plant_id": "water-treatment",
+        "scenario": "stuck",
+        "seed": 97020
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": false,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "water-treatment",
+        "scenario": "follow",
+        "seed": 97020
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "water-treatment",
+        "scenario": "quiet",
+        "seed": 97020
+      },
+      {
+        "confidence": 0.35526315789473695,
+        "contentful": true,
+        "correct": true,
+        "lead": "sensor_or_device_fault",
+        "n_evidence": 2,
+        "plant_id": "power-generation",
+        "scenario": "stuck",
+        "seed": 97020
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 1,
+        "plant_id": "power-generation",
+        "scenario": "follow",
+        "seed": 97020
+      },
+      {
+        "confidence": 0.3,
+        "contentful": false,
+        "correct": null,
+        "lead": "insufficient_evidence",
+        "n_evidence": 0,
+        "plant_id": "power-generation",
+        "scenario": "quiet",
+        "seed": 97020
+      }
+    ],
+    "platt_coefficient": 0.03279298198600272,
+    "platt_high": 0.9169845800660065,
+    "platt_intercept": 2.386050395012142,
+    "platt_low": 0.9166517895294221,
+    "raw_high_confidence": 0,
+    "split": "development",
+    "surfaced": false,
+    "user_facing_probability": null
+  },
+  "result_name": "lane-d-explanation-calibration-development",
+  "scorecard": {
+    "calibration": null,
+    "catches_within_budget": null,
+    "false_alerts_per_shift": null,
+    "falsified_sensor_passes": null,
+    "maintenance_closures": null,
+    "margin_over_best_simple_rival": null,
+    "margin_over_chance": null,
+    "naming_right": null,
+    "naming_wrong": null,
+    "reconstruction_error": null,
+    "runtime": 1.2256273220000367
+  },
+  "split": "development"
+}

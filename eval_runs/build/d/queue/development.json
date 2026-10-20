@@ -1,0 +1,505 @@
+{
+  "split": "development",
+  "hai": {
+    "champion": {
+      "passes": 19,
+      "attacks": 38,
+      "recall_caught": 37,
+      "recall_attacks": 38
+    },
+    "variants": {
+      "familiarity": {
+        "passes": 19,
+        "attacks": 38,
+        "recall_caught": 37,
+        "recall_attacks": 38,
+        "rejected": false,
+        "flips": 0
+      },
+      "innocent": {
+        "passes": 17,
+        "attacks": 38,
+        "recall_caught": 34,
+        "recall_attacks": 38,
+        "rejected": true,
+        "flips": 1
+      },
+      "cross-path": {
+        "passes": 13,
+        "attacks": 38,
+        "recall_caught": 28,
+        "recall_attacks": 38,
+        "rejected": true,
+        "flips": 2
+      },
+      "familiarity-cross": {
+        "passes": 16,
+        "attacks": 38,
+        "recall_caught": 32,
+        "recall_attacks": 38,
+        "rejected": true,
+        "flips": 2
+      },
+      "cross-innocent": {
+        "passes": 13,
+        "attacks": 38,
+        "recall_caught": 28,
+        "recall_attacks": 38,
+        "rejected": true,
+        "flips": 2
+      },
+      "all-three": {
+        "passes": 16,
+        "attacks": 38,
+        "recall_caught": 32,
+        "recall_attacks": 38,
+        "rejected": true,
+        "flips": 2
+      }
+    },
+    "per_seed": [
+      {
+        "name": "test1.csv.gz",
+        "alerts": 183,
+        "attacks": 28,
+        "true_alerts": 29,
+        "benign_events": 0,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "test2.csv.gz",
+        "alerts": 68,
+        "attacks": 10,
+        "true_alerts": 12,
+        "benign_events": 0,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      }
+    ]
+  },
+  "seeds": {
+    "champion": {
+      "passes": 19,
+      "attacks": 20,
+      "recall_caught": 20,
+      "recall_attacks": 20
+    },
+    "variants": {
+      "familiarity": {
+        "passes": 19,
+        "attacks": 20,
+        "recall_caught": 20,
+        "recall_attacks": 20,
+        "rejected": false,
+        "flips": 0
+      },
+      "innocent": {
+        "passes": 15,
+        "attacks": 20,
+        "recall_caught": 20,
+        "recall_attacks": 20,
+        "rejected": false,
+        "flips": 6
+      },
+      "cross-path": {
+        "passes": 10,
+        "attacks": 20,
+        "recall_caught": 20,
+        "recall_attacks": 20,
+        "rejected": false,
+        "flips": 11
+      },
+      "familiarity-cross": {
+        "passes": 10,
+        "attacks": 20,
+        "recall_caught": 20,
+        "recall_attacks": 20,
+        "rejected": false,
+        "flips": 11
+      },
+      "cross-innocent": {
+        "passes": 10,
+        "attacks": 20,
+        "recall_caught": 20,
+        "recall_attacks": 20,
+        "rejected": false,
+        "flips": 11
+      },
+      "all-three": {
+        "passes": 10,
+        "attacks": 20,
+        "recall_caught": 20,
+        "recall_attacks": 20,
+        "rejected": false,
+        "flips": 11
+      }
+    },
+    "per_seed": [
+      {
+        "name": "97651",
+        "alerts": 5,
+        "attacks": 1,
+        "true_alerts": 2,
+        "benign_events": 3,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": false,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97654",
+        "alerts": 5,
+        "attacks": 1,
+        "true_alerts": 2,
+        "benign_events": 2,
+        "alerts_in_work_order": 2,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97657",
+        "alerts": 3,
+        "attacks": 1,
+        "true_alerts": 1,
+        "benign_events": 2,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": false,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97660",
+        "alerts": 13,
+        "attacks": 1,
+        "true_alerts": 6,
+        "benign_events": 4,
+        "alerts_in_work_order": 4,
+        "champion_pass": false,
+        "variants": {
+          "familiarity": false,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "97663",
+        "alerts": 3,
+        "attacks": 1,
+        "true_alerts": 1,
+        "benign_events": 3,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": false,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97666",
+        "alerts": 2,
+        "attacks": 1,
+        "true_alerts": 1,
+        "benign_events": 2,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": false,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97669",
+        "alerts": 5,
+        "attacks": 1,
+        "true_alerts": 1,
+        "benign_events": 3,
+        "alerts_in_work_order": 3,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": false,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97652",
+        "alerts": 3,
+        "attacks": 1,
+        "true_alerts": 1,
+        "benign_events": 3,
+        "alerts_in_work_order": 2,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97655",
+        "alerts": 1,
+        "attacks": 1,
+        "true_alerts": 1,
+        "benign_events": 2,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "97658",
+        "alerts": 5,
+        "attacks": 1,
+        "true_alerts": 5,
+        "benign_events": 3,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "97661",
+        "alerts": 1,
+        "attacks": 1,
+        "true_alerts": 1,
+        "benign_events": 2,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "97664",
+        "alerts": 3,
+        "attacks": 1,
+        "true_alerts": 2,
+        "benign_events": 3,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97667",
+        "alerts": 3,
+        "attacks": 1,
+        "true_alerts": 2,
+        "benign_events": 3,
+        "alerts_in_work_order": 1,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97670",
+        "alerts": 4,
+        "attacks": 1,
+        "true_alerts": 3,
+        "benign_events": 2,
+        "alerts_in_work_order": 1,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "97653",
+        "alerts": 6,
+        "attacks": 1,
+        "true_alerts": 2,
+        "benign_events": 3,
+        "alerts_in_work_order": 1,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": false,
+          "familiarity-cross": false,
+          "cross-innocent": false,
+          "all-three": false
+        }
+      },
+      {
+        "name": "97656",
+        "alerts": 6,
+        "attacks": 1,
+        "true_alerts": 2,
+        "benign_events": 3,
+        "alerts_in_work_order": 1,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "97659",
+        "alerts": 6,
+        "attacks": 1,
+        "true_alerts": 4,
+        "benign_events": 2,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "97662",
+        "alerts": 7,
+        "attacks": 1,
+        "true_alerts": 5,
+        "benign_events": 2,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "97665",
+        "alerts": 6,
+        "attacks": 1,
+        "true_alerts": 3,
+        "benign_events": 3,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      },
+      {
+        "name": "97668",
+        "alerts": 7,
+        "attacks": 1,
+        "true_alerts": 4,
+        "benign_events": 3,
+        "alerts_in_work_order": 0,
+        "champion_pass": true,
+        "variants": {
+          "familiarity": true,
+          "innocent": true,
+          "cross-path": true,
+          "familiarity-cross": true,
+          "cross-innocent": true,
+          "all-three": true
+        }
+      }
+    ]
+  },
+  "rejected": [
+    "innocent",
+    "cross-path",
+    "familiarity-cross",
+    "cross-innocent",
+    "all-three"
+  ],
+  "selected": "familiarity"
+}

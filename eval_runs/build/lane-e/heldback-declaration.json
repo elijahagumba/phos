@@ -1,0 +1,17 @@
+{
+  "result_name": "lane-e-heldback",
+  "command": "uv run python scripts/lane_e_score.py --split held-back",
+  "code_sha256": {
+    "src/phos/atlas/loop_explainer.py": "8d9d4a236e16e5bcb73da8dda2233d99b0adbd4db557f50fc8984524e90c1344",
+    "src/phos/atlas/sensor_explainer.py": "c6c185e2945855429816f1db27b663b9e1aa3bb24a5f5e979a263c23ec8c1d23",
+    "src/phos/atlas/plant_map_fit.py": "1ea443ca1a1d9a098a39a990c9783d51991103dc2e3149d8479d9cb38ce40c4a",
+    "src/phos/atlas/plant_map_model.py": "5f24fd6e5a5e638598a660e2e35f5c975f1196f018461d92b3fe3f2cec4b0b6a",
+    "src/phos/atlas/plant_map_naming.py": "332df1a632d86404cc88f17a611c8dc021ae1ffaa88dbf17ea9aeb40015e00c7",
+    "src/phos/atlas/conformal_confidence.py": "98f0080481a4e44bb482b220ac7ddaf66081b51e32bbdb7f09da7c518ea32dbf",
+    "src/phos/atlas/root_cause.py": "b360d595b3b5441b518f8891593f7a1269d8f9ce74719e822bd6f776c4ecb9b8",
+    "scripts/lane_e_score.py": "520960f5196ec033949b4b9ef50a536041f9da080c082616b037a972f0caf9ff",
+    "combined": "94763106ee3690f9edfdf7011244fff83b845b1ecd443f213cc732d642cdc302"
+  },
+  "seeds": "97101-97120",
+  "note": "One look. Do not edit a scored file between this declaration and the run."
+}

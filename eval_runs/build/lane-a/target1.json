@@ -1,0 +1,296 @@
+{
+  "both_found": false,
+  "contract": "ADR 0149, ADR 0190-0193",
+  "corpus": "cert-insider-threat r3.1",
+  "kept": "6b-frozen",
+  "loops": [
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "found": [
+        "CSF0929"
+      ],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "6b-frozen",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 957,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 1,
+          "in_top_48": 5,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.10416666666666667
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [
+        "CSF0929"
+      ],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:depth",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 1094,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 8,
+          "in_top_48": 6,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.125,
+      "streams": [
+        "depth"
+      ]
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:peer-links",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 1203,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 34884,
+          "in_top_48": 0,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.0,
+      "streams": [
+        "peer_links"
+      ]
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:chains",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 2049,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 14706,
+          "in_top_48": 0,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.0,
+      "streams": [
+        "chains"
+      ]
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:role-hours",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 8296,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 28630,
+          "in_top_48": 0,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.0,
+      "streams": [
+        "role_hours"
+      ]
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:peer-links+depth",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 1060,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 16558,
+          "in_top_48": 0,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.0,
+      "streams": [
+        "peer_links",
+        "depth"
+      ]
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:peer-links+chains",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 119,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 43144,
+          "in_top_48": 0,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.0,
+      "streams": [
+        "peer_links",
+        "chains"
+      ]
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:peer-links+role-hours",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 7615,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 44890,
+          "in_top_48": 0,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.0,
+      "streams": [
+        "peer_links",
+        "role_hours"
+      ]
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:all-four",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 7977,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 24829,
+          "in_top_48": 0,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.0,
+      "streams": [
+        "depth",
+        "chains",
+        "role_hours",
+        "peer_links"
+      ]
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:chains+depth",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 250,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 1817,
+          "in_top_48": 0,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.0,
+      "streams": [
+        "chains",
+        "depth"
+      ]
+    },
+    {
+      "both_found": false,
+      "chance_malicious_days_in_48": 0.012067509747929455,
+      "decision": "revert",
+      "found": [],
+      "n_days": 210814,
+      "n_malicious": 53,
+      "name": "lane-a-dev:peer-links+chains+depth",
+      "per_insider": {
+        "CCH0959": {
+          "best_rank": 136,
+          "in_top_48": 0,
+          "malicious_days": 42
+        },
+        "CSF0929": {
+          "best_rank": 15756,
+          "in_top_48": 0,
+          "malicious_days": 11
+        }
+      },
+      "precision_at_48": 0.0,
+      "streams": [
+        "peer_links",
+        "chains",
+        "depth"
+      ]
+    }
+  ],
+  "note": "Development only. The frozen 6B row was read, not recomputed. CERT r4.2 was not opened.",
+  "result_name": "lane-a-target-1",
+  "runtime_seconds": 64.4330527080001,
+  "start": "6b-frozen"
+}

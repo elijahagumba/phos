@@ -1,0 +1,369 @@
+{
+  "scorer": "exclusive-host-return",
+  "budget": 48,
+  "n_days": 210814,
+  "both_in_top_48": true,
+  "malicious_days_in_top_48": 23,
+  "precision_at_48": 0.4791666666666667,
+  "chance_malicious_days_in_48": 0.012067509747929455,
+  "per_insider": {
+    "CSF0929": {
+      "malicious_days": 11,
+      "in_top_48": 3,
+      "best_rank": 21,
+      "best_score": 1.0
+    },
+    "CCH0959": {
+      "malicious_days": 42,
+      "in_top_48": 20,
+      "best_rank": 1,
+      "best_score": 2.0
+    }
+  },
+  "innocent_people_in_top_48": 1,
+  "innocent_people_with_positive_score": 0,
+  "positive_days": 23,
+  "positive_users": [
+    "CCH0959",
+    "CSF0929"
+  ],
+  "top_48": [
+    {
+      "rank": 1,
+      "user_id": "CCH0959",
+      "day": "2010-08-10",
+      "score": 2.0,
+      "malicious": true
+    },
+    {
+      "rank": 2,
+      "user_id": "CCH0959",
+      "day": "2010-08-12",
+      "score": 2.0,
+      "malicious": true
+    },
+    {
+      "rank": 3,
+      "user_id": "CCH0959",
+      "day": "2010-08-17",
+      "score": 2.0,
+      "malicious": true
+    },
+    {
+      "rank": 4,
+      "user_id": "CCH0959",
+      "day": "2010-08-19",
+      "score": 2.0,
+      "malicious": true
+    },
+    {
+      "rank": 5,
+      "user_id": "CCH0959",
+      "day": "2010-08-25",
+      "score": 2.0,
+      "malicious": true
+    },
+    {
+      "rank": 6,
+      "user_id": "CCH0959",
+      "day": "2010-08-27",
+      "score": 2.0,
+      "malicious": true
+    },
+    {
+      "rank": 7,
+      "user_id": "CCH0959",
+      "day": "2010-08-03",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 8,
+      "user_id": "CCH0959",
+      "day": "2010-08-04",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 9,
+      "user_id": "CCH0959",
+      "day": "2010-08-05",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 10,
+      "user_id": "CCH0959",
+      "day": "2010-08-06",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 11,
+      "user_id": "CCH0959",
+      "day": "2010-08-11",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 12,
+      "user_id": "CCH0959",
+      "day": "2010-08-16",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 13,
+      "user_id": "CCH0959",
+      "day": "2010-08-18",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 14,
+      "user_id": "CCH0959",
+      "day": "2010-08-20",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 15,
+      "user_id": "CCH0959",
+      "day": "2010-08-23",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 16,
+      "user_id": "CCH0959",
+      "day": "2010-08-24",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 17,
+      "user_id": "CCH0959",
+      "day": "2010-08-26",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 18,
+      "user_id": "CCH0959",
+      "day": "2010-08-30",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 19,
+      "user_id": "CCH0959",
+      "day": "2010-08-31",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 20,
+      "user_id": "CCH0959",
+      "day": "2010-09-01",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 21,
+      "user_id": "CSF0929",
+      "day": "2010-07-08",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 22,
+      "user_id": "CSF0929",
+      "day": "2010-07-14",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 23,
+      "user_id": "CSF0929",
+      "day": "2010-07-16",
+      "score": 1.0,
+      "malicious": true
+    },
+    {
+      "rank": 24,
+      "user_id": "AAC0070",
+      "day": "2010-07-02",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 25,
+      "user_id": "AAC0070",
+      "day": "2010-07-06",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 26,
+      "user_id": "AAC0070",
+      "day": "2010-07-07",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 27,
+      "user_id": "AAC0070",
+      "day": "2010-07-08",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 28,
+      "user_id": "AAC0070",
+      "day": "2010-07-09",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 29,
+      "user_id": "AAC0070",
+      "day": "2010-07-12",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 30,
+      "user_id": "AAC0070",
+      "day": "2010-07-13",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 31,
+      "user_id": "AAC0070",
+      "day": "2010-07-14",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 32,
+      "user_id": "AAC0070",
+      "day": "2010-07-15",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 33,
+      "user_id": "AAC0070",
+      "day": "2010-07-16",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 34,
+      "user_id": "AAC0070",
+      "day": "2010-07-19",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 35,
+      "user_id": "AAC0070",
+      "day": "2010-07-20",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 36,
+      "user_id": "AAC0070",
+      "day": "2010-07-21",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 37,
+      "user_id": "AAC0070",
+      "day": "2010-07-22",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 38,
+      "user_id": "AAC0070",
+      "day": "2010-07-23",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 39,
+      "user_id": "AAC0070",
+      "day": "2010-07-26",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 40,
+      "user_id": "AAC0070",
+      "day": "2010-07-27",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 41,
+      "user_id": "AAC0070",
+      "day": "2010-07-28",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 42,
+      "user_id": "AAC0070",
+      "day": "2010-07-29",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 43,
+      "user_id": "AAC0070",
+      "day": "2010-07-30",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 44,
+      "user_id": "AAC0070",
+      "day": "2010-08-02",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 45,
+      "user_id": "AAC0070",
+      "day": "2010-08-03",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 46,
+      "user_id": "AAC0070",
+      "day": "2010-08-04",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 47,
+      "user_id": "AAC0070",
+      "day": "2010-08-05",
+      "score": 0.0,
+      "malicious": false
+    },
+    {
+      "rank": 48,
+      "user_id": "AAC0070",
+      "day": "2010-08-06",
+      "score": 0.0,
+      "malicious": false
+    }
+  ],
+  "seconds": 18.2
+}

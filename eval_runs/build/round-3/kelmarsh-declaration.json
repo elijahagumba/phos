@@ -1,0 +1,56 @@
+{
+  "result_name": "round-3:kelmarsh-heldback",
+  "command": "uv run python scripts/round3_kelmarsh.py",
+  "scorer": "atlas-v1-consistency",
+  "scorer_unchanged": true,
+  "scorer_sha256": "71aeebfea7ee491117316f9a7db32c9ae2c4aced4f17baf4575a078a48ff5911",
+  "status_log_rule": "ADR 0165 keeps ADR 0152: a status row explains an alert when the alert time is inside the span and Service contract category is not System OK (32).",
+  "train": "2018",
+  "score": "[2023-01-01, 2025-01-01)",
+  "authorized": true,
+  "files": [
+    {
+      "filename": "Kelmarsh_SCADA_2018_3084.zip",
+      "role": "train",
+      "size_bytes": 262157463,
+      "md5": "972e5280172216a5fe76dcab19c741b0",
+      "sha256": "38be7dd50b7f5dfe5642df33117482b06c12602153af7566a9acaa2cfcf85cd7"
+    },
+    {
+      "filename": "Kelmarsh_SCADA_2023_5961.zip",
+      "role": "score",
+      "size_bytes": 716099870,
+      "md5": "685d9589347d1866f6f2cfe45b9af4f4",
+      "sha256": "3321f24015551546dfecc6686fa462571c8d3e717ed135b14aa73fcea494afb7"
+    },
+    {
+      "filename": "Kelmarsh_SCADA_2024_5962.zip",
+      "role": "score",
+      "size_bytes": 704598245,
+      "md5": "e9e3318f5b393d8596ff1801f8da0414",
+      "sha256": "fb82710eb635e2de79d4cf9453c3560a7f0576be41251941f2d4ddfa8a2937df"
+    },
+    {
+      "filename": "Kelmarsh_PMU_4459.zip",
+      "role": "meter-unscored",
+      "size_bytes": 100032358,
+      "md5": "10b5caa4ac9c65de60d186efe8bdc8f7",
+      "sha256": "53d51cbd9d11bc0cd1dedc7436c33effbf392fbe3139e46a3a29eaa01f24e0ea"
+    },
+    {
+      "filename": "Kelmarsh_PMU_2023_2024_5968.zip",
+      "role": "meter-unscored",
+      "size_bytes": 42468224,
+      "md5": "de6c2c9d66a28ec30995839ac3516097",
+      "sha256": "61f3045fd1cbc30034bf4e31344366b5b698e14cadd8550f605ce57dab54244a"
+    },
+    {
+      "filename": "Kelmarsh_Grid_Meter_4458.zip",
+      "role": "meter-unscored",
+      "size_bytes": 1723178,
+      "md5": "2696caad88ea08ac22e5fa00da9c3c46",
+      "sha256": "069c39eae791ae236d3078ba02a0cf495edd6b0ed66c97c4eb80a808fd22a6b7"
+    }
+  ],
+  "note": "sha256 recorded after download and size check, before the one score. df -h ~ showed 3.4 GiB free; the five held-back files are 1,564,921,875 bytes."
+}

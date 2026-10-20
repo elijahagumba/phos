@@ -1,0 +1,64 @@
+{
+  "contentful": 60,
+  "right": 60,
+  "wrong": 0,
+  "fraction": 1.0,
+  "high": 0,
+  "high_right": 0,
+  "high_right_share": null,
+  "high_bar_met": false,
+  "scores_separate": false,
+  "right_scores": [
+    0.5,
+    0.857142857143,
+    0.875,
+    0.888888888889,
+    0.9,
+    0.916666666667,
+    0.933333333333,
+    0.9375
+  ],
+  "wrong_scores": [],
+  "bins": [
+    {
+      "low": 0.0,
+      "high": 0.2,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    },
+    {
+      "low": 0.2,
+      "high": 0.4,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    },
+    {
+      "low": 0.4,
+      "high": 0.6,
+      "count": 4,
+      "correct": 4,
+      "mean_confidence": 0.5,
+      "observed": 1.0
+    },
+    {
+      "low": 0.6,
+      "high": 0.8,
+      "count": 0,
+      "correct": 0,
+      "mean_confidence": null,
+      "observed": null
+    },
+    {
+      "low": 0.8,
+      "high": 1.0000001,
+      "count": 56,
+      "correct": 56,
+      "mean_confidence": 0.9013995181405896,
+      "observed": 1.0
+    }
+  ]
+}

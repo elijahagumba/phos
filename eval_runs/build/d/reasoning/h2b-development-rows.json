@@ -1,0 +1,1362 @@
+[
+  {
+    "seed": 97401,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 7,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97401,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97401,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.7411462993148437,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 5,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97401,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97401,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97402,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 12,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97402,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97402,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97402,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9957066447994158,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 13,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97402,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97403,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 11,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97403,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97403,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97403,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97403,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97404,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 7,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97404,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97404,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 7,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97404,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 8,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97404,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97405,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97405,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97405,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97405,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 11,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97405,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97406,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 7,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97406,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97406,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 7,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97406,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 8,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97406,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97407,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97407,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97407,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 8,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97407,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97407,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97408,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.99751672410298,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 14,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97408,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.99751672410298,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97408,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 12,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97408,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97408,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97409,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 8,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97409,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97409,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8321917808219179,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 6,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97409,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 7,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97409,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97410,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97410,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97410,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97410,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97410,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97411,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97411,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97411,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 8,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97411,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 11,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97411,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97412,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97412,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97412,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 8,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97412,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97412,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97413,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 12,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97413,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97413,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97413,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 11,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97413,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97414,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 12,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97414,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97414,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97414,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97414,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97415,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 12,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97415,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97415,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 11,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97415,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 11,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97415,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97416,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 8,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97416,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97416,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9370179948586117,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 8,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97416,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97416,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97417,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 12,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97417,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9925869894099849,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97417,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97417,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 11,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97417,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97418,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 11,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97418,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97418,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.8957199079479781,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 7,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97418,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97418,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97419,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97419,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97419,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97419,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97419,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  },
+  {
+    "seed": 97420,
+    "plant_id": "water-treatment",
+    "scenario": "plain_sensor_fault",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 9,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97420,
+    "plant_id": "water-treatment",
+    "scenario": "fault_and_maintenance",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9626429015384121,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 0,
+    "rival": "engineering_maintenance"
+  },
+  {
+    "seed": 97420,
+    "plant_id": "water-treatment",
+    "scenario": "subtle_liar",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9780858676207514,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 10,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97420,
+    "plant_id": "water-treatment",
+    "scenario": "two_sensors",
+    "lead": "sensor_or_device_fault",
+    "raw_confidence": 0.9872295902088284,
+    "shape": [
+      "cross_signal_mismatch"
+    ],
+    "contentful": true,
+    "correct": true,
+    "separation": 11,
+    "rival": "process_disturbance"
+  },
+  {
+    "seed": 97420,
+    "plant_id": "water-treatment",
+    "scenario": "mimic_with_work_order",
+    "lead": "insufficient_evidence",
+    "raw_confidence": 0.3,
+    "shape": [],
+    "contentful": false,
+    "correct": null,
+    "separation": 0,
+    "rival": "sensor_or_device_fault"
+  }
+]

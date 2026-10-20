@@ -5,6 +5,10 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+# `build/` also matches eval_runs/build/, which is the build record the public pages cite
+# (ADR 0268). The lab gitignore carries the same two lines.
+!eval_runs/build/
+!eval_runs/build/**
 
 # Tooling caches
 .pytest_cache/

@@ -1,0 +1,49 @@
+{
+  "release": "r4.2",
+  "register_source": "ldap-email",
+  "register_counts": {
+    "hosts": 0,
+    "destinations": 1000,
+    "pcs": 0
+  },
+  "register_sha256": "6b0597ae973edb27f2ff995ab1727e7bf12ae6af6aae57ba17c54169d294aac0",
+  "register_note": "Destinations are every email address in this release's LDAP snapshots. Hosts and machines are empty. The address list is not written here. insiders.csv was not read to choose the names.",
+  "features": {
+    "declared_host_count": {
+      "n": 330452,
+      "sum": 0.0,
+      "max": 0.0
+    },
+    "declared_new_host_count": {
+      "n": 330452,
+      "sum": 0.0,
+      "max": 0.0
+    },
+    "declared_destination_count": {
+      "n": 330452,
+      "sum": 2274118.0,
+      "max": 32.0
+    },
+    "declared_new_destination_count": {
+      "n": 330452,
+      "sum": 301446.0,
+      "max": 11.0
+    },
+    "declared_pc_count": {
+      "n": 330452,
+      "sum": 0.0,
+      "max": 0.0
+    },
+    "declared_new_pc_count": {
+      "n": 330452,
+      "sum": 0.0,
+      "max": 0.0
+    }
+  },
+  "all_zero": false,
+  "destinations_named": 292539,
+  "n_observations": 1982712,
+  "n_labelled_insiders": 70,
+  "weights_on_the_34": null,
+  "seconds": 196.9
+}

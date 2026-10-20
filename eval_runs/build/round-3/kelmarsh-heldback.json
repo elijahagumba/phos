@@ -1,0 +1,163 @@
+{
+  "result_name": "round-3:kelmarsh-heldback",
+  "scorer": "atlas-v1-consistency",
+  "train": "2018",
+  "score": "2023-2024",
+  "status_log_rule": "ADR 0165 keeps ADR 0152",
+  "report": {
+    "measured": true,
+    "detector": "atlas-v1-consistency",
+    "sample_seconds": 600.0,
+    "windows_lags": [
+      0,
+      1
+    ],
+    "detrend_window_samples": 6,
+    "signals": [
+      "Wind speed (m/s)",
+      "Power (kW)",
+      "Rotor speed (RPM)",
+      "Generator RPM (RPM)",
+      "Blade angle (pitch position) A (\u00b0)"
+    ],
+    "ok_service": "System OK (32)",
+    "turbines": [
+      {
+        "turbine": "Kelmarsh 1",
+        "train_rows": 50755,
+        "score_rows": 104426,
+        "dropped_missing": 4247043,
+        "clock_gaps": 35,
+        "duplicate_times": 0,
+        "alerts": 1,
+        "explained_alerts": 1,
+        "unexplained_alerts": 0,
+        "scored_seconds": 63157800.0,
+        "shifts": 2192.9791666666665,
+        "false_alerts_per_shift": 0.0
+      },
+      {
+        "turbine": "Kelmarsh 2",
+        "train_rows": 50745,
+        "score_rows": 104458,
+        "dropped_missing": 4247021,
+        "clock_gaps": 33,
+        "duplicate_times": 0,
+        "alerts": 12,
+        "explained_alerts": 7,
+        "unexplained_alerts": 5,
+        "scored_seconds": 63157800.0,
+        "shifts": 2192.9791666666665,
+        "false_alerts_per_shift": 0.00228000342000513
+      },
+      {
+        "turbine": "Kelmarsh 3",
+        "train_rows": 50424,
+        "score_rows": 104256,
+        "dropped_missing": 4247544,
+        "clock_gaps": 38,
+        "duplicate_times": 0,
+        "alerts": 2,
+        "explained_alerts": 2,
+        "unexplained_alerts": 0,
+        "scored_seconds": 63157800.0,
+        "shifts": 2192.9791666666665,
+        "false_alerts_per_shift": 0.0
+      },
+      {
+        "turbine": "Kelmarsh 4",
+        "train_rows": 50743,
+        "score_rows": 102097,
+        "dropped_missing": 4249384,
+        "clock_gaps": 49,
+        "duplicate_times": 0,
+        "alerts": 4,
+        "explained_alerts": 4,
+        "unexplained_alerts": 0,
+        "scored_seconds": 63157800.0,
+        "shifts": 2192.9791666666665,
+        "false_alerts_per_shift": 0.0
+      },
+      {
+        "turbine": "Kelmarsh 5",
+        "train_rows": 50570,
+        "score_rows": 104090,
+        "dropped_missing": 4247564,
+        "clock_gaps": 61,
+        "duplicate_times": 0,
+        "alerts": 9,
+        "explained_alerts": 9,
+        "unexplained_alerts": 0,
+        "scored_seconds": 63157800.0,
+        "shifts": 2192.9791666666665,
+        "false_alerts_per_shift": 0.0
+      },
+      {
+        "turbine": "Kelmarsh 6",
+        "train_rows": 50750,
+        "score_rows": 103520,
+        "dropped_missing": 4247954,
+        "clock_gaps": 45,
+        "duplicate_times": 0,
+        "alerts": 1,
+        "explained_alerts": 0,
+        "unexplained_alerts": 1,
+        "scored_seconds": 63157800.0,
+        "shifts": 2192.9791666666665,
+        "false_alerts_per_shift": 0.00045600068400102604
+      }
+    ],
+    "alerts": 29,
+    "explained_alerts": 23,
+    "unexplained_alerts": 6,
+    "explained_share": 0.7931034482758621,
+    "scored_seconds": 378946800.0,
+    "shifts": 13157.875,
+    "false_alerts_per_shift": 0.000456000684001026,
+    "caveat": "Kelmarsh development SCADA is not attack-labelled. The share of alerts the turbine's own log explains, and the false alerts per shift, are not a detection claim and are not evidence the plant map detects attacks (ADR 0143). Hypothesis confidence is not reported.",
+    "citation": "Plumley, Charlie. Cubico Sustainable Investments wind farm data (10.5281/zenodo.16807551). CC BY 4.0."
+  },
+  "meters": [
+    {
+      "filename": "Kelmarsh_PMU_4459.zip",
+      "members": [
+        "Device_Data_Kelmarsh_PMU_2016-01-09_-_2023-01-01_234.csv",
+        "Status_Kelmarsh_PMU_2016-01-09_-_2023-01-01_234.csv"
+      ],
+      "header_lines": [
+        "2016-01-09 17:10:00,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,0,NaN,NaN,Na",
+        "Timestamp start,Timestamp end,Duration,Status,Code,Message,Comment,Service contract category,IEC category"
+      ],
+      "scored": false,
+      "reason": "not the five-signal ten-minute SCADA the status-log rule names; detect was not called"
+    },
+    {
+      "filename": "Kelmarsh_PMU_2023_2024_5968.zip",
+      "members": [
+        "Device_Data_Kelmarsh_PMU_2023-01-01_-_2025-01-01_234.csv",
+        "Status_Kelmarsh_PMU_2023-01-01_-_2025-01-01_234.csv"
+      ],
+      "header_lines": [
+        "2023-01-01 00:00:00,NaN,1671,207205600,0.001184834123222749,NaN,1671,1670.9988151658767,11047.427587890625,12298.2001953125,11879.2431640625,10013.044921875,527.9931881969381,12298.2001953125,12298.2001953125,0,-0.32854069757134086,-3643.17",
+        "Timestamp start,Timestamp end,Duration,Status,Code,Message,Comment,Service contract category,IEC category"
+      ],
+      "scored": false,
+      "reason": "not the five-signal ten-minute SCADA the status-log rule names; detect was not called"
+    },
+    {
+      "filename": "Kelmarsh_Grid_Meter_4458.zip",
+      "members": [
+        "Device_Data_Kelmarsh_Grid_Meter_2016-01-01_-_2023-01-01_19978.csv",
+        "Status_Kelmarsh_Grid_Meter_2016-01-01_-_2023-01-01_19978.csv"
+      ],
+      "header_lines": [
+        "2016-01-01 00:00:00,NaN,NaN,NaN,NaN,NaN,NaN,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN",
+        "Timestamp start,Timestamp end,Duration,Status,Code,Message,Comment,Service contract category,IEC category"
+      ],
+      "scored": false,
+      "reason": "not the five-signal ten-minute SCADA the status-log rule names; detect was not called"
+    }
+  ],
+  "runtime_seconds": 796.509226958,
+  "note": "One look. Not a detection claim. Modes were not run. No tuning."
+}

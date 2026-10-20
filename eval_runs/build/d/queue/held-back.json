@@ -1,0 +1,261 @@
+{
+  "split": "held-back",
+  "result_name": "atlas-queue-v2:familiarity",
+  "variant": "familiarity",
+  "champion": {
+    "passes": 20,
+    "attacks": 20,
+    "recall_caught": 20,
+    "recall_attacks": 20
+  },
+  "variant_score": {
+    "passes": 20,
+    "attacks": 20,
+    "recall_caught": 20,
+    "recall_attacks": 20
+  },
+  "a3_higher": false,
+  "recall_not_lower": true,
+  "per_seed": [
+    {
+      "name": "97601",
+      "alerts": 7,
+      "attacks": 1,
+      "true_alerts": 6,
+      "benign_events": 2,
+      "alerts_in_work_order": 0,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97604",
+      "alerts": 12,
+      "attacks": 1,
+      "true_alerts": 1,
+      "benign_events": 3,
+      "alerts_in_work_order": 9,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97607",
+      "alerts": 10,
+      "attacks": 1,
+      "true_alerts": 4,
+      "benign_events": 2,
+      "alerts_in_work_order": 4,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97610",
+      "alerts": 4,
+      "attacks": 1,
+      "true_alerts": 1,
+      "benign_events": 3,
+      "alerts_in_work_order": 2,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97613",
+      "alerts": 6,
+      "attacks": 1,
+      "true_alerts": 3,
+      "benign_events": 3,
+      "alerts_in_work_order": 2,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97616",
+      "alerts": 3,
+      "attacks": 1,
+      "true_alerts": 1,
+      "benign_events": 3,
+      "alerts_in_work_order": 1,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97619",
+      "alerts": 4,
+      "attacks": 1,
+      "true_alerts": 2,
+      "benign_events": 3,
+      "alerts_in_work_order": 0,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97602",
+      "alerts": 5,
+      "attacks": 1,
+      "true_alerts": 1,
+      "benign_events": 2,
+      "alerts_in_work_order": 3,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97605",
+      "alerts": 6,
+      "attacks": 1,
+      "true_alerts": 2,
+      "benign_events": 3,
+      "alerts_in_work_order": 2,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97608",
+      "alerts": 1,
+      "attacks": 1,
+      "true_alerts": 1,
+      "benign_events": 2,
+      "alerts_in_work_order": 0,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97611",
+      "alerts": 3,
+      "attacks": 1,
+      "true_alerts": 2,
+      "benign_events": 2,
+      "alerts_in_work_order": 1,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97614",
+      "alerts": 2,
+      "attacks": 1,
+      "true_alerts": 1,
+      "benign_events": 2,
+      "alerts_in_work_order": 0,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97617",
+      "alerts": 2,
+      "attacks": 1,
+      "true_alerts": 1,
+      "benign_events": 2,
+      "alerts_in_work_order": 1,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97620",
+      "alerts": 6,
+      "attacks": 1,
+      "true_alerts": 4,
+      "benign_events": 2,
+      "alerts_in_work_order": 1,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97603",
+      "alerts": 5,
+      "attacks": 1,
+      "true_alerts": 1,
+      "benign_events": 3,
+      "alerts_in_work_order": 1,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97606",
+      "alerts": 6,
+      "attacks": 1,
+      "true_alerts": 4,
+      "benign_events": 2,
+      "alerts_in_work_order": 0,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97609",
+      "alerts": 4,
+      "attacks": 1,
+      "true_alerts": 1,
+      "benign_events": 2,
+      "alerts_in_work_order": 0,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97612",
+      "alerts": 8,
+      "attacks": 1,
+      "true_alerts": 6,
+      "benign_events": 2,
+      "alerts_in_work_order": 0,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97615",
+      "alerts": 5,
+      "attacks": 1,
+      "true_alerts": 2,
+      "benign_events": 3,
+      "alerts_in_work_order": 0,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    },
+    {
+      "name": "97618",
+      "alerts": 8,
+      "attacks": 1,
+      "true_alerts": 3,
+      "benign_events": 3,
+      "alerts_in_work_order": 2,
+      "champion_pass": true,
+      "variants": {
+        "familiarity": true
+      }
+    }
+  ]
+}

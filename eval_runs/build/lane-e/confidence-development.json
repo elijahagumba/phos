@@ -1,0 +1,617 @@
+{
+  "current": {
+    "confidence": "raw belief update (ADR 0162)",
+    "contentful": 36,
+    "high": 0,
+    "high_right_share": null,
+    "right": 33
+  },
+  "lane_e": {
+    "confidence": "evidence-shape calibration (ADR 0171)",
+    "contentful": 36,
+    "fitted_shapes": {
+      "command_to_response_mismatch+cross_signal_mismatch": [
+        33,
+        33
+      ],
+      "cross_signal_mismatch": [
+        0,
+        3
+      ]
+    },
+    "high": 33,
+    "high_right": 33,
+    "high_right_share": 1.0,
+    "right": 33,
+    "right_calibrated_range": [
+      0.969696969697,
+      0.970588235294
+    ],
+    "shared_calibrated_scores": [],
+    "shared_raw_scores": [
+      0.355263157895
+    ],
+    "wrong_calibrated_range": [
+      0.25,
+      0.25
+    ]
+  },
+  "leads": [
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97001,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97001,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97002,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97002,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9705882352941176,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.8928208017449293,
+      "n": 32,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97003,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97004,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97004,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97005,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.25,
+      "correct": false,
+      "high": false,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.0,
+      "n": 2,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "quiet",
+      "seed": 97005,
+      "shape": [
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97005,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9705882352941176,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.8928208017449293,
+      "n": 32,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97006,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97007,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97007,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.48833279632534904,
+      "scenario": "stuck",
+      "seed": 97008,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97008,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97009,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97009,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9705882352941176,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.8928208017449293,
+      "n": 32,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97010,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97011,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97011,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97012,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97012,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.48833279632534904,
+      "scenario": "stuck",
+      "seed": 97013,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.25,
+      "correct": false,
+      "high": false,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.0,
+      "n": 2,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "follow",
+      "seed": 97013,
+      "shape": [
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97013,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97014,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97014,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9705882352941176,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.8928208017449293,
+      "n": 32,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97015,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9705882352941176,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.8928208017449293,
+      "n": 32,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97016,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9705882352941176,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.8928208017449293,
+      "n": 32,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97017,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9705882352941176,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.8928208017449293,
+      "n": 32,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97018,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97019,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97019,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "water-treatment",
+      "raw": 0.48833279632534904,
+      "scenario": "stuck",
+      "seed": 97020,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.25,
+      "correct": false,
+      "high": false,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.0,
+      "n": 2,
+      "plant_id": "water-treatment",
+      "raw": 0.35526315789473695,
+      "scenario": "follow",
+      "seed": 97020,
+      "shape": [
+        "cross_signal_mismatch"
+      ]
+    },
+    {
+      "calibrated": 0.9696969696969697,
+      "correct": true,
+      "high": true,
+      "lead": "sensor_or_device_fault",
+      "lower": 0.889744604539564,
+      "n": 31,
+      "plant_id": "power-generation",
+      "raw": 0.35526315789473695,
+      "scenario": "stuck",
+      "seed": 97020,
+      "shape": [
+        "command_to_response_mismatch",
+        "cross_signal_mismatch"
+      ]
+    }
+  ],
+  "note": "Synthetic diagnosis on lane D's command scenarios. The calibrated number is not surfaced to a user; a plant needs its own held-out labels first.",
+  "runtime_seconds": 0.7128420420001476,
+  "split": "development"
+}

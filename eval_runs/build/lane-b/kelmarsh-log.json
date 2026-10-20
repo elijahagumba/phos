@@ -1,0 +1,54 @@
+{
+  "measured": false,
+  "reason": "Kelmarsh development SCADA zips are not all on disk. The score was not run. A partial year set is not the development half.",
+  "missing": [
+    "Kelmarsh_SCADA_2018_3084.zip",
+    "Kelmarsh_SCADA_2019_3085.zip",
+    "Kelmarsh_SCADA_2020_3086.zip",
+    "Kelmarsh_SCADA_2021_4456.zip",
+    "Kelmarsh_SCADA_2022_4457.zip"
+  ],
+  "present": [
+    "Kelmarsh_SCADA_2016_3082.zip",
+    "Kelmarsh_SCADA_2017_3083.zip"
+  ],
+  "verified_against_registry": {
+    "Kelmarsh_SCADA_2016_3082.zip": {
+      "bytes": 97915553,
+      "md5": "ca8efbb6dbcfae3516583937eb5b5402",
+      "matches_registry": true,
+      "opened": "Header and 2016 status vocabulary only, before ADR 0152. Not scored."
+    },
+    "Kelmarsh_SCADA_2017_3083.zip": {
+      "bytes": 174604722,
+      "md5": "c78263ee52ee0e48e2cb4bbaa1ba211a",
+      "matches_registry": true,
+      "opened": false
+    },
+    "Kelmarsh_WT_static.csv": {
+      "bytes": 807,
+      "md5": "af3a038f0f7fddfc1608ad0bfc8cf5ba",
+      "matches_registry": true
+    },
+    "Kelmarsh_WT_dataSignalMapping.csv": {
+      "bytes": 3150,
+      "md5": "ca8fe399ab15ae7111d3214c632efd36",
+      "matches_registry": true
+    },
+    "Kelmarsh_12.3MW_6xSenvion_MM92.kmz": {
+      "bytes": 38358,
+      "md5": "9b40d215744e437f96786a4da2d2845d",
+      "matches_registry": true
+    }
+  },
+  "incomplete_snapshot_bytes": {
+    "Kelmarsh_SCADA_2018_3084.zip": 142110432,
+    "Kelmarsh_SCADA_2019_3085.zip": 191549440,
+    "Kelmarsh_SCADA_2020_3086.zip": 76509184,
+    "Kelmarsh_SCADA_2021_4456.zip": 13664256,
+    "Kelmarsh_SCADA_2022_4457.zip": 0,
+    "note": "Snapshot while the transfers were still running. Not a final size, and not an opened file."
+  },
+  "caveat": "Kelmarsh development SCADA is not attack-labelled. The share of alerts the turbine's own log explains, and the false alerts per shift, are not a detection claim and are not evidence the plant map detects attacks (ADR 0143). Hypothesis confidence is not reported.",
+  "citation": "Plumley, Charlie. Cubico Sustainable Investments wind farm data (10.5281/zenodo.16807551). CC BY 4.0."
+}
