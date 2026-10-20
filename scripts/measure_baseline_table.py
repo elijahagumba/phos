@@ -1,17 +1,18 @@
-"""Regenerate the G1 baseline table from the committed record.
+"""Regenerate the G1 baseline table from the files (ADR 0263).
 
-Recomputes the development corpora on disk (hai-20.07, batch-distillation, data4cyber)
-and checks every published field against ``eval_runs/v1/g1-baseline-table.json``.
-Reprints hai-21.03, hai-22.04, hai-23.05 and batadal from that JSON. Does not open
-those files. Writes the markdown only when the rebuilt text is the committed
-markdown, so no recorded digit changes. Does not append the experiment log and does
-not reuse a frozen result name.
+Recomputes every published corpus, including hai-21.03, hai-22.04, hai-23.05 and
+batadal, and checks every published field against
+``eval_runs/v1/g1-baseline-table.json``. Writes the markdown only when the rebuilt
+text is the committed markdown, so no recorded digit changes. Does not append the
+experiment log and does not reuse a frozen result name. A missing validation file
+is a refusal, not a reprinted row.
 """
 
 from __future__ import annotations
 
 import logging
 import math
+import sys
 from pathlib import Path
 
 import numpy
@@ -50,7 +51,7 @@ DECLARED_PERIOD_SECONDS = {
 
 
 def main() -> None:
-    """Recompute development corpora, reprint validation rows, and write only if unchanged."""
+    """Recompute every published corpus and write only if the table is unchanged."""
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     record_path = OUT_DIR / "g1-baseline-table.json"
     markdown_path = OUT_DIR / "g1-baseline-table.md"
@@ -59,15 +60,16 @@ def main() -> None:
     recorded_md = markdown_path.read_text(encoding="utf-8")
     try:
         recorded = corpora_from_json(record_path.read_text(encoding="utf-8"))
-        rebuilt = rebuild_markdown(recorded_md, recorded, _development_reports())
+        rebuilt = rebuild_markdown(recorded_md, recorded, _reports())
     except RecordMismatchError as error:
         raise SystemExit(f"not written:\n{error}") from error
     markdown_path.write_text(rebuilt, encoding="utf-8")
-    print(rebuilt)
+    print("g1 table matches the committed record")
 
 
-def _development_reports() -> dict[str, CorpusReport]:
-    """Score hai-20.07, batch distillation and Data4Cyber. No validation path is opened."""
+def _reports() -> dict[str, CorpusReport]:
+    """Score every corpus in the published table. A missing file is not a reprint."""
+    hai_2204, hai_2305 = _clean_reports()
     return {
         "hai-20.07": _hai(
             "hai-20.07",
@@ -75,6 +77,23 @@ def _development_reports() -> dict[str, CorpusReport]:
             ("train1.csv.gz", "train2.csv.gz"),
             ("test1.csv.gz", "test2.csv.gz"),
             sep=";",
+        ),
+        "hai-21.03": _hai(
+            "hai-21.03",
+            DATA / "hai-21.03",
+            ("train1.csv.gz", "train2.csv.gz", "train3.csv.gz"),
+            ("test1.csv.gz", "test2.csv.gz", "test3.csv.gz", "test4.csv.gz", "test5.csv.gz"),
+            sep=",",
+            extra_roots=((DATA / "hai", "hai-21.03-"),),
+        ),
+        "hai-22.04": hai_2204,
+        "hai-23.05": hai_2305,
+        "batadal": _prepared(
+            "batadal",
+            DATA / "batadal" / "batadal-train-prepared.csv",
+            DATA / "batadal" / "batadal-test-prepared.csv",
+            judges=True,
+            unscored=(),
         ),
         "batch-distillation": _prepared(
             "batch-distillation",
@@ -91,6 +110,20 @@ def _development_reports() -> dict[str, CorpusReport]:
             unscored=(),
         ),
     }
+
+
+def _clean_reports() -> tuple[CorpusReport, CorpusReport]:
+    """Score HAI 22.04 and 23.05 with the clean-run reader. The note text is that reader's."""
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from scripts.measure_clean_hai import _load, _score
+
+    reports: list[CorpusReport] = []
+    for corpus in ("hai-22.04", "hai-23.05"):
+        trains, tests = _load(corpus)
+        report, _grouped = _score(corpus, trains, tests)
+        reports.append(report)
+    return reports[0], reports[1]
 
 
 def _hai(

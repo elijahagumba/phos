@@ -131,7 +131,7 @@ def test_committed_pin_matches_the_checkout(capsys: pytest.CaptureFixture[str]) 
         assert not path.startswith("data/")
     log = ROOT / "eval_runs" / "log.jsonl"
     before = log.stat().st_mtime_ns if log.exists() else None
-    code = main(["--root", str(ROOT)])
+    code = main(["--root", str(ROOT), "--check-only"])
     after = log.stat().st_mtime_ns if log.exists() else None
     printed = capsys.readouterr().out
     assert code == 0

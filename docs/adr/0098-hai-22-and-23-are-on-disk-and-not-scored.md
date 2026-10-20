@@ -21,7 +21,8 @@ here. The publisher's LFS batch API returned 403: the repository exceeded its LF
 budget. The raw GitHub URL still returns pointer text, so `--all` must not download it.
 
 The payloads are at `data/hai-22.04/` and `data/hai-23.05/`. They were read from
-`media.githubusercontent.com` at commit `2a814cebc9a66b06c9e5cd545e2d72e65d383737`.
+`media.githubusercontent.com` at `icsdataset/hai` commit
+`2a814cebc9a66b06c9e5cd545e2d72e65d383737`, which is not in this repository.
 A HEAD of `hai-22.04/test1.csv` returned content-length 50536532 and an etag equal to
 the registered oid. Every file's sha256 equals the Git LFS oid already in the registry.
 The 22.04 summary texts, which are ordinary blobs, now have a sha256 of the text on

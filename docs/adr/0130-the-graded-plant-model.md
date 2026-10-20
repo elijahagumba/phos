@@ -69,7 +69,9 @@ Set now, before any part is built. On development data only.
    (`data/phos-icssim-dev/roles.toml`).
 2. **B is wrong.** On ICSSim's development runs, fewer than 8 in 10 intervened links lie on a
    true path of the plant, judged against ICSSim's declared control programs and its physics
-   (`src/FactorySimulation.py`, declared in its own record before B is scored).
+   (`src/FactorySimulation.py` — `AlirezaDehlaghi/ICSSIM`'s path, not one in this repository —
+   <!-- evidence-ack: src/FactorySimulation.py — AlirezaDehlaghi/ICSSIM's path, not one in this repository -->
+   declared in its own record before B is scored).
 3. **D adds nothing.** D keeps fewer than a quarter of the map's links on HAI 20.07, or what it
    keeps still fails §9.5 on the synthetic plants.
 4. **Naming does not improve.** On the A–C subgraph, the right instrument is named in under 70%

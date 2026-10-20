@@ -14,7 +14,9 @@ HAIEnd, and 21.03 itself holds eight CSV files. Week 1 of `docs/v1-roadmap.md` s
 registering every version and file, with the licence read the way the existing entries were
 read. The frozen HAI measurements stay on the integrated name.
 
-The tree was read at commit `2a814cebc9a66b06c9e5cd545e2d72e65d383737` on 2026-10-04.
+The tree was read at `icsdataset/hai` commit `2a814cebc9a66b06c9e5cd545e2d72e65d383737`
+on 2026-10-04. That commit is the publisher's head and it is not in this repository; it is
+the pin every HAI entry uses.
 `graph/`, `hai_dataset_technical_details.pdf` and `graph/graph_analysis.ipynb` are testbed
 documentation, not a dataset version, and are not entries.
 

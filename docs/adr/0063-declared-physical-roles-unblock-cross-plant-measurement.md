@@ -22,6 +22,7 @@ form-gated in the registry (`itrust-swat-wadi`). The agent must not fetch it.
 **1. Canonical loaders live at `src/phos/atlas/data/`.**
 
 The constitution's package is `phos`. There is no `src/atlas/data/` tree. BATADAL and HAI
+<!-- evidence-ack: src/atlas/data/ — named only to say no such tree exists; the constitution's package is phos -->
 read licence-confirmed prepared CSVs already on disk. SWaT raises `CorpusMissingError`
 with reason `form-gated` when the files are absent.
 

@@ -170,7 +170,9 @@ Only the aggregation changes.
 5. **Floor and flood.** The full alert curve is reported, and the session states whether a floor
    of alerts with no true positive reappears, as it did under PART 6A.
 6. **Log discipline.** Results land first under a sandbox report
-   (`eval_runs/sentiel/non-saturating-aggregation.md` and `.json`). A row reaches
+   (`eval_runs/sentiel/non-saturating-aggregation.md` and `.json`; BET-001 was declared in
+   <!-- evidence-ack: eval_runs/sentiel/non-saturating-aggregation.md — BET-001 was declared in ADR 0093 and never run (ADR 0145), so the file was never written -->
+   ADR 0093 and not run, ADR 0145, so neither file was ever written). A row reaches
    `eval_runs/log.jsonl` only when separately authorised, under the new name, beside 0.104.
 
 **8. The expected outcome is recorded before the measurement, so a negative cannot be a surprise.**
@@ -213,10 +215,12 @@ Named so the implementing session's scope is visible now. **None of it is change
   must stay true for the frozen policy, must not be printed for a policy where it is false, and
   must not be dropped silently. It becomes policy-aware or explicitly scoped to the bounded form.
 - **Runner.** Either an extension of `scripts/classify_sentiel_failures.py` or a new
-  `scripts/measure_sentiel_aggregation.py` that runs both gates, scores each declared candidate from
-  the same trace cache (`traces.py`), re-runs the visibility classification per candidate, computes
-  the nulls, and writes the sandbox report. `scripts/evaluate_sentiel_baseline.py` gains a CLI flag
-  in `_aggregation_policy` only if a log row is later authorised.
+  `scripts/measure_sentiel_aggregation.py` — neither was written, because BET-001 was not run (ADR
+  <!-- evidence-ack: scripts/measure_sentiel_aggregation.py — never written, because BET-001 was not run (ADR 0145) -->
+  0145) — that runs both gates, scores each declared candidate from the same trace cache
+  (`traces.py`), re-runs the visibility classification per candidate, computes the nulls, and
+  writes the sandbox report. `scripts/evaluate_sentiel_baseline.py` gains a CLI flag in
+  `_aggregation_policy` only if a log row is later authorised.
 - **Unchanged by construction.** `engine.py`, `autopsy.py` and `phos/library/evaluate.py` construct
   `AggregationPolicy()` with defaults and do not move. `episodes.py` reads a quantile floor and
   `peak`, and is not re-run for claims here. `featurise.py`, `peers.py`, `templates.py` and every

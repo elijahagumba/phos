@@ -39,7 +39,9 @@ draws are reported.
 
 **Result name.** `atlas-queue-v2:familiarity-gate`
 
-**Output.** `eval_runs/build/d/queue/gate.json`. The command refuses to start. It
+**Output.** `eval_runs/build/d/queue/gate.json`, which does not exist: as this
+<!-- evidence-ack: eval_runs/build/d/queue/gate.json — the gate is not run, as this record's title says, so the output does not exist -->
+record's title says, the gate is not run. The command refuses to start. It
 does not open a corpus. Running it needs Elijah to add a one-look exception to
 `data-tiers.mdc`, as he did for the champion's A3.
 

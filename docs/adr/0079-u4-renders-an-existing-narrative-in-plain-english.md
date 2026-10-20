@@ -15,7 +15,8 @@
 U1–U3 diagnosed the engines and built a synthetic environment. An operator still had no way to
 read a `Narrative` without opening the ontology objects and the hypothesis confidences. U4 is the
 smallest thing that turns an existing narrative into something a person can act on. It is **not**
-Ω3: not FastAPI, not React, not `src/phos/api/` or `ui/`.
+Ω3: not FastAPI, not React, not `src/phos/api/` or `ui/`. Neither tree is built.
+<!-- evidence-ack: src/phos/api/ — not built; U4 is explicitly not the forbidden surface, so neither tree exists -->
 
 Gate 2 required that Sentiel output **explicitly document** the depth-blind ceiling (at the
 48-alert point at least 14 of 34 features must speak at once; 31 of CCH0959's 42 malicious

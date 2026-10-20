@@ -51,8 +51,9 @@ The file contract does not wait for it.
 
 ## Decision
 
-**Measuring input-hostile corpora 04–07 must write a separate report stem.** The stem is
-`eval_runs/breaking/input-hostile-robustness` (`.md` and `.json`). It must never overwrite
+**Measuring input-hostile corpora 04–07 must write a separate report stem.** The two files are
+`eval_runs/breaking/input-hostile-robustness.md` and
+`eval_runs/breaking/input-hostile-robustness.json`. They must never overwrite
 `eval_runs/breaking/breaking-report.md` (or `.json`). It must never overwrite the issuer-split
 detection copies (`breaking-report-known-station`, `breaking-report-unknown-master`).
 

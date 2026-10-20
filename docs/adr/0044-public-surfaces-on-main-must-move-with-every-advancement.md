@@ -10,8 +10,10 @@
 
 **Numbering.** This record is **0044**, not 0042. ADR 0042 (performance gains do not license
 breaking the speech contract) and ADR 0043 (a sandbox does not amend the ranking contract) are
-already allocated on `docs/adr-0042-refuse-autonomy-override`. Do not reuse those numbers on
-`main`.
+already allocated on the branch `docs/adr-0042-refuse-autonomy-override`. That is a branch name,
+<!-- evidence-ack: docs/adr-0042-refuse-autonomy-override — a branch name, not a path in this tree, and the branch is no longer in this checkout -->
+not a path in this tree, and the branch is no longer present in this checkout. Do not reuse
+those numbers on `main`.
 
 ## Context
 

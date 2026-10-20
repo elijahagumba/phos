@@ -1,8 +1,9 @@
-"""Rebuild the G1 table from a development recompute and the committed validation rows.
+"""Rebuild the G1 table from a recompute of every corpus.
 
-Development corpora are checked against the committed JSON. Validation corpora are
-reprinted from that JSON. This module does not open a data file, and it returns a
-table only when the rebuilt text is identical to the committed markdown.
+Every corpus in the published order is checked against the committed JSON. This
+module does not open a data file. It returns a table only when the rebuilt text
+is identical to the committed markdown. The grouped section is copied from that
+markdown: this check is the ungrouped rows.
 """
 
 from __future__ import annotations
@@ -12,7 +13,7 @@ from collections.abc import Mapping, Sequence
 from typing import Final, cast
 
 from phos.eval.baseline_report import render_report
-from phos.eval.baseline_table import CorpusReport, DetectorScore, FileScore
+from phos.eval.baseline_table import CorpusReport, DetectorScore
 
 DEVELOPMENT_CORPORA: Final[tuple[str, ...]] = (
     "hai-20.07",
@@ -84,25 +85,21 @@ def rebuild_markdown(
     recorded: Sequence[Mapping[str, object]],
     fresh: Mapping[str, CorpusReport],
 ) -> str:
-    """Return the G1 markdown when development matches and validation is reprinted.
+    """Return the G1 markdown when every recomputed corpus matches the record.
 
-    Development reports are rendered from ``fresh``. Validation reports are built
-    from ``recorded`` and are not recomputed. The grouped section is copied from
+    ``fresh`` must contain every corpus in `TABLE_ORDER`. Each report is compared
+    with the committed JSON. The grouped section is copied from
     ``committed_markdown``. The result is returned only when it equals that
     markdown, so a caller that writes it does not change a recorded digit.
 
     Raises:
-        RecordMismatchError: A development field differs, a validation row is not a
-            scored record, or the rebuilt text would not equal the committed markdown.
+        RecordMismatchError: A corpus was not recomputed, a field differs, or the
+            rebuilt text would not equal the committed markdown.
     """
-    problems = _validation_problems(recorded) + _development_problems(fresh, recorded)
+    problems = _recompute_problems(fresh, recorded)
     if problems:
         raise RecordMismatchError(problems)
-    by_name = _by_corpus(recorded)
-    reports = tuple(
-        fresh[name] if name in DEVELOPMENT_CORPORA else _report_from_record(by_name[name])
-        for name in TABLE_ORDER
-    )
+    reports = tuple(fresh[name] for name in TABLE_ORDER)
     heading = committed_markdown.find(GROUPED_HEADING)
     if heading < 0:
         raise RecordMismatchError(("the committed markdown has no grouped section",))
@@ -124,14 +121,17 @@ def _join_grouped(rendered: str, grouped: str) -> str:
     return rendered + "\n\n" + grouped
 
 
-def _development_problems(
+def _recompute_problems(
     fresh: Mapping[str, CorpusReport], recorded: Sequence[Mapping[str, object]]
 ) -> tuple[str, ...]:
-    by_name = _by_corpus(recorded)
+    names = tuple(_as_str(corpus.get("corpus"), "corpus") for corpus in recorded)
     problems: list[str] = []
-    if tuple(fresh) != DEVELOPMENT_CORPORA:
-        problems.append("the recompute is not exactly the three development corpora, in order")
-    for name in DEVELOPMENT_CORPORA:
+    if names != TABLE_ORDER:
+        problems.append("the committed corpora are not in the published order")
+    if tuple(fresh) != TABLE_ORDER:
+        problems.append("the recompute is not every published corpus, in order")
+    by_name = _by_corpus(recorded)
+    for name in TABLE_ORDER:
         report = fresh.get(name)
         corpus = by_name.get(name)
         if report is None:
@@ -141,23 +141,6 @@ def _development_problems(
             problems.append(f"{name} is missing from the committed record")
             continue
         problems.extend(_compare_corpus(name, report, corpus))
-    return tuple(problems)
-
-
-def _validation_problems(recorded: Sequence[Mapping[str, object]]) -> tuple[str, ...]:
-    names = tuple(_as_str(corpus.get("corpus"), "corpus") for corpus in recorded)
-    problems: list[str] = []
-    if names != TABLE_ORDER:
-        problems.append("the committed corpora are not in the published order")
-    by_name = _by_corpus(recorded)
-    for name in VALIDATION_CORPORA:
-        corpus = by_name.get(name)
-        if corpus is None:
-            problems.append(f"{name} is missing from the committed record")
-            continue
-        scores = corpus.get("scores")
-        if corpus.get("status") == "not_scored" or not isinstance(scores, list) or not scores:
-            problems.append(f"{name} is not a scored row in the committed record")
     return tuple(problems)
 
 
@@ -218,31 +201,6 @@ def _compare_scores(
     return tuple(problems)
 
 
-def _report_from_record(corpus: Mapping[str, object]) -> CorpusReport:
-    raw_files = corpus.get("files")
-    if not isinstance(raw_files, list):
-        name = _as_str(corpus.get("corpus"), "corpus")
-        raise RecordMismatchError((f"{name} files are not a list",))
-    files: list[FileScore] = []
-    for raw in raw_files:
-        if not isinstance(raw, dict):
-            raise RecordMismatchError(("a file score is not an object",))
-        file_name = raw.get("file")
-        if not isinstance(file_name, str):
-            raise RecordMismatchError(("a file name is not a string",))
-        scores = tuple(_detector(row) for row in _score_rows(raw.get("scores"), file_name))
-        files.append(FileScore(file_name, scores))
-    return CorpusReport(
-        corpus=_as_str(corpus.get("corpus"), "corpus"),
-        judges=_as_bool(corpus.get("judges"), "judges"),
-        status=_as_str(corpus.get("status"), "status"),
-        note=_as_str(corpus.get("note"), "note"),
-        sample_period_seconds=_optional_float(corpus.get("sample_period_seconds")),
-        declared_period_seconds=_optional_float(corpus.get("declared_period_seconds")),
-        files=tuple(files),
-    )
-
-
 def _score_rows(raw: object, where: str) -> tuple[tuple[object, ...], ...]:
     if not isinstance(raw, list):
         raise RecordMismatchError((f"{where} scores are not a list",))
@@ -252,20 +210,6 @@ def _score_rows(raw: object, where: str) -> tuple[tuple[object, ...], ...]:
             raise RecordMismatchError((f"{where} has a score that is not an object",))
         rows.append(tuple(_score_field(item, field) for field in _FIELDS))
     return tuple(rows)
-
-
-def _detector(row: tuple[object, ...]) -> DetectorScore:
-    detector, attacks, caught, recall, reference, haicon, adjusted, alerts = row
-    return DetectorScore(
-        detector=_as_str(detector, "detector"),
-        attacks=_as_int(attacks, "attacks"),
-        caught=_as_int(caught, "caught"),
-        recall_within_budget=_as_float(recall, "recall_within_budget"),
-        etapr_reference_f1=_as_float(reference, "etapr_reference_f1"),
-        etapr_haicon_f1=_as_float(haicon, "etapr_haicon_f1"),
-        point_adjusted_f1=_as_float(adjusted, "point_adjusted_f1"),
-        alerts=_as_int(alerts, "alerts"),
-    )
 
 
 def _from_detector(score: DetectorScore) -> tuple[object, ...]:
@@ -299,12 +243,6 @@ def _by_corpus(recorded: Sequence[Mapping[str, object]]) -> dict[str, Mapping[st
 def _as_str(value: object, field: str) -> str:
     if not isinstance(value, str):
         raise RecordMismatchError((f"{field} is not a string",))
-    return value
-
-
-def _as_bool(value: object, field: str) -> bool:
-    if not isinstance(value, bool):
-        raise RecordMismatchError((f"{field} is not a boolean",))
     return value
 
 

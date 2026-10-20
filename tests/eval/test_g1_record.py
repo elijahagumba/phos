@@ -1,4 +1,4 @@
-"""The G1 rebuild checks development rows and reprints validation rows."""
+"""The G1 rebuild checks every corpus against the committed record."""
 
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ from phos.eval.g1_record import (
 )
 
 
-def test_a_matching_recompute_reprints_the_validation_digits() -> None:
+def test_a_matching_recompute_of_every_corpus_returns_the_committed_table() -> None:
     fresh, recorded, markdown = _fixture()
     rebuilt = rebuild_markdown(markdown, recorded, fresh)
     assert rebuilt == markdown
@@ -35,14 +35,22 @@ def test_a_development_mismatch_does_not_return_a_table() -> None:
         rebuild_markdown(markdown, recorded, changed)
 
 
-def test_an_unscored_validation_row_is_not_reprinted_as_a_score() -> None:
+def test_a_validation_mismatch_does_not_return_a_table() -> None:
     fresh, recorded, markdown = _fixture()
-    recorded[1] = {**recorded[1], "status": "not_scored", "scores": []}
-    with pytest.raises(RecordMismatchError, match=r"hai-21\.03 is not a scored row"):
+    changed = dict(fresh)
+    changed["hai-21.03"] = _report("hai-21.03", True, "scored", caught=8, attacks=50)
+    with pytest.raises(RecordMismatchError, match=r"hai-21\.03 corpus detector 0 caught"):
+        rebuild_markdown(markdown, recorded, changed)
+
+
+def test_a_missing_validation_recompute_is_refused() -> None:
+    fresh, recorded, markdown = _fixture()
+    del fresh["batadal"]
+    with pytest.raises(RecordMismatchError, match="not every published corpus"):
         rebuild_markdown(markdown, recorded, fresh)
 
 
-def test_the_three_development_corpora_are_the_only_ones_recomputed() -> None:
+def test_development_and_validation_corpora_are_both_in_the_table() -> None:
     assert DEVELOPMENT_CORPORA == ("hai-20.07", "batch-distillation", "data4cyber")
     assert VALIDATION_CORPORA == ("hai-21.03", "hai-22.04", "hai-23.05", "batadal")
     assert TABLE_ORDER[0] == "hai-20.07"
@@ -67,7 +75,7 @@ def _fixture() -> tuple[
     recorded: list[Mapping[str, object]] = [_corpus(reports[name]) for name in TABLE_ORDER]
     rendered = render_report(tuple(reports[name] for name in TABLE_ORDER))
     markdown = rendered + "\n" + f"{GROUPED_HEADING}\n\nvalidation-grouped-line\n"
-    fresh = {name: reports[name] for name in DEVELOPMENT_CORPORA}
+    fresh = {name: reports[name] for name in TABLE_ORDER}
     return fresh, recorded, markdown
 
 

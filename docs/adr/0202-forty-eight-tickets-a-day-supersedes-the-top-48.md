@@ -10,7 +10,9 @@
   [ADR 0196](0196-exclusive-host-return-is-the-r42-one-shot.md)
 - **Supersedes:** ADR 0196's budget of "top 48 overall", its result name
   `exclusive-host-return:cert-r4.2@48`, and the command that would have written
-  `eval_runs/build/sentiel/exclusive-host-return-r42.json`. The scorer in ADR 0195 does not
+  `eval_runs/build/sentiel/exclusive-host-return-r42.json`. That command never ran, so that file
+  <!-- evidence-ack: eval_runs/build/sentiel/exclusive-host-return-r42.json — the superseded command never ran, so that file was never written -->
+  was never written. The scorer in ADR 0195 does not
   change. The amendment below stays in force word for word.
 
 ## Context

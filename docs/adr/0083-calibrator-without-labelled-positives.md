@@ -39,10 +39,14 @@ Gate 1 of the usefulness phase tracked this as
 `future_sessions.calibrator_without_labelled_positives`: the actual lever on Atlas's alert load, and
 **optimisation**, deferred until Sentiel was also diagnosed. Sentiel diagnosis is complete (ADR
 0076). The noBOOM / batch-distillation sandbox (`eval_runs/sandbox/noboom-atlas/`) has since shown
+<!-- evidence-ack: eval_runs/sandbox/noboom-atlas/ — that sandbox was never committed to this repository, as this paragraph states -->
 that regime coverage and calibrator starvation are related but not identical problems: designed
 protocol already fits on ~30 h of dual-clean train, yet recipe-step coverage in that train is only
-7.7% of what the test split sees. This ADR opens the calibrator session. It does **not** pretend the
-calibrator alone dissolves every recipe-regime FP on distillation.
+7.7% of what the test split sees. **That sandbox directory was never committed to this
+repository**, so the two figures in this paragraph cannot be re-checked from this history; the
+`noboom-atlas-v1` baseline it is quoted against survives in
+`eval_runs/sandbox/adr0083-normal-score/measurement.md`. This ADR opens the calibrator session. It
+does **not** pretend the calibrator alone dissolves every recipe-regime FP on distillation.
 
 **This record authorises the session and freezes its success contract. It does not implement the
 fix, retune a threshold, or append a public log row.**
@@ -177,7 +181,8 @@ geometrically available.
 - This ADR's success contract.
 - ADR 0075's diagnostic figures and report path (`eval_runs/atlas/hai-error-taxonomy.md`).
 - Sandbox `noboom-atlas-v1` baseline under ADR 0082 scoring
-  (`eval_runs/sandbox/noboom-atlas/`).
+  (`eval_runs/sandbox/noboom-atlas/`, never committed here — see the note in Context).
+  <!-- evidence-ack: eval_runs/sandbox/noboom-atlas/ — never committed here; the note in Context says so and the figures cannot be re-checked -->
 - Frozen log names listed above, unreproduced only as gates.
 - No implementation yet.
 

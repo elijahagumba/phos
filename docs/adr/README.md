@@ -285,6 +285,12 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0254](0254-trusted-station-held-back-is-declared.md) | Held-back seeds 97901-97920 are declared for one score of H1+H3; the score is not run in this record | ADR 0253 | 2026-10-19 | Accepted |
 | [0255](0255-trusted-station-held-back-lead-bar-is-not-met.md) | Held-back unique leads 0 of 20, not met; false alarms 0.00, met; known-link tests green, met | ADR 0254 | 2026-10-19 | Accepted |
 | [0260](0260-build-d-is-merged-and-its-bars-stand.md) | Build D is merged; no ranker beat the champion, W5's high flag cannot reach 0.8 by construction, and the trusted-station facts do not lead | ADR 0234, ADR 0240, ADR 0255 | 2026-10-19 | Accepted |
+| [0261](0261-the-s2-register-is-the-directorys-email.md) | The S2 register is each release's LDAP email addresses, declared before the score | ADR 0146, ADR 0230 | 2026-10-20 | Accepted |
+| [0262](0262-s2-is-met-on-directory-email.md) | S2 is met on directory email; host and machine features stay zero; v1 stands at 7 of 12 | ADR 0261 | 2026-10-20 | Accepted |
+| [0263](0263-the-g1-table-is-regenerated-once.md) | The G1 table is regenerated once from the files; the run is not this record | ADR 0210, ADR 0221 | 2026-10-20 | Accepted |
+| [0264](0264-the-g1-regeneration-matched.md) | The G1 regeneration matched; A1 is met; the grouped block was not recomputed | ADR 0263 | 2026-10-20 | Accepted |
+| [0265](0265-the-always-apply-rules-load-themselves.md) | The always-apply rules load themselves: the bodies stay in `.cursor/rules/`, `docs/rules/*.md` symlinks to them, a committed root `CLAUDE.md` imports them, and the skills restate no figure | ADR 0044, ADR 0049 | 2026-10-20 | Accepted, amended |
+| [0266](0266-the-programme-counter-is-written-from-evidence-not-by-hand.md) | The programme counter is written from the repository's evidence by `scripts/roadmap_state.py`; the roadmap freeze narrows to the contract and stops pinning `current_session` | ADR 0049, ADR 0061, ADR 0265 | 2026-10-20 | Accepted |
 
 ## Related reading
 

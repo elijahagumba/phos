@@ -152,10 +152,13 @@ and it is the same shape as P1: the binding constraints on this project are huma
 computational, and a plan that pretends otherwise would be lying about where the work is.
 
 **Risk accepted.** U4 (the analyst interface) sits close to the Ω3 line. It is explicitly *not*
-FastAPI, React, `src/phos/api/` or `src/phos/ui/` — it is the smallest renderer of an existing
-narrative, and the roadmap instructs a session to **stop and raise it** if the work starts to need a
-server. If that instruction is ignored, this phase becomes the route by which Intelligence/API/UI
-arrive early, which the programme lock forbids.
+FastAPI, React, `src/phos/api/` or `src/phos/ui/` — neither of those trees is built, and this
+<!-- evidence-ack: src/phos/api/ — not built; the programme lock forbids the surface and this record is why -->
+<!-- evidence-ack: src/phos/ui/ — not built; the programme lock forbids the surface and this record is why -->
+record is why — it is the smallest renderer of an existing narrative, and the roadmap instructs a
+session to **stop and raise it** if the work starts to need a server. If that instruction is
+ignored, this phase becomes the route by which Intelligence/API/UI arrive early, which the
+programme lock forbids.
 
 ## Alternatives considered
 

@@ -18,7 +18,8 @@ day, with its seven unroled points as they are and load demands kept as setpoint
 ### 1. Declared roles (step 1, commit `78c07f2`)
 
 `data/hai-20.07/roles.toml` declares a role for each of HAI 20.07's 59 columns from the
-official point list (`hai_dataset_technical_details.pdf` at `2a814ceb`, sha256 `0668345c…`),
+official point list (`hai_dataset_technical_details.pdf`, read from the publisher's
+`icsdataset/hai` tree `2a814ceb`, sha256 `0668345c…`),
 every row citing its table row and printed page. 24 sensors, 15 actuators, 13 setpoints, 7 with
 no role. `phos.atlas.signal_roles` loads and validates a total role map.
 `phos.breaking.declared_roles` reads the synthetic plants' roles (`SignalKind`) and couplings

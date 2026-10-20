@@ -11,8 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
+      # Full history, because the evidence gate below resolves every cited commit against it.
+      # At the default depth of 1 no cited object exists, and every resolving citation in the
+      # records would be reported as an orphan.
       - name: Check out the research core
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install uv and Python 3.12
         uses: astral-sh/setup-uv@v6
@@ -33,3 +38,16 @@ jobs:
 
       - name: Tests
         run: uv run pytest -q
+
+      # A cited commit or path that stops resolving makes the claim uncheckable, which is the
+      # failure this project cares most about. An item that does not resolve for a stated
+      # reason is acknowledged beside the citation and passes; one nobody has explained, and
+      # an acknowledgement that no longer matches its citation, fail here.
+      #
+      # The lab only. This file is exported to the public repository, whose history is a
+      # separate chain of export commits and whose tree is the manifest's subset, so the lab
+      # commits and lab-only paths the records cite genuinely do not exist there. Running the
+      # gate on that checkout would fail on the split itself rather than on a broken citation.
+      - name: Cited evidence resolves
+        if: github.repository == 'elijahagumba/phoslabs'
+        run: uv run python scripts/audit_evidence.py --strict

@@ -1,13 +1,13 @@
 # Reproduce the v1 numbers
 
-One command checks every recorded v1 number in this checkout against the committed record and
-prints a pass or fail table. It does not recompute those numbers. A recompute would open the
-validation corpora and would take hours, so a passing row says `record intact`.
+One command recomputes the G1 baseline table from the files, then checks every pinned v1
+number against the committed record and prints a pass or fail table. A row that matches says
+`record intact`.
 
-This is a check of the record, not a reproduction. v1's A7 asks for one command that regenerates
-every number, run by someone outside the project; this command does not regenerate, so running it
-does not meet A7 (ADR 0230). It tells you whether the committed numbers are the ones the record
-pins.
+The recompute is the G1 table (ADR 0263). The benchmark, A2 and consistency numbers are
+checked, not recomputed. v1's A7 asks for one command that regenerates every number, run by
+someone outside the project. This command does not yet regenerate every number, and an
+outside run has not happened, so A7 stays unmet (ADR 0230, ADR 0263).
 
 ## Install
 
@@ -31,9 +31,11 @@ You do not download anything to run the check. The committed records already nam
 | `eval_runs/v1/consistency-batadal.json` | The committed BATADAL consistency score |
 | `eval_runs/v1/consistency-identity-hai.json` | The committed HAI 22.04 and 23.05 identity check |
 
-HAI 21.03, HAI 22.04, HAI 23.05, and BATADAL are validation corpora. This command does not open
-them. It checks the digits in the files above. Where those datasets are described for a person
-who wants the bytes themselves, the list is `data/registry.json`. This command does not fetch it.
+HAI 21.03, HAI 22.04, HAI 23.05, and BATADAL are validation corpora. The default command opens
+them once, inside `scripts/measure_baseline_table.py`, to recompute the G1 table and check it
+against the committed file (ADR 0263). It does not fetch them. `--check-only` does not open
+them. Where those datasets are described for a person who wants the bytes themselves, the list
+is `data/registry.json`.
 
 ## The command
 
@@ -48,8 +50,8 @@ uv run python scripts/reproduce_v1.py
 The table has three columns: `status`, `record`, `detail`.
 
 - `record intact` means the file is at the pinned path, its sha256 matches the pin in
-  `eval_runs/build/v1/tools/reproduce-pin.json`, and every pinned digit in it matches. Nothing
-  was rescored.
+  `eval_runs/build/v1/tools/reproduce-pin.json`, and every pinned digit in it matches. The G1
+  recompute, when it ran, did not change those digits.
 - `fail` means a checksum or a recorded digit does not match. The detail names the pointer, the
   digit in the file, and the pinned digit. The process exits with status 1.
 

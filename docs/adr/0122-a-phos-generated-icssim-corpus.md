@@ -18,11 +18,12 @@ can have fresh held-out runs whenever a clean test is needed. Elijah asked for o
 ## Decision
 
 **1. The generator.** `scripts/icssim/phos_icssim.py` runs ICSSim's own physics and PLC logic,
-unchanged, at commit `bcfd1844d3f063850c69f2643f6a052bac03d8ec`, and patches at run time instead of
-editing ICSSim's files: a scaled clock shared by every component (default 20×), an in-process store
-in place of ICSSim's sqlite file, loopback identities for every Modbus client (PLC-1 `127.0.0.11`,
-PLC-2 `127.0.0.12`, operator console `127.0.0.21`, attacker `127.0.0.66`), a log of every networked
-read and write each PLC serves, and sensor tampering for falsified readings.
+unchanged, at `AlirezaDehlaghi/ICSSIM` commit `bcfd1844d3f063850c69f2643f6a052bac03d8ec` — that
+commit is not in this repository — and patches at run time instead of editing ICSSim's files: a
+scaled clock shared by every component (default 20×), an in-process store in place of ICSSim's
+sqlite file, loopback identities for every Modbus client (PLC-1 `127.0.0.11`, PLC-2 `127.0.0.12`,
+operator console `127.0.0.21`, attacker `127.0.0.66`), a log of every networked read and write each
+PLC serves, and sensor tampering for falsified readings.
 `scripts/icssim/generate_corpus.py setup` clones ICSSim at that commit under `data/` (so git never
 sees it), checks its LICENSE file's sha256 and installs `pyModbusTCP==0.3.1` and
 `python-memcached==1.62` in a virtual environment there. ICSSim's code is not copied into the lab.

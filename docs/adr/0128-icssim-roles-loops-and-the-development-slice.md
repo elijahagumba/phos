@@ -16,10 +16,15 @@ readings are true, how often a lying instrument is named. It needs the developme
 
 ## Decision
 
-**1. The roles and loops come from ICSSim's own source**, at the pinned commit, recorded in
-`data/phos-icssim-dev/roles.toml`: the tag table in `src/Configs.py` (each tag's PLC and whether
-it is a PLC input or output), the control programs `src/PLC1.py` and `src/PLC2.py`, and
+**1. The roles and loops come from ICSSim's own source**, at the commit ADR 0122 pinned, recorded
+in `data/phos-icssim-dev/roles.toml`. Every path in this paragraph is `AlirezaDehlaghi/ICSSIM`'s
+own layout, not a path in this repository: the tag table in `src/Configs.py` (each tag's PLC and
+<!-- evidence-ack: src/Configs.py — AlirezaDehlaghi/ICSSIM's own layout, not a path in this repository -->
+whether it is a PLC input or output), the control programs `src/PLC1.py` and `src/PLC2.py`, and
+<!-- evidence-ack: src/PLC1.py — AlirezaDehlaghi/ICSSIM's own layout, not a path in this repository -->
+<!-- evidence-ack: src/PLC2.py — AlirezaDehlaghi/ICSSIM's own layout, not a path in this repository -->
 `_check_manual_input` in `src/ics_sim/Device.py`. Each row quotes its source line, and every quote
+<!-- evidence-ack: src/ics_sim/Device.py — AlirezaDehlaghi/ICSSIM's own layout, not a path in this repository -->
 was checked to occur in the file. Inputs are sensors; outputs a program sets are actuators;
 outputs a program only compares a sensor with are setpoints. **A mode tag is a setpoint**: mode 1
 forces its actuator off and mode 2 on, so it is a demand the actuator is asked to follow, and

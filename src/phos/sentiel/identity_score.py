@@ -10,6 +10,7 @@ from __future__ import annotations
 from collections.abc import Iterable, Iterator
 
 from phos.ontology import Observation
+from phos.sentiel.entities import EntityCatalogue
 from phos.sentiel.events import (
     DETAIL_PC,
     DETAIL_RECIPIENTS,
@@ -21,6 +22,7 @@ from phos.sentiel.events import (
 )
 from phos.sentiel.named_counterparties import (
     IDENTITY_FEATURES,
+    MATCHED_IDENTITIES,
     REGISTER_SHA256,
     DeclaredIdentities,
     IdentityFeaturiser,
@@ -30,6 +32,7 @@ from phos.sentiel.traces import EntityDayTrace
 
 __all__ = [
     "EMPTY_REGISTER_SHA256",
+    "directory_destination_register",
     "events_from_trace",
     "score_traces",
     "summarise_identity",
@@ -38,6 +41,28 @@ __all__ = [
 
 EMPTY_REGISTER_SHA256: str = register_sha256(DeclaredIdentities())
 """Hash of the empty register. ADR 0146 ships the register empty."""
+
+
+def directory_destination_register(catalogue: EntityCatalogue) -> DeclaredIdentities:
+    """Return the directory's own email addresses, and nothing else.
+
+    Hosts and machines stay empty. The names are the organisation chart, not a
+    labelled insider's traffic and not a web host from an activity log. An
+    address the directory does not hold is not invented. Building this does not
+    read ``insiders.csv``.
+
+    Args:
+        catalogue: Users read from a CERT LDAP directory.
+
+    Returns:
+        A register whose destinations are those email addresses.
+    """
+    destinations = {
+        email
+        for entity in catalogue.entities.values()
+        if (email := entity.attributes.get("email", "").strip())
+    }
+    return DeclaredIdentities(destinations=frozenset(destinations))
 
 
 def events_from_trace(trace: EntityDayTrace) -> Iterator[EnterpriseEvent]:
@@ -143,7 +168,9 @@ def summarise_identity(observations: Iterable[Observation]) -> dict[str, object]
         observations: Observations emitted by `IdentityFeaturiser`.
 
     Returns:
-        A JSON-ready summary. It does not contain a confidence.
+        A JSON-ready summary. It does not contain a confidence. ``destinations_named``
+        counts destination observations that carried at least one matched address.
+        The addresses themselves are not copied into the summary.
 
     Raises:
         ValueError: If an observation is not one of the six features, or the
@@ -153,6 +180,7 @@ def summarise_identity(observations: Iterable[Observation]) -> dict[str, object]
     maxima = dict.fromkeys(IDENTITY_FEATURES, 0.0)
     counts = dict.fromkeys(IDENTITY_FEATURES, 0)
     hashes: set[str] = set()
+    destinations_named = 0
     for observation in observations:
         if observation.feature not in totals:
             raise ValueError(f"not an identity feature: {observation.feature}")
@@ -160,6 +188,10 @@ def summarise_identity(observations: Iterable[Observation]) -> dict[str, object]
         maxima[observation.feature] = max(maxima[observation.feature], observation.value)
         counts[observation.feature] += 1
         hashes.add(observation.context.get(REGISTER_SHA256, ""))
+        if observation.feature == "declared_destination_count" and observation.context.get(
+            MATCHED_IDENTITIES, ""
+        ):
+            destinations_named += 1
     if len(hashes) > 1:
         raise ValueError(f"observations name more than one register: {sorted(hashes)}")
     return {
@@ -170,4 +202,5 @@ def summarise_identity(observations: Iterable[Observation]) -> dict[str, object]
         "all_zero": all(value == 0.0 for value in totals.values()) and all(counts.values()),
         "n_observations": sum(counts.values()),
         "register_sha256": next(iter(hashes)) if hashes else None,
+        "destinations_named": destinations_named,
     }

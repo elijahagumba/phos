@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Check recorded v1 numbers against the committed record (ADR 0221).
+"""Regenerate the G1 table, then check every pinned v1 digit (ADR 0221, ADR 0263).
 
-A full recompute would open validation corpora and would take hours. This command does not
-rescore. It checks that each pinned result file is still at its path, that its sha256 matches,
-and that each pinned digit inside it still matches. A passing row says ``record intact``.
+The default command runs ``scripts/measure_baseline_table.py``, which recomputes every
+published G1 corpus from the files and writes the markdown only when it matches.
+It then checks each pinned result file's sha256 and digits. A passing row says
+``record intact``. ``--check-only`` skips the recompute.
 
-The command reads only the pin and the result files the pin names. It does not open dataset
-payloads, and it does not write an evaluation log.
+The benchmark, A2, and consistency pins are still checks of the committed files.
+This command does not rescore those rows and does not write an evaluation log.
 
 Usage::
 
     uv run python scripts/reproduce_v1.py
+    uv run python scripts/reproduce_v1.py --check-only
 """
 
 from __future__ import annotations
@@ -18,6 +20,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 import sys
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -205,11 +208,24 @@ def main(argv: Sequence[str] | None = None) -> int:
         match, ``2`` when the pin itself cannot be read.
     """
     parser = argparse.ArgumentParser(
-        description="Check recorded v1 numbers against the committed record. Does not rescore."
+        description="Regenerate the G1 table, then check pinned v1 digits."
     )
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--pin", type=Path, default=None)
+    parser.add_argument(
+        "--check-only",
+        action="store_true",
+        help="check the pin without recomputing the G1 table",
+    )
     args = parser.parse_args(argv)
+    if not args.check_only and args.pin is None and args.root.resolve() == ROOT.resolve():
+        recompute = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "measure_baseline_table.py")],
+            cwd=ROOT,
+            check=False,
+        )
+        if recompute.returncode != 0:
+            return recompute.returncode
     pin_path = args.pin if args.pin is not None else args.root / PIN_RELATIVE
     try:
         results = check_records(args.root, load_pin(pin_path))

@@ -39,10 +39,14 @@ The harness refused every seed outside 97001–97020, so it had no held-back pat
 Before this lane's round-1 branch was pulled, this session found an uncommitted
 draft harness in the lane folder (`alert_closure.py`, `innocence_harness.py`).
 It declared that draft by commit (`ffceffb`) and scored seeds 97101–97120 with
+<!-- evidence-ack: ffceffb — kept on backup/lane-b-draft-harness, deliberately unmerged so this disclosed pre-declaration look stays re-readable -->
 it once (`7b321f3`): 57 of 57 maintenance alerts closed, 0 of 60 attack alerts
 closed, 0 of 20 MIMIC alerts closed. Both commits are kept on
-`backup/lane-b-draft-harness`. Nothing in this ADR's harness was changed after
-that look. The report states both numbers.
+`backup/lane-b-draft-harness`. That branch is deliberately not merged — the
+draft harness is kept only so this disclosed look can be re-read — so neither
+commit is an ancestor of `main`, and the evidence audit lists `ffceffb` as
+reachable-but-unmerged for that reason. Nothing in this ADR's harness was
+changed after that look. The report states both numbers.
 
 ## Consequences
 
