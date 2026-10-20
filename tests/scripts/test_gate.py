@@ -16,6 +16,7 @@ from scripts.gate import (
     roles_for,
     verdict,
 )
+from tests.lab_only import skip_if_absent
 
 from phos.atlas.signal_roles import SignalRole
 
@@ -82,6 +83,7 @@ def test_the_published_rows_are_the_a2_status_record() -> None:
 
 
 def test_the_candidate_is_attempt_6_unchanged() -> None:
+    skip_if_absent(CANDIDATE)
     assert json.loads(CANDIDATE.read_text("utf-8")) == {
         "detector": "atlas-plant-map-v1",
         "map": {"naming_rules": "adr-0135", "calibrator": "platt"},

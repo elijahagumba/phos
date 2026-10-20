@@ -25,6 +25,10 @@ data/*/*
 !data/*/manifest.json
 !data/*/topology.toml
 !data/*/sentiel-manifest.json
+# roles.toml is a hand-authored declaration of which signals are sensors, actuators and
+# setpoints. It is not a dataset. Payloads stay ignored; the declaration is committed
+# (docs/rules/data-tiers.md: never commit data files, roles.toml excepted).
+!data/*/roles.toml
 data/synth/
 
 # Generated dataset-library payloads. The catalogues are committed.

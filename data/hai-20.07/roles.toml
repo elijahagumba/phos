@@ -1,0 +1,478 @@
+#  HAI 20.07 — signal roles (ADR 0123 §3)
+#
+#  Sensor, actuator or setpoint for each of the 59 SCADA columns of HAI 20.07, read from the
+#  corpus authors' manual and from nothing else. Never inferred from the data, and never from a
+#  tag's name: P1_FCV01D suggests a valve command, and a suggestion is not a declaration.
+#
+#  Sole source, cited throughout as "the manual" with its own printed page numbers (the PDF's
+#  page index is one higher):
+#
+#      HAI Dataset Technical Details, document version 4.0, May 2023 (CC BY-SA 4.0).
+#      hai_dataset_technical_details.pdf at commit 2a814cebc9a66b06c9e5cd545e2d72e65d383737
+#      of github.com/icsdataset/hai, git blob 18cb88514176e1c641f584cf24ac8e9559432b38.
+#
+#  How each row was read:
+#
+#    1. The point is the manual's data-points table row (pp. 12-15) with the column's name, or,
+#       where the 20.07 column of that table prints a different 20.07 name in parentheses, the
+#       row carrying it: "(Auto)" under P2_AutoGo is the 20.07 column P2_Auto. A column with
+#       neither is given no role.
+#    2. The role is the one the row's own description states. "setpoint", "set-point" and
+#       "demand" are setpoints. A valve or pump "command", a "current position" and a "control
+#       output" are actuators. A measured, converted or reported process value is a sensor.
+#       An operator button or switch is none of the three, and is given no role.
+#    3. Where a control-loop statement (pp. 7-11) also names the point, it is cited as `loop`.
+#       Every loop statement agrees with its row's description.
+#
+#  `quote` is the manual's description of the point, verbatim and attributed (CC BY-SA 4.0).
+#  Every quote and every parenthesised 20.07 name was checked to occur in the text of the PDF
+#  with the sha256 below, whitespace ignored, when this file was written on 13 October 2026.
+
+schema_version = 1
+corpus = "hai-20.07"
+
+[source]
+document = "HAI Dataset Technical Details, document version 4.0, May 2023"
+repository = "github.com/icsdataset/hai"
+file = "hai_dataset_technical_details.pdf"
+pin = "2a814cebc9a66b06c9e5cd545e2d72e65d383737"
+git_blob = "18cb88514176e1c641f584cf24ac8e9559432b38"
+sha256 = "0668345c4e80331b918fe17c81f8f363b13bd22886831d286e761bc62b71a556"
+licence = "CC BY-SA 4.0"
+pages = "printed page numbers"
+
+[[points]]
+signal = "P1_B2004"
+role = "setpoint"
+cited = "Data points table, row 1 (p. 12)"
+quote = "Heat-exchanger outlet pressure setpoint"
+
+[[points]]
+signal = "P1_B2016"
+role = "setpoint"
+cited = "Data points table, row 2 (p. 12)"
+quote = "Pressure demand for thermal power output control"
+loop = "P1-PC (p. 7): valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+
+[[points]]
+signal = "P1_B3004"
+role = "setpoint"
+cited = "Data points table, row 3 (p. 12)"
+quote = "Water level setpoint (return water tank)"
+loop = "P1-LC (p. 7): valve LCV01D holds level LIT01 at the operator's setpoint command B3004"
+
+[[points]]
+signal = "P1_B3005"
+role = "setpoint"
+cited = "Data points table, row 4 (p. 12)"
+quote = "Discharge flowrate setpoint (return water tank)"
+loop = "P1-FC (p. 7): valve FCV03D holds outflow FT03 at the operator's setpoint command B3005"
+
+[[points]]
+signal = "P1_B4002"
+role = "setpoint"
+cited = "Data points table, row 5 (p. 12)"
+quote = "Heat-exchanger outlet temperature setpoint"
+
+[[points]]
+signal = "P1_B4005"
+role = "actuator"
+cited = "Data points table, row 6 (p. 12)"
+quote = "Temperature PID control output"
+
+[[points]]
+signal = "P1_B400B"
+role = "setpoint"
+cited = "Data points table, row 7 (p. 12)"
+quote = "Water outflow rate setpoint (heating water tank)"
+
+[[points]]
+signal = "P1_B4022"
+role = "setpoint"
+cited = "Data points table, row 8 (p. 12)"
+quote = "Temperature demand for thermal power output control"
+loop = "P1-TC (p. 7): valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+
+[[points]]
+signal = "P1_FCV01D"
+role = "actuator"
+cited = "Data points table, row 9 (p. 12)"
+quote = "Position command for the FCV01 valve"
+loop = "P1-TC (p. 7): valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+
+[[points]]
+signal = "P1_FCV01Z"
+role = "actuator"
+cited = "Data points table, row 10 (p. 12)"
+quote = "Current position of the FCV01 valve"
+
+[[points]]
+signal = "P1_FCV02D"
+role = "actuator"
+cited = "Data points table, row 11 (p. 12)"
+quote = "Position command for the FCV02 valve"
+loop = "P1-TC (p. 7): valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+
+[[points]]
+signal = "P1_FCV02Z"
+role = "actuator"
+cited = "Data points table, row 12 (p. 12)"
+quote = "Current position of the FCV02 valve"
+
+[[points]]
+signal = "P1_FCV03D"
+role = "actuator"
+cited = "Data points table, row 13 (p. 12)"
+quote = "Position command for the FCV03 valve"
+loop = "P1-FC (p. 7): valve FCV03D holds outflow FT03 at the operator's setpoint command B3005"
+
+[[points]]
+signal = "P1_FCV03Z"
+role = "actuator"
+cited = "Data points table, row 14 (p. 12)"
+quote = "Current position of the FCV03 valve"
+
+[[points]]
+signal = "P1_FT01"
+role = "sensor"
+cited = "Data points table, row 15 (p. 12)"
+quote = "Measured flowrate of the return water tank"
+
+[[points]]
+signal = "P1_FT01Z"
+role = "sensor"
+cited = "Data points table, row 16 (p. 12)"
+quote = "Water inflow rate converted from P1_FT01"
+
+[[points]]
+signal = "P1_FT02"
+role = "sensor"
+cited = "Data points table, row 17 (p. 12)"
+quote = "Measured flowrate of heating water tank"
+
+[[points]]
+signal = "P1_FT02Z"
+role = "sensor"
+cited = "Data points table, row 18 (p. 12)"
+quote = "Water outflow rate conversion from P1_FT02"
+
+[[points]]
+signal = "P1_FT03"
+role = "sensor"
+cited = "Data points table, row 19 (p. 12)"
+quote = "Measured flowrate of the return water tank"
+loop = "P1-FC (p. 7): valve FCV03D holds outflow FT03 at the operator's setpoint command B3005"
+
+[[points]]
+signal = "P1_FT03Z"
+role = "sensor"
+cited = "Data points table, row 20 (p. 12)"
+quote = "Water outflow rate converted from P1_FT03"
+
+[[points]]
+signal = "P1_LCV01D"
+role = "actuator"
+cited = "Data points table, row 21 (p. 12)"
+quote = "Position command for the LCV01 valve"
+loop = "P1-LC (p. 7): valve LCV01D holds level LIT01 at the operator's setpoint command B3004"
+
+[[points]]
+signal = "P1_LCV01Z"
+role = "actuator"
+cited = "Data points table, row 22 (p. 12)"
+quote = "Current position of the LCV01 valve"
+
+[[points]]
+signal = "P1_LIT01"
+role = "sensor"
+cited = "Data points table, row 23 (p. 13)"
+quote = "Water level of the return water tank"
+loop = "P1-LC (p. 7): valve LCV01D holds level LIT01 at the operator's setpoint command B3004"
+
+[[points]]
+signal = "P1_PCV01D"
+role = "actuator"
+cited = "Data points table, row 24 (p. 13)"
+quote = "Position command for the PCV01 valve"
+loop = "P1-PC (p. 7): valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+
+[[points]]
+signal = "P1_PCV01Z"
+role = "actuator"
+cited = "Data points table, row 25 (p. 13)"
+quote = "Current position of the PCV01 valve"
+
+[[points]]
+signal = "P1_PCV02D"
+role = "actuator"
+cited = "Data points table, row 26 (p. 13)"
+quote = "Position command for the PCV2 valve"
+loop = "P1-PC (p. 7): valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+
+[[points]]
+signal = "P1_PCV02Z"
+role = "actuator"
+cited = "Data points table, row 27 (p. 13)"
+quote = "Current position of the PCV02 valve"
+
+[[points]]
+signal = "P1_PIT01"
+role = "sensor"
+cited = "Data points table, row 28 (p. 13)"
+quote = "Heat-exchanger outlet pressure"
+loop = "P1-PC (p. 7): valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+
+[[points]]
+signal = "P1_PIT02"
+role = "sensor"
+cited = "Data points table, row 30 (p. 13)"
+quote = "Water supply pressure of the heating water pump"
+
+[[points]]
+signal = "P1_TIT01"
+role = "sensor"
+cited = "Data points table, row 42 (p. 13)"
+quote = "Heat-exchanger outlet temperature"
+loop = "P1-TC (p. 7): valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+
+[[points]]
+signal = "P1_TIT02"
+role = "sensor"
+cited = "Data points table, row 43 (p. 13)"
+quote = "Temperature of the heating water tank"
+
+[[points]]
+signal = "P2_24Vdc"
+role = "sensor"
+cited = "Data points table, row 45 (p. 13)"
+quote = "DCS 24V Input Voltage"
+
+[[points]]
+signal = "P2_Auto"
+role = "none"
+cited = "Data points table, row 47 (p. 13)"
+quote = "Auto start button"
+manual_name = "P2_AutoGo"
+reason = "The manual describes it as: Auto start button; the manual describes an operator button or switch, which is not a sensor, an actuator or a setpoint."
+
+[[points]]
+signal = "P2_Emgy"
+role = "none"
+cited = "Data points table, row 49 (p. 13)"
+quote = "Emergency button"
+manual_name = "P2_Emerg"
+reason = "The manual describes it as: Emergency button; the manual describes an operator button or switch, which is not a sensor, an actuator or a setpoint."
+
+[[points]]
+signal = "P2_On"
+role = "none"
+cited = "Data points table, row 54 (p. 14)"
+quote = "On/off switch of the turbine DCS"
+manual_name = "P2_OnOff"
+reason = "The manual describes it as: On/off switch of the turbine DCS; the manual describes an operator button or switch, which is not a sensor, an actuator or a setpoint."
+
+[[points]]
+signal = "P2_SD01"
+role = "setpoint"
+cited = "Data points table, row 48 (p. 13)"
+quote = "Auto speed demand"
+manual_name = "P2_AutoSD"
+loop = "P2-SC (p. 10): speed SIT01 held at the speed setpoint value AutoSD"
+
+[[points]]
+signal = "P2_SIT01"
+role = "sensor"
+cited = "Data points table, row 58 (p. 14)"
+quote = "Current turbine RPM measured by speed probe"
+loop = "P2-SC (p. 10): speed SIT01 held at the speed setpoint value AutoSD"
+
+[[points]]
+signal = "P2_TripEx"
+role = "none"
+cited = "Data points table, row 59 (p. 14)"
+quote = "Trip emergency exit button"
+reason = "The manual describes it as: Trip emergency exit button; the manual describes an operator button or switch, which is not a sensor, an actuator or a setpoint."
+
+[[points]]
+signal = "P2_VT01e"
+role = "none"
+cited = "Data points table, pp. 12-15: no row under this name"
+reason = "The manual gives no 20.07 point named P2_VT01e; row 64 lists P2_VT01 as present in 20.07, with no 20.07 name in parentheses. A similar name is not inferred to be the same point."
+
+[[points]]
+signal = "P2_VXT02"
+role = "sensor"
+cited = "Data points table, row 61 (p. 14)"
+quote = "Shaft-vibration-related X-axis displacement near the 1st mass wheel"
+manual_name = "P2_VIBTR02"
+
+[[points]]
+signal = "P2_VXT03"
+role = "sensor"
+cited = "Data points table, row 63 (p. 14)"
+quote = "Shaft-vibration-related X-axis displacement near the 2nd mass wheel"
+manual_name = "P2_VIBTR04"
+
+[[points]]
+signal = "P2_VYT02"
+role = "sensor"
+cited = "Data points table, row 60 (p. 14)"
+quote = "Shaft-vibration-related Y-axis displacement near the 1st mass wheel"
+manual_name = "P2_VIBTR01"
+
+[[points]]
+signal = "P2_VYT03"
+role = "sensor"
+cited = "Data points table, row 62 (p. 14)"
+quote = "Shaft-vibration-related Y-axis displacement near the 2nd mass wheel"
+manual_name = "P2_VIBTR03"
+
+[[points]]
+signal = "P3_LCP01D"
+role = "actuator"
+cited = "Data points table, row 70 (p. 14)"
+quote = "Speed command for the pump LCP01"
+loop = "P3-LC (p. 11): controls level control valve LCV01 and level control pump LCP01"
+
+[[points]]
+signal = "P3_LCV01D"
+role = "actuator"
+cited = "Data points table, row 71 (p. 14)"
+quote = "Position command for the valve LCV01"
+loop = "P3-LC (p. 11): controls level control valve LCV01 and level control pump LCP01"
+
+[[points]]
+signal = "P3_LH"
+role = "none"
+cited = "Data points table, pp. 12-15: no row under this name"
+reason = "The manual gives no 20.07 point named P3_LH; row 72 lists P3_LH01 as present in 20.07, with no 20.07 name in parentheses. A similar name is not inferred to be the same point."
+
+[[points]]
+signal = "P3_LL"
+role = "none"
+cited = "Data points table, pp. 12-15: no row under this name"
+reason = "The manual gives no 20.07 point named P3_LL; row 74 lists P3_LL01 as present in 20.07, with no 20.07 name in parentheses. A similar name is not inferred to be the same point."
+
+[[points]]
+signal = "P3_LT01"
+role = "sensor"
+cited = "Data points table, row 73 (p. 14)"
+quote = "Water level of the upper water tank"
+manual_name = "P3_LIT01"
+
+[[points]]
+signal = "P4_HT_FD"
+role = "sensor"
+cited = "Data points table, row 76 (p. 14)"
+quote = "Frequency deviation of HTM"
+
+[[points]]
+signal = "P4_HT_LD"
+role = "setpoint"
+cited = "Data points table, row 77 (p. 14)"
+quote = "Electrical load demand of HTM"
+
+[[points]]
+signal = "P4_HT_PO"
+role = "sensor"
+cited = "Data points table, row 78 (p. 14)"
+quote = "Output power of HTM"
+
+[[points]]
+signal = "P4_HT_PS"
+role = "setpoint"
+cited = "Data points table, row 79 (p. 15)"
+quote = "Scheduled power demand of HTM"
+
+[[points]]
+signal = "P4_LD"
+role = "setpoint"
+cited = "Data points table, row 80 (p. 15)"
+quote = "Total electrical load demand"
+
+[[points]]
+signal = "P4_ST_FD"
+role = "sensor"
+cited = "Data points table, row 81 (p. 15)"
+quote = "Frequency deviation of STM"
+
+[[points]]
+signal = "P4_ST_LD"
+role = "setpoint"
+cited = "Data points table, row 83 (p. 15)"
+quote = "Electrical load demand of STM"
+
+[[points]]
+signal = "P4_ST_PO"
+role = "sensor"
+cited = "Data points table, row 84 (p. 15)"
+quote = "Output power of STM"
+
+[[points]]
+signal = "P4_ST_PS"
+role = "setpoint"
+cited = "Data points table, row 85 (p. 15)"
+quote = "Scheduled power demand of STM"
+
+[[points]]
+signal = "P4_ST_PT01"
+role = "sensor"
+cited = "Data points table, row 86 (p. 15)"
+quote = "Digital value of steam pressure of STM"
+
+[[points]]
+signal = "P4_ST_TT01"
+role = "sensor"
+cited = "Data points table, row 87 (p. 15)"
+quote = "Digital value of steam temperature of STM"
+
+#  Control loops (ADR 0126), one per loop statement on pp. 7-11, transcribed from the `loop`
+#  lines above and nothing else. A loop names the reading it holds and the actuators it moves
+#  only where its statement names them: P2-SC names no output and P3-LC no reading, so neither
+#  is completed from tag names. The plant map bars a loop's outputs, and what they drive, from
+#  the level form of the reading it holds; ADR 0123's wider rule still covers the gaps.
+
+[[loops]]
+name = "P1-PC"
+cited = "Control loops (p. 7)"
+statement = "valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+reading = "P1_PIT01"
+outputs = ["P1_PCV01D", "P1_PCV02D"]
+setpoint = "P1_B2016"
+
+[[loops]]
+name = "P1-LC"
+cited = "Control loops (p. 7)"
+statement = "valve LCV01D holds level LIT01 at the operator's setpoint command B3004"
+reading = "P1_LIT01"
+outputs = ["P1_LCV01D"]
+setpoint = "P1_B3004"
+
+[[loops]]
+name = "P1-FC"
+cited = "Control loops (p. 7)"
+statement = "valve FCV03D holds outflow FT03 at the operator's setpoint command B3005"
+reading = "P1_FT03"
+outputs = ["P1_FCV03D"]
+setpoint = "P1_B3005"
+
+[[loops]]
+name = "P1-TC"
+cited = "Control loops (p. 7)"
+statement = "valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+reading = "P1_TIT01"
+outputs = ["P1_FCV01D", "P1_FCV02D"]
+setpoint = "P1_B4022"
+
+[[loops]]
+name = "P2-SC"
+cited = "Control loops (p. 10)"
+statement = "speed SIT01 held at the speed setpoint value AutoSD"
+reading = "P2_SIT01"
+setpoint = "P2_SD01"
+
+[[loops]]
+name = "P3-LC"
+cited = "Control loops (p. 11)"
+statement = "controls level control valve LCV01 and level control pump LCP01"
+outputs = ["P3_LCV01D", "P3_LCP01D"]

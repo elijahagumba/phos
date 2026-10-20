@@ -5,7 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from scripts.arena import windows_from
-from scripts.arena_control import RUNS, candidates, main
+from scripts.arena_control import ROOT, RUNS, candidates, main
+from tests.lab_only import skip_if_absent
 
 from phos.atlas.consistency_windows import FROZEN_WINDOWS
 
@@ -23,5 +24,6 @@ def test_every_candidate_is_a_valid_window_set_that_changes_something() -> None:
 
 
 def test_a_declaration_is_never_overwritten(tmp_path: Path) -> None:
+    skip_if_absent(ROOT / "experiments" / "arena" / "water-liar" / "task.json")
     assert main([str(tmp_path / "control")]) == 0
     assert main([str(tmp_path / "control")]) == 2

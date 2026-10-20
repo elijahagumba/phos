@@ -119,8 +119,9 @@ dataset was made.
 
 [Read Bet 001: the second insider →](bets/001-the-second-insider.md)
 
-The bar Atlas and Sentiel v1 must clear was fixed before any comparison was run. As of 19 October
-2026, 6 of its 12 criteria are met, and two that were scored once are not.
+The bar Atlas and Sentiel v1 must clear was fixed before any comparison was run. As of 20 October
+2026, 8 of its 12 criteria are met, two that were scored once are not, and two are not yet
+measured.
 
 [Read Bet 002: what v1 has to do, and where it stands →](bets/002-atlas-and-sentiel-v1.md)
 

@@ -6,6 +6,7 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import numpy
+from tests.lab_only import skip_if_absent
 
 from phos.eval.baseline_table import SeriesGrid
 from phos.eval.candidate_look import (
@@ -35,7 +36,9 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def test_the_candidate_bytes_are_the_frozen_file() -> None:
     """The worktree commit is not in this repo. The sha256 is the lock."""
-    payload = (ROOT / CANDIDATE_RELATIVE).read_bytes()
+    path = ROOT / CANDIDATE_RELATIVE
+    skip_if_absent(path)
+    payload = path.read_bytes()
     assert sha256_bytes(payload) == CANDIDATE_SHA256
     assert_candidate_bytes(payload)
     text = payload.decode()

@@ -6,6 +6,7 @@ import math
 from pathlib import Path
 
 import numpy
+from tests.lab_only import skip_if_absent
 
 from phos.eval.candidate_checks import (
     ALERTS_PER_SHIFT,
@@ -86,7 +87,11 @@ def test_the_checks_are_on_disk() -> None:
     assert "measure_candidate_look" not in script
     assert "g1-baseline-table" not in script
     controls = ROOT / "experiments" / "2026-10-04-sandbox" / "controls"
-    minmax = sha256_bytes((controls / "minmax_events" / "candidate.py").read_bytes())
-    no_loop = sha256_bytes((controls / "no_loop" / "candidate.py").read_bytes())
+    minmax_path = controls / "minmax_events" / "candidate.py"
+    no_loop_path = controls / "no_loop" / "candidate.py"
+    skip_if_absent(minmax_path)
+    skip_if_absent(no_loop_path)
+    minmax = sha256_bytes(minmax_path.read_bytes())
+    no_loop = sha256_bytes(no_loop_path.read_bytes())
     assert minmax == MINMAX_EVENTS_SHA256
     assert no_loop == NO_LOOP_SHA256

@@ -1,0 +1,599 @@
+#  HAI 22.04 — signal roles and loops (ADR 0123 §3, ADR 0126, ADR 0141)
+#
+#  Written by scripts/build_hai_roles.py from HAI 20.07's role file and the same manual,
+#  under its reading rules. Do not edit by hand: change the script and rerun it.
+
+schema_version = 1
+corpus = "hai-22.04"
+
+[source]
+document = "HAI Dataset Technical Details, document version 4.0, May 2023"
+repository = "github.com/icsdataset/hai"
+file = "hai_dataset_technical_details.pdf"
+pin = "2a814cebc9a66b06c9e5cd545e2d72e65d383737"
+git_blob = "18cb88514176e1c641f584cf24ac8e9559432b38"
+sha256 = "0668345c4e80331b918fe17c81f8f363b13bd22886831d286e761bc62b71a556"
+licence = "CC BY-SA 4.0"
+pages = "printed page numbers"
+
+[[points]]
+signal = "P1_B2004"
+role = "setpoint"
+cited = "Data points table, row 1 (p. 12); carried from HAI 20.07's role file"
+quote = "Heat-exchanger outlet pressure setpoint"
+
+[[points]]
+signal = "P1_B2016"
+role = "setpoint"
+cited = "Data points table, row 2 (p. 12); carried from HAI 20.07's role file"
+quote = "Pressure demand for thermal power output control"
+loop = "P1-PC (p. 7): valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+
+[[points]]
+signal = "P1_B3004"
+role = "setpoint"
+cited = "Data points table, row 3 (p. 12); carried from HAI 20.07's role file"
+quote = "Water level setpoint (return water tank)"
+loop = "P1-LC (p. 7): valve LCV01D holds level LIT01 at the operator's setpoint command B3004"
+
+[[points]]
+signal = "P1_B3005"
+role = "setpoint"
+cited = "Data points table, row 4 (p. 12); carried from HAI 20.07's role file"
+quote = "Discharge flowrate setpoint (return water tank)"
+loop = "P1-FC (p. 7): valve FCV03D holds outflow FT03 at the operator's setpoint command B3005"
+
+[[points]]
+signal = "P1_B4002"
+role = "setpoint"
+cited = "Data points table, row 5 (p. 12); carried from HAI 20.07's role file"
+quote = "Heat-exchanger outlet temperature setpoint"
+
+[[points]]
+signal = "P1_B4005"
+role = "actuator"
+cited = "Data points table, row 6 (p. 12); carried from HAI 20.07's role file"
+quote = "Temperature PID control output"
+
+[[points]]
+signal = "P1_B400B"
+role = "setpoint"
+cited = "Data points table, row 7 (p. 12); carried from HAI 20.07's role file"
+quote = "Water outflow rate setpoint (heating water tank)"
+
+[[points]]
+signal = "P1_B4022"
+role = "setpoint"
+cited = "Data points table, row 8 (p. 12); carried from HAI 20.07's role file"
+quote = "Temperature demand for thermal power output control"
+loop = "P1-TC (p. 7): valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+
+[[points]]
+signal = "P1_FCV01D"
+role = "actuator"
+cited = "Data points table, row 9 (p. 12); carried from HAI 20.07's role file"
+quote = "Position command for the FCV01 valve"
+loop = "P1-TC (p. 7): valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+
+[[points]]
+signal = "P1_FCV01Z"
+role = "actuator"
+cited = "Data points table, row 10 (p. 12); carried from HAI 20.07's role file"
+quote = "Current position of the FCV01 valve"
+
+[[points]]
+signal = "P1_FCV02D"
+role = "actuator"
+cited = "Data points table, row 11 (p. 12); carried from HAI 20.07's role file"
+quote = "Position command for the FCV02 valve"
+loop = "P1-TC (p. 7): valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+
+[[points]]
+signal = "P1_FCV02Z"
+role = "actuator"
+cited = "Data points table, row 12 (p. 12); carried from HAI 20.07's role file"
+quote = "Current position of the FCV02 valve"
+
+[[points]]
+signal = "P1_FCV03D"
+role = "actuator"
+cited = "Data points table, row 13 (p. 12); carried from HAI 20.07's role file"
+quote = "Position command for the FCV03 valve"
+loop = "P1-FC (p. 7): valve FCV03D holds outflow FT03 at the operator's setpoint command B3005"
+
+[[points]]
+signal = "P1_FCV03Z"
+role = "actuator"
+cited = "Data points table, row 14 (p. 12); carried from HAI 20.07's role file"
+quote = "Current position of the FCV03 valve"
+
+[[points]]
+signal = "P1_FT01"
+role = "sensor"
+cited = "Data points table, row 15 (p. 12); carried from HAI 20.07's role file"
+quote = "Measured flowrate of the return water tank"
+
+[[points]]
+signal = "P1_FT01Z"
+role = "sensor"
+cited = "Data points table, row 16 (p. 12); carried from HAI 20.07's role file"
+quote = "Water inflow rate converted from P1_FT01"
+
+[[points]]
+signal = "P1_FT02"
+role = "sensor"
+cited = "Data points table, row 17 (p. 12); carried from HAI 20.07's role file"
+quote = "Measured flowrate of heating water tank"
+
+[[points]]
+signal = "P1_FT02Z"
+role = "sensor"
+cited = "Data points table, row 18 (p. 12); carried from HAI 20.07's role file"
+quote = "Water outflow rate conversion from P1_FT02"
+
+[[points]]
+signal = "P1_FT03"
+role = "sensor"
+cited = "Data points table, row 19 (p. 12); carried from HAI 20.07's role file"
+quote = "Measured flowrate of the return water tank"
+loop = "P1-FC (p. 7): valve FCV03D holds outflow FT03 at the operator's setpoint command B3005"
+
+[[points]]
+signal = "P1_FT03Z"
+role = "sensor"
+cited = "Data points table, row 20 (p. 12); carried from HAI 20.07's role file"
+quote = "Water outflow rate converted from P1_FT03"
+
+[[points]]
+signal = "P1_LCV01D"
+role = "actuator"
+cited = "Data points table, row 21 (p. 12); carried from HAI 20.07's role file"
+quote = "Position command for the LCV01 valve"
+loop = "P1-LC (p. 7): valve LCV01D holds level LIT01 at the operator's setpoint command B3004"
+
+[[points]]
+signal = "P1_LCV01Z"
+role = "actuator"
+cited = "Data points table, row 22 (p. 12); carried from HAI 20.07's role file"
+quote = "Current position of the LCV01 valve"
+
+[[points]]
+signal = "P1_LIT01"
+role = "sensor"
+cited = "Data points table, row 23 (p. 13); carried from HAI 20.07's role file"
+quote = "Water level of the return water tank"
+loop = "P1-LC (p. 7): valve LCV01D holds level LIT01 at the operator's setpoint command B3004"
+
+[[points]]
+signal = "P1_PCV01D"
+role = "actuator"
+cited = "Data points table, row 24 (p. 13); carried from HAI 20.07's role file"
+quote = "Position command for the PCV01 valve"
+loop = "P1-PC (p. 7): valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+
+[[points]]
+signal = "P1_PCV01Z"
+role = "actuator"
+cited = "Data points table, row 25 (p. 13); carried from HAI 20.07's role file"
+quote = "Current position of the PCV01 valve"
+
+[[points]]
+signal = "P1_PCV02D"
+role = "actuator"
+cited = "Data points table, row 26 (p. 13); carried from HAI 20.07's role file"
+quote = "Position command for the PCV2 valve"
+loop = "P1-PC (p. 7): valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+
+[[points]]
+signal = "P1_PCV02Z"
+role = "actuator"
+cited = "Data points table, row 27 (p. 13); carried from HAI 20.07's role file"
+quote = "Current position of the PCV02 valve"
+
+[[points]]
+signal = "P1_PIT01"
+role = "sensor"
+cited = "Data points table, row 28 (p. 13); carried from HAI 20.07's role file"
+quote = "Heat-exchanger outlet pressure"
+loop = "P1-PC (p. 7): valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+
+[[points]]
+signal = "P1_PIT01_HH"
+role = "none"
+cited = "Data points table, row 29 (p. 12)"
+reason = "The description does not say whether this is measured or a limit. Manual: \"Highest outlet pressure of the heat-exchanger\"."
+
+[[points]]
+signal = "P1_PIT02"
+role = "sensor"
+cited = "Data points table, row 30 (p. 13); carried from HAI 20.07's role file"
+quote = "Water supply pressure of the heating water pump"
+
+[[points]]
+signal = "P1_PP01AD"
+role = "actuator"
+cited = "Data points table, row 31 (p. 12)"
+quote = "Start command of the main water pump PP01A"
+
+[[points]]
+signal = "P1_PP01AR"
+role = "actuator"
+cited = "Data points table, row 32 (p. 12)"
+quote = "Running state of the main water pump PP01A"
+
+[[points]]
+signal = "P1_PP01BD"
+role = "actuator"
+cited = "Data points table, row 33 (p. 12)"
+quote = "Start command of the main water pump PP01B"
+
+[[points]]
+signal = "P1_PP01BR"
+role = "actuator"
+cited = "Data points table, row 34 (p. 12)"
+quote = "Running state of the main water pump PP01B"
+
+[[points]]
+signal = "P1_PP02D"
+role = "actuator"
+cited = "Data points table, row 35 (p. 12)"
+quote = "Start command of the heating water pump PP02"
+
+[[points]]
+signal = "P1_PP02R"
+role = "actuator"
+cited = "Data points table, row 36 (p. 12)"
+quote = "Running state of the heating water pump PP02"
+
+[[points]]
+signal = "P1_PP04"
+role = "actuator"
+cited = "Data points table, row 37 (p. 12)"
+quote = "Control out of the cooler pump"
+
+[[points]]
+signal = "P1_PP04SP"
+role = "setpoint"
+cited = "Data points table, row 38 (p. 12)"
+quote = "Cooler temperature setpoint"
+
+[[points]]
+signal = "P1_SOL01D"
+role = "actuator"
+cited = "Data points table, row 39 (p. 12)"
+quote = "Open command of the main water tank supply valve"
+
+[[points]]
+signal = "P1_SOL03D"
+role = "actuator"
+cited = "Data points table, row 40 (p. 12)"
+quote = "Open command of the main water tank drain valve"
+
+[[points]]
+signal = "P1_STSP"
+role = "none"
+cited = "Data points table, row 41 (p. 13)"
+reason = "A start/stop command of the control system itself, not of a final control element: an operator switch, given no role as 20.07's buttons are. Manual: \"Start/stop command of the boiler DCS\"."
+
+[[points]]
+signal = "P1_TIT01"
+role = "sensor"
+cited = "Data points table, row 42 (p. 13); carried from HAI 20.07's role file"
+quote = "Heat-exchanger outlet temperature"
+loop = "P1-TC (p. 7): valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+
+[[points]]
+signal = "P1_TIT02"
+role = "sensor"
+cited = "Data points table, row 43 (p. 13); carried from HAI 20.07's role file"
+quote = "Temperature of the heating water tank"
+
+[[points]]
+signal = "P1_TIT03"
+role = "sensor"
+cited = "Data points table, row 44 (p. 13)"
+quote = "Temperature of the main water tank"
+
+[[points]]
+signal = "P2_24Vdc"
+role = "sensor"
+cited = "Data points table, row 45 (p. 13); carried from HAI 20.07's role file"
+quote = "DCS 24V Input Voltage"
+
+[[points]]
+signal = "P2_ATSW_Lamp"
+role = "none"
+cited = "Data points table, row 46 (p. 13)"
+reason = "An indicator lamp. Manual: \"Lamp of the Auto SW\"."
+
+[[points]]
+signal = "P2_AutoGO"
+role = "none"
+cited = "Data points table (pp. 12-15)"
+reason = "The table does not name P2_AutoGO for 22.04; not inferred from the name."
+
+[[points]]
+signal = "P2_AutoSD"
+role = "setpoint"
+cited = "Data points table, row 48 (p. 13); carried from HAI 20.07's role file (as P2_SD01)"
+quote = "Auto speed demand"
+loop = "P2-SC (p. 10): speed SIT01 held at the speed setpoint value AutoSD"
+
+[[points]]
+signal = "P2_Emerg"
+role = "none"
+cited = "Data points table, row 49 (p. 13); carried from HAI 20.07's role file (as P2_Emgy)"
+quote = "Emergency button"
+reason = "The manual describes it as: Emergency button; the manual describes an operator button or switch, which is not a sensor, an actuator or a setpoint."
+
+[[points]]
+signal = "P2_MASW"
+role = "none"
+cited = "Data points table, row 50 (p. 13)"
+reason = "An operator switch. Manual: \"Manual(1)/Auto(0) SW\"."
+
+[[points]]
+signal = "P2_MASW_Lamp"
+role = "none"
+cited = "Data points table, row 51 (p. 14)"
+reason = "An indicator lamp. Manual: \"Lamp of Manual SW\"."
+
+[[points]]
+signal = "P2_ManualGO"
+role = "none"
+cited = "Data points table, row 52 (p. 14)"
+reason = "An operator button. Manual: \"Manual start button\"."
+
+[[points]]
+signal = "P2_ManualSD"
+role = "setpoint"
+cited = "Data points table, row 53 (p. 14)"
+quote = "Manual speed demand"
+
+[[points]]
+signal = "P2_OnOff"
+role = "none"
+cited = "Data points table, row 54 (p. 14); carried from HAI 20.07's role file (as P2_On)"
+quote = "On/off switch of the turbine DCS"
+reason = "The manual describes it as: On/off switch of the turbine DCS; the manual describes an operator button or switch, which is not a sensor, an actuator or a setpoint."
+
+[[points]]
+signal = "P2_RTR"
+role = "none"
+cited = "Data points table, row 55 (p. 14)"
+reason = "A trip rate: the description states neither a measurement nor a setpoint. Manual: \"RPM trip rate\"."
+
+[[points]]
+signal = "P2_SCO"
+role = "actuator"
+cited = "Data points table, row 56 (p. 14)"
+quote = "Control output value of the speed controller"
+
+[[points]]
+signal = "P2_SCST"
+role = "sensor"
+cited = "Data points table, row 57 (p. 14)"
+quote = "Speed change proportional to frequency change of the STM"
+
+[[points]]
+signal = "P2_SIT01"
+role = "sensor"
+cited = "Data points table, row 58 (p. 14); carried from HAI 20.07's role file"
+quote = "Current turbine RPM measured by speed probe"
+loop = "P2-SC (p. 10): speed SIT01 held at the speed setpoint value AutoSD"
+
+[[points]]
+signal = "P2_TripEx"
+role = "none"
+cited = "Data points table, row 59 (p. 14); carried from HAI 20.07's role file"
+quote = "Trip emergency exit button"
+reason = "The manual describes it as: Trip emergency exit button; the manual describes an operator button or switch, which is not a sensor, an actuator or a setpoint."
+
+[[points]]
+signal = "P2_VIBTR01"
+role = "sensor"
+cited = "Data points table, row 60 (p. 14); carried from HAI 20.07's role file (as P2_VYT02)"
+quote = "Shaft-vibration-related Y-axis displacement near the 1st mass wheel"
+
+[[points]]
+signal = "P2_VIBTR02"
+role = "sensor"
+cited = "Data points table, row 61 (p. 14); carried from HAI 20.07's role file (as P2_VXT02)"
+quote = "Shaft-vibration-related X-axis displacement near the 1st mass wheel"
+
+[[points]]
+signal = "P2_VIBTR03"
+role = "sensor"
+cited = "Data points table, row 62 (p. 14); carried from HAI 20.07's role file (as P2_VYT03)"
+quote = "Shaft-vibration-related Y-axis displacement near the 2nd mass wheel"
+
+[[points]]
+signal = "P2_VIBTR04"
+role = "sensor"
+cited = "Data points table, row 63 (p. 14); carried from HAI 20.07's role file (as P2_VXT03)"
+quote = "Shaft-vibration-related X-axis displacement near the 2nd mass wheel"
+
+[[points]]
+signal = "P2_VT01"
+role = "sensor"
+cited = "Data points table, row 64 (p. 14)"
+quote = "Phase lag signal of the key phasor probe"
+
+[[points]]
+signal = "P2_VTR01"
+role = "none"
+cited = "Data points table, row 65 (p. 14)"
+reason = "A preset limit: not stated as a setpoint or demand, nor measured. Manual: \"Preset vibration limit for the sensor P2_VIBTR01\"."
+
+[[points]]
+signal = "P2_VTR02"
+role = "none"
+cited = "Data points table, row 66 (p. 14)"
+reason = "A preset limit: not stated as a setpoint or demand, nor measured. Manual: \"Preset vibration limit for the sensor P2_VIBTR02\"."
+
+[[points]]
+signal = "P2_VTR03"
+role = "none"
+cited = "Data points table, row 67 (p. 14)"
+reason = "A preset limit: not stated as a setpoint or demand, nor measured. Manual: \"Preset vibration limit for the sensor P2_VIBTR03\"."
+
+[[points]]
+signal = "P2_VTR04"
+role = "none"
+cited = "Data points table, row 68 (p. 14)"
+reason = "A preset limit: not stated as a setpoint or demand, nor measured. Manual: \"Preset vibration limit for the sensor P2_VIBTR03\"."
+
+[[points]]
+signal = "P3_FIT01"
+role = "sensor"
+cited = "Data points table, row 69 (p. 14)"
+quote = "Flow rate of water flowing into the upper water tank"
+
+[[points]]
+signal = "P3_LCP01D"
+role = "actuator"
+cited = "Data points table, row 70 (p. 14); carried from HAI 20.07's role file"
+quote = "Speed command for the pump LCP01"
+loop = "P3-LC (p. 11): controls level control valve LCV01 and level control pump LCP01"
+
+[[points]]
+signal = "P3_LCV01D"
+role = "actuator"
+cited = "Data points table, row 71 (p. 14); carried from HAI 20.07's role file"
+quote = "Position command for the valve LCV01"
+loop = "P3-LC (p. 11): controls level control valve LCV01 and level control pump LCP01"
+
+[[points]]
+signal = "P3_LH01"
+role = "setpoint"
+cited = "Data points table, row 72 (p. 14)"
+quote = "High water level set-point"
+
+[[points]]
+signal = "P3_LIT01"
+role = "sensor"
+cited = "Data points table, row 73 (p. 14); carried from HAI 20.07's role file (as P3_LT01)"
+quote = "Water level of the upper water tank"
+
+[[points]]
+signal = "P3_LL01"
+role = "setpoint"
+cited = "Data points table, row 74 (p. 14)"
+quote = "Low water level set-point"
+
+[[points]]
+signal = "P3_PIT01"
+role = "sensor"
+cited = "Data points table, row 75 (p. 14)"
+quote = "Pressure of water flowing into the upper water tank"
+
+[[points]]
+signal = "P4_HT_FD"
+role = "sensor"
+cited = "Data points table, row 76 (p. 14); carried from HAI 20.07's role file"
+quote = "Frequency deviation of HTM"
+
+[[points]]
+signal = "P4_HT_PO"
+role = "sensor"
+cited = "Data points table, row 78 (p. 14); carried from HAI 20.07's role file"
+quote = "Output power of HTM"
+
+[[points]]
+signal = "P4_HT_PS"
+role = "setpoint"
+cited = "Data points table, row 79 (p. 15); carried from HAI 20.07's role file"
+quote = "Scheduled power demand of HTM"
+
+[[points]]
+signal = "P4_LD"
+role = "setpoint"
+cited = "Data points table, row 80 (p. 15); carried from HAI 20.07's role file"
+quote = "Total electrical load demand"
+
+[[points]]
+signal = "P4_ST_FD"
+role = "sensor"
+cited = "Data points table, row 81 (p. 15); carried from HAI 20.07's role file"
+quote = "Frequency deviation of STM"
+
+[[points]]
+signal = "P4_ST_GOV"
+role = "actuator"
+cited = "Data points table, row 82 (p. 15)"
+quote = "Gate opening rate of STM"
+
+[[points]]
+signal = "P4_ST_LD"
+role = "setpoint"
+cited = "Data points table, row 83 (p. 15); carried from HAI 20.07's role file"
+quote = "Electrical load demand of STM"
+
+[[points]]
+signal = "P4_ST_PO"
+role = "sensor"
+cited = "Data points table, row 84 (p. 15); carried from HAI 20.07's role file"
+quote = "Output power of STM"
+
+[[points]]
+signal = "P4_ST_PS"
+role = "setpoint"
+cited = "Data points table, row 85 (p. 15); carried from HAI 20.07's role file"
+quote = "Scheduled power demand of STM"
+
+[[points]]
+signal = "P4_ST_PT01"
+role = "sensor"
+cited = "Data points table, row 86 (p. 15); carried from HAI 20.07's role file"
+quote = "Digital value of steam pressure of STM"
+
+[[points]]
+signal = "P4_ST_TT01"
+role = "sensor"
+cited = "Data points table, row 87 (p. 15); carried from HAI 20.07's role file"
+quote = "Digital value of steam temperature of STM"
+
+[[loops]]
+name = "P1-PC"
+cited = "Control loops (p. 7)"
+statement = "valves PCV01D and PCV02D hold pressure PIT01 at the operator's setpoint command B2016"
+reading = "P1_PIT01"
+setpoint = "P1_B2016"
+outputs = ["P1_PCV01D", "P1_PCV02D"]
+
+[[loops]]
+name = "P1-LC"
+cited = "Control loops (p. 7)"
+statement = "valve LCV01D holds level LIT01 at the operator's setpoint command B3004"
+reading = "P1_LIT01"
+setpoint = "P1_B3004"
+outputs = ["P1_LCV01D"]
+
+[[loops]]
+name = "P1-FC"
+cited = "Control loops (p. 7)"
+statement = "valve FCV03D holds outflow FT03 at the operator's setpoint command B3005"
+reading = "P1_FT03"
+setpoint = "P1_B3005"
+outputs = ["P1_FCV03D"]
+
+[[loops]]
+name = "P1-TC"
+cited = "Control loops (p. 7)"
+statement = "valves FCV01D and FCV02D hold temperature TIT01 at the operator's setpoint command B4022"
+reading = "P1_TIT01"
+setpoint = "P1_B4022"
+outputs = ["P1_FCV01D", "P1_FCV02D"]
+
+[[loops]]
+name = "P2-SC"
+cited = "Control loops (p. 10)"
+statement = "speed SIT01 held at the speed setpoint value AutoSD"
+reading = "P2_SIT01"
+setpoint = "P2_AutoSD"
+
+[[loops]]
+name = "P3-LC"
+cited = "Control loops (p. 11)"
+statement = "controls level control valve LCV01 and level control pump LCP01"
+outputs = ["P3_LCV01D", "P3_LCP01D"]

@@ -1,0 +1,156 @@
+#  PHOS ICSSim corpus (ADR 0122) — signal roles and control loops (ADR 0123 §3, ADR 0126, ADR 0128)
+#
+#  Sensor, actuator or setpoint for each of the 13 tags process.csv carries, read from ICSSim's
+#  own source at the pinned commit and from nothing else: the tag table in src/Configs.py
+#  (TAG_LIST: each tag's PLC and whether it is a PLC "input" or "output"), the control programs
+#  src/PLC1.py and src/PLC2.py (which tags each program reads and which it sets), and
+#  src/ics_sim/Device.py (`_check_manual_input`, what a mode tag does). Never inferred from the
+#  data, and never from a tag's name.
+#
+#  How each row was read:
+#
+#    1. A TAG_LIST "input" is a measurement the physics writes and a PLC reads: a sensor.
+#    2. An "output" a control program sets with `_set` is an actuator.
+#    3. An "output" a control program only reads, as the threshold it compares a sensor with, is
+#       a setpoint. A mode tag is a setpoint too: `_check_manual_input` forces the actuator off
+#       at mode 1 and on at mode 2, so it is a demand the actuator is asked to follow.
+#
+#  `quote` is the source line, verbatim. ICSSim is MIT-licensed (ADR 0122).
+
+schema_version = 1
+corpus = "phos-icssim-dev"
+
+[source]
+document = "ICSSim src/Configs.py (TAG_LIST), src/PLC1.py, src/PLC2.py, src/ics_sim/Device.py"
+repository = "github.com/AlirezaDehlaghi/ICSSIM"
+pin = "bcfd1844d3f063850c69f2643f6a052bac03d8ec"
+sha256 = "242e19fe346550fc4614f3511d6eacd91c0dfadb3e9591fd616570352ad23bd3"
+sha256_plc1 = "4651130bba9f137108c0426a6fdeb829db8705ea7eeedd40dfab378c9cf51316"
+sha256_plc2 = "90593bb7bb4c5e83fd9edd1281c89c66f71e3bde46d1f1d496d1ebd8df33a7b7"
+sha256_device = "574660255d62e29e27015baaa797005071a11f14317af9525b6525258464ae92"
+licence = "MIT"
+
+[[points]]
+signal = "tank_input_valve_status"
+role = "actuator"
+cited = "Configs.py TAG_LIST (output, PLC 1); PLC1.py _logic"
+quote = "self._set(TAG.TAG_TANK_INPUT_VALVE_STATUS, 0)"
+
+[[points]]
+signal = "tank_input_valve_mode"
+role = "setpoint"
+cited = "Configs.py TAG_LIST (output, PLC 1); Device.py _check_manual_input"
+quote = "if not self._check_manual_input(TAG.TAG_TANK_INPUT_VALVE_MODE, TAG.TAG_TANK_INPUT_VALVE_STATUS):"
+
+[[points]]
+signal = "tank_level_value"
+role = "sensor"
+cited = "Configs.py TAG_LIST (input, PLC 1); PLC1.py _logic"
+quote = "tank_level = self._get(TAG.TAG_TANK_LEVEL_VALUE)"
+
+[[points]]
+signal = "tank_level_min"
+role = "setpoint"
+cited = "Configs.py TAG_LIST (output, PLC 1); PLC1.py _logic"
+quote = "elif tank_level < self._get(TAG.TAG_TANK_LEVEL_MIN):"
+
+[[points]]
+signal = "tank_level_max"
+role = "setpoint"
+cited = "Configs.py TAG_LIST (output, PLC 1); PLC1.py _logic"
+quote = "if tank_level > self._get(TAG.TAG_TANK_LEVEL_MAX):"
+
+[[points]]
+signal = "tank_output_valve_status"
+role = "actuator"
+cited = "Configs.py TAG_LIST (output, PLC 1); PLC1.py _logic"
+quote = "self._set(TAG.TAG_TANK_OUTPUT_VALVE_STATUS, 1)"
+
+[[points]]
+signal = "tank_output_valve_mode"
+role = "setpoint"
+cited = "Configs.py TAG_LIST (output, PLC 1); Device.py _check_manual_input"
+quote = "if not self._check_manual_input(TAG.TAG_TANK_OUTPUT_VALVE_MODE, TAG.TAG_TANK_OUTPUT_VALVE_STATUS):"
+
+[[points]]
+signal = "tank_output_flow_value"
+role = "sensor"
+cited = "Configs.py TAG_LIST (input, PLC 1); PLC2.py _logic"
+quote = "flow = self._get(TAG.TAG_TANK_OUTPUT_FLOW_VALUE)"
+
+[[points]]
+signal = "conveyor_belt_engine_status"
+role = "actuator"
+cited = "Configs.py TAG_LIST (output, PLC 2); PLC2.py _logic"
+quote = "self._set(TAG.TAG_CONVEYOR_BELT_ENGINE_STATUS, 1)"
+
+[[points]]
+signal = "conveyor_belt_engine_mode"
+role = "setpoint"
+cited = "Configs.py TAG_LIST (output, PLC 2); Device.py _check_manual_input"
+quote = "if not self._check_manual_input(TAG.TAG_CONVEYOR_BELT_ENGINE_MODE, TAG.TAG_CONVEYOR_BELT_ENGINE_STATUS):"
+
+[[points]]
+signal = "bottle_level_value"
+role = "sensor"
+cited = "Configs.py TAG_LIST (input, PLC 2); PLC1.py _logic"
+quote = "bottle_level = self._get(TAG.TAG_BOTTLE_LEVEL_VALUE)"
+
+[[points]]
+signal = "bottle_level_max"
+role = "setpoint"
+cited = "Configs.py TAG_LIST (output, PLC 2); PLC1.py _logic"
+quote = "if bottle_level > self._get(TAG.TAG_BOTTLE_LEVEL_MAX) or belt_position > 1.0:"
+
+[[points]]
+signal = "bottle_distance_to_filler_value"
+role = "sensor"
+cited = "Configs.py TAG_LIST (input, PLC 2); PLC1.py _logic"
+quote = "belt_position = self._get(TAG.TAG_BOTTLE_DISTANCE_TO_FILLER_VALUE)"
+
+#  Control loops, one per sensor a control program reads before setting an actuator.
+
+[[loops]]
+name = "PLC1 input valve"
+cited = "PLC1.py _logic"
+statement = "the input valve closes above tank_level_max and opens below tank_level_min"
+reading = "tank_level_value"
+outputs = ["tank_input_valve_status"]
+setpoint = "tank_level_max"
+
+[[loops]]
+name = "PLC1 output valve on bottle level"
+cited = "PLC1.py _logic"
+statement = "the output valve closes when the bottle is full or away from the filler"
+reading = "bottle_level_value"
+outputs = ["tank_output_valve_status"]
+setpoint = "bottle_level_max"
+
+[[loops]]
+name = "PLC1 output valve on belt position"
+cited = "PLC1.py _logic"
+statement = "the output valve closes when the bottle is full or away from the filler"
+reading = "bottle_distance_to_filler_value"
+outputs = ["tank_output_valve_status"]
+
+[[loops]]
+name = "PLC2 conveyor on flow"
+cited = "PLC2.py _logic"
+statement = "the belt runs when the bottle is away from the filler, or no flow and the bottle full"
+reading = "tank_output_flow_value"
+outputs = ["conveyor_belt_engine_status"]
+
+[[loops]]
+name = "PLC2 conveyor on belt position"
+cited = "PLC2.py _logic"
+statement = "the belt runs when the bottle is away from the filler, or no flow and the bottle full"
+reading = "bottle_distance_to_filler_value"
+outputs = ["conveyor_belt_engine_status"]
+
+[[loops]]
+name = "PLC2 conveyor on bottle level"
+cited = "PLC2.py _logic"
+statement = "the belt runs when the bottle is away from the filler, or no flow and the bottle full"
+reading = "bottle_level_value"
+outputs = ["conveyor_belt_engine_status"]
+setpoint = "bottle_level_max"
