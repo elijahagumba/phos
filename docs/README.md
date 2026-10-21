@@ -95,6 +95,12 @@ was added; three routes are now mapped dead ends with the reasons recorded.
 > host: breadth caught 15 of 32 attacks and the frozen engine 16 of 32
 > ([ADR 0296](adr/0296-legal-flow-does-not-give-breadth-the-catches.md)). The stronger engine was
 > not reached. There is no successor plan on this page. The paragraphs above are left as written.
+>
+> **Successor, 21 October 2026 ([ADR 0298](adr/0298-five-questions-succeed-the-closed-stronger-engine-programme.md)).**
+> Five questions are now open. None is a claim that it will work. The first is whether a command
+> can be wrong while every sensor stays ordinary, and the first measurement is of the detector
+> we already have. A later evaluation, not yet run, passes only if a candidate catches more
+> attacks than that detector inside the same alert budget and does not raise more false alarms.
 
 [How the current detector entered the engine →](adr/0107-the-consistency-detector-enters-the-engine.md)
 
