@@ -319,6 +319,7 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0294](0294-three-rescues-are-refused-and-lane-2-stays-a-question.md) | The combined candidate is not assembled, the seen-corpora look is not taken, the delay-aware placement rule is not built, and lane 4's two scores are not both kept. Lane 2's plant-ratio attacker stays a future declaration | ADR 0273, ADR 0276, ADR 0285, ADR 0286, ADR 0288, ADR 0293 | 2026-10-21 | Accepted |
 | [0295](0295-legal-flow-biases-the-level-and-keeps-the-plants-own-flow.md) | `legal_flow` scales tank level by the fixed 3–8% band and sets outflow to the value ICSSim's physics would emit. Declared before any detector run. Held-out3 unopened | ADR 0122, ADR 0285, ADR 0294 | 2026-10-21 | Accepted |
 | [0296](0296-legal-flow-does-not-give-breadth-the-catches.md) | On dev3, breadth caught 15 of 32 attacks and the frozen engine 16 of 32. The first bar fails. `legal_flow` was 2 of 4 for each. The band was not changed | ADR 0295 | 2026-10-21 | Accepted |
+| [0297](0297-build-brief-e-is-closed-without-a-stronger-engine.md) | Build brief E is closed. The stronger engine was not reached. 0277–0284 stay unwritten and are not a queue. This record is not a new roadmap | ADR 0273, ADR 0276, ADR 0286, ADR 0288, ADR 0293, ADR 0294, ADR 0296 | 2026-10-21 | Accepted |
 
 ## Related reading
 

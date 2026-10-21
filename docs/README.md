@@ -90,6 +90,12 @@ attacker is a harder problem than the detector.
 All four results are on a simulated plant, which makes them diagnosis and not proof. One capability
 was added; three routes are now mapped dead ends with the reasons recorded.
 
+> **Closed, 21 October 2026 ([ADR 0297](adr/0297-build-brief-e-is-closed-without-a-stronger-engine.md)).**
+> The programme above is finished. The joint question was then asked on the attack this plant can
+> host: breadth caught 15 of 32 attacks and the frozen engine 16 of 32
+> ([ADR 0296](adr/0296-legal-flow-does-not-give-breadth-the-catches.md)). The stronger engine was
+> not reached. There is no successor plan on this page. The paragraphs above are left as written.
+
 [How the current detector entered the engine →](adr/0107-the-consistency-detector-enters-the-engine.md)
 
 <details>
