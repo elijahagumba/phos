@@ -168,6 +168,24 @@ SCENARIOS: dict[str, Scenario] = {
         ),
         events=9,
     ),
+    # ADR 0295. Ten events do not fit 9000 s at the declared maximum lengths, so this run is
+    # 10800 s. `mixed` and `mixed2` stay as they were.
+    "mixed3": Scenario(
+        duration_s=10800,
+        kinds=(
+            "setpoint",
+            "maintenance",
+            "liar_freeze",
+            "liar_offset",
+            "rogue_command",
+            "recon",
+            "replay",
+            "mimic_maintenance",
+            "creep_many",
+            "legal_flow",
+        ),
+        events=10,
+    ),
 }
 
 ATTACK_KINDS = {
@@ -178,6 +196,7 @@ ATTACK_KINDS = {
     "replay",
     "mimic_maintenance",
     "creep_many",
+    "legal_flow",
 }
 DURATIONS = {  # simulated seconds, (low, high)
     "setpoint": (1, 1),
@@ -189,6 +208,7 @@ DURATIONS = {  # simulated seconds, (low, high)
     "replay": (60, 180),
     "mimic_maintenance": (300, 900),
     "creep_many": (300, 900),
+    "legal_flow": (300, 900),
 }
 
 #: `creep_many` biases these continuous readings. ADR 0285.
@@ -202,8 +222,39 @@ CREEP_SIGNALS = (
 #: which is what a miscalibrated or tampered transmitter does. A statement about instruments, not
 #: about any detector's threshold, and never adjusted after one has been run. ADR 0285.
 CREEP_FRACTION = (0.03, 0.08)
+#: ICSSim bcfd184 `Configs.PHYSICS`. Flow is not a ratio of level: `FactorySimulation._logic`
+#: emits `TANK_OUTPUT_FLOW_RATE` when the output valve is open and the tank holds water, else 0.
+#: ADR 0295. These three numbers are the plant's, and they are not tuned on a detector.
+TANK_LEVEL_CAPACITY = 3.0
+TANK_MAX_LEVEL = 10.0
+TANK_OUTPUT_FLOW_RATE = 0.0001
+#: The same instrument band as `CREEP_FRACTION`, reused and not adjusted. ADR 0295.
+LEGAL_FLOW_FRACTION = CREEP_FRACTION
 WARMUP_S = 600  # no event in the first ten simulated minutes
 GAP_S = 300  # at least five minutes between events
+
+
+def reported_level(true_level: float, fraction: float) -> float:
+    """Return the level a `legal_flow` event reports.
+
+    The true level is scaled by ``1 + fraction`` and clamped to the plant's own range,
+    ``[0, TANK_MAX_LEVEL]``. The fraction is an instrument bias, not a detector threshold.
+    """
+    scaled = true_level * (1.0 + fraction)
+    return min(TANK_MAX_LEVEL, max(0.0, scaled))
+
+
+def legal_output_flow(reported_level_value: float, output_valve_open: bool) -> float:
+    """Return the flow ICSSim would emit for this reported level and valve.
+
+    At commit bcfd184, flow is `TANK_OUTPUT_FLOW_RATE` when the output valve is open and the
+    tank holds water, and 0 otherwise. Water held is ``reported_level * TANK_LEVEL_CAPACITY``.
+    A non-zero valve status is open, which is how ICSSim's ``if self._get(...)`` reads it.
+    """
+    amount = reported_level_value * TANK_LEVEL_CAPACITY
+    if output_valve_open and amount > 0.0:
+        return TANK_OUTPUT_FLOW_RATE
+    return 0.0
 
 
 def schedule(name: str, seed: int) -> list[Event]:
@@ -241,6 +292,8 @@ def schedule(name: str, seed: int) -> list[Event]:
         elif kind == "creep_many":
             chosen = rng.sample(CREEP_SIGNALS, rng.randint(3, len(CREEP_SIGNALS)))
             params = {tag: round(rng.uniform(*CREEP_FRACTION), 4) for tag in sorted(chosen)}
+        elif kind == "legal_flow":
+            params = {"fraction": round(rng.uniform(*LEGAL_FLOW_FRACTION), 4)}
         events.append(
             Event(
                 kind=kind,
@@ -458,6 +511,23 @@ class Harness:
                 self.clock.sleep_until(event.end)
                 for tag in event.params:
                     self.tampered.pop(str(tag), None)
+            elif k == "legal_flow":
+                fraction = float(event.params["fraction"])
+
+                def level_rule(value: float, bias: float = fraction) -> float:
+                    return reported_level(value, bias)
+
+                def flow_rule(_value: float, bias: float = fraction) -> float:
+                    state = self.store.snapshot()
+                    level = reported_level(float(state.get("tank_level_value", 0.0)), bias)
+                    valve_open = bool(state.get("tank_output_valve_status", 0.0))
+                    return legal_output_flow(level, valve_open)
+
+                self.tampered["tank_level_value"] = level_rule
+                self.tampered["tank_output_flow_value"] = flow_rule
+                self.clock.sleep_until(event.end)
+                self.tampered.pop("tank_level_value", None)
+                self.tampered.pop("tank_output_flow_value", None)
             elif k == "liar_offset":
                 offset = float(event.params["offset"])
                 self.tampered["tank_level_value"] = lambda v, o=offset: max(0.0, v - o)

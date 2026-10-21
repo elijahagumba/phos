@@ -314,6 +314,10 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0290](0290-bet-003-the-first-shift.md) | Bet 003 `atlas-first-shift`, bars frozen: A3's top-10% fraction is retired as an instrument because the shift queue is shorter than the budget; coverage, position, story and load replace it. Written as 0269 and renumbered on merge (ADR 0291) | ADR 0068, ADR 0164, ADR 0212, ADR 0230, ADR 0234 | 2026-10-20 | Accepted |
 
 | [0291](0291-the-colliding-adr-and-note-numbers-are-resolved.md) | Two branches each took ADRs 0268/0269 and notes 78/79 for different decisions; the pair committed first keeps them on three grounds, the other becomes 0289/0290 and notes 85/86, and the cause is recorded as unfixed | ADR 0044, ADR 0268, ADR 0269, ADR 0287, ADR 0289, ADR 0290 | 2026-10-21 | Accepted |
+| [0292](0292-a-number-another-branch-already-used-is-refused.md) | A change that adds an ADR or note number another branch already gave to a different file is refused. The settled collision is not reopened | ADR 0273, ADR 0291 | 2026-10-21 | Accepted |
+| [0293](0293-step-0284-would-reproduce-the-frozen-alerts-on-a-process-table.md) | As lane 1 is built, a process table with no command messages reproduces the frozen alerts. Shown on a hand-built matrix and the registry. The seen corpora were not opened. 0284 stays unspent | ADR 0040, ADR 0058, ADR 0276, ADR 0286 | 2026-10-21 | Accepted |
+| [0294](0294-three-rescues-are-refused-and-lane-2-stays-a-question.md) | The combined candidate is not assembled, the seen-corpora look is not taken, the delay-aware placement rule is not built, and lane 4's two scores are not both kept. Lane 2's plant-ratio attacker stays a future declaration | ADR 0273, ADR 0276, ADR 0285, ADR 0286, ADR 0288, ADR 0293 | 2026-10-21 | Accepted |
+| [0295](0295-legal-flow-biases-the-level-and-keeps-the-plants-own-flow.md) | `legal_flow` scales tank level by the fixed 3–8% band and sets outflow to the value ICSSim's physics would emit. Declared before any detector run. Held-out3 unopened | ADR 0122, ADR 0285, ADR 0294 | 2026-10-21 | Accepted |
 
 ## Related reading
 

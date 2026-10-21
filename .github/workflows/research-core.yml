@@ -51,3 +51,25 @@ jobs:
       - name: Cited evidence resolves
         if: github.repository == 'elijahagumba/phoslabs'
         run: uv run python scripts/audit_evidence.py --strict
+
+      # Lab only, for the same reason as the evidence gate. The public repository is a separate
+      # history and does not carry the lab branches a taken number would be hiding on.
+      - name: Fetch every branch so a taken number is visible
+        if: github.repository == 'elijahagumba/phoslabs'
+        run: git fetch --prune origin '+refs/heads/*:refs/remotes/origin/*'
+
+      - name: A new ADR or note number is not already taken
+        if: github.repository == 'elijahagumba/phoslabs'
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            FROM="origin/${BASE_REF}"
+          elif [ "$EVENT_BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            FROM="origin/main"
+          else
+            FROM="$EVENT_BEFORE"
+          fi
+          uv run python scripts/check_number_allocation.py --from "$FROM" --to HEAD

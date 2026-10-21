@@ -51,6 +51,17 @@ RUNS: dict[str, dict[str, object]] = {
         "directory": "phos-icssim-heldout2",
         "runs": [("mixed2", seed) for seed in range(96301, 96321)],
     },
+    # ADR 0295. `held-out3` may be generated and must not be opened until a declaration names
+    # the score. Generating is not opening. This session does not generate it.
+    "development3": {
+        "directory": "phos-icssim-dev3",
+        "runs": [("normal", seed) for seed in (96401, 96402, 96403)]
+        + [("mixed3", seed) for seed in range(96411, 96415)],
+    },
+    "held-out3": {
+        "directory": "phos-icssim-heldout3",
+        "runs": [("mixed3", seed) for seed in range(96501, 96521)],
+    },
 }
 
 

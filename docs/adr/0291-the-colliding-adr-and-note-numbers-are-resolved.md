@@ -69,6 +69,15 @@ problem.
 still private, nothing outside the project cites 0268, 0269, 78 or 79, and the export regenerates
 the tree wholesale.
 
+> **Correction, 21 October 2026.** The paragraph above was true when this decision was accepted.
+> Later the same day `github.com/elijahagumba/phos` was made public, and both the PHOS account and
+> the founder account posted the launch threads. The paragraph is left as written. The tree that
+> was published already carries the A7 pair under 0268 and 0269 and the second pair under 0289 and
+> 0290, in the export history's commit `96c73bf`. Publication did not reverse the assignment. What
+> changed is that the privacy premise is no longer current, so a later edit to those numbers would
+> be a public change.
+<!-- evidence-ack: 96c73bf — commit on elijahagumba/phos, whose history is the export and not this lab -->
+
 ## Consequences
 
 The renumbered records sit out of date order in `encyclopedia/12-adr-catalogue.md`, under their
@@ -86,6 +95,12 @@ numbers across branches, and `ls docs/adr/` on a branch is not evidence about `m
 reserved-number block (0273–0284) is the only mitigation in place and it covers one programme's
 steps, not unrelated work. A third instance should be treated as a tooling problem rather than
 another renumber.
+
+> **Correction, 21 October 2026.** The paragraph above was the state when this decision was
+> accepted. [ADR 0292](0292-a-number-another-branch-already-used-is-refused.md) is the check: a
+> change that adds a number another branch already gave to a different file is refused. The
+> paragraph is left as written. A third collision is still handled as tooling, which now means
+> fixing that check rather than renumbering around it.
 
 ## What would reverse this
 
