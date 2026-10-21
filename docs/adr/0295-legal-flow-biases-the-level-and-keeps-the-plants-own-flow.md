@@ -73,6 +73,10 @@ The attack the brief described as a ratio is not this plant. The attack this pla
 a level bias that keeps flow legal. Whether that is invisible per signal is what the command
 measures, and this record does not contain that measurement.
 
+> **Correction, 21 October 2026.** The development command has now been run. The result is
+> [ADR 0296](0296-legal-flow-does-not-give-breadth-the-catches.md). The paragraph above is left
+> as written. The fraction band was not changed.
+
 ## What would reverse this
 
 Changing 0.03, 0.08, 0.0001, 3, or 10 after a detector has run. Opening
