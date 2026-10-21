@@ -19,7 +19,7 @@ from phos.eval.baseline_table import (
     ROUTING_REGISTERS,
     CorpusReport,
 )
-from phos.eval.grouped_rows import GroupedRow
+from phos.eval.grouped_rows import GROUPED_CORPORA, GroupedRow, render_grouped_section
 
 CLEAN_CORPORA: tuple[str, ...] = ("hai-22.04", "hai-23.05")
 DECLARED_FEATURES = 86
@@ -190,6 +190,33 @@ def splice_clean_markdown(
     if "not on disk" in updated:
         raise ValueError("the clean splice left the not-on-disk sentence in place")
     return updated
+
+
+def render_published_grouped_section(
+    base: Sequence[GroupedRow], clean: Sequence[GroupedRow]
+) -> str:
+    """The grouped block of the G1 table, rendered from scored rows.
+
+    ``base`` is the five corpora in `GROUPED_CORPORA`. ``clean`` is HAI 22.04
+    then HAI 23.05, and neither is labelled seen. The five-corpus renderer says
+    those two editions are not scored; this replaces that sentence and inserts
+    their blocks before the notes. It does not read the committed markdown.
+
+    Raises:
+        ValueError: The rows are not those corpora, or a clean edition is labelled seen.
+    """
+    if tuple(row.corpus for row in base) != GROUPED_CORPORA:
+        raise ValueError("grouped rows are not the five published corpora, in order")
+    if tuple(row.corpus for row in clean) != CLEAN_CORPORA:
+        raise ValueError("the clean grouped rows are not hai-22.04 then hai-23.05")
+    if any(row.exposure is not None for row in clean):
+        raise ValueError("the clean HAI editions are not labelled seen")
+    text = render_grouped_section(base)
+    if text.count(_GROUPED_SENTENCE) != 1:
+        raise ValueError("the grouped renderer did not name the clean editions once")
+    text = text.replace(_GROUPED_SENTENCE, _GROUPED_REPLACEMENT, 1)
+    block = "\n".join(_grouped_block(row) for row in clean)
+    return _insert_before_line(text, "## Grouped notes", block)
 
 
 def splice_clean_json(text: str, reports: Sequence[CorpusReport]) -> str:

@@ -37,4 +37,4 @@ Telemetry is scored through `LabelledCsvAdapter` unchanged. Sentiel is scored th
 
 The 2–3 Atlas alerts/day and Sentiel 30–50 alerts/day numbers are **not claimed** by generating this library. They are claimed only when a harness row on the relevant corpus says so.
 
-Plain-English walkthrough: [easy to reads/14](<../easy to reads/14-the-dataset-library-is-not-a-public-corpus.md>).
+Plain-English walkthrough: easy to reads/14 (lab record, not published).

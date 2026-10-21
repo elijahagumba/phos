@@ -20,7 +20,7 @@ from phos.eval.g1_record import (
 
 def test_a_matching_recompute_of_every_corpus_returns_the_committed_table() -> None:
     fresh, recorded, markdown = _fixture()
-    rebuilt = rebuild_markdown(markdown, recorded, fresh)
+    rebuilt = rebuild_markdown(markdown, recorded, fresh, _section(markdown))
     assert rebuilt == markdown
     assert "| hai-21.03 | yes | g1-baseline:atlas-mahalanobis | engine | 7 | 50 |" in rebuilt
     assert "| batadal | yes | g1-baseline:atlas-mahalanobis | engine | 5 | 5 |" in rebuilt
@@ -32,7 +32,7 @@ def test_a_development_mismatch_does_not_return_a_table() -> None:
     changed = dict(fresh)
     changed["hai-20.07"] = _report("hai-20.07", True, "scored", caught=8, attacks=38)
     with pytest.raises(RecordMismatchError, match=r"hai-20\.07 corpus detector 0 caught"):
-        rebuild_markdown(markdown, recorded, changed)
+        rebuild_markdown(markdown, recorded, changed, _section(markdown))
 
 
 def test_a_validation_mismatch_does_not_return_a_table() -> None:
@@ -40,20 +40,42 @@ def test_a_validation_mismatch_does_not_return_a_table() -> None:
     changed = dict(fresh)
     changed["hai-21.03"] = _report("hai-21.03", True, "scored", caught=8, attacks=50)
     with pytest.raises(RecordMismatchError, match=r"hai-21\.03 corpus detector 0 caught"):
-        rebuild_markdown(markdown, recorded, changed)
+        rebuild_markdown(markdown, recorded, changed, _section(markdown))
 
 
 def test_a_missing_validation_recompute_is_refused() -> None:
     fresh, recorded, markdown = _fixture()
     del fresh["batadal"]
     with pytest.raises(RecordMismatchError, match="not every published corpus"):
-        rebuild_markdown(markdown, recorded, fresh)
+        rebuild_markdown(markdown, recorded, fresh, _section(markdown))
+
+
+def test_a_different_grouped_section_is_not_taken_from_the_committed_file() -> None:
+    """The committed grouped block is the comparison. A rendered one that differs is refused."""
+    fresh, recorded, markdown = _fixture()
+    with pytest.raises(RecordMismatchError, match="rebuilding the table"):
+        rebuild_markdown(markdown, recorded, fresh, f"{GROUPED_HEADING}\n\nother\n")
+
+
+def test_the_grouped_block_is_rendered_by_the_baseline_command() -> None:
+    from pathlib import Path
+
+    record = Path("src/phos/eval/g1_record.py").read_text(encoding="utf-8")
+    command = Path("scripts/measure_baseline_table.py").read_text(encoding="utf-8")
+    assert "committed_markdown[heading:]" not in record
+    assert "render_published_grouped_section" in command
 
 
 def test_development_and_validation_corpora_are_both_in_the_table() -> None:
     assert DEVELOPMENT_CORPORA == ("hai-20.07", "batch-distillation", "data4cyber")
     assert VALIDATION_CORPORA == ("hai-21.03", "hai-22.04", "hai-23.05", "batadal")
     assert TABLE_ORDER[0] == "hai-20.07"
+
+
+def _section(markdown: str) -> str:
+    start = markdown.find(GROUPED_HEADING)
+    assert start >= 0
+    return markdown[start:]
 
 
 def _fixture() -> tuple[

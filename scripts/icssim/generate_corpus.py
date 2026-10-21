@@ -29,7 +29,9 @@ ICSSIM_DIR = ROOT / "data" / "icssim-source"  # under data/, so git never sees i
 VENV = ICSSIM_DIR / "venv"
 DEPENDENCIES = ("pyModbusTCP==0.3.1", "python-memcached==1.62")
 
-#: The declared runs (ADR 0122). Seeds are fixed here, before any run is scored.
+#: The declared runs (ADR 0122, extended by ADR 0285). Seeds are fixed here, before any run is
+#: scored. The ``2`` roles are the corpus with the `creep_many` class; the originals are frozen as
+#: the record lane 1's held-out score rests on (ADR 0276) and are never regenerated over.
 RUNS: dict[str, dict[str, object]] = {
     "development": {
         "directory": "phos-icssim-dev",
@@ -39,6 +41,15 @@ RUNS: dict[str, dict[str, object]] = {
     "held-out": {
         "directory": "phos-icssim-heldout",
         "runs": [("mixed", seed) for seed in range(96101, 96121)],
+    },
+    "development2": {
+        "directory": "phos-icssim-dev2",
+        "runs": [("normal", seed) for seed in (96201, 96202, 96203)]
+        + [("mixed2", seed) for seed in range(96211, 96221)],
+    },
+    "held-out2": {
+        "directory": "phos-icssim-heldout2",
+        "runs": [("mixed2", seed) for seed in range(96301, 96321)],
     },
 }
 

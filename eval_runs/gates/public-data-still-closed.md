@@ -23,7 +23,7 @@ Not a labelled command corpus.
 
 ## Track C
 
-Closed finding: [peer-baselining-gap.md](../../docs/data-campaign/peer-baselining-gap.md).
+Closed finding: peer-baselining-gap.md (lab record, not published).
 No downloads.
 
 ## Partner ICD

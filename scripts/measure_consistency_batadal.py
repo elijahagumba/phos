@@ -13,7 +13,7 @@ from __future__ import annotations
 import json
 import logging
 import sys
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any
@@ -65,10 +65,17 @@ BEST_CHECKED_OPPONENT = "g1-grouped:simple-minmax"
 ATTACKS = 5
 
 
-def main() -> None:
-    """Fit on BATADAL's training file, score its test file once, write one record."""
+def main(argv: Sequence[str] | None = None) -> None:
+    """Fit on BATADAL's training file, score its test file once, write one record.
+
+    ``--compare`` recomputes and checks the committed files. It does not write.
+    Without it, an existing output is still a refusal: this score is once.
+    """
+    from scripts.committed_record import require_match, wants_compare
+
     logging.basicConfig(level=logging.INFO, format="%(message)s")
-    if OUT.exists():
+    compare = wants_compare(argv)
+    if not compare and OUT.exists():
         raise SystemExit(f"{OUT.name} already exists; this run is once")
     missing = [str(path) for path in (TRAIN, TEST) if not path.is_file()]
     if missing:
@@ -136,9 +143,15 @@ def main() -> None:
             for row, feature, _score in cells
         ],
     }
-    OUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    MARKDOWN.write_text(_render(payload), encoding="utf-8")
-    print(_render(payload))
+    json_text = json.dumps(payload, indent=2) + "\n"
+    markdown = _render(payload)
+    if compare:
+        require_match(((OUT, json_text), (MARKDOWN, markdown)))
+        print(f"{OUT.name} matches the committed record")
+        return
+    OUT.write_text(json_text, encoding="utf-8")
+    MARKDOWN.write_text(markdown, encoding="utf-8")
+    print(markdown)
 
 
 def _replay_minmax(train: SeriesGrid, test: SeriesGrid) -> tuple[str, ...]:

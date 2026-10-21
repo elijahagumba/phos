@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""Regenerate the G1 table, then check every pinned v1 digit (ADR 0221, ADR 0263).
+"""Regenerate the v1 records that are computations, then check every pin (ADR 0268).
 
-The default command runs ``scripts/measure_baseline_table.py``, which recomputes every
-published G1 corpus from the files and writes the markdown only when it matches.
-It then checks each pinned result file's sha256 and digits. A passing row says
-``record intact``. ``--check-only`` skips the recompute.
+The default command runs the G1 table, including its grouped block, then
+``--compare`` on the A2 and consistency producers. Each of those writes only when
+the recompute equals the committed file, or, for ``--compare``, does not write
+at all. A mismatch is the result. The command then checks each pinned file's
+sha256 and digits. A passing check says ``record intact``. ``--check-only``
+skips every recompute and opens no corpus.
 
-The benchmark, A2, and consistency pins are still checks of the committed files.
-This command does not rescore those rows and does not write an evaluation log.
+The benchmark file is not regenerated. Its headline numbers are cited constants.
+This command does not write an evaluation log and does not open CERT.
 
 Usage::
 
@@ -30,6 +32,14 @@ from typing import Final
 ROOT: Final = Path(__file__).resolve().parents[1]
 PIN_RELATIVE: Final = "eval_runs/build/v1/tools/reproduce-pin.json"
 SCHEMA: Final = 1
+#: Producers the default command runs, in order. The benchmark script is not here:
+#: it cites frozen constants and does not recompute them (ADR 0268).
+RECOMPUTE: Final[tuple[tuple[str, tuple[str, ...]], ...]] = (
+    ("scripts/measure_baseline_table.py", ()),
+    ("scripts/measure_a2_status.py", ("--compare",)),
+    ("scripts/measure_consistency_batadal.py", ("--compare",)),
+    ("scripts/measure_consistency_identity.py", ("--compare",)),
+)
 
 # Result files only. A path under data/ is refused before it is opened.
 _DATA_PREFIX: Final = "data/"
@@ -204,28 +214,24 @@ def main(argv: Sequence[str] | None = None) -> int:
         argv: Arguments, excluding the program name. ``None`` reads ``sys.argv``.
 
     Returns:
-        ``0`` when every row is ``record intact``, ``1`` when a digit or checksum does not
-        match, ``2`` when the pin itself cannot be read.
+        ``0`` when every producer matched and every row is ``record intact``. A producer's
+        non-zero status is returned after the pin table is printed. ``1`` when a digit or
+        checksum does not match. ``2`` when the pin itself cannot be read.
     """
     parser = argparse.ArgumentParser(
-        description="Regenerate the G1 table, then check pinned v1 digits."
+        description="Regenerate computed v1 records, then check pinned digits."
     )
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--pin", type=Path, default=None)
     parser.add_argument(
         "--check-only",
         action="store_true",
-        help="check the pin without recomputing the G1 table",
+        help="check the pin without opening a corpus",
     )
     args = parser.parse_args(argv)
+    recompute_status = 0
     if not args.check_only and args.pin is None and args.root.resolve() == ROOT.resolve():
-        recompute = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / "measure_baseline_table.py")],
-            cwd=ROOT,
-            check=False,
-        )
-        if recompute.returncode != 0:
-            return recompute.returncode
+        recompute_status = _recompute()
     pin_path = args.pin if args.pin is not None else args.root / PIN_RELATIVE
     try:
         results = check_records(args.root, load_pin(pin_path))
@@ -233,7 +239,27 @@ def main(argv: Sequence[str] | None = None) -> int:
         sys.stderr.write(f"{error}\n")
         return 2
     sys.stdout.write(render_table(results))
+    if recompute_status != 0:
+        return recompute_status
     return 0 if all(item.ok for item in results) else 1
+
+
+def _recompute() -> int:
+    """Run each producer. Keep going after a mismatch so every record is reported.
+
+    Returns:
+        ``0`` when every producer matched. Otherwise the first non-zero status.
+    """
+    status = 0
+    for script, extra in RECOMPUTE:
+        completed = subprocess.run(
+            [sys.executable, str(ROOT / script), *extra],
+            cwd=ROOT,
+            check=False,
+        )
+        if completed.returncode != 0 and status == 0:
+            status = completed.returncode
+    return status
 
 
 def _pinned(item: object) -> PinnedRecord:

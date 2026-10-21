@@ -1,13 +1,28 @@
 # Reproduce the v1 numbers
 
-One command recomputes the G1 baseline table from the files, then checks every pinned v1
-number against the committed record and prints a pass or fail table. A row that matches says
-`record intact`.
+One command rebuilds four of the five pinned v1 records from the corpora, then checks every
+pinned number against the committed record and prints a pass or fail table. A row that
+matches says `record intact`.
 
-The recompute is the G1 table (ADR 0263). The benchmark, A2 and consistency numbers are
-checked, not recomputed. v1's A7 asks for one command that regenerates every number, run by
-someone outside the project. This command does not yet regenerate every number, and an
-outside run has not happened, so A7 stays unmet (ADR 0230, ADR 0263).
+What it rebuilds (ADR 0268): the G1 baseline table including its grouped block, the A2
+status, and both consistency records. The first writes only when the rebuilt text equals the
+committed text; the other three run under `--compare` and write nothing at all. **A mismatch
+is the result** — it is not something to fix, and no committed digit is edited to make the
+command pass. On 20 October all four matched and all ten rows printed `record intact`
+(ADR 0269).
+
+What it does not rebuild: `eval_runs/benchmark/phos-benchmark-v1.json`. Its three headline
+numbers are constants in `src/phos/eval/benchmark.py` — HAI Mahalanobis 646.58, batch
+distillation 18.72, CERT 6B precision 0.104 at 48 alerts — and the project's own rule keeps
+those rows frozen, with any new result taking a new name. So they cannot be regenerated under
+their own names, only checked.
+
+v1's A7 asks for one command that regenerates *every* number, run by someone outside the
+project. Four records of five is not every, and no outside run has happened, so **A7 is not
+met** (ADR 0268, ADR 0269). Narrowing the sentence to the records that do rebuild would be a
+pass bought by rewording, which roadmap §5 forbids.
+
+You do not need CERT to run this command, and it will not open it.
 
 ## Install
 
@@ -32,10 +47,11 @@ You do not download anything to run the check. The committed records already nam
 | `eval_runs/v1/consistency-identity-hai.json` | The committed HAI 22.04 and 23.05 identity check |
 
 HAI 21.03, HAI 22.04, HAI 23.05, and BATADAL are validation corpora. The default command opens
-them once, inside `scripts/measure_baseline_table.py`, to recompute the G1 table and check it
-against the committed file (ADR 0263). It does not fetch them. `--check-only` does not open
-them. Where those datasets are described for a person who wants the bytes themselves, the list
-is `data/registry.json`.
+them, inside the four producers ADR 0268 names, to rebuild those records and check them against
+the committed files. Each such look is declared by commit beforehand and taken once; ADR 0263
+covered the G1 table, ADR 0268 covers this wider rebuild. It does not fetch them.
+`--check-only` runs no producer and opens no corpus. Where those datasets are described
+for a person who wants the bytes themselves, the list is `data/registry.json`.
 
 ## The command
 
@@ -50,8 +66,8 @@ uv run python scripts/reproduce_v1.py
 The table has three columns: `status`, `record`, `detail`.
 
 - `record intact` means the file is at the pinned path, its sha256 matches the pin in
-  `eval_runs/build/v1/tools/reproduce-pin.json`, and every pinned digit in it matches. The G1
-  recompute, when it ran, did not change those digits.
+  `eval_runs/build/v1/tools/reproduce-pin.json`, and every pinned digit in it matches. The
+  rebuilds, where they ran, did not change those digits.
 - `fail` means a checksum or a recorded digit does not match. The detail names the pointer, the
   digit in the file, and the pinned digit. The process exits with status 1.
 

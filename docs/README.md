@@ -56,6 +56,40 @@ perfect ordering reaches only 21 of 38. On simulated plants, a hostile command f
 plant already trusts is still not named, though the new evidence for it appeared on every hostile
 write and on no legitimate one ([ADR 0260](adr/0260-build-d-is-merged-and-its-bars-stand.md)).
 
+
+**Four attempts at a stronger engine, and the three that failed.** After v1 froze, four independent
+ideas were tried against a plant PHOS generated so that both the physics and the control traffic
+were recorded for the same minutes — something no public corpus provides. Each was measured against
+the frozen detector under the same alert budget, and each had its pass condition written down first.
+
+*Kept:* giving the engine the control traffic, so it can see that a station which never issues
+commands has started issuing them. On twenty runs it had never seen, attacks caught went from 49 of
+120 to **87 of 120**, and an attacker quietly mapping the plant from **0 of 20 to 20 of 20** — a
+thing no amount of watching the physics can see, because reading never moves the plant. The gain is
+**attribution**, and it is shallow by construction: an attacker working from the operator's own
+console defeats it. [ADR 0276](adr/0276-lane-1-met-its-bar-on-held-out-runs.md)
+
+*Refused:* a running tally of how wrong each instrument has been caught **53 of 70 attacks against
+32**, losing none, and took a frozen sensor from 1 of 10 to **10 of 10** — and it noticed about four
+seconds later, which its pass condition forbade. The reason it cannot be fixed by tuning is the
+finding: on a full alert budget, a new signal has to score high to win a slot at all, and scoring
+high is the same thing that makes it take over *when* the alert is raised.
+[ADR 0286](adr/0286-an-appended-column-cannot-win-a-slot-without-taking-the-alert.md)
+
+*Refused:* letting the prediction bend, so the engine stops being surprised by a valve that
+saturates or a controller in its deadband. False alarms on unseen quiet data fell from 28 a day to
+**20–24**, and attacks caught fell from 32 to **23–25** at every setting tried. The alarm is
+surprise; a crude model is surprised easily and a faithful one explains more of what it sees,
+including the attack. Part of the old detector's sensitivity was a side effect of its misfit.
+[ADR 0288](adr/0288-the-linear-predictors-misfit-is-load-bearing.md)
+
+*Untestable:* judging all the signals together needs an attack that is invisible in every single
+signal — one consistent with the plant's own correlations. No corpus contains one, and building that
+attacker is a harder problem than the detector.
+
+All four results are on a simulated plant, which makes them diagnosis and not proof. One capability
+was added; three routes are now mapped dead ends with the reasons recorded.
+
 [How the current detector entered the engine →](adr/0107-the-consistency-detector-enters-the-engine.md)
 
 <details>
@@ -119,9 +153,10 @@ dataset was made.
 
 [Read Bet 001: the second insider →](bets/001-the-second-insider.md)
 
-The bar Atlas and Sentiel v1 must clear was fixed before any comparison was run. As of 20 October
-2026, 8 of its 12 criteria are met, two that were scored once are not, and two are not yet
-measured.
+The bar Atlas and Sentiel v1 must clear was fixed before any comparison was run. As of 21 October
+2026, **8 of its 12** criteria are met. The four that are not — the alert queue's ranking, a
+reproduction anyone outside the project can run, Sentiel's second insider, and the onboarding
+trial — were each scored once and recorded as misses.
 
 [Read Bet 002: what v1 has to do, and where it stands →](bets/002-atlas-and-sentiel-v1.md)
 
@@ -139,7 +174,7 @@ row.
 
 ### Why it is built this way
 
-More than 180 design decisions, each with what was chosen, what was rejected and what it cost.
+More than 220 design decisions, each with what was chosen, what was rejected and what it cost.
 Several exist only to record a result that did not work. Five places to start:
 
 - [The joint model, and the model that lost](adr/0009-joint-modelling-per-signal-attribution-and-the-model-that-lost.md)
@@ -149,6 +184,29 @@ Several exist only to record a result that did not work. Five places to start:
 - [The false alarms were the model's, not the plant's](adr/0075-the-hai-false-alert-load-is-modelling-error-not-missing-evidence.md)
 
 [Browse every decision →](adr/)
+
+<br>
+
+<br>
+
+### What is not in this repository, and why
+
+This is the research record, not the whole lab. A few decision records cite documents that stay
+behind, so if a link or a filename here does not resolve, it is one of these rather than something
+missing:
+
+| Kept back | What it is |
+| --- | --- |
+| `PROGRESS.md` | The chronological build log. Long, internal, and superseded for any reader by the decision records themselves |
+| `encyclopedia/`, `easy to reads/` | The long-form reference and the plain-English walkthroughs. Written for whoever picks the work up next |
+| The agent rules and the build briefs | How the lab is driven: the always-apply rules, the role definitions and the guards that warn before a known mistake |
+| Commercial and partner material | What PHOS asks a design partner for, and how it intends to find one |
+| Every data payload | No corpus is committed. `data/` carries manifests with checksums, never the files. Several corpora are licence-barred from redistribution regardless |
+
+**Nothing load-bearing is behind that line.** Every number on these pages has its decision record
+and its result file in this repository, and `docs/reproduce.md` is the one command that rebuilds
+them. Where a claim rests on data that cannot be redistributed, the record says so and names the
+licence rather than quietly omitting it.
 
 <br>
 

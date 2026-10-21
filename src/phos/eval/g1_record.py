@@ -2,8 +2,9 @@
 
 Every corpus in the published order is checked against the committed JSON. This
 module does not open a data file. It returns a table only when the rebuilt text
-is identical to the committed markdown. The grouped section is copied from that
-markdown: this check is the ungrouped rows.
+is identical to the committed markdown. The grouped section is the block the
+caller rendered from the files. This module does not copy it out of the
+committed markdown.
 """
 
 from __future__ import annotations
@@ -84,26 +85,29 @@ def rebuild_markdown(
     committed_markdown: str,
     recorded: Sequence[Mapping[str, object]],
     fresh: Mapping[str, CorpusReport],
+    grouped_section: str,
 ) -> str:
-    """Return the G1 markdown when every recomputed corpus matches the record.
+    """Return the G1 markdown when the recompute matches the committed record.
 
     ``fresh`` must contain every corpus in `TABLE_ORDER`. Each report is compared
-    with the committed JSON. The grouped section is copied from
-    ``committed_markdown``. The result is returned only when it equals that
-    markdown, so a caller that writes it does not change a recorded digit.
+    with the committed JSON. ``grouped_section`` is the grouped block rendered
+    from the files, starting at the grouped heading. The committed markdown is
+    the comparison, not the source of that block. The result is returned only
+    when it equals that markdown, so a caller that writes it does not change a
+    recorded digit.
 
     Raises:
-        RecordMismatchError: A corpus was not recomputed, a field differs, or the
-            rebuilt text would not equal the committed markdown.
+        RecordMismatchError: A corpus was not recomputed, a field differs, the
+            grouped section was not rendered, or the rebuilt text would not equal
+            the committed markdown.
     """
     problems = _recompute_problems(fresh, recorded)
     if problems:
         raise RecordMismatchError(problems)
+    if not grouped_section.startswith(GROUPED_HEADING):
+        raise RecordMismatchError(("the rendered grouped section has no grouped heading",))
     reports = tuple(fresh[name] for name in TABLE_ORDER)
-    heading = committed_markdown.find(GROUPED_HEADING)
-    if heading < 0:
-        raise RecordMismatchError(("the committed markdown has no grouped section",))
-    rebuilt = _join_grouped(render_report(reports), committed_markdown[heading:])
+    rebuilt = _join_grouped(render_report(reports), grouped_section)
     if rebuilt != committed_markdown:
         raise RecordMismatchError(
             (

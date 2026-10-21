@@ -292,12 +292,32 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0265](0265-the-always-apply-rules-load-themselves.md) | The always-apply rules load themselves: the bodies stay in `.cursor/rules/`, `docs/rules/*.md` symlinks to them, a committed root `CLAUDE.md` imports them, and the skills restate no figure | ADR 0044, ADR 0049 | 2026-10-20 | Accepted, amended |
 | [0266](0266-the-programme-counter-is-written-from-evidence-not-by-hand.md) | The programme counter is written from the repository's evidence by `scripts/roadmap_state.py`; the roadmap freeze narrows to the contract and stops pinning `current_session` | ADR 0049, ADR 0061, ADR 0265 | 2026-10-20 | Accepted |
 | [0267](0267-role-files-reach-the-public-tree.md) | Role files reach the public tree; absent experiment pins skip; the log prefix carries the lab digest and the exported digest | ADR 0118, ADR 0123 | 2026-10-20 | Accepted |
-| [0268](0268-the-build-record-reaches-the-public-tree.md) | The build record reaches the public tree, so the cited scorecard resolves; the failing pin is not made to skip | ADR 0044, ADR 0144, ADR 0267 | 2026-10-20 | Accepted |
-| [0269](0269-bet-003-the-first-shift.md) | Bet 003 `atlas-first-shift`, bars frozen: A3's top-10% fraction is retired as an instrument because the shift queue is shorter than the budget; coverage, position, story and load replace it | ADR 0068, ADR 0164, ADR 0212, ADR 0230, ADR 0234 | 2026-10-20 | Accepted |
+| [0268](0268-the-a7-regeneration-is-declared.md) | The A7 regeneration is declared: four producers recompute and compare, a mismatch is the result, the benchmark's three frozen constants are not regenerated, and A7 is therefore not met as frozen | ADR 0221, ADR 0263, ADR 0264 | 2026-10-20 | Accepted |
+| [0269](0269-the-a7-regeneration-matched.md) | The A7 regeneration matched all four rebuilt records, the grouped block included, so A1's copied-block caveat closes; A7 stays not met on the frozen benchmark constants and the outside run | ADR 0264, ADR 0268 | 2026-10-20 | Accepted |
+| [0270](0270-declared-new-destination-is-frozen.md) | Declared-new-destination is the second S3 challenger, frozen before any r4.2 look | ADR 0261, ADR 0202 | 2026-10-20 | Accepted |
+| [0271](0271-declared-new-destination-r42-is-declared.md) | The declared-new-destination shot on r4.2 is declared and not run | ADR 0270 | 2026-10-20 | Accepted |
+| [0272](0272-declared-new-destination-lost-the-r42-shot.md) | Declared-new-destination surfaced 21 distinct insiders against frozen 6B's 59, below its own chance null of 35.29 and a subset of 6B's set; S3 stays not met | ADR 0202, ADR 0270, ADR 0271 | 2026-10-20 | Accepted |
+| [0273](0273-the-stronger-engine-programme-is-declared.md) | The stronger-engine programme is declared: four lanes, the corpus first, ADR numbers 0273-0284 reserved so progress is read from the record, and v1 untouched | ADR 0106, ADR 0108, ADR 0122, ADR 0269 | 2026-10-20 | Accepted |
+| [0274](0274-the-icssim-corpus-exists-and-its-held-out-half-is-sealed.md) | The ICSSim corpus exists in two halves, 13 development and 20 held-out runs from one pinned generator, with both the readings and the control traffic for the same plant; written late, and carrying the macOS loopback failure that cost a whole generation run | ADR 0047, ADR 0112, ADR 0122, ADR 0143, ADR 0273 | 2026-10-21 | Accepted |
+| [0275](0275-lane-1-is-frozen-and-its-held-out-score-declared.md) | Lane 1 is frozen at two attribution components and its one held-out score declared; the response component was removed because mimic_maintenance and genuine maintenance are physically indistinguishable, making it a provenance attack for A5's CMMS inlet | ADR 0034, ADR 0069, ADR 0122, ADR 0273 | 2026-10-21 | Accepted |
+| [0276](0276-lane-1-met-its-bar-on-held-out-runs.md) | Lane 1 met its bar on the twenty held-out runs: 87 of 120 attacks against the frozen engine's 49, recon 0 to 20 of 20, benign alerts unchanged; the gain is attribution on a simulated plant, not the physics claim | ADR 0273, ADR 0275 | 2026-10-21 | Accepted |
+| [0285](0285-the-corpus-gains-a-coordinated-low-amplitude-class.md) | The ICSSim corpus gains `creep_many`, several instruments biased 3-8% of their own range at once, on new seeds in new directories; the existing corpus is frozen as the record lane 1's score rests on | ADR 0122, ADR 0273, ADR 0276 | 2026-10-21 | Accepted |
+
+| [0286](0286-an-appended-column-cannot-win-a-slot-without-taking-the-alert.md) | On a saturated budget an appended score column cannot win an alert slot without also becoming its group's `best` and re-placing that group's alert; found by lane 3, which caught 53 of 70 against 32 and still failed its delay bar at every setting | ADR 0122, ADR 0143, ADR 0273, ADR 0274, ADR 0285 | 2026-10-21 | Accepted |
+
+| [0287](0287-the-live-brief-is-discoverable-from-the-rules.md) | A seventh always-apply rule points at the live brief, because every other rule and the tracker still name P1 and none mentions build brief E, so a session in any tool concluded the project was parked; it lifts nothing | ADR 0044, ADR 0265, ADR 0273, ADR 0286 | 2026-10-21 | Accepted |
+
+| [0288](0288-the-linear-predictors-misfit-is-load-bearing.md) | Lane 4 swapped the ridge for a hinge basis: false alarms fell 28 to 20-24 a day out of sample and benign alerts 5 of 20 to 1 of 20, and catches fell 32 to 23-25 at every setting, because a faithful predictor also explains the attack; lane 4 not declared | ADR 0106, ADR 0143, ADR 0273, ADR 0274, ADR 0286 | 2026-10-21 | Accepted |
+
+| [0289](0289-the-build-record-reaches-the-public-tree.md) | The build record reaches the public tree, so the cited scorecard resolves; the failing pin is not made to skip. Written as 0268 and renumbered on merge (ADR 0291) | ADR 0044, ADR 0144, ADR 0267 | 2026-10-20 | Accepted |
+
+| [0290](0290-bet-003-the-first-shift.md) | Bet 003 `atlas-first-shift`, bars frozen: A3's top-10% fraction is retired as an instrument because the shift queue is shorter than the budget; coverage, position, story and load replace it. Written as 0269 and renumbered on merge (ADR 0291) | ADR 0068, ADR 0164, ADR 0212, ADR 0230, ADR 0234 | 2026-10-20 | Accepted |
+
+| [0291](0291-the-colliding-adr-and-note-numbers-are-resolved.md) | Two branches each took ADRs 0268/0269 and notes 78/79 for different decisions; the pair committed first keeps them on three grounds, the other becomes 0289/0290 and notes 85/86, and the cause is recorded as unfixed | ADR 0044, ADR 0268, ADR 0269, ADR 0287, ADR 0289, ADR 0290 | 2026-10-21 | Accepted |
 
 ## Related reading
 
 - [../atlas-report.md](../atlas-report.md) is the status report for the Atlas engine: what was
   built, what was measured, and what is honest about those numbers.
-- [../../PROGRESS.md](../../PROGRESS.md) is the chronological build log, one section per PART.
-- [../../encyclopedia/](../../encyclopedia/README.md) is the complete repository reference, including a one-paragraph catalogue of these records.
+- PROGRESS.md (lab record, not published) is the chronological build log, one section per PART.
+- encyclopedia/ (lab record, not published) is the complete repository reference, including a one-paragraph catalogue of these records.

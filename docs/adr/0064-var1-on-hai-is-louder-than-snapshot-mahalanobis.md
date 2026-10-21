@@ -5,7 +5,7 @@
 - **PART:** Engine week (public Atlas bakeoff)
 - **Supersedes:** nothing
 - **Depends on:** [ADR 0054](0054-var-residual-is-a-named-experiment.md),
-  [ADR 0009](0009-joint-models-explainability-and-the-pca-out-of-sample-failure.md)
+  [ADR 0009](0009-joint-modelling-per-signal-attribution-and-the-model-that-lost.md)
 
 ## Context
 

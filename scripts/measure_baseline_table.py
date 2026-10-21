@@ -1,11 +1,12 @@
-"""Regenerate the G1 baseline table from the files (ADR 0263).
+"""Regenerate the G1 baseline table from the files (ADR 0263, ADR 0268).
 
-Recomputes every published corpus, including hai-21.03, hai-22.04, hai-23.05 and
-batadal, and checks every published field against
-``eval_runs/v1/g1-baseline-table.json``. Writes the markdown only when the rebuilt
-text is the committed markdown, so no recorded digit changes. Does not append the
-experiment log and does not reuse a frozen result name. A missing validation file
-is a refusal, not a reprinted row.
+Recomputes every published corpus, grouped and ungrouped, including hai-21.03,
+hai-22.04, hai-23.05 and batadal. Checks every published field against
+``eval_runs/v1/g1-baseline-table.json``. The grouped block is rendered from
+those scores. Writes the markdown only when the rebuilt text is the committed
+markdown, so no recorded digit changes. Does not append the experiment log and
+does not reuse a frozen result name. A missing validation file is a refusal,
+not a reprinted row.
 """
 
 from __future__ import annotations
@@ -27,8 +28,10 @@ from phos.eval.baseline_table import (
     median_period_seconds,
     score_splits,
 )
+from phos.eval.clean_hai import render_published_grouped_section
 from phos.eval.datasets import _label_key, default_attack_when
 from phos.eval.g1_record import RecordMismatchError, corpora_from_json, rebuild_markdown
+from phos.eval.grouped_rows import GroupedRow
 
 logger = logging.getLogger(__name__)
 
@@ -58,72 +61,91 @@ def main() -> None:
     if not record_path.is_file() or not markdown_path.is_file():
         raise SystemExit("the committed G1 table is missing; nothing written")
     recorded_md = markdown_path.read_text(encoding="utf-8")
+    reports, grouped = _bundle()
     try:
         recorded = corpora_from_json(record_path.read_text(encoding="utf-8"))
-        rebuilt = rebuild_markdown(recorded_md, recorded, _reports())
+        rebuilt = rebuild_markdown(recorded_md, recorded, reports, grouped)
     except RecordMismatchError as error:
         raise SystemExit(f"not written:\n{error}") from error
     markdown_path.write_text(rebuilt, encoding="utf-8")
     print("g1 table matches the committed record")
 
 
-def _reports() -> dict[str, CorpusReport]:
-    """Score every corpus in the published table. A missing file is not a reprint."""
-    hai_2204, hai_2305 = _clean_reports()
-    return {
-        "hai-20.07": _hai(
-            "hai-20.07",
-            DATA / "hai-20.07",
-            ("train1.csv.gz", "train2.csv.gz"),
-            ("test1.csv.gz", "test2.csv.gz"),
-            sep=";",
-        ),
-        "hai-21.03": _hai(
-            "hai-21.03",
-            DATA / "hai-21.03",
-            ("train1.csv.gz", "train2.csv.gz", "train3.csv.gz"),
-            ("test1.csv.gz", "test2.csv.gz", "test3.csv.gz", "test4.csv.gz", "test5.csv.gz"),
-            sep=",",
-            extra_roots=((DATA / "hai", "hai-21.03-"),),
-        ),
-        "hai-22.04": hai_2204,
-        "hai-23.05": hai_2305,
-        "batadal": _prepared(
-            "batadal",
-            DATA / "batadal" / "batadal-train-prepared.csv",
-            DATA / "batadal" / "batadal-test-prepared.csv",
-            judges=True,
-            unscored=(),
-        ),
-        "batch-distillation": _prepared(
-            "batch-distillation",
-            DATA / "batch-distillation" / "batch-distillation-train-prepared.csv",
-            DATA / "batch-distillation" / "batch-distillation-test-prepared.csv",
-            judges=False,
-            unscored=("-1",),
-        ),
-        "data4cyber": _prepared(
-            "data4cyber",
-            DATA / "data4cyber" / "data4cyber-s0-train-prepared.csv",
-            DATA / "data4cyber" / "data4cyber-s1-test-prepared.csv",
-            judges=False,
-            unscored=(),
-        ),
+def _bundle() -> tuple[dict[str, CorpusReport], str]:
+    """Score every corpus, grouped and ungrouped. A missing file is not a reprint."""
+    hai_2007 = _hai(
+        "hai-20.07",
+        DATA / "hai-20.07",
+        ("train1.csv.gz", "train2.csv.gz"),
+        ("test1.csv.gz", "test2.csv.gz"),
+        sep=";",
+    )
+    hai_2103 = _hai(
+        "hai-21.03",
+        DATA / "hai-21.03",
+        ("train1.csv.gz", "train2.csv.gz", "train3.csv.gz"),
+        ("test1.csv.gz", "test2.csv.gz", "test3.csv.gz", "test4.csv.gz", "test5.csv.gz"),
+        sep=",",
+        extra_roots=((DATA / "hai", "hai-21.03-"),),
+    )
+    clean_2204, clean_2305 = _clean_reports()
+    batadal = _prepared(
+        "batadal",
+        DATA / "batadal" / "batadal-train-prepared.csv",
+        DATA / "batadal" / "batadal-test-prepared.csv",
+        judges=True,
+        unscored=(),
+    )
+    distillation = _prepared(
+        "batch-distillation",
+        DATA / "batch-distillation" / "batch-distillation-train-prepared.csv",
+        DATA / "batch-distillation" / "batch-distillation-test-prepared.csv",
+        judges=False,
+        unscored=("-1",),
+    )
+    data4cyber = _prepared(
+        "data4cyber",
+        DATA / "data4cyber" / "data4cyber-s0-train-prepared.csv",
+        DATA / "data4cyber" / "data4cyber-s1-test-prepared.csv",
+        judges=False,
+        unscored=(),
+    )
+    reports = {
+        "hai-20.07": hai_2007[0],
+        "hai-21.03": hai_2103[0],
+        "hai-22.04": clean_2204[0],
+        "hai-23.05": clean_2305[0],
+        "batadal": batadal[0],
+        "batch-distillation": distillation[0],
+        "data4cyber": data4cyber[0],
     }
+    base = _present((hai_2007[1], hai_2103[1], batadal[1], distillation[1], data4cyber[1]))
+    if base is None:
+        return reports, ""
+    return reports, render_published_grouped_section(base, (clean_2204[1], clean_2305[1]))
 
 
-def _clean_reports() -> tuple[CorpusReport, CorpusReport]:
+def _present(rows: tuple[GroupedRow | None, ...]) -> tuple[GroupedRow, ...] | None:
+    """The grouped rows, or None when any corpus had no file to score."""
+    found: list[GroupedRow] = []
+    for row in rows:
+        if row is None:
+            return None
+        found.append(row)
+    return tuple(found)
+
+
+def _clean_reports() -> tuple[tuple[CorpusReport, GroupedRow], tuple[CorpusReport, GroupedRow]]:
     """Score HAI 22.04 and 23.05 with the clean-run reader. The note text is that reader's."""
     if str(ROOT) not in sys.path:
         sys.path.insert(0, str(ROOT))
     from scripts.measure_clean_hai import _load, _score
 
-    reports: list[CorpusReport] = []
+    pairs: list[tuple[CorpusReport, GroupedRow]] = []
     for corpus in ("hai-22.04", "hai-23.05"):
         trains, tests = _load(corpus)
-        report, _grouped = _score(corpus, trains, tests)
-        reports.append(report)
-    return reports[0], reports[1]
+        pairs.append(_score(corpus, trains, tests))
+    return pairs[0], pairs[1]
 
 
 def _hai(
@@ -134,20 +156,21 @@ def _hai(
     *,
     sep: str,
     extra_roots: tuple[tuple[Path, str], ...] = (),
-) -> CorpusReport:
-    """Score one HAI version. A missing file makes the whole version not scored."""
+) -> tuple[CorpusReport, GroupedRow | None]:
+    """Score one HAI version, ungrouped and grouped. A missing file is not a reprint."""
     train_paths = [_resolve(directory, name, extra_roots) for name in trains]
     test_paths = [_resolve(directory, name, extra_roots) for name in tests]
     missing = [str(path) for path in (*train_paths, *test_paths) if not path.is_file()]
     if missing:
-        return _absent(corpus, "missing files: " + ", ".join(missing))
+        return _absent(corpus, "missing files: " + ", ".join(missing)), None
     logger.info("reading %s", corpus)
     try:
-        train_grids = [_read_hai(path, sep) for path in train_paths]
-        test_grids = [(path.name, _read_hai(path, sep)) for path in test_paths]
-        return _score(corpus, judges=True, trains=tuple(train_grids), tests=tuple(test_grids))
+        train_grids = tuple(_read_hai(path, sep) for path in train_paths)
+        test_grids = tuple((path.name, _read_hai(path, sep)) for path in test_paths)
+        report = _score(corpus, judges=True, trains=train_grids, tests=test_grids)
+        return report, _grouped(corpus, train_grids, test_grids)
     except (OSError, ValueError) as error:
-        return _absent(corpus, str(error))
+        return _absent(corpus, str(error)), None
 
 
 def _prepared(
@@ -157,18 +180,34 @@ def _prepared(
     *,
     judges: bool,
     unscored: tuple[str, ...],
-) -> CorpusReport:
-    """Score one prepared CSV pair. Distillation and Data4Cyber do not judge."""
+) -> tuple[CorpusReport, GroupedRow | None]:
+    """Score one prepared CSV pair, ungrouped and grouped. Distillation does not judge."""
     missing = [str(path) for path in (train, test) if not path.is_file()]
     if missing:
-        return _absent(corpus, "missing files: " + ", ".join(missing), judges=judges)
+        return _absent(corpus, "missing files: " + ", ".join(missing), judges=judges), None
     logger.info("reading %s", corpus)
     try:
         train_grid = _read_prepared(train, unscored)
         test_grid = _read_prepared(test, unscored)
-        return _score(corpus, judges=judges, trains=(train_grid,), tests=((test.name, test_grid),))
+        trains = (train_grid,)
+        tests = ((test.name, test_grid),)
+        report = _score(corpus, judges=judges, trains=trains, tests=tests)
+        return report, _grouped(corpus, trains, tests)
     except (OSError, ValueError) as error:
-        return _absent(corpus, str(error), judges=judges)
+        return _absent(corpus, str(error), judges=judges), None
+
+
+def _grouped(
+    corpus: str,
+    trains: tuple[SeriesGrid, ...],
+    tests: tuple[tuple[str, SeriesGrid], ...],
+) -> GroupedRow:
+    """Grouped scores for one corpus. Imported lazily: that module imports this one."""
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from scripts.measure_grouped_rows import _score as grouped_score
+
+    return grouped_score(corpus, trains, tests)
 
 
 def _score(

@@ -1,4 +1,8 @@
-# ADR 0269 — Bet 003: the first shift, and why A3's fraction was the wrong instrument
+# ADR 0290 — Bet 003: the first shift, and why A3's fraction was the wrong instrument
+
+> Written and committed as ADR 0269 on 2026-10-20 at 14:47, on a branch that was not merged at
+> the time. `main` had already taken 0269 for the A7 regeneration's verdict, so this record was
+> renumbered to 0290 when the branch merged. See [ADR 0291](0291-the-colliding-adr-and-note-numbers-are-resolved.md).
 
 - **Status:** Accepted. **The bars are frozen by Elijah's decision of 20 October 2026**, taken on
   the shape proposed here and before any `atlas-first-shift` measurement exists. From here, a bar

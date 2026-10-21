@@ -9,7 +9,7 @@
   [ADR 0018](0018-phase-conditional-modelling-for-a-batch-process.md),
   [ADR 0048](0048-distillation-declared-phase-is-louder.md),
   [ADR 0049](0049-split-scorecard-public-files-vs-partner.md),
-  [category-defining roadmap](../category-defining-roadmap.md)
+  category-defining roadmap (lab record, not published)
 
 ## Context
 

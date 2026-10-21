@@ -1,4 +1,8 @@
-# ADR 0268 — The build record reaches the public tree, and the scorecard link resolves
+# ADR 0289 — The build record reaches the public tree, and the scorecard link resolves
+
+> Written and committed as ADR 0268 on 2026-10-20 at 14:24, on a branch that was not merged at
+> the time. `main` had taken 0268 three minutes earlier for the A7 regeneration declaration, so
+> this record was renumbered to 0289 when the branch merged. See [ADR 0291](0291-the-colliding-adr-and-note-numbers-are-resolved.md).
 
 - **Status:** Accepted
 - **Date:** 2026-10-20

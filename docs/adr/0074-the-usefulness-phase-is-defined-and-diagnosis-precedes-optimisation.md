@@ -6,7 +6,7 @@
 - **Supersedes:** nothing
 - **Amends:** nothing. `docs/category-defining-roadmap.md` stands unchanged and `P1` remains the
   live category session.
-- **Depends on:** [ADR 0029](0029-a-synthetic-dataset-library-is-not-a-public-corpus.md),
+- **Depends on:** [ADR 0029](0029-synthetic-dataset-library-is-not-a-public-corpus.md),
   [ADR 0040](0040-no-labelled-public-command-corpus.md),
   [ADR 0049](0049-split-scorecard-public-files-vs-partner.md),
   [ADR 0061](0061-clock-a-published-partner-unearned.md),

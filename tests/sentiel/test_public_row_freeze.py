@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Final
 
 import pytest
+from tests.lab_only import TRACKER_ABSENT_REASON, skip_if_absent
 
 from phos.reasoning import INSUFFICIENT_EVIDENCE_TEMPLATE_ID
 from phos.sentiel import (
@@ -93,7 +94,12 @@ def _as_float(value: object, path: str) -> float:
 
 
 def _frozen_measurements() -> dict[str, object]:
-    """Load ``frozen_measurements`` from the live programme tracker."""
+    """Load ``frozen_measurements`` from the live programme tracker, or skip if it is not here.
+
+    The tracker is a forbidden path in `public/manifest.toml`, so in the public tree there is
+    nothing to read and this pin skips rather than failing someone's first `pytest`.
+    """
+    skip_if_absent(ROADMAP, TRACKER_ABSENT_REASON)
     payload = _as_mapping(json.loads(ROADMAP.read_text(encoding="utf-8")), ROADMAP.name)
     return _as_mapping(payload["frozen_measurements"], "frozen_measurements")
 

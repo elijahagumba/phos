@@ -94,5 +94,5 @@ The test suite needs no datasets. Public corpora are downloaded separately and n
   <sub>Atlas models industrial plants. Sentiel, its enterprise sibling, is research only.</sub><br>
   <sub>Built by one researcher with AI coding agents. Every published number reproduces from this repository and the public datasets it names.</sub><br>
   <sub>Source-available under the <a href="LICENSE">PolyForm Noncommercial License 1.0.0</a>. Commercial use requires a licence.</sub><br>
-  <sub>Phos Technologies Limited</sub>
+  <sub>PHOS</sub>
 </p>

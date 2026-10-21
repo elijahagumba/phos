@@ -25,7 +25,7 @@ or a human answer existed**. They did not.
    are not overwritten.
 3. **ICSSim** licence is read-once and identity unestablished. Not acquired. Not a
    command corpus.
-4. **Track C** peer corpora stay unfetched ([peer-baselining-gap.md](../../docs/data-campaign/peer-baselining-gap.md)).
+4. **Track C** peer corpora stay unfetched (peer-baselining-gap.md (lab record, not published)).
 5. **Partner ICD** is not started. Outreach has not returned a yes. P1 stays
    `blocked_human_conversation`. No TAP, API, UI, or Intelligence.
 6. **Command-lead 0/16** is not reopened. `discover_labelled_command_corpora` is still

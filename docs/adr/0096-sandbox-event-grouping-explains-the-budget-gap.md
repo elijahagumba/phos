@@ -19,7 +19,7 @@ recall within 8 alerts per 8-hour shift: 9/38 against 15/38 on HAI 20.07, 7/50 a
 on HAI 21.03. Elijah asked for an unconstrained attempt to improve Atlas and to see what
 happened. One agent was given a sandbox, a scorer it could not edit and HAI 20.07 to develop
 on, with HAI 21.03 held back and scored once at the end. The set-up, every file and every run
-are in [`experiments/2026-10-04-sandbox/`](../../experiments/2026-10-04-sandbox/README.md).
+are in `experiments/2026-10-04-sandbox/` (lab record, not published).
 
 ## Decision
 

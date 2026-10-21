@@ -3,7 +3,7 @@
 - **Status:** Accepted
 - **Date:** 2026-10-04
 - **PART:** v1, T1 declaration
-- **Depends on:** [ADR 0017](0017-attack-injection-preserves-determinism-truth-from-true-state-benign-events-interleaved.md)
+- **Depends on:** [ADR 0017](0017-the-breaking-harness-fingerprint-classification-and-judging-from-true-state.md)
 
 ## Context
 

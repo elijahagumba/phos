@@ -3,7 +3,7 @@
 - **Status:** Accepted
 - **Date:** 2026-10-04
 - **PART:** v1 roadmap week 1, step 2
-- **Depends on:** [ADR 0003](0003-eval-harness-and-metric-definitions.md)
+- **Depends on:** [ADR 0003](0003-window-level-recall-and-false-positives-per-normal-hour.md)
 
 ## Context
 

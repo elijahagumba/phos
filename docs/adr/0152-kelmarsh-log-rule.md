@@ -3,8 +3,8 @@
 - **Status:** Accepted (a declaration; this record has no alert count)
 - **Date:** 2026-10-17
 - **PART:** October 2026 build, lane B, A5 / W4
-- **Depends on:** [ADR 0112](0112-consistency-windows-scale-with-the-sample-period.md),
-  [ADR 0143](0143-the-plant-map-does-not-improve-detection.md),
+- **Depends on:** [ADR 0112](0112-consistency-windows-by-sample-period-and-one-batadal-score.md),
+  [ADR 0143](0143-the-plant-map-fails-the-gate.md),
   [ADR 0144](0144-the-october-build-is-declared.md)
 
 ## Context

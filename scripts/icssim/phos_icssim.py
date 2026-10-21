@@ -151,6 +151,23 @@ SCENARIOS: dict[str, Scenario] = {
         ),
         events=8,
     ),
+    # ADR 0285. A separate scenario, because a ninth event does not fit the frozen two-hour
+    # `mixed` run and that one must stay reproducible: lane 1's held-out score rests on it.
+    "mixed2": Scenario(
+        duration_s=9000,
+        kinds=(
+            "setpoint",
+            "maintenance",
+            "liar_freeze",
+            "liar_offset",
+            "rogue_command",
+            "recon",
+            "replay",
+            "mimic_maintenance",
+            "creep_many",
+        ),
+        events=9,
+    ),
 }
 
 ATTACK_KINDS = {
@@ -160,6 +177,7 @@ ATTACK_KINDS = {
     "recon",
     "replay",
     "mimic_maintenance",
+    "creep_many",
 }
 DURATIONS = {  # simulated seconds, (low, high)
     "setpoint": (1, 1),
@@ -170,7 +188,20 @@ DURATIONS = {  # simulated seconds, (low, high)
     "recon": (30, 120),
     "replay": (60, 180),
     "mimic_maintenance": (300, 900),
+    "creep_many": (300, 900),
 }
+
+#: `creep_many` biases these continuous readings. ADR 0285.
+CREEP_SIGNALS = (
+    "tank_level_value",
+    "tank_output_flow_value",
+    "bottle_level_value",
+    "bottle_distance_to_filler_value",
+)
+#: Multiplicative bias per affected instrument, drawn in this band: it reports value x (1 + f),
+#: which is what a miscalibrated or tampered transmitter does. A statement about instruments, not
+#: about any detector's threshold, and never adjusted after one has been run. ADR 0285.
+CREEP_FRACTION = (0.03, 0.08)
 WARMUP_S = 600  # no event in the first ten simulated minutes
 GAP_S = 300  # at least five minutes between events
 
@@ -207,6 +238,9 @@ def schedule(name: str, seed: int) -> list[Event]:
             params = {"offset": round(rng.uniform(1.0, 3.0), 2)}
         elif kind == "rogue_command":
             params = {"tag": rng.choice(["tank_input_valve_mode", "tank_output_valve_mode"])}
+        elif kind == "creep_many":
+            chosen = rng.sample(CREEP_SIGNALS, rng.randint(3, len(CREEP_SIGNALS)))
+            params = {tag: round(rng.uniform(*CREEP_FRACTION), 4) for tag in sorted(chosen)}
         events.append(
             Event(
                 kind=kind,
@@ -416,6 +450,14 @@ class Harness:
                 self.tampered["tank_level_value"] = lambda _v, f=frozen: f
                 self.clock.sleep_until(event.end)
                 self.tampered.pop("tank_level_value", None)
+            elif k == "creep_many":
+                for tag, fraction in event.params.items():
+                    self.tampered[str(tag)] = (
+                        lambda v, f=float(fraction): v * (1.0 + f)  # type: ignore[misc]
+                    )
+                self.clock.sleep_until(event.end)
+                for tag in event.params:
+                    self.tampered.pop(str(tag), None)
             elif k == "liar_offset":
                 offset = float(event.params["offset"])
                 self.tampered["tank_level_value"] = lambda v, o=offset: max(0.0, v - o)

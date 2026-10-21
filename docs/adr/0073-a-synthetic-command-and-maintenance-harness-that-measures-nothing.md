@@ -8,7 +8,7 @@
   [ADR 0015](0015-simulated-plants-the-injection-hook-and-the-true-state-record.md),
   [ADR 0016](0016-the-graded-attack-library-flavour-separation-and-the-anti-fingerprint-discipline.md),
   [ADR 0027](0027-unknown-master-writes-are-not-maintenance.md),
-  [ADR 0029](0029-a-synthetic-dataset-library-is-not-a-public-corpus.md),
+  [ADR 0029](0029-synthetic-dataset-library-is-not-a-public-corpus.md),
   [ADR 0040](0040-no-labelled-public-command-corpus.md),
   [ADR 0059](0059-explanation-geometry-and-work-order-inlet.md),
   [ADR 0069](0069-cmms-exports-reach-the-work-order-inlet.md)

@@ -39,8 +39,20 @@ black logo on a white sheet.
    - the boundary card adds "names the lying sensor, on simulated plants", and rewords the
      maintenance limit to what is still true: it cannot close a maintenance alert without the
      work order.
-4. **The README footer names the company**, Phos Technologies Limited. Prose carries no em
-   dashes.
+4. **The README footer names the company.** Prose carries no em dashes.
+
+> **Correction, 21 October 2026.** Point 4 named a company entity when this record was accepted.
+> The name has been removed from the line above rather than struck through beneath it, because
+> Elijah directed that it appear in no documentation and this record is exported to the public
+> tree. What the decision said is preserved: the footer named the company. What it named does not
+> appear here.
+>
+> Elijah directed that no documentation name a company entity, so the README footer
+> carries the project name, `PHOS`, and no legal suffix. `brand/phos_pdf.py`'s footer constant and
+> its own house-style rules were changed to match, which applies to every document the builder
+> produces from now on, and the entity name was removed from the outreach drafts in
+> `docs/data-campaign/outreach.md` as well. The rest of this record stands: the footer still names
+> the project at left with an em-dashed page number at right, and prose still carries no em dashes.
 
 ## Consequences
 

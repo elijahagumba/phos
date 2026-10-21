@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import logging
 import sys
+from collections.abc import Sequence
 from pathlib import Path
 
 import numpy
@@ -91,10 +92,17 @@ EXPOSURE: dict[str, str] = {
 ORDER = ("hai-20.07", "hai-21.03", "hai-22.04", "hai-23.05", "batadal")
 
 
-def main() -> None:
-    """Score two HAI editions, draw three chance rows, and write the five-corpus table."""
+def main(argv: Sequence[str] | None = None) -> None:
+    """Score two HAI editions, draw three chance rows, and write the five-corpus table.
+
+    ``--compare`` recomputes and checks the committed files. It does not write.
+    Without it, an existing output is still a refusal: this score is once.
+    """
+    from scripts.committed_record import require_match, wants_compare
+
     logging.basicConfig(level=logging.INFO, format="%(message)s")
-    if OUT.exists():
+    compare = wants_compare(argv)
+    if not compare and OUT.exists():
         raise SystemExit(f"{OUT.name} already exists; this run is once")
     caught: dict[str, tuple[int, int, str]] = dict(PUBLISHED_CONSISTENCY)
     chance: dict[str, dict[str, float | int]] = dict(PUBLISHED_CHANCE)
@@ -148,9 +156,15 @@ def main() -> None:
         ),
         "sandbox_reproduced": reproduced,
     }
-    OUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    MARKDOWN.write_text(_render(payload), encoding="utf-8")
-    print(_render(payload))
+    json_text = json.dumps(payload, indent=2) + "\n"
+    markdown = _render(payload)
+    if compare:
+        require_match(((OUT, json_text), (MARKDOWN, markdown)))
+        print(f"{OUT.name} matches the committed record")
+        return
+    OUT.write_text(json_text, encoding="utf-8")
+    MARKDOWN.write_text(markdown, encoding="utf-8")
+    print(markdown)
 
 
 def _score(trains: list[SeriesGrid], tests: list[tuple[str, SeriesGrid]]) -> tuple[int, int]:

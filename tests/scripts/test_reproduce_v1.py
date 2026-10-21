@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
 from scripts.reproduce_v1 import (
     PIN_RELATIVE,
+    RECOMPUTE,
     Check,
     PinnedRecord,
     canonical_digit,
@@ -121,6 +123,41 @@ def test_script_does_not_name_the_evaluation_log() -> None:
     assert "log.jsonl" not in text
     assert "write_text" not in text
     assert "open(" not in text
+
+
+def test_the_default_command_recomputes_four_records_and_not_the_benchmark(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """The benchmark script cites constants. It is not a producer."""
+    calls: list[list[str]] = []
+
+    def fake_run(argv: list[str], **_kwargs: object) -> subprocess.CompletedProcess[bytes]:
+        calls.append(list(argv))
+        return subprocess.CompletedProcess(argv, 0)
+
+    monkeypatch.setattr("scripts.reproduce_v1.subprocess.run", fake_run)
+    assert main([]) == 0
+    joined = [" ".join(call) for call in calls]
+    assert any(script.endswith("measure_baseline_table.py") for script in joined)
+    assert any("measure_a2_status.py" in script and "--compare" in script for script in joined)
+    assert any(
+        "measure_consistency_batadal.py" in script and "--compare" in script for script in joined
+    )
+    assert any(
+        "measure_consistency_identity.py" in script and "--compare" in script for script in joined
+    )
+    assert all("evaluate_phos_benchmark.py" not in script for script in joined)
+    assert "record intact" in capsys.readouterr().out
+    names = tuple(script for script, _extra in RECOMPUTE)
+    assert "scripts/evaluate_phos_benchmark.py" not in names
+
+
+def test_check_only_does_not_start_a_producer(monkeypatch: pytest.MonkeyPatch) -> None:
+    def fail(*_args: object, **_kwargs: object) -> subprocess.CompletedProcess[bytes]:
+        raise AssertionError("check-only started a process")
+
+    monkeypatch.setattr("scripts.reproduce_v1.subprocess.run", fail)
+    assert main(["--root", str(ROOT), "--check-only"]) == 0
 
 
 def test_committed_pin_matches_the_checkout(capsys: pytest.CaptureFixture[str]) -> None:

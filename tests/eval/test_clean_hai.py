@@ -24,6 +24,7 @@ from phos.eval.clean_hai import (
     features_hai_2204,
     features_hai_2305,
     label_columns_hai_2305,
+    render_published_grouped_section,
     splice_clean_json,
     splice_clean_markdown,
 )
@@ -89,6 +90,23 @@ def test_the_splice_fills_the_placeholders_and_keeps_the_published_row() -> None
     assert "hai-23.05: beyond grouping 1" in updated
     assert "are not labelled seen" in updated
     assert "not scored" in text
+
+
+def test_the_published_grouped_section_is_rendered_from_the_rows() -> None:
+    """Clean editions are inserted. The committed markdown is not an input."""
+    base = tuple(
+        _grouped(corpus, -1, "seen" if corpus in {"hai-20.07", "hai-21.03"} else None)
+        for corpus in GROUPED_CORPORA
+    )
+    clean = (_grouped("hai-22.04", -5), _grouped("hai-23.05", -1))
+    text = render_published_grouped_section(base, clean)
+    assert "HAI 22.04 and 23.05 are not scored here." not in text
+    assert "are the clean run, scored once, and are not labelled seen." in text
+    assert text.index("hai-23.05: beyond grouping -1") < text.index("## Grouped notes")
+    assert "- **hai-20.07**:" in text
+    assert "- **hai-22.04**:" not in text
+    with pytest.raises(ValueError, match="not labelled seen"):
+        render_published_grouped_section(base, (_grouped("hai-22.04", -5, "seen"), clean[1]))
 
 
 def test_the_json_splice_leaves_a_frozen_float_byte_for_byte() -> None:
@@ -208,7 +226,7 @@ def _report(corpus: str, caught: int, attacks: int) -> CorpusReport:
     )
 
 
-def _grouped(corpus: str, gap: int) -> GroupedRow:
+def _grouped(corpus: str, gap: int, exposure: str | None = None) -> GroupedRow:
     score = DetectorScore(
         detector=GROUPED_ATLAS,
         attacks=10,
@@ -234,7 +252,7 @@ def _grouped(corpus: str, gap: int) -> GroupedRow:
     )
     return GroupedRow(
         corpus=corpus,
-        exposure=None,
+        exposure=exposure,
         scores=(score, *opponents),
         beyond_grouping=gap,
         attacks_only_grouped_atlas=(),

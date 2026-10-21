@@ -4,7 +4,7 @@
 - **Date:** 2026-08-23
 - **PART:** Category programme Session C0
 - **Supersedes:** the single-stamp reading of
-  [cycle-eom-targets](../../.cursor/rules/cycle-eom-targets.mdc) that treated
+  cycle-eom-targets (lab record, not published) that treated
   ≤2–3 Atlas pages/day, ≥70% command lead on every public capture, and ≥10×
   joint reduction on every dataset as this cycle's pass/fail on public ZIPs.
   Frozen measurements (0/16, 1/4, CERT 6B, distillation 18.72, ADR 0040/0046/0047/0048)
@@ -12,7 +12,7 @@
 - **Depends on:** [ADR 0040](0040-no-labelled-public-command-corpus.md),
   [ADR 0044](0044-public-surfaces-on-main-must-move-with-every-advancement.md),
   [ADR 0048](0048-distillation-declared-phase-is-louder.md),
-  [category-defining roadmap](../category-defining-roadmap.md)
+  category-defining roadmap (lab record, not published)
 
 ## Context
 
