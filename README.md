@@ -64,7 +64,7 @@
 
 PHOS is looking for its first plant to run alongside, passively, learning from historian data and a
 copy of the network traffic. If you operate or secure an industrial site and want to see what Atlas
-makes of it, write to [elijah.phosfounder@proton.me](mailto:elijah.phosfounder@proton.me).
+makes of it, write to [elijahagumba.research@proton.me](mailto:elijahagumba.research@proton.me).
 
 <br>
 
