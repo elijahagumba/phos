@@ -62,27 +62,6 @@ RUNS: dict[str, dict[str, object]] = {
         "directory": "phos-icssim-heldout3",
         "runs": [("mixed3", seed) for seed in range(96501, 96521)],
     },
-    # ADR 0301. `held-out4` may be generated and must not be opened until a declaration names
-    # the score. `development4-walk` and `held-out4-walk` stay ungenerated unless that record's
-    # champion gate is open. This session does not generate any of them.
-    "development4": {
-        "directory": "phos-icssim-dev4",
-        "runs": [("normal", seed) for seed in (96601, 96602, 96603)]
-        + [("in_range", seed) for seed in range(96611, 96619)],
-    },
-    "held-out4": {
-        "directory": "phos-icssim-heldout4",
-        "runs": [("in_range", seed) for seed in range(96701, 96721)],
-    },
-    "development4-walk": {
-        "directory": "phos-icssim-dev4-walk",
-        "runs": [("normal", seed) for seed in (96801, 96802, 96803)]
-        + [("subfloor", seed) for seed in range(96811, 96819)],
-    },
-    "held-out4-walk": {
-        "directory": "phos-icssim-heldout4-walk",
-        "runs": [("subfloor", seed) for seed in range(96901, 96921)],
-    },
 }
 
 
