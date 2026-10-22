@@ -186,6 +186,19 @@ SCENARIOS: dict[str, Scenario] = {
         ),
         events=10,
     ),
+    # ADR 0301. A setpoint inside the ordinary band, with the input valve held off.
+    # `mixed`, `mixed2`, and `mixed3` stay as they were.
+    "in_range": Scenario(
+        duration_s=4 * 3600,
+        kinds=("setpoint", "maintenance", "in_range_command"),
+        events=6,
+    ),
+    # ADR 0301. Fallback only. Not generated unless that record's gate is open.
+    "subfloor": Scenario(
+        duration_s=2 * 3600,
+        kinds=("setpoint", "maintenance", "subfloor_walk"),
+        events=4,
+    ),
 }
 
 ATTACK_KINDS = {
@@ -197,6 +210,8 @@ ATTACK_KINDS = {
     "mimic_maintenance",
     "creep_many",
     "legal_flow",
+    "in_range_command",
+    "subfloor_walk",
 }
 DURATIONS = {  # simulated seconds, (low, high)
     "setpoint": (1, 1),
@@ -209,7 +224,18 @@ DURATIONS = {  # simulated seconds, (low, high)
     "mimic_maintenance": (300, 900),
     "creep_many": (300, 900),
     "legal_flow": (300, 900),
+    "in_range_command": (60, 180),
+    "subfloor_walk": (720, 720),
 }
+
+#: The band a benign `setpoint` already writes into `tank_level_max`. ADR 0301 uses the same
+#: band for `in_range_command` and as the ends of `subfloor_walk`. It is not a second band.
+SETPOINT_BAND = (6.5, 7.5)
+#: Mode values this generator already writes to hold a valve and to release it.
+VALVE_FORCE_OFF = 1
+VALVE_RELEASE = 3
+#: Equal steps in `subfloor_walk`, one per simulated second. The harness floor of 720.
+SUBFLOOR_STEPS = 720
 
 #: `creep_many` biases these continuous readings. ADR 0285.
 CREEP_SIGNALS = (
@@ -284,7 +310,22 @@ def schedule(name: str, seed: int) -> list[Event]:
         previous_cut = cut
         params: dict[str, float | str] = {}
         if kind == "setpoint":
-            params = {"tag": "tank_level_max", "value": round(rng.uniform(6.5, 7.5), 2)}
+            params = {"tag": "tank_level_max", "value": round(rng.uniform(*SETPOINT_BAND), 2)}
+        elif kind == "in_range_command":
+            params = {
+                "tag": "tank_level_max",
+                "value": round(rng.uniform(*SETPOINT_BAND), 2),
+                "hold_tag": "tank_input_valve_mode",
+                "hold_value": float(VALVE_FORCE_OFF),
+                "release_value": float(VALVE_RELEASE),
+            }
+        elif kind == "subfloor_walk":
+            params = {
+                "tag": "tank_level_max",
+                "start": SETPOINT_BAND[0],
+                "end": SETPOINT_BAND[1],
+                "steps": float(SUBFLOOR_STEPS),
+            }
         elif kind == "liar_offset":
             params = {"offset": round(rng.uniform(1.0, 3.0), 2)}
         elif kind == "rogue_command":
@@ -491,13 +532,29 @@ class Harness:
             k = event.kind
             if k == "setpoint":
                 send(operator, str(event.params["tag"]), float(event.params["value"]))
+            elif k == "in_range_command":
+                send(operator, str(event.params["hold_tag"]), float(event.params["hold_value"]))
+                send(operator, str(event.params["tag"]), float(event.params["value"]))
+                self.clock.sleep_until(event.end)
+                send(operator, str(event.params["hold_tag"]), float(event.params["release_value"]))
+            elif k == "subfloor_walk":
+                tag = str(event.params["tag"])
+                start_v = float(event.params["start"])
+                end_v = float(event.params["end"])
+                steps = int(event.params["steps"])
+                span = end_v - start_v
+                for i in range(steps):
+                    self.clock.sleep_until(event.start + i)
+                    if stop.is_set() or self.clock.elapsed() >= event.end:
+                        return
+                    send(operator, tag, start_v + span * i / steps)
             elif k in ("maintenance", "mimic_maintenance"):
                 side = operator  # mimic: the attacker uses the compromised console itself
-                send(side, "tank_output_valve_mode", 1)
+                send(side, "tank_output_valve_mode", VALVE_FORCE_OFF)
                 if k == "maintenance":
                     self._work_order(event)
                 self.clock.sleep_until(event.end)
-                send(side, "tank_output_valve_mode", 3)
+                send(side, "tank_output_valve_mode", VALVE_RELEASE)
             elif k == "liar_freeze":
                 frozen = self.store.get("tank_level_value")
                 self.tampered["tank_level_value"] = lambda _v, f=frozen: f
