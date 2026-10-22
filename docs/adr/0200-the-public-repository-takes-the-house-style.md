@@ -53,6 +53,14 @@ black logo on a white sheet.
 > produces from now on, and the entity name was removed from the outreach drafts in
 > `docs/data-campaign/outreach.md` as well. The rest of this record stands: the footer still names
 > the project at left with an em-dashed page number at right, and prose still carries no em dashes.
+>
+> **Correction, 22 October 2026.** Elijah asked for the plates to be drawn as a briefing: dark,
+> square, and made of charts and graphs. The white logo stays once, on the cover. One blue,
+> `#2D72D2`, is data ink only. It marks a recorded count, and the engine that exists. It does not
+> colour a heading, and it does not choose between two tied explanations. 131 and 52 share a scale
+> of 160. The three marks under that chart are each scaled to their own count, and the plate says
+> so. The tied alert is a graph: two solid edges from one fact, an open node with no edge, and a
+> dashed edge that stops short of the fact that would decide it. No new measurement. No second logo.
 
 ## Consequences
 

@@ -1,23 +1,23 @@
 <p align="center">
-  <img src=".github/assets/readme/hero.svg" width="600" alt="PHOS. Security that tells you what it doesn't know. Behavioural security for industrial systems. Research pre-release.">
+  <img src=".github/assets/readme/hero.svg" width="600" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. Research pre-release.">
 </p>
 
 <br>
 
-<p align="center">
-  An attacker with valid credentials breaks no signature.<br>
-  What they change is how the plant behaves.
-</p>
+PHOS is the company.
 
-<p align="center">
-  PHOS learns how a plant behaves when nothing is wrong. When that changes,<br>
-  it writes down every explanation it can't rule out, and the one fact that would settle it.
-</p>
+Atlas is the engine, and it is the one this page is about. Atlas watches an industrial plant. It learns how that plant normally runs. When something looks off, Atlas says what it might be, and what would decide it. Atlas will not call it an attack if it does not know.
+
+Someone with a valid login sets off no alarm. What they change is how the plant runs. Atlas is built for that.
+
+Sentiel is the other engine, for enterprise networks. PHOS is going to build it. The work right now is Atlas, so this page is Atlas. Sentiel is not ready to stand next to it.
+
+You can hand that paragraph back to someone. The figures below are Atlas: what it has measured, one alert, and what it cannot say yet.
 
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/about.svg" width="600" alt="What PHOS is: one way of reasoning, two engines. PHOS learns how a system normally behaves. When that changes, it keeps every explanation it can't rule out, weighs the evidence for and against each, and names the one fact that would settle it. Atlas, for industrial plants, watches a plant's process and its network together, checks what was commanded against what the plant actually did, and when a reading is falsified says which instrument is lying and what the true value probably was, so far on simulated plants. Sentiel, for people in an organisation, learns how each person normally works across logons, devices, web, email and files, and surfaces the few whose behaviour departs from their own and their peers'. Sentiel is research only.">
+  <img src=".github/assets/readme/about.svg" width="600" alt="PHOS is the company. Atlas is the engine for industrial plants. Atlas watches how a plant normally runs. When something looks off, it says what it might be, and what would decide it. It will not call it an attack if it does not know. Sentiel, for enterprise networks, is planned. The work right now is Atlas.">
 </p>
 
 <br>
@@ -29,30 +29,20 @@
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/alert.svg" width="600" alt="An Atlas alert about an unexpected function code on a learned SCADA to PLC link. Assessment: unresolved, because unauthorised control activity and planned maintenance rest on exactly the same fact. What would settle it: a write from a device that has never commanded this target.">
+  <img src=".github/assets/readme/alert.svg" width="600" alt="An Atlas alert. A command this link does not usually see. It might be an attack or planned maintenance. The same fact supports both, so Atlas will not pick. What would decide it: a command from a machine that has never commanded this one.">
 </p>
 
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/chain.svg" width="600" alt="How it reasons: observation, a reading; deviation, a departure from normal; evidence, a weighed fact; hypothesis, an explanation; narrative, the story with its rivals kept.">
+  <img src=".github/assets/readme/boundary.svg" width="600" alt="What Atlas can say: it treats the plant as one machine, says what a change might be, names what would decide it, stays quiet when it cannot tell, and names the lying sensor on simulated plants. What it can't do yet: close a maintenance alert without that hour's job sheet, rank its own alert list, learn from a labelled command capture, or prove itself on a real plant.">
 </p>
 
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/boundary.svg" width="600" alt="What Atlas can say: it treats the plant as one machine, keeps every explanation it can't rule out, names the fact that would settle it, stays silent when explanations tie, and names the lying sensor on simulated plants. What it can't do yet: close a maintenance alert without the work order for that hour, rank its own alert queue, learn from a labelled command capture, or prove itself on a real plant.">
-</p>
-
-<br>
-
-<p align="center">
-  <a href="docs/bets/001-the-second-insider.md"><img src=".github/assets/readme/sentiel.svg" width="600" alt="Sentiel, the people engine, can't see the second insider. A public insider-threat dataset holds two labelled insiders and Sentiel finds one. At least 14 of its 34 signals must move at once before any alert, and the second insider's best rank is 957, where only the top 48 are seen. The bet, run once: let depth count, not just breadth. Three formulas were fixed before running, and none reached the second insider, as we predicted."></a>
-</p>
-
-<br>
-
-<p align="center">
+  <a href="docs/release.md"><b>Release note</b></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="docs/"><b>Read the record</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
   everything PHOS has measured, including what didn't work
@@ -91,7 +81,7 @@ The test suite needs no datasets. Public corpora are downloaded separately and n
 
 <p align="center">
   <sub>Research pre-release. Not deployable, and never run on a live plant.</sub><br>
-  <sub>Atlas models industrial plants. Sentiel, its enterprise sibling, is research only.</sub><br>
+  <sub>Atlas is the industrial engine, and the work right now. Sentiel, for enterprise networks, is planned and not ready to stand next to it.</sub><br>
   <sub>Built by one researcher with AI coding agents. Every published number reproduces from this repository and the public datasets it names.</sub><br>
   <sub>Source-available under the <a href="LICENSE">PolyForm Noncommercial License 1.0.0</a>. Commercial use requires a licence.</sub><br>
   <sub>PHOS</sub>

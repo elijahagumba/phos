@@ -321,6 +321,7 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0296](0296-legal-flow-does-not-give-breadth-the-catches.md) | On dev3, breadth caught 15 of 32 attacks and the frozen engine 16 of 32. The first bar fails. `legal_flow` was 2 of 4 for each. The band was not changed | ADR 0295 | 2026-10-21 | Accepted |
 | [0297](0297-build-brief-e-is-closed-without-a-stronger-engine.md) | Build brief E is closed. The stronger engine was not reached. 0277–0284 stay unwritten and are not a queue. This record is not a new roadmap | ADR 0273, ADR 0276, ADR 0286, ADR 0288, ADR 0293, ADR 0294, ADR 0296 | 2026-10-21 | Accepted |
 | [0298](0298-five-questions-succeed-the-closed-stronger-engine-programme.md) | Five questions and one evaluation. None is assumed to work. First step is an evaluation set for in-range commands, then a score of the frozen detector. Flagship bar is more catches inside 8 alerts a shift and false alerts no higher | ADR 0297 | 2026-10-21 | Accepted |
+| [0299](0299-the-public-release-note-restates-the-record.md) | The public release note restates the record. The cards and the PolyForm Noncommercial licence stay. Three unsent drafts are corrected to the recorded bands. No measurement | ADR 0044, ADR 0116, ADR 0200, ADR 0201, ADR 0276, ADR 0286, ADR 0288, ADR 0297 | 2026-10-22 | Accepted |
 
 ## Related reading
 

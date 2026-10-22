@@ -6,9 +6,10 @@
 
 ### Start here
 
-1. **What Atlas does on real data:** the section below, each result linked to its record.
-2. **What it will not claim:** the [refusal register](refusal-register.md).
-3. **How each number was earned:** every result has a decision record in [adr/](adr/), written
+1. **The short version:** the [release note](release.md).
+2. **What Atlas does on real data:** the section below, each result linked to its record.
+3. **What it will not claim:** the [refusal register](refusal-register.md).
+4. **How each number was earned:** every result has a decision record in [adr/](adr/), written
    before the score it reports.
 
 <br>
