@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/assets/readme/hero.svg" width="600" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. Research pre-release.">
+  <img src=".github/assets/readme/hero.svg?v=2" width="600" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. Research pre-release.">
 </p>
 
 <br>
@@ -17,25 +17,25 @@ You can hand that paragraph back to someone. The figures below are Atlas: what i
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/about.svg" width="600" alt="PHOS is the company. Atlas is the engine for industrial plants. Atlas watches how a plant normally runs. When something looks off, it says what it might be, and what would decide it. It will not call it an attack if it does not know. Sentiel, for enterprise networks, is planned. The work right now is Atlas.">
+  <img src=".github/assets/readme/about.svg?v=2" width="600" alt="PHOS is the company. Atlas is the engine for industrial plants. Atlas watches how a plant normally runs. When something looks off, it says what it might be, and what would decide it. It will not call it an attack if it does not know. Sentiel, for enterprise networks, is planned. The work right now is Atlas.">
 </p>
 
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/results.svg" width="600" alt="Measured. On three editions of HAI, a real industrial testbed, Atlas caught 131 of 160 attacks at 8 alerts a shift; the best baseline checked caught 52. On simulated runs it never saw, the lying sensor was named in 146 of 150, none named wrong. 0 of 80 simulated attacks were closed as maintenance, including 40 disguised as maintenance. On a real wind farm with no attacks in it, in two years held back and scored once, 6 of 29 alerts were not explained by the turbines' own logs. Simulated plants are a diagnosis, not a real-plant result.">
+  <img src=".github/assets/readme/results.svg?v=2" width="600" alt="Measured. On three editions of HAI, a real industrial testbed, Atlas caught 131 of 160 attacks at 8 alerts a shift; the best baseline checked caught 52. On simulated runs it never saw, the lying sensor was named in 146 of 150, none named wrong. 0 of 80 simulated attacks were closed as maintenance, including 40 disguised as maintenance. On a real wind farm with no attacks in it, in two years held back and scored once, 6 of 29 alerts were not explained by the turbines' own logs. Simulated plants are a diagnosis, not a real-plant result.">
 </p>
 
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/alert.svg" width="600" alt="An Atlas alert. A command this link does not usually see. It might be an attack or planned maintenance. The same fact supports both, so Atlas will not pick. What would decide it: a command from a machine that has never commanded this one.">
+  <img src=".github/assets/readme/alert.svg?v=2" width="600" alt="An Atlas alert. A command this link does not usually see. It might be an attack or planned maintenance. The same fact supports both, so Atlas will not pick. What would decide it: a command from a machine that has never commanded this one.">
 </p>
 
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/boundary.svg" width="600" alt="What Atlas can say: it treats the plant as one machine, says what a change might be, names what would decide it, stays quiet when it cannot tell, and names the lying sensor on simulated plants. What it can't do yet: close a maintenance alert without that hour's job sheet, rank its own alert list, learn from a labelled command capture, or prove itself on a real plant.">
+  <img src=".github/assets/readme/boundary.svg?v=2" width="600" alt="What Atlas can say: it treats the plant as one machine, says what a change might be, names what would decide it, stays quiet when it cannot tell, and names the lying sensor on simulated plants. What it can't do yet: close a maintenance alert without that hour's job sheet, rank its own alert list, learn from a labelled command capture, or prove itself on a real plant.">
 </p>
 
 <br>
