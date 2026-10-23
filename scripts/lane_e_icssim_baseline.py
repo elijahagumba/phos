@@ -221,7 +221,8 @@ def attack_directories(corpus: Path) -> list[Path]:
     """Return the development attack runs this scorer may open.
 
     `mixed*` is the older scenario. ADR 0301's day-1 runs are `in_range-*`.
-    The walk runs are `subfloor-*`. Training directories are not included.
+    The walk runs are `subfloor-*`. ADR 0316's runs are `joint-*`. Training
+    directories are not included.
 
     Args:
         corpus: A development corpus directory. A held-out path is refused by `main`.
@@ -234,6 +235,7 @@ def attack_directories(corpus: Path) -> list[Path]:
             *corpus.glob("mixed*"),
             *corpus.glob("in_range-*"),
             *corpus.glob("subfloor-*"),
+            *corpus.glob("joint-*"),
         ]
     )
 
@@ -390,7 +392,7 @@ def _report(outcomes: Sequence[Outcome], windows: Sequence[RunWindow]) -> None:
     still = sorted({a.kind for a in attacks} - {a.kind for a in attacks if a.lane1})
     if still:
         print(f"classes lane 1 still never catches: {', '.join(still)}")
-    for kind in ("in_range_command", "subfloor_walk"):
+    for kind in ("in_range_command", "subfloor_walk", "joint_command"):
         if any(event.kind == kind for run in windows for event in run.events):
             print()
             _print_account(class_account(windows, kind))

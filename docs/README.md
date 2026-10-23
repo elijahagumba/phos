@@ -110,6 +110,36 @@ was added; three routes are now mapped dead ends with the reasons recorded.
 > we already have. A later evaluation, not yet run, passes only if a candidate catches more
 > attacks than that detector inside the same alert budget and does not raise more false alarms.
 
+### A broken law, or silence
+
+The operator page in `src/phos/atlas/declared_law.py` admits a slot only when a declared law is false. A law the facts satisfy is silence. A law the plant did not name is not evaluated. A declared law is held, broken, or unstated, and only a broken law takes a slot. The page keeps the earliest breaks, at most 8, ordered by time and then by law name. Residual magnitude does not create a slot and does not sort one. Every sentence is the law's name, then the fact. A sentence that carries a confidence, a probability, a weight, a magnitude, or a score is refused, and a break whose sentence does not name its law is not placed.
+
+The laws are boolean. Two setpoints inside the ordinary band are one move, or they are nothing. A walk of the frozen length is one walk, or it is nothing. An open handoff is a break until a booking names both tags. An unbooked program transfer is a break. A station outside a declared set is a break, and an empty set means that law was not stated. The controller comparison is the PLC's own rule, with no divisor: agreement is silence, a valve that is not the value that rule writes is one break, and manual mode means the law was not in force.
+
+No corpus was scored for this page. The frozen residual detector was not edited. Version 1 stays **8 of 12**. This page is not a detection claim.
+[ADR 0317](adr/0317-a-slot-exists-only-when-a-declared-law-is-false.md),
+[ADR 0318](adr/0318-a-slot-requires-a-declared-law.md),
+[ADR 0319](adr/0319-only-a-broken-law-takes-a-slot.md),
+[ADR 0320](adr/0320-an-unnamed-station-is-silence-until-the-set-is-named.md),
+[ADR 0321](adr/0321-the-controller-comparison-is-true-or-false.md),
+[ADR 0322](adr/0322-a-slot-enters-only-as-a-law-break.md),
+[ADR 0323](adr/0323-every-sentence-names-the-law-it-came-from.md).
+
+### What the engines we already have caught, on a simulated plant
+
+These scores were declared before they were run. A simulated plant is a diagnosis, not a result about a real plant.
+
+An in-range command writes the tank's upper limit inside the band a normal setpoint already uses, 6.5–7.5, and holds the inlet valve off. Both engines we already have caught **13 of 13**. The miss count was 0, so the column written down in advance was not built. False alerts were 11 and 11, **0.343750** per hour. What caught them is the ordinary signal column.
+[ADR 0309](adr/0309-the-champions-missed-none-of-the-in-range-commands.md).
+
+A setpoint walked across that same band in 720 steps: both engines caught **8 of 9**. The miss count was 1.
+[ADR 0313](adr/0313-the-champions-missed-one-of-the-slow-walks.md).
+The column that compares the inlet valve with the constant the plant's own controller writes missed that same 1 of 9. Half of 1, rounded down, is 0, so the column was not kept. The divisor was **2.000000**, and a full disagreement sat on the threshold.
+[ADR 0315](adr/0315-the-walk-column-does-not-halve-the-remaining-miss.md).
+
+A joint command, two setpoints written together, was declared and not scored.
+[ADR 0316](adr/0316-the-joint-command-is-declared-before-either-champion-is-scored.md).
+
 [How the current detector entered the engine →](adr/0107-the-consistency-detector-enters-the-engine.md)
 
 <details>
@@ -194,7 +224,7 @@ row.
 
 ### Why it is built this way
 
-More than 220 design decisions, each with what was chosen, what was rejected and what it cost.
+256 decision records, each with what was chosen, what was rejected and what it cost. The latest on this page is ADR 0323.
 Several exist only to record a result that did not work. Five places to start:
 
 - [The joint model, and the model that lost](adr/0009-joint-modelling-per-signal-attribution-and-the-model-that-lost.md)

@@ -60,6 +60,8 @@ You can hand that paragraph back to someone. The figures below are Atlas: what i
   <a href="docs/whitepaper/lanes-that-were-refused.md">Lanes that were refused</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="docs/whitepaper/a-score-is-not-a-rank.md">A score is not a rank</a>
+  <br>
+  <a href="docs/#a-broken-law-or-silence">A broken law, or silence</a>
 </p>
 
 <br>

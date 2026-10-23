@@ -102,11 +102,18 @@ def test_the_walk_runs_are_opened_with_the_older_attack_directories(tmp_path: Pa
         "in_range-96611",
         "mixed-96011",
         "mixed2-96211",
+        "joint-98011",
         "notes",
     ):
         (tmp_path / name).mkdir()
     found = [path.name for path in attack_directories(tmp_path)]
-    assert found == ["in_range-96611", "mixed-96011", "mixed2-96211", "subfloor-96811"]
+    assert found == [
+        "in_range-96611",
+        "joint-98011",
+        "mixed-96011",
+        "mixed2-96211",
+        "subfloor-96811",
+    ]
 
 
 def test_account_fields_are_the_ones_the_report_prints() -> None:

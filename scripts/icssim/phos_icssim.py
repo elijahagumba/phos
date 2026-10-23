@@ -199,6 +199,12 @@ SCENARIOS: dict[str, Scenario] = {
         kinds=("setpoint", "maintenance", "subfloor_walk"),
         events=4,
     ),
+    # ADR 0316. Two loop setpoints, written together. `mixed*` stays as it was.
+    "joint": Scenario(
+        duration_s=4 * 3600,
+        kinds=("setpoint", "maintenance", "joint_command"),
+        events=6,
+    ),
 }
 
 ATTACK_KINDS = {
@@ -212,6 +218,7 @@ ATTACK_KINDS = {
     "legal_flow",
     "in_range_command",
     "subfloor_walk",
+    "joint_command",
 }
 DURATIONS = {  # simulated seconds, (low, high)
     "setpoint": (1, 1),
@@ -226,6 +233,7 @@ DURATIONS = {  # simulated seconds, (low, high)
     "legal_flow": (300, 900),
     "in_range_command": (60, 180),
     "subfloor_walk": (720, 720),
+    "joint_command": (60, 180),
 }
 
 #: The band a benign `setpoint` already writes into `tank_level_max`. ADR 0301 uses the same
@@ -236,6 +244,13 @@ VALVE_FORCE_OFF = 1
 VALVE_RELEASE = 3
 #: Equal steps in `subfloor_walk`, one per simulated second. The harness floor of 720.
 SUBFLOOR_STEPS = 720
+#: ICSSim `bcfd184` `TAG_LIST` default for `tank_level_max`. The centre of `SETPOINT_BAND`.
+TANK_LEVEL_MAX_DEFAULT = 7.0
+#: ICSSim `bcfd184` `TAG_LIST` default for `bottle_level_max`.
+BOTTLE_LEVEL_MAX_DEFAULT = 1.8
+#: ICSSim `bcfd184` `PHYSICS.BOTTLE_MAX_LEVEL`. A setpoint above this cannot be
+#: exceeded by the bottle, so PLC1's level comparison never becomes true.
+BOTTLE_MAX_LEVEL = 2.0
 
 #: `creep_many` biases these continuous readings. ADR 0285.
 CREEP_SIGNALS = (
@@ -258,6 +273,19 @@ TANK_OUTPUT_FLOW_RATE = 0.0001
 LEGAL_FLOW_FRACTION = CREEP_FRACTION
 WARMUP_S = 600  # no event in the first ten simulated minutes
 GAP_S = 300  # at least five minutes between events
+
+
+def bottle_setpoint_band() -> tuple[float, float]:
+    """Return the bottle setpoint interval `joint_command` may write.
+
+    The half-width is half of `SETPOINT_BAND`, the band a benign tank setpoint
+    already uses. The high end stops at `BOTTLE_MAX_LEVEL`, so the output
+    valve's level comparison can still become true.
+    """
+    half = (SETPOINT_BAND[1] - SETPOINT_BAND[0]) / 2.0
+    low = BOTTLE_LEVEL_MAX_DEFAULT - half
+    high = min(BOTTLE_LEVEL_MAX_DEFAULT + half, BOTTLE_MAX_LEVEL)
+    return (low, high)
 
 
 def reported_level(true_level: float, fraction: float) -> float:
@@ -325,6 +353,14 @@ def schedule(name: str, seed: int) -> list[Event]:
                 "start": SETPOINT_BAND[0],
                 "end": SETPOINT_BAND[1],
                 "steps": float(SUBFLOOR_STEPS),
+            }
+        elif kind == "joint_command":
+            low, high = bottle_setpoint_band()
+            params = {
+                "tank_tag": "tank_level_max",
+                "tank_value": round(rng.uniform(*SETPOINT_BAND), 2),
+                "bottle_tag": "bottle_level_max",
+                "bottle_value": round(rng.uniform(low, high), 2),
             }
         elif kind == "liar_offset":
             params = {"offset": round(rng.uniform(1.0, 3.0), 2)}
@@ -548,6 +584,10 @@ class Harness:
                     if stop.is_set() or self.clock.elapsed() >= event.end:
                         return
                     send(operator, tag, start_v + span * i / steps)
+            elif k == "joint_command":
+                send(operator, str(event.params["tank_tag"]), float(event.params["tank_value"]))
+                send(operator, str(event.params["bottle_tag"]), float(event.params["bottle_value"]))
+                self.clock.sleep_until(event.end)
             elif k in ("maintenance", "mimic_maintenance"):
                 side = operator  # mimic: the attacker uses the compromised console itself
                 send(side, "tank_output_valve_mode", VALVE_FORCE_OFF)

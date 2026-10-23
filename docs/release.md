@@ -47,6 +47,12 @@ A predictor that can bend moved false alarms on unseen quiet data from **28.00 a
 
 Judging every signal together needed an attack that stays inside each signal's ordinary range and inside the plant's own relationships. That attacker could not be posed on a continuous level-flow ratio, because this plant's outflow is a constant or zero. The attack that could be posed, `legal_flow`, caught **15 of 32** on the development runs against the frozen engine's **16 of 32**. [ADR 0296](adr/0296-legal-flow-does-not-give-breadth-the-catches.md). The stronger-engine programme is closed. [ADR 0297](adr/0297-build-brief-e-is-closed-without-a-stronger-engine.md).
 
+## A broken law, or silence
+
+`src/phos/atlas/declared_law.py` is an operator page. A slot exists only when a declared law is false. A law the facts satisfy is silence. Only a law the plant named is evaluated. Held and unstated take no slot. The page keeps the earliest breaks, at most 8. Residual magnitude does not create a slot and does not sort one. Every sentence names its law. No corpus was scored. The frozen residual detector was not edited. Version 1 stays 8 of 12. This is not a detection claim. [ADR 0317](adr/0317-a-slot-exists-only-when-a-declared-law-is-false.md) through [ADR 0323](adr/0323-every-sentence-names-the-law-it-came-from.md).
+
+On a simulated plant, an in-range command was caught **13 of 13** by the engines already in the repository, so no new column was built ([ADR 0309](adr/0309-the-champions-missed-none-of-the-in-range-commands.md)). A slow walk was caught **8 of 9** ([ADR 0313](adr/0313-the-champions-missed-one-of-the-slow-walks.md)). The valve column written for that miss caught the same 8 of 9 and was not kept ([ADR 0315](adr/0315-the-walk-column-does-not-halve-the-remaining-miss.md)). A joint command was declared and not scored ([ADR 0316](adr/0316-the-joint-command-is-declared-before-either-champion-is-scored.md)). These are diagnoses, not results about a real plant.
+
 ## Left unsaid
 
 This note does not carry a 10× reduction as a pass, a claim of 2 to 3 alerts a day, a command lead at or above 70 percent, the two issuer kinds pooled into one rate, a confidence shown as a probability, or a simulated result stated as a result about a real plant.

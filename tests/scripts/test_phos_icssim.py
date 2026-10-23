@@ -8,22 +8,27 @@ import pytest
 from scripts.icssim.generate_corpus import ICSSIM_COMMIT, RUNS
 from scripts.icssim.phos_icssim import (
     ATTACK_KINDS,
+    BOTTLE_LEVEL_MAX_DEFAULT,
+    BOTTLE_MAX_LEVEL,
     DURATIONS,
     GAP_S,
     LEGAL_FLOW_FRACTION,
     SCENARIOS,
     SETPOINT_BAND,
     SUBFLOOR_STEPS,
+    TANK_LEVEL_MAX_DEFAULT,
     TANK_OUTPUT_FLOW_RATE,
     VALVE_FORCE_OFF,
     VALVE_RELEASE,
     WARMUP_S,
+    bottle_setpoint_band,
     legal_output_flow,
     reported_level,
     schedule,
 )
 
 from phos.atlas.command_response import HORIZON_STEPS
+from phos.eval.build_declaration import build_seed_blocks
 
 
 @pytest.mark.parametrize("name", sorted(SCENARIOS))
@@ -159,3 +164,47 @@ def test_day1_seeds_match_the_declaration_and_stay_disjoint() -> None:
     assert [seed for scenario, seed in walk if scenario == "subfloor"] == list(range(96811, 96819))
     assert [seed for _scenario, seed in walk_held] == list(range(96901, 96921))
     assert all(scenario == "subfloor" for scenario, _seed in walk_held)
+
+
+def test_joint_command_moves_two_loop_setpoints_inside_the_plant_bands() -> None:
+    """ADR 0316. The tank band is the existing one. The bottle band uses its half-width."""
+    low, high = bottle_setpoint_band()
+    half = (SETPOINT_BAND[1] - SETPOINT_BAND[0]) / 2
+    assert (SETPOINT_BAND[0] + SETPOINT_BAND[1]) / 2 == TANK_LEVEL_MAX_DEFAULT
+    assert low == BOTTLE_LEVEL_MAX_DEFAULT - half
+    assert high == min(BOTTLE_LEVEL_MAX_DEFAULT + half, BOTTLE_MAX_LEVEL)
+    assert high <= BOTTLE_MAX_LEVEL
+    assert SCENARIOS["joint"].kinds == ("setpoint", "maintenance", "joint_command")
+    short, long = DURATIONS["joint_command"]
+    assert short == 3 * HORIZON_STEPS
+    assert long == 180
+    for seed in range(98011, 98019):
+        found = [event for event in schedule("joint", seed) if event.kind == "joint_command"]
+        assert found
+        for event in found:
+            assert event.label == "attack"
+            tank = event.params["tank_value"]
+            bottle = event.params["bottle_value"]
+            assert isinstance(tank, float)
+            assert isinstance(bottle, float)
+            assert SETPOINT_BAND[0] <= tank <= SETPOINT_BAND[1]
+            assert low <= bottle <= high
+            assert event.params["tank_tag"] == "tank_level_max"
+            assert event.params["bottle_tag"] == "bottle_level_max"
+            assert "hold_tag" not in event.params
+            assert short - 0.2 <= event.end - event.start <= long + 0.2
+
+
+def test_joint_seeds_match_the_declaration_and_stay_disjoint() -> None:
+    """ADR 0316. The new blocks overlap neither each other nor the seeds already registered."""
+    dev = RUNS["development5"]["runs"]
+    held = RUNS["held-out5"]["runs"]
+    assert isinstance(dev, list)
+    assert isinstance(held, list)
+    assert [seed for scenario, seed in dev if scenario == "normal"] == [98001, 98002, 98003]
+    assert [seed for scenario, seed in dev if scenario == "joint"] == list(range(98011, 98019))
+    assert [seed for _scenario, seed in held] == list(range(98101, 98121))
+    assert all(scenario == "joint" for scenario, _seed in held)
+    fresh = {int(seed) for _scenario, seed in [*dev, *held]}
+    used = set().union(*build_seed_blocks().values())
+    assert fresh.isdisjoint(used)

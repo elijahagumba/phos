@@ -83,6 +83,17 @@ RUNS: dict[str, dict[str, object]] = {
         "directory": "phos-icssim-heldout4-walk",
         "runs": [("subfloor", seed) for seed in range(96901, 96921)],
     },
+    # ADR 0316. `held-out5` may be generated and must not be opened until a declaration
+    # names the score. This session does not generate either directory.
+    "development5": {
+        "directory": "phos-icssim-dev5",
+        "runs": [("normal", seed) for seed in (98001, 98002, 98003)]
+        + [("joint", seed) for seed in range(98011, 98019)],
+    },
+    "held-out5": {
+        "directory": "phos-icssim-heldout5",
+        "runs": [("joint", seed) for seed in range(98101, 98121)],
+    },
 }
 
 
