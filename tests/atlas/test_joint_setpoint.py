@@ -67,9 +67,7 @@ def test_twelve_joint_moves_keep_half_the_misses_inside_eight() -> None:
     alerts = []
     for index in range(12):
         base = index * (EVENT_WINDOW + 5)
-        move = joint_moves(
-            (_step("tank_level_max", base), _step("bottle_level_max", base + 1))
-        )
+        move = joint_moves((_step("tank_level_max", base), _step("bottle_level_max", base + 1)))
         assert len(move) == 1
         alerts.append(IncidentAlert(f"j{index}", move[0].at, move[0].score, f"j{index}"))
     shown = incidents_inside_budget(tuple(alerts), packed=True)
