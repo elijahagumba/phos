@@ -15,6 +15,7 @@ from phos.atlas.program_transfer import (
     BookingKind,
     OtherAlert,
     ProgramAct,
+    TransferReport,
     TransferWorkOrder,
     refuse_function_code,
     shift_page,
@@ -135,7 +136,7 @@ def _others(scores: list[float]) -> tuple[OtherAlert, ...]:
     )
 
 
-def _open(act: ProgramAct, minute: int) -> tuple:
+def _open(act: ProgramAct, minute: int) -> tuple[TransferReport, datetime]:
     at = WHEN + timedelta(minutes=minute)
     return transfer_report(act, (), (), at=at), at
 

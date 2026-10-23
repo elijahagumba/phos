@@ -285,7 +285,7 @@ def _score(corpus: Path) -> tuple[list[Outcome], tuple[RunWindow, ...]]:
     )
 
     outcomes: list[Outcome] = []
-    windows: list[RunWindow] = []
+    runs: list[RunWindow] = []
     for directory in mixeds:
         run = read_run(directory)
         if run.keys != keys:
@@ -332,7 +332,7 @@ def _score(corpus: Path) -> tuple[list[Outcome], tuple[RunWindow, ...]]:
                 )
             )
         logger.info("%s: frozen %s alerts, lane1 %s alerts", directory.name, len(rows), len(l_rows))
-        windows.append(
+        runs.append(
             RunWindow(
                 duration_s=float(run.times[-1] - run.times[0]),
                 events=labelled,
@@ -340,7 +340,7 @@ def _score(corpus: Path) -> tuple[list[Outcome], tuple[RunWindow, ...]]:
                 lane1=tuple(at for at, _why in lane1_alerts),
             )
         )
-    return outcomes, tuple(windows)
+    return outcomes, tuple(runs)
 
 
 def _print_account(account: ClassAccount) -> None:
