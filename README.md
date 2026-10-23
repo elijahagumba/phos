@@ -6,9 +6,9 @@
 
 PHOS is the company.
 
-Atlas is the engine, and it is the one this page is about. Atlas watches an industrial plant. It learns how that plant normally runs. When something looks off, Atlas says what it might be, and what would decide it. Atlas will not call it an attack if it does not know.
+A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight, ordered by time, then by the law's name. Every sentence names its law, then the fact. A score is refused. A break is a false law. The page does not name the cause. Held means the check ran and the law stood. Unstated means the plant named the law and supplied nothing that law can be checked against. An empty register checks nothing.
 
-Someone with a valid login sets off no alarm. What they change is how the plant runs. Atlas is built for that.
+That paragraph is the operator page. The older detectors remain in the repository so the published measurements can still be reproduced. They do not enter that page. Someone with a valid login sets off no alarm by the login itself. What they change is how the plant runs.
 
 Sentiel is the other engine, for enterprise networks. PHOS is going to build it. The work right now is Atlas, so this page is Atlas. Sentiel is not ready to stand next to it.
 
@@ -17,7 +17,7 @@ You can hand that paragraph back to someone. The figures below are Atlas: what i
 <br>
 
 <p align="center">
-  <img src=".github/assets/readme/about-plate.svg" width="600" alt="PHOS is the company. Atlas is the engine for industrial plants. Atlas watches how a plant normally runs. When something looks off, it says what it might be, and what would decide it. It will not call it an attack if it does not know. Sentiel, for enterprise networks, is planned. The work right now is Atlas.">
+  <img src=".github/assets/readme/about-plate.svg" width="600" alt="A named law is held, broken, or unstated. Only a broken law takes a slot. At most eight. A score is refused. A break is not an attack.">
 </p>
 
 <br>
