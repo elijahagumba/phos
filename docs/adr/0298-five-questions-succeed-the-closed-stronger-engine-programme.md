@@ -52,3 +52,10 @@ declaration is committed. The empty numbers of brief E are still not a queue.
 A measurement run before its declaration. A pass declared on one half of the primary bar.
 A successor that fills 0277–0284. Promoting capability 5 on simulated operator clicks and
 calling it a deployed improvement.
+
+## Correction, 22 October 2026
+
+ADR 0300 opens the daily leap contract. The Consequences section, which says to stop after
+the capability 1 declaration, is amended there. The decision text is left as written.
+Roadmap F is not edited. Day 1's evaluation set is ADR 0301, committed before any generation
+or score.

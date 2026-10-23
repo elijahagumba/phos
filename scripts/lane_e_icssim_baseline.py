@@ -23,6 +23,7 @@ import argparse
 import collections
 import json
 import logging
+import statistics
 import sys
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -86,6 +87,122 @@ class Outcome:
     by: str
 
 
+@dataclass(frozen=True)
+class RunWindow:
+    """One test run's budgeted alerts and the labelled windows they are judged against."""
+
+    duration_s: float
+    events: tuple[Event, ...]
+    frozen: tuple[float, ...]
+    lane1: tuple[float, ...]
+
+
+@dataclass(frozen=True)
+class ClassAccount:
+    """ADR 0301's denominator for one attack class, taken from the budgeted alerts."""
+
+    kind: str
+    events: int
+    misses_frozen: int
+    misses_lane1: int
+    false_frozen: int
+    false_lane1: int
+    duration_s: float
+    champion: str
+    delays_frozen: tuple[float, ...]
+    delays_lane1: tuple[float, ...]
+
+    @property
+    def misses_champion(self) -> int:
+        """The smaller miss count. A tie is resolved by `champion`, not by this number."""
+        return min(self.misses_frozen, self.misses_lane1)
+
+
+def _inside(event: Event, at: float) -> bool:
+    """Return whether ``at`` falls inside the event, inclusive of both ends."""
+    return event.start <= at <= event.end
+
+
+def _outside(alerts: Sequence[float], events: Sequence[Event]) -> int:
+    """Budgeted alerts that fall in none of ``events``."""
+    return sum(1 for at in alerts if not any(_inside(event, at) for event in events))
+
+
+def _delays(events: Sequence[Event], alerts: Sequence[float]) -> tuple[float, ...]:
+    """Earliest in-window alert minus the event start, for events that were caught."""
+    found: list[float] = []
+    for event in events:
+        hits = [at for at in alerts if _inside(event, at)]
+        if hits:
+            found.append(min(hits) - event.start)
+    return tuple(found)
+
+
+def _champion(miss_frozen: int, miss_lane1: int, false_frozen: int, false_lane1: int) -> str:
+    """Name the champion. Tied misses keep the lower false-alert count; a full tie keeps frozen."""
+    if miss_frozen < miss_lane1 or (miss_frozen == miss_lane1 and false_frozen <= false_lane1):
+        return "frozen"
+    return "lane1"
+
+
+def class_account(runs: Sequence[RunWindow], kind: str) -> ClassAccount:
+    """Count misses, false alerts, and delays for ``kind`` across ``runs``.
+
+    A miss is an event of ``kind`` with no budgeted alert inside its window. A false alert
+    is a budgeted alert outside every window of ``kind`` on that same run. The two detectors
+    share ``duration_s``, so the lower false-alert count is the lower rate.
+
+    Args:
+        runs: The test runs, and only those. Training runs are not included.
+        kind: The attack class the day named.
+
+    Returns:
+        The account. ``events`` is 0 when the class is absent.
+    """
+    targets: list[Event] = []
+    delays_frozen: list[float] = []
+    delays_lane1: list[float] = []
+    false_frozen = 0
+    false_lane1 = 0
+    duration_s = 0.0
+    for run in runs:
+        kind_events = tuple(event for event in run.events if event.kind == kind)
+        targets.extend(kind_events)
+        delays_frozen.extend(_delays(kind_events, run.frozen))
+        delays_lane1.extend(_delays(kind_events, run.lane1))
+        false_frozen += _outside(run.frozen, kind_events)
+        false_lane1 += _outside(run.lane1, kind_events)
+        duration_s += run.duration_s
+    misses_frozen = len(targets) - len(delays_frozen)
+    misses_lane1 = len(targets) - len(delays_lane1)
+    return ClassAccount(
+        kind=kind,
+        events=len(targets),
+        misses_frozen=misses_frozen,
+        misses_lane1=misses_lane1,
+        false_frozen=false_frozen,
+        false_lane1=false_lane1,
+        duration_s=duration_s,
+        champion=_champion(misses_frozen, misses_lane1, false_frozen, false_lane1),
+        delays_frozen=tuple(delays_frozen),
+        delays_lane1=tuple(delays_lane1),
+    )
+
+
+def _rate(count: int, duration_s: float) -> float:
+    """False alerts per operating hour. ``duration_s`` is the summed test-run span."""
+    if duration_s <= 0.0:
+        raise ValueError(f"duration_s must be positive, got {duration_s}")
+    return count / (duration_s / 3600.0)
+
+
+def _median(delays: Sequence[float]) -> str:
+    """The median delay in seconds, or ``none`` when the detector caught nothing."""
+    if not delays:
+        return "none"
+    return f"{statistics.median(delays):.6f}"
+
+
 def _events(directory: Path, origin: float) -> tuple[Event, ...]:
     """Read ``events.json``, whose times are seconds from the run's start."""
     payload = json.loads((directory / "events.json").read_text())
@@ -100,11 +217,32 @@ def _events(directory: Path, origin: float) -> tuple[Event, ...]:
     )
 
 
-def _score(corpus: Path) -> list[Outcome]:
+def attack_directories(corpus: Path) -> list[Path]:
+    """Return the development attack runs this scorer may open.
+
+    `mixed*` is the older scenario. ADR 0301's day-1 runs are `in_range-*`.
+    The walk runs are `subfloor-*`. Training directories are not included.
+
+    Args:
+        corpus: A development corpus directory. A held-out path is refused by `main`.
+
+    Returns:
+        Matching run directories, sorted by name.
+    """
+    return sorted(
+        [
+            *corpus.glob("mixed*"),
+            *corpus.glob("in_range-*"),
+            *corpus.glob("subfloor-*"),
+        ]
+    )
+
+
+def _score(corpus: Path) -> tuple[list[Outcome], tuple[RunWindow, ...]]:
     normals = sorted(corpus.glob("normal-*"))
-    mixeds = sorted(corpus.glob("mixed*"))
+    mixeds = attack_directories(corpus)
     if not normals or not mixeds:
-        raise SystemExit(f"{corpus} has {len(normals)} normal and {len(mixeds)} mixed runs")
+        raise SystemExit(f"{corpus} has {len(normals)} normal and {len(mixeds)} attack runs")
 
     train: list[TrainFile] = []
     command_train: list[tuple[_Float64, _Float64, tuple[Command, ...]]] = []
@@ -147,6 +285,7 @@ def _score(corpus: Path) -> list[Outcome]:
     )
 
     outcomes: list[Outcome] = []
+    windows: list[RunWindow] = []
     for directory in mixeds:
         run = read_run(directory)
         if run.keys != keys:
@@ -176,7 +315,8 @@ def _score(corpus: Path) -> list[Outcome]:
         )
         breadth_times = [float(run.times[r]) for r in b_rows]
 
-        for event in _events(directory, float(run.times[0])):
+        labelled = _events(directory, float(run.times[0]))
+        for event in labelled:
             caught = any(event.start <= at <= event.end for at in alert_times)
             l2 = any(event.start <= at <= event.end for at in breadth_times)
             hits = [why for at, why in lane1_alerts if event.start <= at <= event.end]
@@ -192,10 +332,35 @@ def _score(corpus: Path) -> list[Outcome]:
                 )
             )
         logger.info("%s: frozen %s alerts, lane1 %s alerts", directory.name, len(rows), len(l_rows))
-    return outcomes
+        windows.append(
+            RunWindow(
+                duration_s=float(run.times[-1] - run.times[0]),
+                events=labelled,
+                frozen=tuple(alert_times),
+                lane1=tuple(at for at, _why in lane1_alerts),
+            )
+        )
+    return outcomes, tuple(windows)
 
 
-def _report(outcomes: Sequence[Outcome]) -> None:
+def _print_account(account: ClassAccount) -> None:
+    """Print ADR 0301's denominator. The rate is false alerts divided by operating hours."""
+    print(f"day1 {account.kind} events: {account.events}")
+    print(f"day1 {account.kind} misses frozen: {account.misses_frozen}")
+    print(f"day1 {account.kind} misses lane1: {account.misses_lane1}")
+    print(f"day1 M_champion: {account.misses_champion} {account.champion}")
+    print(f"day1 false alerts frozen: {account.false_frozen}")
+    print(f"day1 false alerts lane1: {account.false_lane1}")
+    print(f"day1 duration_s: {account.duration_s:.6f}")
+    frozen_rate = _rate(account.false_frozen, account.duration_s)
+    lane1_rate = _rate(account.false_lane1, account.duration_s)
+    print(f"day1 false alerts per hour frozen: {frozen_rate:.6f}")
+    print(f"day1 false alerts per hour lane1: {lane1_rate:.6f}")
+    print(f"day1 median delay s frozen: {_median(account.delays_frozen)}")
+    print(f"day1 median delay s lane1: {_median(account.delays_lane1)}")
+
+
+def _report(outcomes: Sequence[Outcome], windows: Sequence[RunWindow]) -> None:
     by_kind: dict[tuple[str, str], list[Outcome]] = collections.defaultdict(list)
     for item in outcomes:
         by_kind[(item.label, item.kind)].append(item)
@@ -225,6 +390,10 @@ def _report(outcomes: Sequence[Outcome]) -> None:
     still = sorted({a.kind for a in attacks} - {a.kind for a in attacks if a.lane1})
     if still:
         print(f"classes lane 1 still never catches: {', '.join(still)}")
+    for kind in ("in_range_command", "subfloor_walk"):
+        if any(event.kind == kind for run in windows for event in run.events):
+            print()
+            _print_account(class_account(windows, kind))
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -235,7 +404,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     if "heldout" in arguments.corpus.name:
         raise SystemExit("this script is development only; the held-out corpus is not opened here")
-    _report(_score(arguments.corpus))
+    _report(*_score(arguments.corpus))
     return 0
 
 

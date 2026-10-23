@@ -43,6 +43,8 @@ You can hand that paragraph back to someone. The figures below are Atlas: what i
 <p align="center">
   <a href="docs/release.md"><b>Release note</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="docs/whitepaper/hn_technical_post.md"><b>Eight alerts</b></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="docs/"><b>Read the record</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
   everything PHOS has measured, including what didn't work

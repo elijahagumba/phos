@@ -7,9 +7,10 @@
 ### Start here
 
 1. **The short version:** the [release note](release.md).
-2. **What Atlas does on real data:** the section below, each result linked to its record.
-3. **What it will not claim:** the [refusal register](refusal-register.md).
-4. **How each number was earned:** every result has a decision record in [adr/](adr/), written
+2. **The eight-alert page:** [The operator gets eight alerts](whitepaper/hn_technical_post.md). A shift holds eight. An unbooked program transfer keeps one of them.
+3. **What Atlas does on real data:** the section below, each result linked to its record.
+4. **What it will not claim:** the [refusal register](refusal-register.md).
+5. **How each number was earned:** every result has a decision record in [adr/](adr/), written
    before the score it reports.
 
 <br>

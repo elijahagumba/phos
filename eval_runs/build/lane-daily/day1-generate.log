@@ -1,0 +1,12 @@
+ADR 0301 champion generation
+HEAD 0f27b1f
+declaration in HEAD: docs/adr/0301-the-in-range-command-is-declared-before-either-champion-is-scored.md
+consistency.py sha256 71aeebfea7ee491117316f9a7db32c9ae2c4aced4f17baf4575a078a48ff5911 match
+command_consistency.py sha256 87017fcfeaae94790dd8d461d43793a1f87e15a1460e46d963d47a1ae6d0cc94 match
+loopback 127.0.0.11 127.0.0.12 127.0.0.21 127.0.0.66 bound
+`python` is not on PATH. The declared command was run as `python3 -u scripts/icssim/generate_corpus.py development4`.
+Runs: normal 96601-96603, in_range 96611-96618. Held-out and the walk corpus are not generated.
+normal-96601 wall_seconds 721.4 duration_s 14400 process.csv 1063152 bytes modbus.csv 30099905 bytes nonzero process row present.
+Generation finished exit 0. 11 manifests. Each wall_seconds about 721. process.csv about 1.0 MB. modbus.csv about 30 MB. No empty plant.
+First score invocation exited 1: the script globbed mixed* and dev4's attack runs are in_range-*. No alerts were computed. The glob was extended to in_range-* and the same score command was run again. Champion hashes were unchanged.
+Score exit 0. in_range_command 13 of 13 frozen, 13 of 13 lane1. M_v1 0. M_cmd 0. M_champion 0 frozen. False alerts 11 and 11. Rate 0.343750 per hour each. Median delay 0.500000 s each. Report eval_runs/build/lane-daily/day1-champions.md.

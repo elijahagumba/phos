@@ -1,0 +1,25 @@
+ADR 0301 walk generation
+HEAD 1c448d7
+declaration in HEAD: docs/adr/0301-the-in-range-command-is-declared-before-either-champion-is-scored.md
+0309 in HEAD: docs/adr/0309-the-champions-missed-none-of-the-in-range-commands.md
+day1-champions in HEAD: eval_runs/build/lane-daily/day1-champions.md
+consistency.py sha256 71aeebfea7ee491117316f9a7db32c9ae2c4aced4f17baf4575a078a48ff5911 match
+command_consistency.py sha256 87017fcfeaae94790dd8d461d43793a1f87e15a1460e46d963d47a1ae6d0cc94 match
+python is not on PATH. The declared command was run as python3 -u scripts/icssim/generate_corpus.py development4-walk.
+Runs: normal 96801-96803, subfloor 96811-96818. Held-out is not generated.
+generating normal-96801
+generating normal-96802
+generating normal-96803
+generating subfloor-96811
+generating subfloor-96812
+generating subfloor-96813
+generating subfloor-96814
+generating subfloor-96815
+generating subfloor-96816
+generating subfloor-96817
+generating subfloor-96818
+(eval):13: read-only variable: status
+
+The shell assignment to status failed because zsh marks status read-only. python3 had already returned. All 11 run directories have manifests. Held-out was not generated.
+Score command after commit 61d03ec: uv run python scripts/lane_e_icssim_baseline.py --corpus data/phos-icssim-dev4-walk
+Score exit 0. subfloor_walk 8 of 9 frozen, 8 of 9 lane1. M_champion 1 frozen. False alerts 19 and 19. Rate 1.187500 per hour each. Median delay 0.950000 s each. Report eval_runs/build/lane-daily/day1-walk.md.
