@@ -7,7 +7,13 @@
 ### Start here
 
 1. **The short version:** the [release note](release.md).
-2. **The eight-alert page:** [The operator gets eight alerts](whitepaper/hn_technical_post.md). A shift holds eight. An unbooked program transfer keeps one of them.
+2. **The papers**, each a breakdown of code already in this repository:
+   - [The operator gets eight alerts](whitepaper/hn_technical_post.md)
+   - [What the page refuses](whitepaper/eight-alert-non-admission.md)
+   - [A function code is not a download](whitepaper/modbus-is-not-a-program-transfer.md)
+   - [Membership is declared, not inferred](whitepaper/topology-is-declared-not-inferred.md)
+   - [The detectors that were refused](whitepaper/lanes-that-were-refused.md)
+   - [A score is not a rank](whitepaper/a-score-is-not-a-rank.md)
 3. **What Atlas does on real data:** the section below, each result linked to its record.
 4. **What it will not claim:** the [refusal register](refusal-register.md).
 5. **How each number was earned:** every result has a decision record in [adr/](adr/), written

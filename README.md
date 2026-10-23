@@ -43,11 +43,23 @@ You can hand that paragraph back to someone. The figures below are Atlas: what i
 <p align="center">
   <a href="docs/release.md"><b>Release note</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="docs/whitepaper/hn_technical_post.md"><b>Eight alerts</b></a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="docs/"><b>Read the record</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
   everything PHOS has measured, including what didn't work
+</p>
+
+<p align="center">
+  <a href="docs/whitepaper/hn_technical_post.md"><b>Eight alerts</b></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="docs/whitepaper/eight-alert-non-admission.md">What the page refuses</a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="docs/whitepaper/modbus-is-not-a-program-transfer.md">Function codes</a>
+  <br>
+  <a href="docs/whitepaper/topology-is-declared-not-inferred.md">Declared topology</a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="docs/whitepaper/lanes-that-were-refused.md">Lanes that were refused</a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="docs/whitepaper/a-score-is-not-a-rank.md">A score is not a rank</a>
 </p>
 
 <br>
