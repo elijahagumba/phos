@@ -1,6 +1,6 @@
 # PHOS research pre-release
 
-PHOS is the company. Atlas is the engine this note is about. Atlas watches how an industrial plant normally runs. When something looks off, it says what it might be, and what would decide it. It will not call it an attack if it does not know. Sentiel, for enterprise networks, is planned. This note is Atlas.
+PHOS is the company. Atlas is the engine this note is about. A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight. A score is refused. A break is not an attack. The figures below are measurements of the older detectors. They are not that page. Sentiel, for enterprise networks, is planned and is not ready to stand next to Atlas. This note is Atlas.
 
 This page restates figures already in the record. It adds no measurement. The source is available under the [PolyForm Noncommercial License 1.0.0](../LICENSE). Commercial use needs a licence. The work is not deployable, and it is not a live plant.
 
@@ -13,7 +13,7 @@ uv sync
 uv run phos demo
 ```
 
-About fifteen seconds. A simulated water plant runs for 120 hours, something writes to its controller, and Atlas writes its brief. The demo then says what actually happened, including when Atlas missed or raised a false alarm. `--scenario operator` and `--scenario attacker` are the other two incidents. A demonstration, not a measurement.
+About fifteen seconds. The demo runs the older detectors on a simulated water plant for 120 hours. It is not the operator page. The demo then says what actually happened, including when it missed or raised a false alarm. `--scenario operator` and `--scenario attacker` are the other two incidents. A demonstration, not a measurement.
 
 ```bash
 uv run pytest -q

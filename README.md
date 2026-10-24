@@ -92,9 +92,9 @@ uv sync
 uv run phos demo
 ```
 
-About fifteen seconds. A simulated water plant runs for 120 hours, something writes to its
-controller, and Atlas writes its brief. Then the demo shows what actually happened, and says so
-plainly when Atlas missed it or raised a false alarm. Try `--scenario operator` and
+About fifteen seconds. The demo runs the older detectors on a simulated water plant for 120
+hours. It is not the operator page. Then the demo shows what actually happened, and says so
+plainly when it missed or raised a false alarm. Try `--scenario operator` and
 `--scenario attacker` too.
 
 ```bash

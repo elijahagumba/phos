@@ -40,7 +40,9 @@ engine, kept so a published number can be rerun. They are not the page.
 
 `public/overlay/README.md` says the pictures are those measurements. The
 plant paragraph asks for exported files and laws the site writes. It does
-not ask for a copy of the control network.
+not ask for a copy of the control network. The release note opens with the
+page. Its figures stay the older detectors' figures, and the demo is labelled
+as that older engine.
 
 ### Options
 

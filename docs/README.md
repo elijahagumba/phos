@@ -112,7 +112,7 @@ was added; three routes are now mapped dead ends with the reasons recorded.
 
 ### A broken law, or silence
 
-The operator page in `src/phos/atlas/declared_law.py` admits a slot only when a declared law is false. A law the facts satisfy is silence. A law the plant did not name is not evaluated. A declared law is held, broken, or unstated, and only a broken law takes a slot. The page keeps the earliest breaks, at most 8, ordered by time and then by law name. Residual magnitude does not create a slot and does not sort one. Every sentence is the law's name, then the fact. A sentence that carries a confidence, a probability, a weight, a magnitude, or a score is refused, and a break whose sentence does not name its law is not placed.
+The operator page in `src/phos/atlas/declared_law.py` admits a slot only when a declared law is false. A law the facts satisfy is silence. A law the plant did not name is not evaluated. A declared law is held, broken, or unstated, and only a broken law takes a slot. A law the plant names that this page has no check for is listed and takes no slot. The page keeps the earliest breaks, at most 8, ordered by time and then by law name. Residual magnitude does not create a slot and does not sort one. Every sentence is the law's name, then the fact. A sentence that carries a confidence, a probability, a weight, a magnitude, or a score is refused, and a break whose sentence does not name its law is not placed.
 
 The laws are boolean. Two setpoints inside the ordinary band are one move, or they are nothing. A walk of the frozen length is one walk, or it is nothing. An open handoff is a break until a booking names both tags. An unbooked program transfer is a break. A station outside a declared set is a break, and an empty set means that law was not stated. The controller comparison is the PLC's own rule, with no divisor: agreement is silence, a valve that is not the value that rule writes is one break, and manual mode means the law was not in force.
 
@@ -123,7 +123,8 @@ No corpus was scored for this page. The frozen residual detector was not edited.
 [ADR 0320](adr/0320-an-unnamed-station-is-silence-until-the-set-is-named.md),
 [ADR 0321](adr/0321-the-controller-comparison-is-true-or-false.md),
 [ADR 0322](adr/0322-a-slot-enters-only-as-a-law-break.md),
-[ADR 0323](adr/0323-every-sentence-names-the-law-it-came-from.md).
+[ADR 0323](adr/0323-every-sentence-names-the-law-it-came-from.md),
+[ADR 0326](adr/0326-a-score-word-is-not-placed-and-an-unchecked-law-stays-listed.md).
 
 ### What the engines we already have caught, on a simulated plant
 
