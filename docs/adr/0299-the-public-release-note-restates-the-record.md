@@ -36,6 +36,7 @@ The note is `docs/release.md` in the public tree. In this lab it is
 the PolyForm Noncommercial licence, the demo command, 131 of 160 against 52 for the best
 baseline checked (ADR 0116), v1 at 8 of 12 with A3, A7, S3 and C2 still open, the queue and the
 maintenance tie, and the simulated results labelled as simulated. A7 stays unmet.
+<!-- evidence-ack: docs/release.md — public export path; in this lab the file is public/overlay/docs/release.md -->
 
 The unsent drafts are corrected to those bands, and the claim that every number rebuilds is
 corrected to four of five, with A7 unmet. A Show HN draft sits in the same lab file. The

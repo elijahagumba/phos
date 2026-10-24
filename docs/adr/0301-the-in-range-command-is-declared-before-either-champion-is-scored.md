@@ -115,6 +115,7 @@ Built only after `day1-champions.md` is committed in a verdict record, and only 
 name `atlas-inrange-consistency`. It does not edit `consistency.py` or
 `command_consistency.py`. It does not restore `response_departure`. It does not read
 `mimic_maintenance`.
+<!-- evidence-ack: src/phos/atlas/inrange_consistency.py — specified and not built; the recorded miss count was zero, so this module stays unwritten -->
 
 A write to `tank_level_max` is counted when the step is at least `MIN_COMMAND_SHARE` of that
 signal's training span. The span is the maximum minus the minimum on the three `normal` runs

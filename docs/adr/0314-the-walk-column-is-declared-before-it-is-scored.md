@@ -14,7 +14,7 @@ ADR 0313 records `M_champion` 1 on `subfloor_walk`. That is the gate that allows
 walk column ADR 0301 specified. The column is in
 `src/phos/atlas/walk_consistency.py`. It is per sample. It is not a running sum.
 Above `tank_level_max` the predicted `tank_input_valve_status` is 0. Below
-`tank_level_min` it is 1, the constant PLC1 writes at ICSSim `bcfd184`. Samples
+`tank_level_min` it is 1, the constant PLC1 writes at ICSSim `bcfd1844d3f063850c69f2643f6a052bac03d8ec`, which is not in this repository. Samples
 inside the band, including either end, are 0. The raw value is the absolute error
 times `ONSET_LEVEL`. The divisor is the third-largest training peak, or 1.0. The
 calibrated column is appended after the frozen per-signal scores and passed through

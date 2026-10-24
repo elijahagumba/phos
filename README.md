@@ -12,7 +12,20 @@ That paragraph is the operator page. The older detectors remain in the repositor
 
 Sentiel is the other engine, for enterprise networks. PHOS is going to build it. The work right now is Atlas, so this page is Atlas. Sentiel is not ready to stand next to it.
 
-You can hand that paragraph back to someone. The figures below are Atlas: what it has measured, one alert, and what it cannot say yet.
+The code of that page is `src/phos/atlas/declared_law.py`. Six laws, and only these:
+
+| Law | A break is |
+| --- | --- |
+| `joint_move` | Two tags written inside the ordinary band, close together in time |
+| `subfloor_walk` | One tag stepped across that band for a fixed length |
+| `band_handoff` | The same ordinary value on a second tag later, and no booking names both tags |
+| `program_transfer` | A download, an upload, or an online edit, and nothing booked covers that act |
+| `allowed_writer` | A write from a station the plant did not name |
+| `controller_valve` | A valve that is not the value the plant's own comparison writes |
+
+A law this page has no check for is listed and takes no line. An empty list of laws checks nothing. There is no screen, no service, and no connection to a control network. The next step is one plant that exports its files and writes the laws. If no plant agrees, the product sequence stops. The page stays. A price for the company has no date here.
+
+The pictures below are measurements of the older detectors. They are not the page. The page does not carry a score.
 
 <br>
 
@@ -66,11 +79,9 @@ You can hand that paragraph back to someone. The figures below are Atlas: what i
 
 <br>
 
-### Run a plant?
+### A plant
 
-PHOS is looking for its first plant to run alongside, passively, learning from historian data and a
-copy of the network traffic. If you operate or secure an industrial site and want to see what Atlas
-makes of it, write to [elijahagumba.research@proton.me](mailto:elijahagumba.research@proton.me).
+PHOS is looking for one site that can export historian files and write down which laws to check. The page will not show a score. PHOS will not connect to the control network. If you operate or secure an industrial site and can do that, write to [elijahagumba.research@proton.me](mailto:elijahagumba.research@proton.me).
 
 <br>
 

@@ -1,7 +1,8 @@
 """Only a broken declared law takes a slot. Held and unstated take none.
 
 A slot enters only as a LawBreak. A subclass that adds a magnitude is refused.
-Every sentence names its law. A score-word is refused.
+Every sentence names its law. A score-word is refused and is not placed.
+A named law this page has no check for stays unstated.
 """
 
 from __future__ import annotations
@@ -197,7 +198,7 @@ def test_nine_breaks_keep_the_earliest_eight_and_leave_off_the_later_loud_one() 
     loud = LawBreak(
         "subfloor_walk",
         WHEN + timedelta(hours=5),
-        "subfloor_walk. Residual magnitude would have ranked this later break first.",
+        "subfloor_walk. A later break stays off the page.",
     )
     page = law_page((loud, *reversed(early)), register=DECLARED)
     assert len(page) == 8 == OPERATOR_PAGE_CEILING
@@ -354,7 +355,7 @@ def test_a_full_register_keeps_the_earliest_eight_of_nine_by_time() -> None:
     loud = LawBreak(
         "program_transfer",
         WHEN + timedelta(hours=5),
-        "program_transfer. Residual magnitude would have ranked this later break first.",
+        "program_transfer. A later break stays off the page.",
     )
     page = law_page((loud, *reversed(early)), register=LawRegister(LAWS))
     assert tuple(law.name for law in LAWS) == (*names, "allowed_writer", "controller_valve")
@@ -1214,3 +1215,71 @@ def test_law_break_fields_remain_name_time_statement_and_residuals_stay_unimport
         "feature_scores",
     ):
         assert banned not in source
+
+
+def test_law_page_refuses_a_score_word_and_places_nothing() -> None:
+    unknown = DeclaredLaw("tank_overfill", "The tank stays inside the band the plant wrote.")
+    register = LawRegister((unknown,))
+    scored = LawBreak(
+        "tank_overfill",
+        WHEN,
+        "tank_overfill. The level exceeded max with confidence 0.93.",
+    )
+    later = LawBreak(
+        "tank_overfill",
+        WHEN + timedelta(minutes=1),
+        "tank_overfill. The level is 0.93 above the maximum the plant wrote.",
+    )
+    assert type(scored) is LawBreak
+    assert scored.statement.startswith("tank_overfill. ")
+    assert scored.name in {law.name for law in register.laws}
+    placed: tuple[LawBreak, ...] = ()
+    with pytest.raises(ValueError, match="confidence") as caught:
+        placed = law_page((scored, later), register=register)
+    assert placed == ()
+    assert scored not in placed
+    assert later not in placed
+    assert "tank_overfill. The level exceeded max with confidence 0.93." not in str(caught.value)
+    report = LawReport(held=(), broken=(scored,), unstated=())
+    with pytest.raises(ValueError, match="confidence"):
+        page_from_report(report, register=register)
+    for word in ("probability", "weight", "magnitude", "score", "CONFIDENCE"):
+        sentence = LawBreak(
+            "joint_move",
+            WHEN,
+            f"joint_move. The {word} is not a fact.",
+        )
+        with pytest.raises(ValueError, match=word.casefold()):
+            law_page((sentence,), register=DECLARED)
+    clean = LawBreak(
+        "joint_move",
+        WHEN,
+        "joint_move. The level is 0.93 above the maximum the plant wrote.",
+    )
+    assert law_page((clean,), register=DECLARED) == (clean,)
+
+
+def test_a_named_law_with_no_check_stays_unstated_and_the_register_is_partitioned() -> None:
+    unknown = DeclaredLaw("tank_overfill", "The tank stays inside the band the plant wrote.")
+    register = LawRegister((JOINT_MOVE, unknown))
+    report = assess_plant((SetpointStep("tank_level_max", WHEN, 7.0),), register=register)
+    assert [item.name for item in report.held] == ["joint_move"]
+    assert report.broken == ()
+    assert [item.name for item in report.unstated] == ["tank_overfill"]
+    assert report.unstated[0].standing is Standing.UNSTATED
+    assert report.unstated[0].time is None
+    assert report.unstated[0].statement == (
+        "tank_overfill. This page has no check for this law, so it was not stated."
+    )
+    names = {law.name for law in register.laws}
+    listed = (
+        {item.name for item in report.held}
+        | {item.name for item in report.broken}
+        | {item.name for item in report.unstated}
+    )
+    assert listed == names
+    alone = assess_plant(register=LawRegister((unknown,)))
+    assert alone.held == ()
+    assert alone.broken == ()
+    assert len(alone.unstated) == 1
+    assert page_from_report(alone, register=LawRegister((unknown,))) == ()

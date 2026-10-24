@@ -9,7 +9,8 @@
 ## Context
 
 ADR 0320 names who may write. It does not say what the controller itself
-writes. PLC1, at ICSSim `bcfd184`, already does. The same lines are quoted in
+writes. PLC1, at ICSSim `bcfd1844d3f063850c69f2643f6a052bac03d8ec` — that commit is
+not in this repository — already does. The same lines are quoted in
 `data/phos-icssim-dev/roles.toml`. The input valve closes when the tank level
 is strictly above its maximum and opens when the level is strictly below its
 minimum. Inside that band, including either end, the quoted logic does not

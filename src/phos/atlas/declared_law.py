@@ -2,10 +2,13 @@
 
 A declared law is held, broken, or unstated. Held means the inlet had facts
 and the predicate returned silence. Unstated means the law is named and the
-inlet has no facts that law can be checked against. Broken means the predicate
-returned an alert. Only a broken law is a ``LawBreak``, and only that list
-enters the page. Held and unstated are listed and take no slot. A law the
-register does not name is on none of the three lists.
+inlet has no facts that law can be checked against, or the register names a
+law this page has no check for. That unchecked name is listed once. It is
+not dropped. Broken means the predicate returned an alert. Only a broken law
+is a ``LawBreak``, and only that list enters the page. Held and unstated are
+listed and take no slot. A law the register does not name is on none of the
+three lists. The three lists partition the register: one named law is in one
+list.
 
 There is no score, confidence, probability, weight, or magnitude on an
 outcome. A held or unstated outcome carries no time. Time is recorded only
@@ -29,8 +32,10 @@ probability, weight, magnitude, or score is refused, and no sentence is
 returned. The refusal is the word. It is not a threshold, and it does not
 search a number. A decimal the plant already uses is allowed when none of
 those words appear. ``law_page`` refuses a break whose statement does not
-start with that law's name. The check runs with the exact-type check, before
-the page is ordered. An uncited break is not placed.
+start with that law's name, and it refuses a statement that contains one of
+those words. Both checks run with the exact-type check, before the page is
+ordered. An uncited break is not placed. A break that carries a score-word
+is not placed, and nothing else in that call is placed either.
 
 The laws are the predicates already written for a joint in-band move, a walk of
 the frozen length, a handoff, and a program transfer, plus one directory law:
@@ -137,8 +142,10 @@ _CONTROLLER_MANUAL: Final = "A valve mode is not release, so controller_valve wa
 _CONTROLLER_HELD: Final = (
     "A controller sample was supplied, both modes are release, and neither side disagrees."
 )
+_UNCHECKED_UNSTATED: Final = "This page has no check for this law, so it was not stated."
 
-# PLC1 at bcfd184, as quoted in data/phos-icssim-dev/roles.toml. Not tuned.
+# PLC1 at bcfd1844d3f063850c69f2643f6a052bac03d8ec, which is not in this
+# repository, as quoted in data/phos-icssim-dev/roles.toml. Not tuned.
 _VALVE_CLOSED: Final = 0.0
 """What the quoted line writes to close a valve."""
 _VALVE_OPEN: Final = 1.0
@@ -384,6 +391,26 @@ _ACT_WORDS: Final[dict[ProgramAct, str]] = {
 }
 
 
+def _score_word(text: str) -> str | None:
+    """Return the first score-word in ``text``, if any.
+
+    The match is the word as a substring, in any case. A decimal is not a
+    score-word. This is the same test ``cited_statement`` and ``law_page`` use,
+    so a sentence one of them refuses cannot slip through the other.
+
+    Args:
+        text: The fact, or the whole sentence a caller is trying to place.
+
+    Returns:
+        The score-word, folded, or ``None`` when the text carries none.
+    """
+    folded = text.casefold()
+    for word in _SCORE_WORDS:
+        if word in folded:
+            return word
+    return None
+
+
 def cited_statement(law: DeclaredLaw, fact: str) -> str:
     """Name the law, then the fact. A score-word is refused.
 
@@ -409,10 +436,9 @@ def cited_statement(law: DeclaredLaw, fact: str) -> str:
     cleaned = fact.strip()
     if cleaned == "":
         raise ValueError("a cited fact is not empty")
-    folded = cleaned.casefold()
-    for word in _SCORE_WORDS:
-        if word in folded:
-            raise ValueError(f"a cited fact does not carry {word}")
+    word = _score_word(cleaned)
+    if word is not None:
+        raise ValueError(f"a cited fact does not carry {word}")
     return f"{law.name}. {cleaned}"
 
 
@@ -427,11 +453,14 @@ def law_page(breaks: Sequence[LawBreak], *, register: LawRegister) -> tuple[LawB
     cannot place them.
 
     A value is admitted only when ``type(item) is LawBreak`` and its statement
-    starts with that law's name, a period, and a space. ``isinstance`` is not
-    enough, because a subclass can carry a magnitude. Those checks run before
-    the page is ordered. A different type raises and is not placed. A statement
-    that does not name its law raises and is not placed. The ceiling and the
-    sort key are unchanged.
+    starts with that law's name, a period, and a space, and the statement does
+    not contain a score-word. ``isinstance`` is not enough, because a subclass
+    can carry a magnitude. Those checks run before the page is ordered. A
+    different type raises and is not placed. A statement that does not name
+    its law raises and is not placed. A statement that contains confidence,
+    probability, weight, magnitude, or score raises and is not placed, and
+    nothing else in that call is placed. The ceiling and the sort key are
+    unchanged.
 
     Args:
         breaks: Broken laws the caller already holds.
@@ -443,8 +472,8 @@ def law_page(breaks: Sequence[LawBreak], *, register: LawRegister) -> tuple[LawB
 
     Raises:
         ValueError: If a value is not exactly a ``LawBreak``, a statement does
-            not start with its law name, a time is naive, or a break's name is
-            not in ``register``.
+            not start with its law name, a statement contains a score-word, a
+            time is naive, or a break's name is not in ``register``.
     """
     names = _law_names(register)
     for item in breaks:
@@ -454,6 +483,9 @@ def law_page(breaks: Sequence[LawBreak], *, register: LawRegister) -> tuple[LawB
             raise ValueError("only a LawBreak enters the page")
         if not item.statement.startswith(f"{item.name}. "):
             raise ValueError(f"{item.name} does not name its law")
+        word = _score_word(item.statement)
+        if word is not None:
+            raise ValueError(f"a placed sentence does not carry {word}")
         _require_aware(item.time, "time")
         if item.name not in names:
             raise ValueError(f"{item.name} is not in the register")
@@ -471,7 +503,9 @@ def page_from_report(report: LawReport, *, register: LawRegister) -> tuple[LawBr
     ``LawBreak`` values, so they cannot take one of the eight places. A
     subclass inside that tuple is still a different type, so ``law_page``
     refuses it and it is not placed. A genuine break whose statement does not
-    start with its law name is refused there too, and it is not placed.
+    start with its law name is refused there too, and it is not placed. A
+    statement that contains a score-word is refused there too, and nothing
+    from that call is placed.
 
     Args:
         report: One assessment of the plant.
@@ -482,8 +516,8 @@ def page_from_report(report: LawReport, *, register: LawRegister) -> tuple[LawBr
 
     Raises:
         ValueError: If a value is not exactly a ``LawBreak``, a statement does
-            not start with its law name, a time is naive, or a break's name is
-            not in ``register``.
+            not start with its law name, a statement contains a score-word, a
+            time is naive, or a break's name is not in ``register``.
     """
     return law_page(report.broken, register=register)
 
@@ -514,8 +548,10 @@ def assess_plant(
     alert. A station inside the allowed set is silence for ``allowed_writer``
     even when another declared law is broken. An empty register returns three
     empty lists, including when the steps, the writes, or the sample would have
-    matched a predicate the plant did not name. Omitting ``controller`` leaves
-    the four older laws and ``allowed_writer`` unchanged.
+    matched a predicate the plant did not name. A name in the register that no
+    predicate placed is unstated, once. It is not dropped, and it is not a
+    break. Omitting ``controller`` leaves the four older laws and
+    ``allowed_writer`` unchanged.
 
     Args:
         steps: Setpoint writes the joint, walk, and handoff checks already take.
@@ -637,6 +673,13 @@ def assess_plant(
                 broken=broken,
                 unstated=unstated,
             )
+    listed = {item.name for item in held}
+    listed.update(item.name for item in broken)
+    listed.update(item.name for item in unstated)
+    for law in register.laws:
+        if law.name in listed:
+            continue
+        unstated.append(_listed(law, Standing.UNSTATED, _UNCHECKED_UNSTATED))
     report = LawReport(
         held=tuple(sorted(held, key=lambda item: item.name)),
         broken=tuple(sorted(broken, key=lambda item: (item.time, item.name))),

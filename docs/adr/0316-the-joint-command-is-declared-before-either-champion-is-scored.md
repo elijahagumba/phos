@@ -16,7 +16,7 @@
 ADR 0315 retired the walk column. The next class in `docs/atlas-daily-leaps.md` is the joint
 command vector. This is its morning record. It is committed before any generation or score.
 
-The plant facts used below are already fixed. At ICSSim `bcfd184`, `tank_level_max` defaults
+The plant facts used below are already fixed. At ICSSim `bcfd1844d3f063850c69f2643f6a052bac03d8ec` — that commit is not in this repository — `tank_level_max` defaults
 to 7 and a benign `setpoint` already writes it into 6.5–7.5. `bottle_level_max` defaults to
 1.8. `PHYSICS.BOTTLE_MAX_LEVEL` is 2. PLC1 closes the input valve when the level is above
 `tank_level_max` and opens it when the level is below `tank_level_min`. It closes the output
@@ -98,6 +98,7 @@ champion.
 
 **Report:** `eval_runs/build/lane-daily/joint-champions.md`, written from that command's
 stdout. `eval_runs/log.jsonl` is not appended.
+<!-- evidence-ack: eval_runs/build/lane-daily/joint-champions.md — the declared report name; the joint-command score has not been taken, so this file does not exist -->
 
 For `joint_command` only, `M_v1` is the number of those events with no frozen alert inside
 the event window, and `M_cmd` is the same count for the command detector. `M_champion` is the
@@ -121,6 +122,7 @@ Built only after `joint-champions.md` is committed in a verdict record, and only
 `atlas-joint-consistency`. It does not edit `consistency.py` or `command_consistency.py`. It
 does not read `mimic_maintenance`. It does not restore `response_departure`. The page
 predicate in `joint_setpoint.py` is not this column.
+<!-- evidence-ack: src/phos/atlas/joint_consistency.py — specified and not built; the joint-command score has not been taken, so this module stays unwritten -->
 
 A step on `tank_level_max` or on `bottle_level_max` is a sample-to-sample absolute change of
 at least `MIN_COMMAND_SHARE` of that signal's training span. The span is the maximum minus
