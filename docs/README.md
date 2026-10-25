@@ -259,8 +259,4 @@ and its result file in this repository, and `docs/reproduce.md` is the one comma
 them. Where a claim rests on data that cannot be redistributed, the record says so and names the
 licence rather than quietly omitting it.
 
-<br>
-
-<p align="center">
-  <sub>The documents behind these pages are the working record, written as the research happened. They are dense by design.</sub>
-</p>
+<sub>The documents behind these pages are the working record, written as the research happened. They are dense by design.</sub>

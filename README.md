@@ -2,11 +2,19 @@
   <img src=".github/assets/readme/hero-plate.svg" width="600" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. Research pre-release.">
 </p>
 
-<br>
-
 PHOS is the company.
 
-A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight, ordered by time, then by the law's name. Every sentence names its law, then the fact. A score is refused. A break is a false law. The page does not name the cause. Held means the check ran and the law stood. Unstated means the plant named the law and supplied nothing that law can be checked against. An empty register checks nothing.
+A plant names the laws in force.<br>
+Each named law is held, broken, or unstated.<br>
+Only a broken law takes a slot.<br>
+The page holds at most eight, ordered by time, then by the law's name.<br>
+Every sentence names its law, then the fact.<br>
+A score is refused.<br>
+A break is a false law.<br>
+The page does not name the cause.<br>
+Held means the check ran and the law stood.<br>
+Unstated means the plant named the law and supplied nothing that law can be checked against.<br>
+An empty register checks nothing.
 
 That paragraph is the operator page. The older detectors remain in the repository so the published measurements can still be reproduced. They do not enter that page. Someone with a valid login sets off no alarm by the login itself. What they change is how the plant runs.
 
@@ -27,63 +35,36 @@ A law this page has no check for is listed and takes no line. An empty list of l
 
 The pictures below are measurements of the older detectors. They are not the page. The page does not carry a score.
 
-<br>
-
 <p align="center">
   <img src=".github/assets/readme/about-plate.svg" width="600" alt="A named law is held, broken, or unstated. Only a broken law takes a slot. At most eight. A score is refused. A break is not an attack.">
 </p>
-
-<br>
 
 <p align="center">
   <img src=".github/assets/readme/results-plate.svg" width="600" alt="Measured. On three editions of HAI, a real industrial testbed, Atlas caught 131 of 160 attacks at 8 alerts a shift; the best baseline checked caught 52. On simulated runs it never saw, the lying sensor was named in 146 of 150, none named wrong. 0 of 80 simulated attacks were closed as maintenance, including 40 disguised as maintenance. On a real wind farm with no attacks in it, in two years held back and scored once, 6 of 29 alerts were not explained by the turbines' own logs. Simulated plants are a diagnosis, not a real-plant result.">
 </p>
 
-<br>
-
 <p align="center">
   <img src=".github/assets/readme/alert-plate.svg" width="600" alt="An Atlas alert. A command this link does not usually see. It might be an attack or planned maintenance. The same fact supports both, so Atlas will not pick. What would decide it: a command from a machine that has never commanded this one.">
 </p>
-
-<br>
 
 <p align="center">
   <img src=".github/assets/readme/boundary-plate.svg" width="600" alt="What Atlas can say: it treats the plant as one machine, says what a change might be, names what would decide it, stays quiet when it cannot tell, and names the lying sensor on simulated plants. What it can't do yet: close a maintenance alert without that hour's job sheet, rank its own alert list, learn from a labelled command capture, or prove itself on a real plant.">
 </p>
 
-<br>
-
-<p align="center">
-  <a href="docs/release.md"><b>Release note</b></a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="docs/"><b>Read the record</b></a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  everything PHOS has measured, including what didn't work
-</p>
-
-<p align="center">
-  <a href="docs/whitepaper/hn_technical_post.md"><b>Eight alerts</b></a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="docs/whitepaper/eight-alert-non-admission.md">What the page refuses</a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="docs/whitepaper/modbus-is-not-a-program-transfer.md">Function codes</a>
-  <br>
-  <a href="docs/whitepaper/topology-is-declared-not-inferred.md">Declared topology</a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="docs/whitepaper/lanes-that-were-refused.md">Lanes that were refused</a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="docs/whitepaper/a-score-is-not-a-rank.md">A score is not a rank</a>
-  <br>
-  <a href="docs/#a-broken-law-or-silence">A broken law, or silence</a>
-</p>
-
-<br>
+[Release note](docs/release.md)<br>
+[The record](docs/)<br>
+Everything PHOS has measured, including what didn't work.<br>
+[Eight alerts](docs/whitepaper/hn_technical_post.md)<br>
+[What the page refuses](docs/whitepaper/eight-alert-non-admission.md)<br>
+[A function code is not a download](docs/whitepaper/modbus-is-not-a-program-transfer.md)<br>
+[Membership is declared, not inferred](docs/whitepaper/topology-is-declared-not-inferred.md)<br>
+[The detectors that were refused](docs/whitepaper/lanes-that-were-refused.md)<br>
+[A score is not a rank](docs/whitepaper/a-score-is-not-a-rank.md)<br>
+[A broken law, or silence](docs/#a-broken-law-or-silence)
 
 ### A plant
 
 PHOS is looking for one site that can export historian files and write down which laws to check. The page will not show a score. PHOS will not connect to the control network. If you operate or secure an industrial site and can do that, write to [elijahagumba.research@proton.me](mailto:elijahagumba.research@proton.me).
-
-<br>
 
 ### Run it
 
@@ -104,12 +85,8 @@ uv run pytest -q
 The test suite needs no datasets. Public corpora are downloaded separately and never committed; see
 [data/README.md](data/README.md).
 
-<br>
-
-<p align="center">
-  <sub>Research pre-release. Not deployable, and never run on a live plant.</sub><br>
-  <sub>Atlas is the industrial engine, and the work right now. Sentiel, for enterprise networks, is planned and not ready to stand next to it.</sub><br>
-  <sub>Built by one researcher with AI coding agents. Every published number reproduces from this repository and the public datasets it names.</sub><br>
-  <sub>Source-available under the <a href="LICENSE">PolyForm Noncommercial License 1.0.0</a>. Commercial use requires a licence.</sub><br>
-  <sub>PHOS</sub>
-</p>
+<sub>Research pre-release. Not deployable, and never run on a live plant.<br>
+Atlas is the industrial engine, and the work right now. Sentiel, for enterprise networks, is planned and not ready to stand next to it.<br>
+Built by one researcher with AI coding agents. Every published number reproduces from this repository and the public datasets it names.<br>
+Source-available under the <a href="LICENSE">PolyForm Noncommercial License 1.0.0</a>. Commercial use requires a licence.<br>
+PHOS</sub>
