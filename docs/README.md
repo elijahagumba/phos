@@ -1,7 +1,4 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../.github/assets/readme/record-dark.svg">
-  <img src="../.github/assets/readme/record-light.svg" width="100%" alt="The record: everything PHOS has measured, including what didn't work">
-</picture>
+<img src="../.github/assets/readme/record.svg" width="100%" alt="The record: everything PHOS has measured, including what didn't work. Each number here can be rebuilt from this repository. Each limit says what would lift it.">
 
 <br>
 
