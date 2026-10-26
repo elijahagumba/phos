@@ -24,16 +24,11 @@ The pictures below are measurements of the older detectors. They are not the pag
 
 <img src=".github/assets/readme/boundary.svg" width="100%" alt="What Atlas can say: it treats the plant as one machine, says what a change might be, names what would decide it, stays quiet when it cannot tell, and names the lying sensor on simulated plants. What it can't do yet: close a maintenance alert without that hour's job sheet, rank its own alert list, learn from a labelled command capture, or prove itself on a real plant.">
 
-[Release note](docs/release.md)<br>
-[The record](docs/)<br>
-Everything PHOS has measured, including what didn't work.<br>
-[Eight alerts](docs/whitepaper/hn_technical_post.md)<br>
-[What the page refuses](docs/whitepaper/eight-alert-non-admission.md)<br>
-[A function code is not a download](docs/whitepaper/modbus-is-not-a-program-transfer.md)<br>
-[Membership is declared, not inferred](docs/whitepaper/topology-is-declared-not-inferred.md)<br>
-[The detectors that were refused](docs/whitepaper/lanes-that-were-refused.md)<br>
-[A score is not a rank](docs/whitepaper/a-score-is-not-a-rank.md)<br>
-[A broken law, or silence](docs/#a-broken-law-or-silence)
+<img src=".github/assets/readme/index.svg" width="100%" alt="Release note. The record: everything PHOS has measured, including what didn't work. Eight alerts. What the page refuses. A function code is not a download. Membership is declared, not inferred. The detectors that were refused. A score is not a rank. A broken law, or silence.">
+
+[Release note](docs/release.md). [The record](docs/). Everything PHOS has measured, including what didn't work.
+
+[Eight alerts](docs/whitepaper/hn_technical_post.md). [What the page refuses](docs/whitepaper/eight-alert-non-admission.md). [A function code is not a download](docs/whitepaper/modbus-is-not-a-program-transfer.md). [Membership is declared, not inferred](docs/whitepaper/topology-is-declared-not-inferred.md). [The detectors that were refused](docs/whitepaper/lanes-that-were-refused.md). [A score is not a rank](docs/whitepaper/a-score-is-not-a-rank.md). [A broken law, or silence](docs/#a-broken-law-or-silence).
 
 ### A plant
 
