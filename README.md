@@ -1,6 +1,8 @@
-<img src=".github/assets/readme/cover.svg" width="100%" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight, ordered by time, then by the law's name. Every sentence names its law, then the fact. A score is refused. A break is a false law. The page does not name the cause. Held means the check ran and the law stood. Unstated means the plant named the law and supplied nothing that law can be checked against. An empty register checks nothing. Research pre-release.">
+<img src=".github/assets/readme/cover.svg" width="100%" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. Research pre-release.">
 
 PHOS is the company.
+
+A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight, ordered by time, then by the law's name. Every sentence names its law, then the fact. A score is refused. A break is a false law. The page does not name the cause. Held means the check ran and the law stood. Unstated means the plant named the law and supplied nothing that law can be checked against. An empty register checks nothing.
 
 That paragraph is the operator page. The older detectors remain in the repository so the published measurements can still be reproduced. They do not enter that page. Someone with a valid login sets off no alarm by the login itself. What they change is how the plant runs.
 
