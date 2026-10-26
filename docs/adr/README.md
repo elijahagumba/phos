@@ -353,6 +353,7 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0328](0328-manual-is-one-school-and-the-page-does-not-choose.md) | Manual on the controller law stays unstated. A public conversation named the other schools and did not change the check. No corpus was scored. v1 stays 8 of 12 | ADR 0321 | 2026-10-24 | Accepted |
 | [0330](0330-the-public-plates-are-one-canvas-and-the-poster-carries-one-sentence.md) | The public plates are one canvas, and the poster carries one sentence. The contract is text, not a picture of a paragraph. No figure moved. v1 stays 8 of 12 | ADR 0200, ADR 0327, ADR 0044 | 2026-10-26 | Accepted |
 | [0331](0331-the-public-page-is-set-for-both-themes-and-the-hero-is-the-page.md) | The public page is set for both themes, and the hero is the page. A plate is drawn once in tokens and resolved per theme. Motion is refused. No figure moved. v1 stays 8 of 12 | ADR 0330, ADR 0200, ADR 0317 | 2026-10-26 | Accepted |
+| [0332](0332-the-plates-are-set-on-one-spacing-scale.md) | The plates are set on one spacing scale. Margin a tenth of the canvas, 1.73 leading on body, a 65-character measure. No figure moved. v1 stays 8 of 12 | ADR 0330, ADR 0331 | 2026-10-26 | Accepted |
 
 ## Related reading
 
