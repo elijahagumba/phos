@@ -1,7 +1,8 @@
 """Only a broken declared law takes a slot. Held and unstated take none.
 
 A slot enters only as a LawBreak. A subclass that adds a magnitude is refused.
-Every sentence names its law. A score-word is refused and is not placed.
+Every sentence names its law. A score-word in the fact is refused and is not
+placed. A law name that carries one of those words is a name, not a score.
 A named law this page has no check for stays unstated.
 """
 
@@ -1233,13 +1234,12 @@ def test_law_page_refuses_a_score_word_and_places_nothing() -> None:
     assert type(scored) is LawBreak
     assert scored.statement.startswith("tank_overfill. ")
     assert scored.name in {law.name for law in register.laws}
-    placed: tuple[LawBreak, ...] = ()
     with pytest.raises(ValueError, match="confidence") as caught:
-        placed = law_page((scored, later), register=register)
-    assert placed == ()
-    assert scored not in placed
-    assert later not in placed
+        law_page((scored, later), register=register)
     assert "tank_overfill. The level exceeded max with confidence 0.93." not in str(caught.value)
+    # The call raised, so it returned no page at all. `later` places on its own,
+    # which is what makes the refusal above the scored sentence and not the pair.
+    assert law_page((later,), register=register) == (later,)
     report = LawReport(held=(), broken=(scored,), unstated=())
     with pytest.raises(ValueError, match="confidence"):
         page_from_report(report, register=register)
@@ -1283,3 +1283,39 @@ def test_a_named_law_with_no_check_stays_unstated_and_the_register_is_partitione
     assert alone.broken == ()
     assert len(alone.unstated) == 1
     assert page_from_report(alone, register=LawRegister((unknown,))) == ()
+
+
+def test_a_law_name_that_carries_a_score_word_is_read_as_a_name() -> None:
+    """ADR 0329. The plant writes the register. The page reads the fact."""
+    weighed = DeclaredLaw(
+        "tank_weight_limit",
+        "The tank stays under the weight the plant wrote.",
+    )
+    register = LawRegister((weighed,))
+    clean = LawBreak(
+        "tank_weight_limit",
+        WHEN,
+        "tank_weight_limit. The tank went over the limit the plant wrote.",
+    )
+    assert law_page((clean,), register=register) == (clean,)
+    # One such name does not withhold a clean break of another law in that call.
+    both = LawRegister((weighed, JOINT_MOVE))
+    joint = LawBreak(
+        "joint_move",
+        WHEN + timedelta(minutes=1),
+        "joint_move. Two tags moved together inside the band the plant wrote.",
+    )
+    assert law_page((clean, joint), register=both) == (clean, joint)
+    # The fact after that name is still read.
+    scored = LawBreak(
+        "tank_weight_limit",
+        WHEN,
+        "tank_weight_limit. The level exceeded max with confidence 0.93.",
+    )
+    with pytest.raises(ValueError, match="confidence"):
+        law_page((scored,), register=register)
+    # No predicate on this page checks that law, so it is still listed once.
+    report = assess_plant(register=register)
+    assert [item.name for item in report.unstated] == ["tank_weight_limit"]
+    assert report.held == ()
+    assert report.broken == ()

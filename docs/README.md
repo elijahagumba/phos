@@ -1,4 +1,6 @@
-<img src="../.github/assets/readme/record.svg" width="100%" alt="The record: everything PHOS has measured, including what didn't work. Each number here can be rebuilt from this repository. Each limit says what would lift it.">
+<p align="center">
+  <img src="../.github/assets/readme/record-plate.svg" width="600" alt="The record: everything PHOS has measured, including what didn't work. Each number here can be rebuilt from this repository. Each limit says what would lift it.">
+</p>
 
 <br>
 
@@ -257,4 +259,8 @@ and its result file in this repository, and `docs/reproduce.md` is the one comma
 them. Where a claim rests on data that cannot be redistributed, the record says so and names the
 licence rather than quietly omitting it.
 
-<sub>The documents behind these pages are the working record, written as the research happened. They are dense by design.</sub>
+<br>
+
+<p align="center">
+  <sub>The documents behind these pages are the working record, written as the research happened. They are dense by design.</sub>
+</p>

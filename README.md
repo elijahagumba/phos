@@ -2,7 +2,17 @@
 
 PHOS is the company.
 
-That paragraph is the operator page. The older detectors remain in the repository so the published measurements can still be reproduced. They do not enter that page. Someone with a valid login sets off no alarm by the login itself. What they change is how the plant runs.
+An industrial plant runs on the judgement of the people in its control room. A security system that guesses spends that judgement. Spend it twice and the third page goes unread.
+
+PHOS builds Atlas, a page for that room. The plant writes down the laws it runs by. Atlas checks whether each one still holds, and reports the ones that do not, at most eight a shift. It attaches no score, ranks nothing, and names no cause. Where the plant's own record cannot settle what happened, Atlas says so and stops. That refusal is the product and not a gap in it.
+
+Atlas is a witness, not a judge. It has never run on a live plant. Every figure in this repository reproduces from it, including the measurements that failed and the lanes that were refused.
+
+A download, an upload and an online edit are three different acts, and Atlas keeps them apart. It will not decide from a byte on the wire that one of them happened; that has to come from the plant's own record. It cannot tell whether the act was booked, because the booking lives in scheduled downtime, a commissioning window or a check-in sheet, and Atlas has none of those yet. So it will not call a contractor doing a requested change an intruder, and it will not call an intruder a contractor.
+
+It is not a SCADA system, not personnel tracking, and not revision tracking. It does not connect to a control network.
+
+The paragraph on that poster is the operator page. The older detectors remain in the repository so the published measurements can still be reproduced. They do not enter that page. Someone with a valid login sets off no alarm by the login itself. What they change is how the plant runs.
 
 Sentiel is the other engine, for enterprise networks. PHOS is going to build it. The work right now is Atlas, so this page is Atlas. Sentiel is not ready to stand next to it.
 

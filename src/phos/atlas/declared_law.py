@@ -32,10 +32,11 @@ probability, weight, magnitude, or score is refused, and no sentence is
 returned. The refusal is the word. It is not a threshold, and it does not
 search a number. A decimal the plant already uses is allowed when none of
 those words appear. ``law_page`` refuses a break whose statement does not
-start with that law's name, and it refuses a statement that contains one of
+start with that law's name, and it refuses a break whose fact carries one of
 those words. Both checks run with the exact-type check, before the page is
-ordered. An uncited break is not placed. A break that carries a score-word
-is not placed, and nothing else in that call is placed either.
+ordered. An uncited break is not placed. A break whose fact carries a
+score-word is not placed, and nothing else in that call is placed either.
+The law's name is the plant's word and is not read for a score (ADR 0329).
 
 The laws are the predicates already written for a joint in-band move, a walk of
 the frozen length, a handoff, and a program transfer, plus one directory law:
@@ -395,11 +396,13 @@ def _score_word(text: str) -> str | None:
     """Return the first score-word in ``text``, if any.
 
     The match is the word as a substring, in any case. A decimal is not a
-    score-word. This is the same test ``cited_statement`` and ``law_page`` use,
-    so a sentence one of them refuses cannot slip through the other.
+    score-word. ``cited_statement`` and ``law_page`` both hand it the fact, so
+    a fact one of them refuses cannot slip through the other. Neither hands it
+    a law's name: that name is the plant's word, not a claim this page made,
+    and a register may hold a weight (ADR 0329).
 
     Args:
-        text: The fact, or the whole sentence a caller is trying to place.
+        text: The fact, without the law name a placed sentence starts with.
 
     Returns:
         The score-word, folded, or ``None`` when the text carries none.
@@ -453,14 +456,15 @@ def law_page(breaks: Sequence[LawBreak], *, register: LawRegister) -> tuple[LawB
     cannot place them.
 
     A value is admitted only when ``type(item) is LawBreak`` and its statement
-    starts with that law's name, a period, and a space, and the statement does
-    not contain a score-word. ``isinstance`` is not enough, because a subclass
-    can carry a magnitude. Those checks run before the page is ordered. A
-    different type raises and is not placed. A statement that does not name
-    its law raises and is not placed. A statement that contains confidence,
+    starts with that law's name, a period, and a space, and the fact after that
+    prefix does not contain a score-word. ``isinstance`` is not enough, because
+    a subclass can carry a magnitude. Those checks run before the page is
+    ordered. A different type raises and is not placed. A statement that does
+    not name its law raises and is not placed. A fact that contains confidence,
     probability, weight, magnitude, or score raises and is not placed, and
-    nothing else in that call is placed. The ceiling and the sort key are
-    unchanged.
+    nothing else in that call is placed. A law name that carries one of those
+    words is the plant's own word and is read as a name, not as a score
+    (ADR 0329). The ceiling and the sort key are unchanged.
 
     Args:
         breaks: Broken laws the caller already holds.
@@ -472,8 +476,8 @@ def law_page(breaks: Sequence[LawBreak], *, register: LawRegister) -> tuple[LawB
 
     Raises:
         ValueError: If a value is not exactly a ``LawBreak``, a statement does
-            not start with its law name, a statement contains a score-word, a
-            time is naive, or a break's name is not in ``register``.
+            not start with its law name, a fact carries a score-word, a time is
+            naive, or a break's name is not in ``register``.
     """
     names = _law_names(register)
     for item in breaks:
@@ -483,9 +487,10 @@ def law_page(breaks: Sequence[LawBreak], *, register: LawRegister) -> tuple[LawB
             raise ValueError("only a LawBreak enters the page")
         if not item.statement.startswith(f"{item.name}. "):
             raise ValueError(f"{item.name} does not name its law")
-        word = _score_word(item.statement)
+        # The name is the plant's word. Read the fact after it (ADR 0329).
+        word = _score_word(item.statement.removeprefix(f"{item.name}. "))
         if word is not None:
-            raise ValueError(f"a placed sentence does not carry {word}")
+            raise ValueError(f"a placed fact does not carry {word}")
         _require_aware(item.time, "time")
         if item.name not in names:
             raise ValueError(f"{item.name} is not in the register")
@@ -503,9 +508,9 @@ def page_from_report(report: LawReport, *, register: LawRegister) -> tuple[LawBr
     ``LawBreak`` values, so they cannot take one of the eight places. A
     subclass inside that tuple is still a different type, so ``law_page``
     refuses it and it is not placed. A genuine break whose statement does not
-    start with its law name is refused there too, and it is not placed. A
-    statement that contains a score-word is refused there too, and nothing
-    from that call is placed.
+    start with its law name is refused there too, and it is not placed. A fact
+    that carries a score-word is refused there too, and nothing from that call
+    is placed.
 
     Args:
         report: One assessment of the plant.
@@ -516,8 +521,8 @@ def page_from_report(report: LawReport, *, register: LawRegister) -> tuple[LawBr
 
     Raises:
         ValueError: If a value is not exactly a ``LawBreak``, a statement does
-            not start with its law name, a statement contains a score-word, a
-            time is naive, or a break's name is not in ``register``.
+            not start with its law name, a fact carries a score-word, a time is
+            naive, or a break's name is not in ``register``.
     """
     return law_page(report.broken, register=register)
 
