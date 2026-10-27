@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you refer to PHOS in academic work, please cite it as below."
+title: "PHOS: a declared-law operator page for industrial plants"
+abstract: >-
+  PHOS is a behavioural cybersecurity research project. Atlas, the engine for industrial
+  plants, reads a plant's own declared laws and reports the ones that no longer hold, at
+  most eight a shift, with no score, no rank and no named cause. Where the plant's own
+  record cannot settle what happened, Atlas reports that it cannot and stops. This is a
+  research pre-release. It has never run on a live plant, and the measurements published
+  with it include the ones that failed and the detectors that were refused.
+type: software
+authors:
+  - given-names: Elijah
+    name-particle: A.
+    family-names: Edoigiawerie
+    email: elijahagumba.research@proton.me
+version: 0.1.0
+date-released: "2026-10-27"
+license: PolyForm-Noncommercial-1.0.0
+repository-code: "https://github.com/elijahagumba/phos"
+keywords:
+  - industrial control systems
+  - operational technology security
+  - anomaly detection
+  - critical infrastructure
+  - behavioural analytics
