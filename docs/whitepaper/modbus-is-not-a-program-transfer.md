@@ -1,5 +1,9 @@
 # A function code is a byte. It is not a download.
 
+*A Modbus function code says a write happened. It does not say whether that write was a download, an upload or an online edit, which are acts a person performs. This paper is about two modules that are deliberately forbidden to agree, so no byte on the wire can decide what it meant.*
+
+[The record](../README.md) · [Front page](../../README.md)
+
 Two modules in this repository look at Modbus, and they are forbidden to agree about what a write means.
 
 `ModbusDissector` in `src/phos/atlas/packet/modbus.py` decodes an application data unit. `refuse_function_code` in `src/phos/atlas/program_transfer.py` raises `ValueError` for every integer it is given, including the codes the dissector knows. Download, upload, and online edit are a caller-supplied enum. No byte on the wire is a member of that enum. ADR 0302 is the record. The tests are `tests/atlas/test_program_transfer.py::test_a_function_code_is_never_a_download`.
@@ -71,3 +75,7 @@ The equal confidence used to force that tie is `_TIED_CONFIDENCE = 0.5`. It is a
 ## The measurement that is missing
 
 `discover_labelled_command_corpora` is empty. `scripts/evaluate_command_detection.py` is written to refuse a metric when the corpus is absent, and to name what the corpus would have to contain. S7 process parquet is not a pcap. 3W labels are faults. There is no public capture in which a credentialed write and an attacker's identical write are both labelled. Until that file exists, the parser can be proved on fixtures and the graph can be proved on fixtures. Neither number is a detection rate. `UNMEASURED_COMMAND_DETECTION_CAVEAT` is the sentence that has to travel with any output of that path.
+
+---
+
+[The record](../README.md) · [Front page](../../README.md)

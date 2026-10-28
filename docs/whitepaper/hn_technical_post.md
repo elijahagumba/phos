@@ -1,5 +1,9 @@
 # The operator gets eight alerts. An unbooked PLC program change keeps one of them.
 
+*An operator can read about eight alerts in a shift, so Atlas publishes eight. This paper is about which one survives when a ninth arrives: an unbooked change to a PLC's program keeps its slot, and the process excursion leaves.*
+
+[The record](../README.md) · [Front page](../../README.md)
+
 PHOS Atlas is a behavioural detector for industrial control. It does not ship a signature list, and it does not ship a confidence you are allowed to read. The live constraint is smaller and ruder than a model: a shift is eight hours, a person can read eight alerts, and when those eight slots are already full, an unbooked program transfer still stays. The process hit leaves.
 
 That priority is not a product slogan. It is `shift_page` in `src/phos/atlas/program_transfer.py` and `shift_brief` in `src/phos/atlas/shift_brief.py`. The source never uses the word "sovereign". The behaviour is the word. An unbooked transfer is not removed to save another alert. Booked transfers occupy nothing. If the unbooked transfers themselves exceed eight, the earliest eight stay and everything else is gone. The page does not grow a ninth slot. Eviction here is non-admission: the function returns a new tuple. It does not pop a heap, and it does not call the frozen score allocator.
@@ -48,3 +52,7 @@ SHIFT_SECONDS: Final = 8 * 3600
 #: Alerts an operator can read per shift.
 ALERTS_PER_SHIFT: Final = 8
 ```
+
+---
+
+[The record](../README.md) · [Front page](../../README.md)

@@ -1,5 +1,9 @@
 # A calibrated weight that is constant cannot rank, and a tie is not an alphabetical winner.
 
+*Atlas carries numbers that look like severity, and on the one operator queue actually ranked by them, none pointed at the attacks. This paper is about why a calibrated weight that is constant cannot order a queue, and why a tie is not broken alphabetically.*
+
+[The record](../README.md) · [Front page](../../README.md)
+
 Atlas carries numbers that look like severity. On the one operator queue that was actually ranked, none of them pointed at the attacks. The repair for a different failure, two explanations saturating together, was to stop electing a winner. Both results are in committed code. Neither is a threshold that someone forgot to tune.
 
 ## Two objects that get called "confidence"
@@ -63,3 +67,7 @@ The parts of Atlas that currently decide what a person sees are integers and clo
 ## What would reverse this paper
 
 Quoting 0.1250. Inverting `(-confidence, template_id)` so `unauthorised_control_activity` wins ties. Fitting a per-feature command calibrator on the graded battery. Retuning `_shrink`, `joint_k`, or `dwell_samples` so magnitude points the other way. Surfacing hypothesis confidence, or surfacing `0.5` and `0.03375934410417169` as if a person should act on them. Treating the HAI queue measurement as something a threshold will fix. It will not. The order is the result.
+
+---
+
+[The record](../README.md) · [Front page](../../README.md)

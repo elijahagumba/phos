@@ -4,6 +4,12 @@
 
 <br>
 
+*Every measurement PHOS has taken, including the ones that failed and the detectors that were
+built and then refused. Each figure links to the decision record written before the score it
+reports.*
+
+[Front page](../README.md) · [Release note](release.md)
+
 ### Start here
 
 1. **The short version:** the [release note](release.md).

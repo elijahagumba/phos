@@ -1,8 +1,16 @@
 # PHOS research pre-release
 
-PHOS is the company. Atlas is the engine this note is about. A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight. A score is refused. A break is not an attack. The figures below are measurements of the older detectors. They are not that page. Sentiel, for enterprise networks, is planned and is not ready to stand next to Atlas. This note is Atlas.
+*Everything PHOS has measured on Atlas, on one page, with the caveat attached to every figure. It restates the record and adds no measurement of its own.*
 
-This page restates figures already in the record. It adds no measurement. The source is available under the [PolyForm Noncommercial License 1.0.0](../LICENSE). Commercial use needs a licence. The work is not deployable, and it is not a live plant.
+[The full record](README.md) · [Front page](../README.md)
+
+PHOS is the company. Atlas is its engine for industrial plants, and this note is about Atlas. Sentiel, for enterprise networks, is planned and is not ready to stand next to it.
+
+A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot, the page holds at most eight, a score is refused, and a break is not an attack.
+
+The figures below are measurements of the older residual detectors, which stay in the repository so published numbers still reproduce. They are not that page, and that page carries no score.
+
+The source is available under the [PolyForm Noncommercial License 1.0.0](../LICENSE). Commercial use needs a licence. The work is not deployable, and it has never run on a live plant.
 
 ## Run it
 
@@ -58,3 +66,7 @@ On a simulated plant, an in-range command was caught **13 of 13** by the engines
 This note does not carry a 10× reduction as a pass, a claim of 2 to 3 alerts a day, a command lead at or above 70 percent, the two issuer kinds pooled into one rate, a confidence shown as a probability, or a simulated result stated as a result about a real plant.
 
 The longer record, including the refusals, is [here](README.md).
+
+---
+
+[The full record](README.md) · [Front page](../README.md)

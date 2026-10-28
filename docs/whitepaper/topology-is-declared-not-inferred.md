@@ -1,5 +1,9 @@
 # Grouping answers "one event or ten?" Membership is not allowed to answer it with the same statistic that raised the alarm.
 
+*When a pump falters, every instrument on it moves, and a naive detector reports ten problems instead of one. This paper is about why the plant has to declare which instruments share a unit, and why inferring it from the same statistic that raised the alarm would make a quieter queue circular rather than better.*
+
+[The record](../README.md) · [Front page](../../README.md)
+
 When a pump falters, every instrument on it moves. A joint model that attributes the break back to each breaking signal then emits one deviation per instrument. Ten sensors, ten things to investigate, one physical event. `group_evidence` in `src/phos/atlas/grouping.py` is the collapse. `SubsystemMap` in `src/phos/atlas/topology.py` is the only legal source of which signals share a unit. ADR 0010 is the decision. The shortcut that clusters signals by co-movement is rejected in the module docstring, and the constructor is written so the shortcut cannot sneak in as a partial map.
 
 ## Why a correlation cluster is circular
@@ -58,3 +62,7 @@ A later attempt to spend a learned plant map on detection failed its gate (ADR 0
 ## What would reverse the module
 
 Inferring membership from co-movement, from name similarity, or from a blank `source`. Letting an unassigned signal through. Grouping command evidence with a signal map. Re-scoring inside `group_evidence`. Reading the 12.1× as a detection improvement rather than a change in what is counted. Retuning the grouped row to overwrite 53.26 or 646.58.
+
+---
+
+[The record](../README.md) · [Front page](../../README.md)

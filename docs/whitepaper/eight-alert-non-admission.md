@@ -1,5 +1,9 @@
 # Eight slots. What does not get in is the decision.
 
+*The alert budget is two constants in the source, not a tuned threshold. This paper is about the harder half, which is what the page refuses to admit once the eight slots are full, and why that refusal is the design rather than a limit on it.*
+
+[The record](../README.md) · [Front page](../../README.md)
+
 A shift in this repository is not a mood and not a threshold search. It is two constants in `src/phos/atlas/consistency.py`:
 
 ```python
@@ -58,3 +62,7 @@ ADR 0304 records the fixture: five incidents, unpacked top 8 reach 3 and miss 2,
 ## What a later session is not allowed to do
 
 Drop an unbooked transfer so a lower score can stay. Call `budget_alerts` from the page. Widen `(6.5, 7.5)` so a walk becomes visible to the joint check. Treat a slot count on a hand-built inlet as a plant result. Grow the page to nine because the shift was busy. Surface the `1/2` that `transfer_report` feeds to `tied_lead_ids`. That constant exists so the tie is non-empty. It is not a field of `TransferReport` or `BriefSlot`.
+
+---
+
+[The record](../README.md) · [Front page](../../README.md)

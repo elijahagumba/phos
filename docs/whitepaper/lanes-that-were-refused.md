@@ -1,5 +1,9 @@
 # The detectors that beat the frozen engine at catching, and were still refused.
 
+*Two detectors caught more attacks than the engine PHOS ships, and neither was adopted. This paper is the measurement and the reason: one arrived later, and the other was quieter and blinder, because part of the shipped engine's detection turns out to be a side effect of its own misfit.*
+
+[The record](../README.md) · [Front page](../../README.md)
+
 Build brief E asked for a stronger engine and closed without one (ADR 0297). Two of the lanes are in the tree as separate modules. They do not edit `src/phos/atlas/consistency.py`. They import its constants and its episode machinery. Both lost the bar they were given. The code remains so the loss can be re-read. It is not a champion, and it is not a queue of work waiting to be turned back on. Reserved ADR numbers 0277–0284 stay unwritten.
 
 The scores below are on `phos-icssim-dev2`, a plant this repository generated. ADR 0073 and ADR 0143: a simulated score is a diagnosis. It is not a field rate and it is not a result about a real plant. v1 stays 8 of 12. Held-out for these lanes was not opened.
@@ -75,3 +79,7 @@ Lane 1, command traffic, is the lane that was kept, under the name it already ha
 `legal_flow` (ADR 0295, ADR 0296): the plant's outflow is a constant while the outlet valve is open and the tank holds water, so there is no continuous level-flow ratio to ride. The class scales the level by the already-fixed 3–8% band and sets the flow to that legal value. Breadth caught 15 of 32 attacks and the frozen engine 16 of 32. `legal_flow` itself was 2 of 4 for each. The band was not changed. The first bar fails.
 
 The combined candidate was not assembled. The one look at the seen corpora was not taken. None of this moves 646.58, 18.72, or the 131 of 160 testbed figure. Those rows belong to other detectors and other files.
+
+---
+
+[The record](../README.md) · [Front page](../../README.md)
