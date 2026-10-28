@@ -249,6 +249,41 @@ def test_main_missing_file_exits_nonzero(tmp_path: Path) -> None:
     assert code == 2
 
 
+def test_main_runs_on_a_historian_alone(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    """ADR 0341: a plant engineer has a historian export long before a capture."""
+    historian = tmp_path / "historian.csv"
+    historian.write_text("time,FT_101\n0,1.0\n", encoding="utf-8")
+    assert main(["--historian", str(historian)]) == 0
+    assert "FT_101\tsensor\tflow\t" in capsys.readouterr().out
+
+
+def test_a_historian_alone_matches_an_empty_capture(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """No capture removes capture evidence and nothing else (ADR 0341)."""
+    historian = tmp_path / "historian.csv"
+    historian.write_text("time,FT_101,P1_B2004\n0,1.0,7.0\n", encoding="utf-8")
+    empty = tmp_path / "capture.csv"
+    empty.write_text("tag\n", encoding="utf-8")
+
+    assert main(["--historian", str(historian)]) == 0
+    alone = capsys.readouterr().out
+    assert main(["--historian", str(historian), "--capture", str(empty)]) == 0
+    assert capsys.readouterr().out == alone
+
+
+def test_a_capture_that_cannot_be_read_is_still_refused(tmp_path: Path) -> None:
+    """Optional is not ignored: a named capture that is absent is an error (ADR 0341)."""
+    historian = tmp_path / "historian.csv"
+    historian.write_text("time,FT_101\n0,1.0\n", encoding="utf-8")
+    assert main(["--historian", str(historian), "--capture", str(tmp_path / "gone.csv")]) == 2
+
+
+def test_a_historian_is_still_required() -> None:
+    with pytest.raises(SystemExit):
+        main([])
+
+
 def test_gzip_historian(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
     path = tmp_path / "tags.csv.gz"
     capture = tmp_path / "capture.csv"

@@ -1,7 +1,7 @@
 <img src=".github/assets/readme/poster.svg" width="100%" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight, ordered by time, then by the law's name. Every sentence names its law, then the fact. A score is refused. A break is a false law. The page does not name the cause. Held means the check ran and the law stood. Unstated means the plant named the law and supplied nothing that law can be checked against. An empty register checks nothing. joint_move, subfloor_walk, band_handoff, program_transfer, allowed_writer, controller_valve. Research pre-release.">
 
 [![research-core quality](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml/badge.svg)](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml)
-&nbsp;**4,699 tests**, no datasets required.
+&nbsp;**4,706 tests**, no datasets required.
 
 **PHOS is a behavioural cybersecurity company.** It builds systems that learn what normal looks like in one place and report what no longer fits, with the evidence attached. It does not keep a list of known attacks.
 
@@ -111,6 +111,8 @@ Everything PHOS has measured, including what did not work.
 
 **If you operate or secure an industrial site** and can export historian files and write down which laws matter: that is the conversation PHOS most wants to have. The page will not show a score, and PHOS will not connect to your control network.
 
+The smallest version of that conversation needs no data and no permission: run `phos onboard` on your own export as described under [Run it](#run-it-on-your-own-plant), spend fifteen minutes correcting the tag list it gives you, and send back the corrections rather than the file. That list is where a declared map starts.
+
 **If you are a researcher**, the measurements reproduce and the corpora are named. Disagreements about method are welcome in [Discussions](../../discussions).
 
 Write to [elijahagumba.research@proton.me](mailto:elijahagumba.research@proton.me).
@@ -126,11 +128,25 @@ uv run phos demo
 
 About fifteen seconds. The demo runs the older detectors on a simulated water plant for 120 hours. It is not the operator page. The demo then says what actually happened, including when it missed or raised a false alarm. `--scenario operator` and `--scenario attacker` are the other two incidents.
 
+### Run it on your own plant
+
+If you have a historian export, point this at it:
+
+```bash
+uv run phos onboard --historian your-export.csv
+```
+
+It proposes a role and a kind for every tag — which columns are readings, which are commanded, which are targets somebody set — and prints the token or the statistic each proposal came from. Where it has nothing to go on it leaves the cell blank rather than guessing.
+
+**Nothing leaves your machine.** It reads the one local file you name, makes no network calls, starts no agents and no subprocesses, and writes nothing except the brief you asked for. A network capture is optional: `--capture` adds the tags a capture observed, and the brief works without one.
+
+A suggestion is not a declaration ([ADR 0123](docs/adr/0123-the-plant-map-proposed.md)): a role Atlas trusts is read from a plant's documentation, never from a tag name and never from the data. The output is a draft for an engineer to correct, and **the corrected list is the thing worth sending back** — not the data. If you run it, we would like to know where it was wrong, and nothing else.
+
 ```bash
 uv run pytest -q
 ```
 
-4,699 tests, about three minutes, and no datasets required: the suite runs on a fresh clone with nothing downloaded. Public corpora are fetched separately and never committed; see [data/README.md](data/README.md).
+4,706 tests, about three minutes, and no datasets required: the suite runs on a fresh clone with nothing downloaded. Public corpora are fetched separately and never committed; see [data/README.md](data/README.md).
 
 ---
 

@@ -43,8 +43,11 @@ from phos.atlas.onboarding._names import from_name
 from phos.atlas.onboarding._tables import parse_capture, parse_historian, read_csv_rows
 from phos.atlas.signal_roles import SignalRole
 
+ONBOARD_SUMMARY = "Suggest a role and a kind for each tag. Suggestions are not declarations."
+
 __all__ = [
     "BRIEF_HEADER",
+    "ONBOARD_SUMMARY",
     "SAMPLE_ROWS",
     "SUGGESTION_IS_NOT_A_DECLARATION",
     "CaptureHit",
@@ -52,6 +55,7 @@ __all__ = [
     "TagKind",
     "TagSample",
     "TagSuggestion",
+    "build_parser",
     "format_brief",
     "main",
     "parse_capture",
@@ -59,6 +63,32 @@ __all__ = [
     "read_csv_rows",
     "suggest",
 ]
+
+
+def build_parser(parser: argparse.ArgumentParser | None = None) -> argparse.ArgumentParser:
+    """Add the onboarding arguments to ``parser``, or to a new one.
+
+    The ``phos onboard`` subcommand reuses this so the two command surfaces cannot drift
+    (ADR 0341).
+
+    Args:
+        parser: The parser to add arguments to. ``None`` builds a standalone one.
+
+    Returns:
+        The parser, with ``--historian``, ``--capture``, ``--sample-rows`` and ``--out`` added.
+    """
+    if parser is None:
+        parser = argparse.ArgumentParser(description=ONBOARD_SUMMARY)
+    parser.add_argument("--historian", type=Path, required=True, help="CSV of tag names and values")
+    parser.add_argument(
+        "--capture",
+        type=Path,
+        default=None,
+        help="optional CSV of observed tag references; omit it to brief the historian alone",
+    )
+    parser.add_argument("--sample-rows", type=int, default=SAMPLE_ROWS)
+    parser.add_argument("--out", type=Path, default=None, help="Also write the brief to this path")
+    return parser
 
 
 def suggest(
@@ -114,7 +144,12 @@ def format_brief(suggestions: Sequence[TagSuggestion]) -> str:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Print a suggestion list for a historian export and a capture table.
+    """Print a suggestion list for a historian export, and a capture table if there is one.
+
+    A capture is optional (ADR 0341). Without one the brief is built from the historian alone and
+    carries no capture evidence; the role and kind rules are unchanged, because ADR 0220 already
+    defined them for an absent capture. A ``--capture`` that is given and cannot be read is an
+    error.
 
     Args:
         argv: Command-line arguments, excluding the program name. ``None`` reads ``sys.argv``.
@@ -122,21 +157,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     Returns:
         ``0`` when the brief was printed, ``2`` when an input could not be read.
     """
-    parser = argparse.ArgumentParser(
-        description="Suggest a role and a kind for each tag. Suggestions are not declarations."
-    )
-    parser.add_argument("--historian", type=Path, required=True, help="CSV of tag names and values")
-    parser.add_argument(
-        "--capture", type=Path, required=True, help="CSV of observed tag references"
-    )
-    parser.add_argument("--sample-rows", type=int, default=SAMPLE_ROWS)
-    parser.add_argument("--out", type=Path, default=None, help="Also write the brief to this path")
+    parser = build_parser()
     args = parser.parse_args(argv)
     try:
         historian_rows = read_csv_rows(args.historian, max_data_rows=args.sample_rows)
-        capture_rows = read_csv_rows(args.capture, max_data_rows=None)
         historian = parse_historian(historian_rows, sample_rows=args.sample_rows)
-        capture = parse_capture(capture_rows)
+        capture: tuple[CaptureHit, ...] = ()
+        if args.capture is not None:
+            capture = parse_capture(read_csv_rows(args.capture, max_data_rows=None))
     except (OSError, ValueError, gzip.BadGzipFile) as error:
         sys.stderr.write(f"{error}\n")
         return 2
