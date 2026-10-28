@@ -1,5 +1,8 @@
 <img src=".github/assets/readme/poster.svg" width="100%" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight, ordered by time, then by the law's name. Every sentence names its law, then the fact. A score is refused. A break is a false law. The page does not name the cause. Held means the check ran and the law stood. Unstated means the plant named the law and supplied nothing that law can be checked against. An empty register checks nothing. joint_move, subfloor_walk, band_handoff, program_transfer, allowed_writer, controller_valve. Research pre-release.">
 
+[![research-core quality](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml/badge.svg)](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml)
+&nbsp;**4,699 tests**, no datasets required.
+
 **PHOS is a behavioural cybersecurity company.** It builds systems that learn what normal looks like in one place and report what no longer fits, with the evidence attached. It does not keep a list of known attacks.
 
 The thesis is that **"normal" is not one thing.** A water treatment plant and a corporate network are different kinds of environment, with different physics, different rhythms and different reasons for a thing to be unusual. One model stretched across both is worse at each. So PHOS builds two engines, each engineered for its own world: **Atlas** for industrial plants, **Sentiel** for enterprise networks. A third part, **PHOS Intelligence**, is planned to correlate what the two engines independently conclude.
@@ -100,7 +103,7 @@ If a plant agrees, the second year builds on its data. If no plant agrees, the p
 
 Everything PHOS has measured, including what did not work.
 
-[Release note](docs/release.md) · [The full record](docs/) · [The refusal register](docs/refusal-register.md)
+[Release note](docs/release.md) · [The full record](docs/) · [The refusal register](docs/refusal-register.md) · [Every decision record](docs/adr/), grouped by theme and written before the score it reports
 
 [Eight alerts](docs/whitepaper/hn_technical_post.md) · [What the page refuses](docs/whitepaper/eight-alert-non-admission.md) · [A function code is not a download](docs/whitepaper/modbus-is-not-a-program-transfer.md) · [Membership is declared, not inferred](docs/whitepaper/topology-is-declared-not-inferred.md) · [The detectors that were refused](docs/whitepaper/lanes-that-were-refused.md) · [A score is not a rank](docs/whitepaper/a-score-is-not-a-rank.md)
 
@@ -127,7 +130,7 @@ About fifteen seconds. The demo runs the older detectors on a simulated water pl
 uv run pytest -q
 ```
 
-The test suite needs no datasets. Public corpora are downloaded separately and never committed; see [data/README.md](data/README.md).
+4,699 tests, about three minutes, and no datasets required: the suite runs on a fresh clone with nothing downloaded. Public corpora are fetched separately and never committed; see [data/README.md](data/README.md).
 
 ---
 
