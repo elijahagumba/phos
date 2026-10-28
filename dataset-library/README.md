@@ -3,7 +3,7 @@
 Synthetic evaluation corpora for Atlas (OT) and Sentiel (IT). **Not public data. Not a live plant. Not a live SOC.**
 
 ```
-dataset library/
+dataset-library/
   README.md                 <- this file
   OT/
     catalogue.json          <- committed: every labelled process/command window

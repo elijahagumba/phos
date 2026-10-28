@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the dataset library: OT plant packs and IT person-days.
 
-Payloads land under ``dataset library/*/generated/`` and are git-ignored. The catalogues
+Payloads land under ``dataset-library/*/generated/`` and are git-ignored. The catalogues
 are committed. These are attacks and personas we designed; see `phos.library.caveats`.
 
 Usage::

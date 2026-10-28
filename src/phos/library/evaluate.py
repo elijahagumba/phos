@@ -55,7 +55,7 @@ _SENTIEL_ALERT_THRESHOLD: Final = 1.25
 
 
 def library_root(repo: Path) -> Path:
-    """Return ``<repo>/dataset library``."""
+    """Return ``<repo>/dataset-library``."""
     return repo / LIBRARY_DIRNAME
 
 

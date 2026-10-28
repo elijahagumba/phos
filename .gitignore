@@ -36,7 +36,7 @@ data/*/*
 data/synth/
 
 # Generated dataset-library payloads. The catalogues are committed.
-dataset library/**/generated/
+dataset-library/**/generated/
 
 # OS
 .DS_Store

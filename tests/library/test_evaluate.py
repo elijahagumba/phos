@@ -56,7 +56,7 @@ def test_library_dwell_is_not_the_public_atlas_default() -> None:
 
 def test_library_root_is_the_repo_dataset_library_directory() -> None:
     repo = Path("/tmp/phos-fake-root")
-    assert library_root(repo) == repo / "dataset library"
+    assert library_root(repo) == repo / "dataset-library"
 
 
 def test_stamp_prepends_the_synthetic_library_caveats() -> None:

@@ -6,7 +6,7 @@ overlap. Benign operational events (backwash, intake stop, recipe change) are sc
 plant itself, so every pack already interleaves maintenance with the manipulations — that is
 the "maintenance window" condition, not a second simulator.
 
-Payloads are regenerated into ``dataset library/OT/generated/`` and are not committed.
+Payloads are regenerated into ``dataset-library/OT/generated/`` and are not committed.
 """
 
 from __future__ import annotations
@@ -45,7 +45,7 @@ __all__ = [
 
 logger = logging.getLogger(__name__)
 
-LIBRARY_DIRNAME: Final = "dataset library"
+LIBRARY_DIRNAME: Final = "dataset-library"
 SAMPLE_INTERVAL_SECONDS: Final = 30.0
 SEEDS: Final = (71001, 71002, 71003)
 SUBTLETIES: Final = (0.0, 0.2, 0.4, 0.6, 0.8, 0.9)
