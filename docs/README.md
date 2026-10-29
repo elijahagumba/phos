@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../.github/assets/readme/record-plate.svg" width="600" alt="The record: everything PHOS has measured, including what didn't work. Each number here can be rebuilt from this repository. Each limit says what would lift it.">
+  <img src="../.github/assets/readme/record.svg" width="600" alt="The record: everything PHOS has measured, including what didn't work. Each number here can be rebuilt from this repository. Each limit says what would lift it.">
 </p>
 
 <br>

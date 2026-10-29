@@ -1,7 +1,7 @@
 <img src=".github/assets/readme/poster.svg" width="100%" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight, ordered by time, then by the law's name. Every sentence names its law, then the fact. A score is refused. A break is a false law. The page does not name the cause. Held means the check ran and the law stood. Unstated means the plant named the law and supplied nothing that law can be checked against. An empty register checks nothing. joint_move, subfloor_walk, band_handoff, program_transfer, allowed_writer, controller_valve. Research pre-release.">
 
 [![research-core quality](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml/badge.svg)](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml)
-&nbsp;**4,831 tests**, no datasets required.
+&nbsp;**4,763 tests**, no datasets required.
 
 **PHOS is an independent research project, built by one researcher with AI coding agents.** There is no company, no product and no customer, yet. What there is, is a measurement record: every figure on this page reproduces from this repository and the public datasets it names, including the measurements that failed.
 
@@ -213,7 +213,7 @@ A suggestion is not a declaration ([ADR 0123](docs/adr/0123-the-plant-map-propos
 uv run pytest -q
 ```
 
-4,831 tests, about three minutes, and no datasets required: the suite runs on a fresh clone with nothing downloaded. Public corpora are fetched separately and never committed; see [data/README.md](data/README.md).
+4,763 tests, about three minutes, and no datasets required: the suite runs on a fresh clone with nothing downloaded. It also reports 44 skipped, and says beside each one why: a corpus you have not fetched, a record the lab keeps back, or the font tooling the plates embed. Public corpora are fetched separately and never committed; see [data/README.md](data/README.md).
 
 ---
 
