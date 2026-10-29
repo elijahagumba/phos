@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-10-28
-- **Supersedes:** [ADR 0334](0334-the-destination-is-a-listing-and-the-date-moves.md) in its
+- **Supersedes:** ADR 0334 (lab record, not published) in its
   publication only. Every decision ADR 0334 took stands, unchanged, in the private lab. Nothing in
   this record reverses, softens or restates one.
 - **Related:** [ADR 0044](0044-public-surfaces-on-main-must-move-with-every-advancement.md),

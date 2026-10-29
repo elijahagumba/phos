@@ -4,7 +4,7 @@
 - **Date:** 2026-10-29
 - **PART:** Atlas, build brief G
 - **Supersedes:** the "wait for a partner's capture" sentence in
-  [the operating plan](../zero-to-one-master-plan.md) section 4, for this
+  the operating plan (lab record, not published) section 4, for this
   programme only. The sentence stays in the plan.
 - **Depends on:** [ADR 0012](0012-dpkt-the-dissector-seam-and-containing-hostile-packet-input.md),
   [ADR 0292](0292-a-number-another-branch-already-used-is-refused.md),

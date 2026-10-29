@@ -172,6 +172,8 @@ Reading an organisation rather than a plant, and scoring a claim about a *person
 | [0067](0067-follow-up-corpora-and-partner-icd-stay-closed.md) | r4.2 events, SWaT, ICSSim and the partner ICD stay closed by absence; cite new names in Benchmark v2 | engine week | 2026-08-24 | Accepted |
 | [0071](0071-command-behaviour-evidence-reaches-a-template.md) | Command-behaviour evidence reaches a template; the maintenance-vs-attacker tie stays tied | session | 2026-08-31 | Accepted |
 | [0072](0072-episodes-the-declared-entity-graph-and-what-cert-r31-can-and-cannot-answer.md) | Sentiel episodes: a measured coverage gain, a declared graph and a sequence signal that carry nothing | cycle | 2026-09-02 | Accepted |
+| [0073](0073-a-synthetic-command-and-maintenance-harness-that-measures-nothing.md) | A synthetic command-and-maintenance harness, built so that its results cannot be believed | Synthetic harness extension | 2026-09-05 | Accepted |
+| [0074](0074-the-usefulness-phase-is-defined-and-diagnosis-precedes-optimisation.md) | The Usefulness Phase is defined: diagnosis precedes optimisation, and "this does not work" is a permitted result | Phase definition | 2026-09-05 | Accepted |
 | [0084](0084-non-saturating-aggregation-for-sentiel.md) | Opens the non-saturating aggregation session ADR 0076 deferred at Gate 2; success is window recall 1.0 at the frozen 48 (CCH0959 surfaced, CSF0929 kept), three candidates declared in ADR 0093, not scored | usefulness follow-on | 2026-09-27 | Accepted |
 
 ### v1 week 1

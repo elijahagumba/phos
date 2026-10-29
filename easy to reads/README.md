@@ -471,6 +471,19 @@ in the sequence so the gap is named rather than vanished; what the note says
 is not restated here. The measurement rules do not move. Version 1 still
 stands at eight of twelve.
 
+Note 136 is the ask that fits in twenty minutes (ADR 0341). Twenty-one
+letters asked plants to export weeks of history and send them over. The ask
+is now the other way round: run it yourself, on your own machine, on your
+own export, and send nothing. Nothing was scored. Version 1 still stands at
+eight of twelve.
+
+Note 137 is the record that should not have been public (ADR 0334, ADR
+0342). One commercial record went out with the measurements and was readable
+for a day. The decision stands unchanged in the lab; its publication is
+withdrawn, the export now stops on the vocabulary of a funding discussion,
+and the index keeps the number. Nothing was scored. Version 1 still stands
+at eight of twelve.
+
 Note 139 is protocols are named before they are read (ADR 0344). Further
 industrial languages may be named ahead of a partner's capture, in this
 programme only. Each one still needs its own bar before a byte is parsed.
