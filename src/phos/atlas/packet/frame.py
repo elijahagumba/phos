@@ -99,6 +99,13 @@ class RawFrame(BaseModel):
         dst: The receiving endpoint.
         payload: The transport payload, exactly as captured. May be empty — a bare TCP
             acknowledgement carries no bytes.
+        dst_mac: Ethernet destination, lowercase hex, when the reader saw a 14-octet
+            header. Absent on a frame built without one.
+        src_mac: Ethernet source, same form.
+        ethertype: The 16-bit field RFC 894 places after the source address. A value
+            of 0x8100 is left as that integer. It is not renamed.
+        tcp_seq: The TCP sequence number of the first payload octet, when the frame
+            is TCP. Absent for UDP.
     """
 
     model_config = ConfigDict(frozen=True)
@@ -109,6 +116,10 @@ class RawFrame(BaseModel):
     src: Endpoint
     dst: Endpoint
     payload: bytes
+    dst_mac: str | None = None
+    src_mac: str | None = None
+    ethertype: int | None = Field(default=None, ge=0, le=0xFFFF)
+    tcp_seq: int | None = Field(default=None, ge=0, le=0xFFFFFFFF)
 
     @computed_field  # type: ignore[prop-decorator]
     @property

@@ -115,3 +115,41 @@ class TestRawFrame:
 
     def test_accepts_an_empty_payload(self) -> None:
         assert self._frame(payload=b"").payload == b""
+
+    def test_the_link_fields_are_absent_on_a_frame_built_without_them(self) -> None:
+        # ADR 0345 adds them as optional so a frame built the old way still validates.
+        frame = self._frame()
+        assert frame.dst_mac is None
+        assert frame.src_mac is None
+        assert frame.ethertype is None
+        assert frame.tcp_seq is None
+
+    def test_carries_the_link_fields_when_the_reader_saw_them(self) -> None:
+        frame = self._frame(
+            dst_mac="aa:aa:aa:aa:aa:aa",
+            src_mac="bb:bb:bb:bb:bb:bb",
+            ethertype=0x0800,
+            tcp_seq=1,
+        )
+        assert frame.dst_mac == "aa:aa:aa:aa:aa:aa"
+        assert frame.ethertype == 0x0800
+        assert frame.tcp_seq == 1
+
+    @pytest.mark.parametrize("ethertype", [-1, 0x10000])
+    def test_rejects_an_ethertype_outside_the_16_bit_field(self, ethertype: int) -> None:
+        with pytest.raises(ValidationError):
+            self._frame(ethertype=ethertype)
+
+    @pytest.mark.parametrize("ethertype", [0, 0x8100, 0xFFFF])
+    def test_accepts_every_value_the_16_bit_field_can_hold(self, ethertype: int) -> None:
+        # 0x8100 is a value, not a name. The reader does not rename it.
+        assert self._frame(ethertype=ethertype).ethertype == ethertype
+
+    @pytest.mark.parametrize("seq", [-1, 0x1_0000_0000])
+    def test_rejects_a_sequence_number_outside_the_32_bit_space(self, seq: int) -> None:
+        with pytest.raises(ValidationError):
+            self._frame(tcp_seq=seq)
+
+    @pytest.mark.parametrize("seq", [0, 0xFFFFFFFF])
+    def test_accepts_the_edges_of_the_sequence_space(self, seq: int) -> None:
+        assert self._frame(tcp_seq=seq).tcp_seq == seq

@@ -11,7 +11,8 @@ is the only honest way to test a seam: if the test needs `modbus.py`, the seam i
 registry rather than mutating one, so a registry passed to a running pipeline cannot change under
 it and two callers cannot fight over global state (Constitution §6). Order is registration order,
 which makes precedence between two dissectors that both claim a port a caller's declaration rather
-than a dictionary's whim.
+than a dictionary's whim. `claims` may look at the payload. The first dissector that returns true
+is the only one that runs. A decline falls through.
 
 **A registry is a claim about coverage, so it is never implicit.** `dissect_capture` requires one.
 There is no default, because a default would let a caller believe a capture had been examined for

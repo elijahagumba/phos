@@ -28,9 +28,9 @@ traffic a dissector claimed and then refused.
 - *Everything traces back.* Every message and every refusal carries a `FrameSource` naming the
   capture and the frame index, so a conclusion Atlas eventually draws can be walked back to a
   specific run of bytes in a specific file (Constitution §3.2).
-- *One protocol, done properly.* Modbus/TCP is dissected; DNP3, S7comm and EtherNet/IP are not.
-  The seam for them is `ProtocolDissector` plus a registry entry, and the tests prove it with a
-  stub dissector for a protocol PHOS does not implement.
+- *One protocol, done properly.* Modbus/TCP is the dissector `dissect_capture` runs. Stream
+  reassembly and request pairing live in `reassembly` and `pairing` and are not on this path.
+  `modbus` is not edited to reach them.
 
 **What P2 adds on top.** P1 stops at "what does this frame say". P2 answers "is this normal", in
 the only form that question has an answer: behaviour over time.
@@ -134,6 +134,26 @@ from phos.atlas.packet.modbus import (
     FunctionCode,
     ModbusDissector,
 )
+from phos.atlas.packet.pairing import (
+    MAX_OPEN_PAIRS,
+    PAIR_EXPIRY,
+    PairMatch,
+    PairMiss,
+    PairTable,
+    PairWaiting,
+)
+from phos.atlas.packet.reassembly import (
+    MAX_BUFFERED_BYTES_PER_FLOW,
+    MAX_CONCURRENT_FLOWS,
+    MAX_OUT_OF_ORDER_SEGMENTS,
+    MAX_SEGMENT_OCTETS,
+    ContiguousStream,
+    DeliveredOctets,
+    FlowKey,
+    FlowRefusal,
+    Reassembler,
+    TcpSegment,
+)
 
 __all__ = [
     "COMMAND_BASELINE_CAVEATS",
@@ -142,15 +162,21 @@ __all__ = [
     "COMMAND_INTERVAL_MEAN_MS",
     "DISTINCT_WRITE_ADDRESSES",
     "FUNCTION_COUNT_PREFIX",
+    "MAX_BUFFERED_BYTES_PER_FLOW",
+    "MAX_CONCURRENT_FLOWS",
+    "MAX_OPEN_PAIRS",
+    "MAX_OUT_OF_ORDER_SEGMENTS",
     "MAX_PORT",
     "MAX_READ_COILS",
     "MAX_READ_REGISTERS",
     "MAX_REGISTER_VALUE",
+    "MAX_SEGMENT_OCTETS",
     "MAX_WRITE_COILS",
     "MAX_WRITE_REGISTERS",
     "MBAP_HEADER_LENGTH",
     "MODBUS_PORT",
     "MODBUS_PROTOCOL",
+    "PAIR_EXPIRY",
     "REGISTER_WRITE_FUNCTIONS",
     "REGISTER_WRITE_VALUE_MAX",
     "REGISTER_WRITE_VALUE_MEAN",
@@ -171,11 +197,15 @@ __all__ = [
     "CommandEvent",
     "CommandFeaturePolicy",
     "CommandStreamStats",
+    "ContiguousStream",
+    "DeliveredOctets",
     "DeviceCommandGraph",
     "Direction",
     "DissectionResult",
     "DissectorRegistry",
     "Endpoint",
+    "FlowKey",
+    "FlowRefusal",
     "FrameSource",
     "FunctionCode",
     "GraphComparePolicy",
@@ -184,8 +214,14 @@ __all__ = [
     "MalformedReason",
     "ModbusDissector",
     "ModbusMessage",
+    "PairMatch",
+    "PairMiss",
+    "PairTable",
+    "PairWaiting",
     "ProtocolDissector",
     "RawFrame",
+    "Reassembler",
+    "TcpSegment",
     "Transport",
     "UnparsedMessage",
     "Window",

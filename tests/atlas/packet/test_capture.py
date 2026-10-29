@@ -51,6 +51,10 @@ class TestReadsWhatItCan:
         assert frames[0].src.port == 5555
         assert frames[0].dst.port == 502
         assert frames[1].src.port == 502
+        assert frames[0].dst_mac == "aa:aa:aa:aa:aa:aa"
+        assert frames[0].src_mac == "bb:bb:bb:bb:bb:bb"
+        assert frames[0].ethertype == ETHERTYPE_IPV4
+        assert frames[0].tcp_seq == 1
 
     def test_timestamps_survive_to_the_microsecond(self, write_pcap: Callable[..., Path]) -> None:
         path = write_pcap([(1700000000, 123456, tcp_frame(5555, 502, b"x"))])
@@ -69,6 +73,7 @@ class TestReadsWhatItCan:
         (frame,) = read_frames(path)
         assert frame.transport is Transport.UDP
         assert frame.payload == b"datagram"
+        assert frame.tcp_seq is None
 
     def test_peels_ipv6(self, write_pcap: Callable[..., Path]) -> None:
         path = write_pcap(
@@ -78,6 +83,16 @@ class TestReadsWhatItCan:
         assert frame.src.ip == "2001::"
         assert frame.dst.ip == "2001::2"
         assert frame.payload == b"v6"
+
+    def test_a_vlan_type_field_stays_the_first_type_field(
+        self, write_pcap: Callable[..., Path]
+    ) -> None:
+        inner = ipv4(IP_PROTO_TCP, tcp(5555, 502, b"tagged"))
+        tagged = ethernet(0x8100, struct.pack(">HH", 0x0001, ETHERTYPE_IPV4) + inner)
+        path = write_pcap([(1700000000, 0, tagged)])
+        (frame,) = read_frames(path)
+        assert frame.payload == b"tagged"
+        assert frame.ethertype == 0x8100
 
     def test_every_frame_names_its_capture_and_index(self, write_pcap: Callable[..., Path]) -> None:
         path = write_pcap([(1700000000 + i, 0, tcp_frame(5555, 502, b"x")) for i in range(3)])
@@ -200,6 +215,29 @@ class TestCountsWhatItCannot:
         stats = CaptureStats()
         list(read_frames(path, stats))
         assert stats.link_type == LINKTYPE_ETHERNET
+
+    def test_a_link_header_the_library_cannot_finish_is_counted_rather_than_raised(
+        self, write_pcap: Callable[..., Path]
+    ) -> None:
+        # A type field below 1536 is a length, not a protocol, so the parsing library goes
+        # looking for the 802.3 header that should follow and raises when it is not there.
+        # That raise is the trust boundary doing its job: it is caught inside the one function
+        # that touches the library, and nothing the library built flows on. Reading the three
+        # link fields before the library runs must not move that boundary, which is why this
+        # frame is 14 octets long and still reaches it.
+        path = write_pcap([(1700000000, 0, ethernet(0x03A2, b""))])
+        stats = CaptureStats()
+        assert list(read_frames(path, stats)) == []
+        assert stats.frames_read == 1
+        assert stats.frames_undecodable == 1
+
+    def test_a_frame_shorter_than_a_link_header_is_counted(
+        self, write_pcap: Callable[..., Path]
+    ) -> None:
+        path = write_pcap([(1700000000, 0, b"\xaa" * 13)])
+        stats = CaptureStats()
+        assert list(read_frames(path, stats)) == []
+        assert stats.frames_undecodable == 1
 
 
 class TestHostileContainers:

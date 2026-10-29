@@ -7,6 +7,18 @@ measured **negative** result, or a limit a component cannot pass. Those are kept
 Records are immutable once accepted. A decision that changes gets a new record that supersedes the
 old one, so the reasoning at the time stays readable.
 
+## Missing numbers
+
+The sequence has gaps, and every gap has exactly one of three reasons. Some numbers were reserved
+for a programme or skipped, and no record was ever written for them — 0277–0284 is the largest
+such block, reserved for build brief E and left unwritten when that brief closed (ADR 0297), and
+the older gaps are the same thing smaller. Some numbers name records that exist on a branch that
+has not merged — 0328, 0330–0332, 0337–0339, 0343, 0369–0371 and 0379–0380 at the time of
+writing — and the index gains them when the branch lands, unless one turns out to be the third
+kind of gap. And some numbers name records withheld from publication under ADR 0342, merged or
+not: 0334 is the one today, its index row says so, and what the record says is not restated
+anywhere. A missing number is not a missing record; it is one of these three.
+
 ## Format
 
 Each record opens with a metadata block, then `## Context`, the decision or decisions, and the
@@ -358,6 +370,11 @@ Pass criteria frozen at `93156a5`. These records do not edit roadmap §2.
 | [0340](0340-the-dataset-library-directory-loses-its-space.md) | The dataset library directory loses its space. `dataset library` becomes `dataset-library`, superseding ADR 0029 Decision 1's path and nothing else. `LIBRARY_DIRNAME` already held the name, so only a docstring was wrong. ADRs 0029, 0073 and 0084 keep the old path; an accepted record is immutable. No measurement moved. |
 | [0341](0341-the-onboarding-brief-runs-on-a-historian-alone.md) | The onboarding brief runs on a historian alone, and `phos` carries it. `--capture` becomes optional, `phos onboard` is added beside the `python -m` form, and the public README carries the invitation: it runs on your own machine, nothing leaves your site. Supersedes ADR 0220's command surface only; no role rule or evidence text moved. C2 is still not met and v1 stays 8 of 12. |
 | [0342](0342-commercial-records-are-not-published.md) | Commercial records are not published, and the export enforces it. `docs/adr/*` is a wholesale include, so a record reasoning about funding or ownership published by default. ADR 0334's path is forbidden and `[forbidden].content` gains the vocabulary of a funding discussion; one hit stops the export. Supersedes ADR 0334's publication only — its decisions stand in the lab. Withdrawing a publication is not withdrawing a decision, and removing a file does not remove it from a published history. |
+| [0344](0344-industrial-protocol-coverage-is-declared.md) | Industrial protocol coverage is declared, and ADR 0345–0367 are reserved. For build brief G only, protocols may be named ahead of a partner's capture. Each still needs its own declaration. Modbus/TCP remains the only dissector. No corpus was scored. v1 stays 8 of 12. |
+| [0345](0345-the-packet-foundation-is-declared.md) | The packet foundation is declared before it is built. Caps: 131072 bytes a flow, 256 flows, 16 out-of-order segments, 256 pairs, 60 seconds. Modbus is not edited. No code in this record. v1 stays 8 of 12. |
+| 0346–0367 | **Reserved** by ADR 0344. Not decisions and not verdicts. The filenames stay when a lane fills them. |
+| [0368](0368-triangulation-and-a-self-search-are-named-after-brief-g.md) | Triangulation and a self-search are named as the next Atlas programme, after brief G. Code laws, physics laws and the signed register; a detectability prediction tested once; then a search for departures that break none. Each rung has its own declaration. Brief H is written only after ADR 0363. Recipes stay in the lab. Nothing was built or scored. v1 stays 8 of 12. |
+| [0381](0381-the-front-door-is-corrected-and-the-freeze-opens-for-figures.md) | The front door is corrected, and the freeze opens for explanatory figures. The untrue first sentence is corrected under the freeze's own exception; diagrams, mathematics and charts cross it by decision, ADR 0200 as precedent, no identity work admitted. Every plotted value is read from a committed record, and a chart the record does not hold is refused. The plain-English notes publish; note 132 is held back as ADR 0334's companion, and the index's gaps are explained. No corpus was scored. v1 stays 8 of 12. |
 
 ## Related reading
 

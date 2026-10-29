@@ -227,28 +227,58 @@ def _peel(
         )
         return None
 
-    transport, source_ip, source_port, destination_ip, destination_port, payload = layers
     return RawFrame(
         source=source,
         timestamp=timestamp,
-        transport=transport,
-        src=Endpoint(ip=source_ip, port=source_port),
-        dst=Endpoint(ip=destination_ip, port=destination_port),
-        payload=payload,
+        transport=layers.transport,
+        src=Endpoint(ip=layers.source_ip, port=layers.source_port),
+        dst=Endpoint(ip=layers.destination_ip, port=layers.destination_port),
+        payload=layers.payload,
+        dst_mac=layers.dst_mac,
+        src_mac=layers.src_mac,
+        ethertype=layers.ethertype,
+        tcp_seq=layers.tcp_seq,
     )
 
 
-def _peel_layers(buffer: bytes) -> tuple[Transport, str, int, str, int, bytes] | None:
+@dataclass(frozen=True)
+class _Peeled:
+    """One frame reduced to the fields `RawFrame` stores. Private to this module."""
+
+    transport: Transport
+    source_ip: str
+    source_port: int
+    destination_ip: str
+    destination_port: int
+    payload: bytes
+    dst_mac: str
+    src_mac: str
+    ethertype: int
+    tcp_seq: int | None
+
+
+def _mac(raw: bytes) -> str:
+    """Format six octets as lowercase colon-separated hex."""
+    return ":".join(f"{octet:02x}" for octet in raw)
+
+
+def _peel_layers(buffer: bytes) -> _Peeled | None:
     """Run the third-party parser over untrusted bytes and convert what it returns to our own types.
 
-    Every value crosses back as a `str`, `int` or `bytes`, so nothing dpkt produced flows on into
-    PHOS. This is the only function that touches the parsing library, which is what makes the
-    library replaceable and the trust boundary a single reviewable place.
+    The Ethernet destination, source, and type field are read from the first 14 octets
+    before the parser is allowed to look past them. A type of 0x8100 stays 0x8100.
+    Every other value crosses back as a `str`, `int` or `bytes`, so nothing dpkt
+    produced flows on into PHOS.
 
     Returns:
-        ``(transport, source ip, source port, destination ip, destination port, payload)``, or
-        None if the frame is not IP over Ethernet carrying TCP or UDP, or any header was short.
+        The peeled fields, or None if the frame is not IP over Ethernet carrying TCP or
+        UDP, or any header was short.
     """
+    if len(buffer) < 14:
+        return None
+    dst_mac = _mac(buffer[0:6])
+    src_mac = _mac(buffer[6:12])
+    ethertype = int.from_bytes(buffer[12:14], "big")
     try:
         link = Ethernet(buffer)
         network = link.data
@@ -258,18 +288,24 @@ def _peel_layers(buffer: bytes) -> tuple[Transport, str, int, str, int, bytes] |
         segment = network.data
         if isinstance(segment, TCP):
             transport = Transport.TCP
+            tcp_seq: int | None = int(segment.seq) & 0xFFFFFFFF
         elif isinstance(segment, UDP):
             transport = Transport.UDP
+            tcp_seq = None
         else:
             return None
 
-        return (
+        return _Peeled(
             transport,
             _address(bytes(network.src)),
             int(segment.sport),
             _address(bytes(network.dst)),
             int(segment.dport),
             bytes(segment.data),
+            dst_mac,
+            src_mac,
+            ethertype,
+            tcp_seq,
         )
     except _UNTRUSTED_PARSE_ERRORS:
         return None

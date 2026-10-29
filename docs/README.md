@@ -255,7 +255,8 @@ missing:
 | Kept back | What it is |
 | --- | --- |
 | `PROGRESS.md` | The chronological build log. Long, internal, and superseded for any reader by the decision records themselves |
-| `encyclopedia/`, `easy to reads/` | The long-form reference and the plain-English walkthroughs. Written for whoever picks the work up next |
+| `encyclopedia/` | The long-form reference. Written for whoever picks the work up next. The plain-English walkthroughs, `easy to reads/`, are in this repository — except one |
+| `easy to reads/132-*` | One plain-English note: the companion of a withheld commercial record. The notes index keeps the number and declines it |
 | The agent rules and the build briefs | How the lab is driven: the always-apply rules, the role definitions and the guards that warn before a known mistake |
 | Commercial and partner material | What PHOS asks a design partner for, and how it intends to find one |
 | Every data payload | No corpus is committed. `data/` carries manifests with checksums, never the files. Several corpora are licence-barred from redistribution regardless |
