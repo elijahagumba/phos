@@ -54,7 +54,7 @@ $$\mathcal{R} \;=\; H \;\sqcup\; B \;\sqcup\; U$$
 
 Every law in the register the plant signed ends in exactly one of three standings: held, broken, or unstated. A law that turns up in two of them is refused, and no report is built.
 
-$$\mathrm{page} \;=\; \bigl(\operatorname{sort}_{(t,\,n)} B\bigr)_{1 \ldots \min(|B|,\,8)}$$
+$$\mathrm{page} \;=\; (\mathrm{sort}_{(t,\,n)} B)_{1 \ldots \min(|B|,\,8)}$$
 
 The page is the broken laws, ordered by the time of the broken fact and then by the law's name, cut at eight. Held and unstated laws are listed and take no slot, and a later break is never promoted for being louder, because a break carries nothing to be louder with.
 

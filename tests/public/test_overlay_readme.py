@@ -82,3 +82,9 @@ def test_the_refused_count_the_page_names_is_the_code_count() -> None:
     match = re.search(r"none of the ([a-z]+) words in any case", _text(), re.IGNORECASE)
     assert match is not None, "the page no longer names the count of refused words"
     assert match.group(1).casefold() == _NUMBER_WORDS[len(_SCORE_WORDS) - 1]
+
+
+def test_the_math_uses_no_macro_the_renderer_refuses() -> None:
+    # GitHub's math renderer refused `\operatorname` on 29 October 2026 and showed the block's
+    # raw source on the public front page. The blocks use `\mathrm` where a word is set roman.
+    assert "\\operatorname" not in _text()
