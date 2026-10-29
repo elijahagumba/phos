@@ -3,7 +3,7 @@
 [![research-core quality](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml/badge.svg)](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml)
 &nbsp;**4,706 tests**, no datasets required.
 
-**PHOS is an independent research project, built by one researcher with AI coding agents.** There is no company, no product and no customer. What there is, is a measurement record: every figure on this page reproduces from this repository and the public datasets it names, including the measurements that failed.
+**PHOS is an independent research project, built by one researcher with AI coding agents.** There is no company, no product and no customer, yet. What there is, is a measurement record: every figure on this page reproduces from this repository and the public datasets it names, including the measurements that failed.
 
 **The work is Atlas, and Atlas is a page.** The plant writes down the laws it runs by. Atlas checks whether each one still holds, and reports the ones that do not, **at most eight a shift**. It attaches no score, ranks nothing, and names no cause. Where the plant's own record cannot settle what happened, Atlas says so and stops. That refusal is the product and not a gap in it.
 
