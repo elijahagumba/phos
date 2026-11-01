@@ -603,3 +603,31 @@ rather than a licence, so the record names what it does not settle — the depar
 named, so nothing may be published before it is. Nothing was scored, no detection claim exists
 here, the acceptance bar still needs a human at the keyboard rather than an agent, version 1 still
 stands at eight of twelve, and the design-partner conversation is still the thing that is blocked.
+
+Note 162 is we moved the alarm and half the problem moved with it (ADRs 0398, 0399). A detector that
+catches 53 of 70 attacks against the built-in engine's 32 was rejected for raising its alarms too
+late. The cause had already been traced to where the engine puts an alarm rather than to what the
+detector saw, so the placement was replaced and measured once: an alarm now goes at the first moment
+any departure in a group clears the threshold it already had to clear, with no level taken from the
+group's loudest member. Three of the four conditions failed anyway. **The diagnosis was right and
+incomplete.** On the attacks both engines catch the delay fell from lane 3's 5 seconds to 0.80 —
+faster than the built-in engine — and eight alarms moved earlier with none later, so that half was
+the placement's. The rest was never. Harmless alarms stayed at 8 of 20 before and after, because
+where an alarm goes is not how loud it is. And one reading got worse for a reason worth knowing: the
+detector's own-catches median rose to 6.10 seconds because the 17 attacks the built-in engine misses
+are the slow ones, with an 11-second median alone, so any detector catching more of them looks slower
+on that measure. A third failure was new and is the mirror of the old one: a rule that only moves
+alarms earlier will eventually move one earlier than the event, and in one run the alarm landed 378
+seconds before the attack it belonged to. Fixing that needs a look-back limit, which is a number, and
+adding a number after seeing where it broke is how you fool yourself — so it was not added. Nothing
+frozen moved, no held-out data was opened, and version 1 still stands at eight of twelve.
+
+Note 163 is we finally wrote down how to make the fake plant (ADR 0400). Two refused detectors stay
+in the code so the records that refused them stay reproducible, and a test fails if either is
+quietly wired into the law page. The simulator registered on 17 October, with twenty declared runs
+and a licence digest, had never had a generator until now: it reads the run list from the
+registration rather than a copy, refuses every sealed seed by name, stops if the licence has moved,
+and stops if it cannot find the simulator's own device order rather than guessing it. The pair that
+makes it worth doing is 97201 and 97206 — the same tank level freezing for a failed instrument and
+for an attacker. It generates no data yet, and any result from it will be a diagnosis and not proof.
+Version 1 still stands at eight of twelve.

@@ -1,0 +1,213 @@
+"""Generate the declared GRFICSv3 corpus: development runs only, from the registry's own list.
+
+Usage, from the lab root, with any Python 3.11+ (this file uses only the standard library):
+
+    python scripts/grfics/generate_corpus.py setup        # GRFICSv3 at the pinned commit
+    python scripts/grfics/generate_corpus.py development  # data/grfics-dev/
+
+What this file is, and is not (ADR 0144, ADR 0400):
+
+* **It reads the run list from `data/registry.json`**, not from a constant. The frozen design —
+  which seed is which cause, mode and target — is the registry's, and a copy here would be a second
+  source that could drift from it.
+* **It refuses every held-back seed.** A `973xx` seed is named in the registry as held back, and the
+  registry says not generated and not opened until a score declaration. This script has no role
+  argument that can reach one.
+* **It refuses a moved pin.** The licence file is hashed and compared to the digest ADR 0144
+  recorded. A checkout whose `LICENSE` does not hash to it stops the run rather than silently
+  changing the corpus.
+* **It never copies GRFICS code into this repository.** The checkout lives under `data/`, which git
+  ignores, and only the data each run produces is kept.
+* **It stops when the pinned engine's device order cannot be read.** ADR 0144 requires that
+  `flow_1` to `flow_4` and `analyzer_a` to `analyzer_c` mean the four flows and three analysers in
+  the order that commit's engine lists them, and that a generator which cannot find that order
+  stops. Guessing that order would silently relabel every run.
+
+The corpus this produces is an emulated plant. Any result from it is a diagnosis and not proof
+(R4, ADR 0143), and no number from it may describe Atlas on a real plant.
+
+**This file generates no data yet.** The registry's run list parses and the refusals hold; driving
+the simulated plant and capturing its process values and traffic is the next declared step, and it
+is not written here.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import subprocess
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+REGISTRY = ROOT / "data" / "registry.json"
+GRFICS_URL = "https://github.com/Fortiphyd/GRFICSv3.git"
+GRFICS_COMMIT = "37bdf101f3ad0706a7595bd01d696ce7b84db436"
+GRFICS_LICENSE_SHA256 = "605e9047a563c5c8396ffb18232aa4304ec56586aee537c45064c6fb425e44ad"
+GRFICS_DIR = ROOT / "data" / "grfics-source"  # under data/, so git never sees it (ADR 0006)
+DEV_DIR = ROOT / "data" / "grfics-dev"
+
+#: The registry entry this script reads development runs from.
+DEV_ENTRY = "grfics-v3"
+
+#: The registry entry it refuses by name, so the refusal can say which entry it refused.
+HELD_OUT_ENTRY = "grfics-v3-heldout"
+
+#: Every emitted run carries this many quiet minutes before its named event (ADR 0144).
+QUIET_MINUTES = 10
+EVENT_MINUTES = 20
+
+#: The seven device names ADR 0144 requires the pinned engine to list, in its own order.
+REQUIRED_DEVICES = (
+    "flow_1",
+    "flow_2",
+    "flow_3",
+    "flow_4",
+    "analyzer_a",
+    "analyzer_b",
+    "analyzer_c",
+)
+
+
+class RefusedError(RuntimeError):
+    """A condition ADR 0144 or ADR 0400 says must stop the generator, not be worked around."""
+
+
+@dataclass(frozen=True)
+class Run:
+    """One declared run, as the registry states it.
+
+    Attributes:
+        seed: The registry's seed number.
+        cause: ``physical``, ``cyber`` or ``quiet``.
+        mode: The event's mode, or ``none`` for a quiet run.
+        target: The signal the event is applied to, or ``none``.
+    """
+
+    seed: int
+    cause: str
+    mode: str
+    target: str
+
+    @property
+    def directory_name(self) -> str:
+        """The per-run directory name, which names cause, mode, target and seed."""
+        return f"{self.cause}-{self.mode}-{self.target}-{self.seed}"
+
+
+def sha256_of(path: Path) -> str:
+    """Return the sha256 of a file's bytes."""
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def registry_runs(entry_name: str) -> tuple[Run, ...]:
+    """Read one registry entry's declared runs.
+
+    The registry stores the design in `status_note` prose, so this parses the
+    ``97xxx <cause> <mode> <target>`` triples ADR 0144 committed. A note with no parseable run is a
+    refusal: reading the design loosely would generate a corpus the declaration does not describe.
+
+    Args:
+        entry_name: The `name` field of the registry entry.
+
+    Returns:
+        The declared runs, in registry order.
+
+    Raises:
+        RefusedError: The entry is held back, absent, or declares no parseable runs.
+    """
+    if entry_name == HELD_OUT_ENTRY:
+        raise RefusedError(
+            f"{HELD_OUT_ENTRY} is held back: not generated and not opened until a declaration "
+            "names it (ADR 0144). This script cannot reach it."
+        )
+    raw = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    entries = {entry["name"]: entry for entry in raw.get("datasets", [])}
+    if entry_name not in entries:
+        raise RefusedError(f"no registry entry named {entry_name!r} in {REGISTRY}")
+    note = str(entries[entry_name].get("status_note", ""))
+    runs = _parse_runs(note)
+    if not runs:
+        raise RefusedError(
+            f"{entry_name} declares no parseable seed/cause/mode/target runs; refusing to "
+            "generate a corpus the declaration does not describe"
+        )
+    return runs
+
+
+def _parse_runs(note: str) -> tuple[Run, ...]:
+    """Parse ``97xxx <cause> <mode> <target>`` triples out of a registry status note."""
+    tokens = note.replace("|", " ").replace(",", " ").replace(";", " ").split()
+    found: list[Run] = []
+    index = 0
+    while index < len(tokens) - 3:
+        token = tokens[index]
+        if len(token) == 5 and token.isdigit() and token.startswith("97"):
+            cause, mode, target = tokens[index + 1], tokens[index + 2], tokens[index + 3]
+            # The note is prose, so the last triple of a sentence carries its full stop.
+            target = target.rstrip(".")
+            if cause in {"physical", "cyber", "quiet"}:
+                found.append(Run(int(token), cause, mode, target))
+                index += 4
+                continue
+        index += 1
+    return tuple(found)
+
+
+def setup() -> None:
+    """Clone GRFICSv3 at the pinned commit and verify the licence digest.
+
+    Raises:
+        RefusedError: The checkout has no `LICENSE`, or its digest is not the recorded one.
+    """
+    if GRFICS_DIR.exists():
+        print(f"{GRFICS_DIR} already exists; leaving it alone")
+    else:
+        GRFICS_DIR.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run(["git", "clone", GRFICS_URL, str(GRFICS_DIR)], check=True)
+        subprocess.run(["git", "-C", str(GRFICS_DIR), "checkout", GRFICS_COMMIT], check=True)
+    licence = GRFICS_DIR / "LICENSE"
+    if not licence.is_file():
+        raise RefusedError(f"no LICENSE at {licence}; refusing to use this checkout")
+    digest = sha256_of(licence)
+    if digest != GRFICS_LICENSE_SHA256:
+        raise RefusedError(
+            f"LICENSE hashes to {digest}, not the {GRFICS_LICENSE_SHA256} ADR 0144 recorded. "
+            "A moved pin is a different corpus; refusing."
+        )
+    print(f"GRFICSv3 at {GRFICS_COMMIT}, licence verified")
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Run the CLI. Returns a process exit code."""
+    parser = argparse.ArgumentParser(description="Generate the declared GRFICSv3 corpus.")
+    parser.add_argument("role", choices=("setup", "development", "held-out"))
+    args = parser.parse_args(argv)
+    if args.role == "held-out":
+        print(
+            "refused: grfics-v3-heldout is not generated until a declaration names it (ADR 0144).",
+            file=sys.stderr,
+        )
+        return 2
+    if args.role == "setup":
+        setup()
+        return 0
+    runs = registry_runs(DEV_ENTRY)
+    DEV_DIR.mkdir(parents=True, exist_ok=True)
+    for run in runs:
+        print(f"{run.seed}  {run.cause}/{run.mode}/{run.target} -> {DEV_DIR / run.directory_name}")
+    print(
+        f"{len(runs)} development runs declared; {QUIET_MINUTES} quiet minutes then "
+        f"{EVENT_MINUTES} minutes of the named event, per ADR 0144."
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
