@@ -22,7 +22,7 @@ The body is `.cursor/rules/zero-to-one-plan.mdc`, with `alwaysApply: true`. `doc
 
 `live-work.mdc` gains a pointer paragraph so a session computing its position from that file can find the plan. The paragraph does not authorise a harness run.
 
-A session builds from the plan only when the human asks. The first engineering commit, when that ask comes, is the inlet declaration, and that declaration contains no code that reads a file.
+A session builds from the plan only when Elijah asks. The first engineering commit, when that ask comes, is the inlet declaration, and that declaration contains no code that reads a file.
 
 ## Consequences
 
@@ -34,4 +34,4 @@ A session builds from the plan only when the human asks. The first engineering c
 
 ## What would reverse this
 
-Building from the plan without the human having asked. Treating the plan as a measurement, a detection rate, or a ship authorisation. Importing a residual detector into `declared_law.py` because the plan was read as a purge. Starting a protocol, a socket, an API, a UI, or Intelligence from this rule. Running the plan's later quarters without the gate ADR. Retuning a frozen window, the walk length, or the ceiling because the plan mentioned them.
+Building from the plan without Elijah having asked. Treating the plan as a measurement, a detection rate, or a ship authorisation. Importing a residual detector into `declared_law.py` because the plan was read as a purge. Starting a protocol, a socket, an API, a UI, or Intelligence from this rule. Running the plan's later quarters without the gate ADR. Retuning a frozen window, the walk length, or the ceiling because the plan mentioned them.

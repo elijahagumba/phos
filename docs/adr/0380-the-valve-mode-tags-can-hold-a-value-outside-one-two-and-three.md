@@ -126,7 +126,7 @@ if input2 < 1 or input2 > 3:
 ```
 
 That `int()` and that range test are **the only validation of a valve mode anywhere in the
-checkout**, and they live in a terminal prompt in the human's console, not in the PLC, not in
+checkout**, and they live in a terminal prompt in the operator console, not in the PLC, not in
 the tag table, and not in the protocol layer. A `ValueError` there is caught by
 `HMI2._operate` (`src/HMI2.py:55-58`) and printed; no write happens. So on this path the value
 is an `int` in `{1, 2, 3}`.

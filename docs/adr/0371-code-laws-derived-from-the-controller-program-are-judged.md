@@ -142,7 +142,7 @@ own program without running it: three files are read as text, each refused unles
 matches, and `ast.parse` builds a tree that is never executed. `roles.toml` was not read, so the
 check is not circular. The four literals, the input comparison, the output comparison and every
 decision on the declared enumeration came out the same as the hand copy. On those four of the
-five agreement bars, the human's transcription of October is confirmed by a machine that never
+five agreement bars, the hand transcription of October is confirmed by a machine that never
 saw it. The one place it is not confirmed is the guard, and that place was predicted in advance.
 
 **Not established.** This is agreement with one person's transcription of one comparison in one
