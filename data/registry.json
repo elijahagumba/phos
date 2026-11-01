@@ -2576,6 +2576,48 @@
       ]
     },
     {
+      "name": "grfics-v3-bridge",
+      "title": "GRFICSv3 on a single bridge network, no zone separation (runs on macOS)",
+      "domain": "ATLAS",
+      "homepage": "https://github.com/Fortiphyd/GRFICSv3",
+      "format": "generated",
+      "status": "declared-external-testbed",
+      "status_note": "Declared 2026-11-01 (ADR 0401) after a probe, before any capture exists. Same run design as grfics-v3, so those twenty seeds are not repeated here. Same pinned commit 37bdf101f3ad0706a7595bd01d696ce7b84db436 and the same licence digest. This is NOT grfics-v3 and must never be pooled with it or reported beside it as the same corpus. The difference is the network: grfics-v3 uses two macvlan networks on VLAN sub-interfaces of a physical host NIC, which macOS cannot provide, so its simulation container exits with 'no interface found with 192.168.95.x address'. Probed 2026-11-01 on OrbStack/aarch64: the same images run when the ICS subnet is a plain Docker bridge, the simulation's six Modbus servers listen on 192.168.95.10-15 port 502, the PLC answers 200 to the simulation and the dashboard answers 200 to the host. What this topology drops: the DMZ/ICS split, and therefore the router, the firewall, Suricata and arpmon evidence between zones, and any claim about cross-zone traffic. In scope are the single-zone departures on tank_level and tank_pressure, starting with 97201 and 97206. Held-back seeds are not generated.",
+      "role": "development",
+      "seen": [],
+      "license": {
+        "spdx": "GPL-3.0",
+        "name": "GNU General Public License v3.0 for the testbed code. Fortiphyd permitted research use by email and asks for credit. Commercial GRFICS tiers are not used.",
+        "url": "https://github.com/Fortiphyd/GRFICSv3/blob/37bdf101f3ad0706a7595bd01d696ce7b84db436/LICENSE",
+        "status": "explicit",
+        "evidence": "Identical to grfics-v3: GitHub API license.spdx_id = GPL-3.0 at commit 37bdf101f3ad0706a7595bd01d696ce7b84db436, and that commit's LICENSE file hashes to 605e9047a563c5c8396ffb18232aa4304ec56586aee537c45064c6fb425e44ad. The clone was verified by scripts/grfics/generate_corpus.py setup on 2026-11-01. Only the data the stack produces is kept; no GRFICS source is committed (ADR 0144).",
+        "permits_research_use": true
+      },
+      "citation": "Formby, David, and Fortiphyd Logic. GRFICSv3, commit 37bdf101f3ad0706a7595bd01d696ce7b84db436. GPL-3.0. Credit Fortiphyd when publishing.",
+      "files": [],
+      "prepare": null,
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "Scenarios are driven, not labelled in a file: each run is ten quiet minutes then twenty minutes of a named event, and the declared event list is the record."
+      },
+      "quirks": [
+        "Single bridge network on 192.168.95.0/24. No DMZ, no router, and no cross-zone firewall or IDS evidence.",
+        "A different corpus from grfics-v3. Do not pool, and do not report a result from one beside the other as the same topology.",
+        "The simulation exposes six Modbus servers on 192.168.95.10-15. Only the tags the declared scenarios address are in scope.",
+        "GRFICSv3's README recommends Linux. This entry exists so a macOS host can pose the tank_level pair without claiming the declared topology."
+      ],
+      "caveats": [
+        "Emulated chemical plant. Any result is diagnosis, not proof (R4).",
+        "No zone separation, so nothing may be said about cross-zone traffic, firewall behaviour or IDS coverage from this corpus.",
+        "GRFICS source is not part of this repository. Commercial tiers are not used.",
+        "Credit David Formby / Fortiphyd in publications.",
+        "Not a substitute for grfics-v3, and not a substitute for a real plant."
+      ]
+    },
+    {
       "name": "tu-wien-pilot-factory-heldout",
       "title": "TU Wien pilot factory, benign training file tf_s.zip, held back",
       "domain": "ATLAS",

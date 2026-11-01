@@ -31,6 +31,30 @@ def test_the_development_entries_parse_into_ten_runs() -> None:
     assert runs[-1].seed == 97210
 
 
+def test_the_bridge_entry_is_a_different_corpus_with_the_same_run_ids() -> None:
+    """ADR 0401: the same design, a different topology, and never pooled with grfics-v3."""
+    bridge = {run.seed for run in grfics.registry_runs("grfics-v3-bridge")}
+    declared = {run.seed for run in grfics.registry_runs("grfics-v3")}
+    assert bridge == declared, "the bridge corpus must carry the declared run ids"
+    assert grfics.DEV_ENTRY == "grfics-v3-bridge"
+
+
+def test_the_bridge_entry_says_what_topology_it_drops() -> None:
+    """ADR 0401: the entry must name the difference, or a reader could take it for grfics-v3."""
+    import json
+
+    raw = json.loads(grfics.REGISTRY.read_text(encoding="utf-8"))
+    entry = next(x for x in raw["datasets"] if x["name"] == "grfics-v3-bridge")
+    note = entry["status_note"].lower()
+    # The four things a reader must be told: what it is not, why, what is missing, and the
+    # instruction not to pool it with the declared corpus.
+    assert "not grfics-v3" in note
+    assert "macvlan" in note
+    assert "dmz" in note and "drops" in note
+    assert "never be pooled" in note
+    assert any("not a substitute" in c.lower() for c in entry["caveats"])
+
+
 def test_the_frozen_pair_is_present_and_differs_only_by_cause() -> None:
     """97201 and 97206 are the same target and event shape with different causes (ADR 0400)."""
     runs = {run.seed: run for run in grfics.registry_runs(grfics.DEV_ENTRY)}
