@@ -28,6 +28,19 @@ _SKIP_COLUMNS: Final = frozenset(
 )
 
 
+def _normalised(name: str) -> str:
+    """Return a header cell reduced to the form :data:`_SKIP_COLUMNS` is written in.
+
+    A stranger's export is not obliged to spell a header the way this module does. The DTU
+    pilot-plant workbook writes its timestamp column ``Time Stamp``, with a space, and an
+    underscore-separated ``time_stamp`` is just as plausible. Folding runs of whitespace and
+    underscores to nothing and lowercasing leaves ``timestamp``, which the skip list already
+    holds. Only the match is normalised: the tag name reported for a real signal is the one the
+    plant wrote (ADR 0394).
+    """
+    return "".join(name.split()).replace("_", "").lower()
+
+
 def parse_historian(
     rows: Iterable[Sequence[str]],
     *,
@@ -134,7 +147,7 @@ def _parse_wide(
     chosen = [
         (index, name)
         for index, name in enumerate(header)
-        if name and name.lower() not in _SKIP_COLUMNS
+        if name and _normalised(name) not in _SKIP_COLUMNS
     ]
     buckets: list[list[float]] = [[] for _ in chosen]
     taken = 0

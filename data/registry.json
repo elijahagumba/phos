@@ -2609,6 +2609,45 @@
         "Not downloaded. Not a catch corpus. A scan is not a command attack.",
         "Attack-day zips, the unlabelled Tuesday DoS zip, images.zip and extractions.zip are in neither scored half. See ADR 0163."
       ]
+    },
+    {
+      "name": "dtu-lab",
+      "title": "DTU pilot-plant historian exports \u2014 bubble column 1F and continuous distillation 5A",
+      "domain": "ATLAS",
+      "homepage": "https://www.dtu.dk/english",
+      "format": "xlsx",
+      "status": "operator-provided",
+      "status_note": "Received as email attachments from an associate professor in the Department of Chemical and Biochemical Engineering at the Technical University of Denmark (DTU), 2026-10-31. Six runs of two pilot-plant rigs: three of bubble column aeration 1F (9, 10 and 16 July 2026) and three of continuous distillation 5A (14 July, 16 July and 30 September 2026). Not fetchable: an email attachment has no URL, so this entry is the provenance record and files is empty. On disk at data/dtu-lab/, git-ignored, sha256 recorded in ADR 0394. No label column. Two rigs and several operators, so the runs differ by operator and day rather than sampling one plant's normal. Registered for the C2 onboarding trial only (ADR 0394).",
+      "role": "development",
+      "seen": [],
+      "license": {
+        "spdx": null,
+        "name": "Permission by email from the sender, permitting publication and commercial use with credit to the department",
+        "url": null,
+        "status": "operator-stated",
+        "evidence": "Email from the sender, 2026-10-31, verbatim in ADR 0394: 'You are welcome to publish and use the obtained results commercially as long as appropriate credit is given to our department.' NOT a published licence. Four things the message does not settle, each of which must travel with the corpus: (1) the department is now NAMED -- Department of Chemical and Biochemical Engineering, Technical University of Denmark (DTU), confirmed from the sender's DTU staff page on 2026-11-01 (ADR 0396) -- so the credit line is writable and is the one the citation field gives; the confirmation is an institutional page, not a document about rights; (2) a staff member's welcome is not a statement that DTU's IP policy agrees, and it is recorded as given by the sender rather than as a cleared institutional licence; (3) it covers RESULTS, not redistribution of the raw files, so the payloads stay git-ignored and are never committed; (4) it makes no statement about what the columns mean or how they are measured. The sender's email address is deliberately NOT recorded here: data/* exports publicly and the export gate matches .ac/.edu suffixes only, so a .dk academic address would pass the gate and publish a private individual's contact details.",
+        "permits_research_use": true
+      },
+      "citation": "Bubble column aeration 1F and continuous distillation 5A pilot-plant runs, Department of Chemical and Biochemical Engineering, Technical University of Denmark (DTU), July and September 2026. Credit the department; the department must be named before anything is published (ADR 0394).",
+      "files": [],
+      "labels": {
+        "column": null,
+        "attack_values": [],
+        "normal_values": [],
+        "unlabelled_values": [],
+        "note": "No label column. Ordinary pilot-plant runs, not an attack corpus."
+      },
+      "quirks": [
+        "Two different rigs (a bubble column and a distillation column) in one corpus. A model must not be fitted across both.",
+        "No declared process map, no units, no stated sample interval. The ICD's process-map box stays open.",
+        "The 30 September distillation 5A run (Team45A) is the C2 trial file and is not opened before ADR 0394 is committed."
+      ],
+      "caveats": [
+        "Onboarding material only. No detection claim, no rate, no recall and no false-alarm count can come from this corpus.",
+        "Six short runs of two teaching rigs cannot fit a baseline. Not a substitute for a partner historian.",
+        "Credit the department, and name it, before anything derived from this corpus is published (ADR 0394)."
+      ],
+      "prepare": null
     }
   ]
 }

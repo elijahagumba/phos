@@ -506,6 +506,59 @@ prediction of what all three miss, and a search for it. Found attacks stay in
 the lab. Nothing was built or scored. Version 1 still stands at eight of
 twelve.
 
+Note 153 is the first step runs now, and the rest wait for January (ADRs 0369
+and 0370). The four-step programme of note 152 is split: the first step, which
+reads the controller program and writes the valve rule out of it, runs now in
+its own folder because it shares no file with the protocol work. The other
+three wait until after 6 January 2027, because the water-industry funding bid
+that closes then takes priority. The first step's test is written down before
+its code exists: the rule the machine writes must match the hand-copied one
+number for number, and if it does not, the machine's rule is thrown away
+rather than the hand-written one adjusted. The most likely way it fails is
+named in advance. Nothing was built, run or scored. Notes 154–158 are reserved
+for the later steps. Version 1 still stands at eight of twelve.
+
+Note 153 was extended with ADR 0379: the money check that failed to catch the
+held-back record now carries a pounds pattern and a euros pattern beside the
+dollars one. Each was run against all 1213 published files before being added
+and matched nothing in them, and the exporter's own checker was then shown to
+stop the held-back record on its content alone. Sums below a million are still
+not caught, which is written down rather than glossed. No measurement.
+
+Note 153 was extended again when the first step was built: the derivation reads
+three fingerprinted files of the frozen simulator as text, never running them,
+and every break it finds carries its working rather than a number. The place
+where the simulator's own wording and the hand-copied rule differ was left as it
+is rather than typed over.
+
+Note 153 was extended once more when the first step was marked, by a session
+that did not build it (ADR 0371). Six of the seven questions came back yes: the
+same four numbers, each with the file and line it was read from; the same tank
+rule in the same order; the same bottle rule; the same answer on all 1620 cases;
+the certificates; and a clean tree. The seventh came back no — the simulator says
+a valve is manual at mode 1 or 2, the hand copy says automatic at exactly mode 3,
+and those part at mode 4. One no out of seven means the step is **refused**, with
+no partial credit and nothing adjusted on either side. The note also says plainly
+that 1440 of the 1620 cases are silence agreeing with silence, that one column of
+the report quotes less faithfully than it claims, and that the derivation reads
+only half of what the simulator's manual check does. Nothing was detected and
+nothing was scored. Version 1 still stands at eight of twelve.
+
+Note 153 was extended a fourth time with the follow-up question (ADR 0380): can
+that mode number ever be something other than 1, 2 or 3? It can. Two things
+write it — the controller's own settings table, which says 3, and the operator
+console, which sends what the person picked. The console's menu refuses anything
+outside 1 to 3, and that text prompt is the only check in the whole simulator.
+Underneath it the number travels with four decimal places and no allowed-value
+list, always arrives as a decimal, and the function that reads it asks only "is
+it 1?" and "is it 2?" before carrying on. The simulator also ships an attacker
+that sits in the middle of the network and multiplies every number it passes by
+1.1 without looking at which signal it is, fourteen times in the shipped
+scenario — so an operator's 3 arrives as 3.3, where the two rules part. PHOS's
+own generator writes only 1, 2 or 3. No recording was opened, nothing was
+detected, nothing was scored, and the note does not pick a winner: which rule
+PHOS keeps is Elijah's call and needs writing down first.
+
 Note 154 is the first sentence was not true (ADR 0381). The public front page
 opened by claiming a company, and there is none; the sentence is corrected.
 Diagrams, mathematics and charts are admitted by decision under the freeze,
@@ -513,3 +566,40 @@ every chart value read from the record at build time, and one chart is refused
 because the record does not hold it. These notes publish; note 132 is held
 back with the commercial record it walks through, and its number stays and is
 declined. Nothing was scored. Version 1 still stands at eight of twelve.
+
+Note 159 is both shapes fit in one box, and the two rules still disagree
+everywhere (ADRs 0382 and 0383). The guard the earlier verdict said was missing
+now holds an exclusion list or an equality and knows which one it is holding, so
+the two rules can finally be compared by reading their shapes rather than by
+trying a list of mode numbers. The comparison was then run once on 8820 cases
+whose mode numbers include 3.3, 4 and 100 on each tag. Six questions came back
+yes and the clean-tree question was answered by the judging session, and the
+step is refused anyway, for a reason that is recorded rather than hidden: 4320
+of the 8820 cases disagree on whether the rule applies at all, so the wider set
+measured the gap instead of closing it, and three of the questions could not have
+failed on this program. The one thing the run does settle is the direction: at
+3.3, the number an operator's 3 becomes when the simulator's own middle-man
+attacker rewrites it, the machine's rule checks the valve and the hand-copied
+rule stays silent. That is the case for replacing the hand copy, and the record
+states it without deciding it. The code that produced the earlier report was
+rewritten in place, so that report describes code no longer in the tree and is
+not to be rerun. Nothing was detected, nothing was scored, version 1 still
+stands at eight of twelve, and the design-partner conversation is still the
+thing that is blocked. This note is 159 rather than the reserved 154, because
+another record took 154 on the main line before this step landed.
+
+Note 161 is a stranger's spreadsheet found a hole in our reader (ADR 0394). Six historian exports
+arrived from a university pilot plant in Denmark — three runs of a bubble column and three of a
+distillation column — with a covering sentence permitting publication and commercial use provided
+the department is credited. Pointing the onboarding tool at one of them did what it is for. It
+printed a brief in seconds, and it found a defect that the whole test suite had missed: the
+workbook spells its timestamp column "Time Stamp", with a space, and the reader's list of columns
+to ignore held only the unspaced forms, so a phantom tag appeared in the list with no role and no
+values. The fix folds whitespace and underscores away before comparing. The same run found a second
+thing that was deliberately not fixed: seventeen temperature tags came back blank because the name
+table does not know the bare "TI" this plant writes, and adding it after seeing this corpus would
+be tuning the tool on the very material meant to test it. The permission is a line in an email
+rather than a licence, so the record names what it does not settle — the department is never
+named, so nothing may be published before it is. Nothing was scored, no detection claim exists
+here, the acceptance bar still needs a human at the keyboard rather than an agent, version 1 still
+stands at eight of twelve, and the design-partner conversation is still the thing that is blocked.

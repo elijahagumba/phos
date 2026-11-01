@@ -205,6 +205,22 @@ def test_wide_historian_skips_time_and_label_columns() -> None:
     assert samples[0].values == (1.25, 1.5)
 
 
+def test_wide_historian_skips_a_spaced_time_stamp_column() -> None:
+    """A stranger's export writes ``Time Stamp`` with a space (ADR 0393).
+
+    The DTU pilot-plant exports spell the timestamp header ``Time Stamp``. The skip list held
+    only the unspaced forms, so the column survived into the brief as a phantom tag with no role,
+    no kind and no values that parse as numbers.
+    """
+    rows = [
+        ["Time Stamp", "FI1", "PI2"],
+        ["2026-09-30 08:16:54", "-1.36", "1.05"],
+        ["2026-09-30 08:16:55", "-1.35", "1.04"],
+    ]
+    samples = parse_historian(rows, sample_rows=10)
+    assert [sample.tag for sample in samples] == ["FI1", "PI2"]
+
+
 def test_long_historian_caps_values_per_tag() -> None:
     rows = [["tag", "value"], *[["FT-101", "1.0"] for _ in range(5)], ["LT-1", "2.5"]]
     samples = parse_historian(rows, sample_rows=2)
