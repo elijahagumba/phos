@@ -205,6 +205,8 @@ DECLARED_HELD_OUT: Final[tuple[str, ...]] = (
     "netresec-4sics-heldout",
     "grfics-v3-heldout",
     "tu-wien-pilot-factory-heldout",
+    "daypsci-v1-heldout",
+    "fdia-synthetic-microgrid-heldout",
 )
 
 _CAUSES: Final = frozenset({"physical", "cyber", "quiet"})

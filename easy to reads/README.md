@@ -629,5 +629,72 @@ and a licence digest, had never had a generator until now: it reads the run list
 registration rather than a copy, refuses every sealed seed by name, stops if the licence has moved,
 and stops if it cannot find the simulator's own device order rather than guessing it. The pair that
 makes it worth doing is 97201 and 97206 — the same tank level freezing for a failed instrument and
-for an attacker. It generates no data yet, and any result from it will be a diagnosis and not proof.
-Version 1 still stands at eight of twelve.
+for an attacker. Any result from it will be a diagnosis and not proof. Version 1 still stands at
+eight of twelve.
+
+Note 164 is the cyber half turned out to be possible (ADRs 0402–0406). Everyone expected the attack
+half of the experiment to fail on this machine, because it needs to intercept the operator's screen
+and the machine cannot run the network that gives an attacker that position. The expectation was
+wrong for a useful reason: intercepting traffic needs a *shared wire*, not a gateway, and one flat
+Docker network is more shared wire than the setup the simulator's authors designed for. So both runs
+were captured. They come out opposite, which is the point: in the physical run the reading and the
+value the control program saw both froze while the real tank climbed 15 points; in the cyber run the
+control program was untouched and only the screen was lied to, and the gap between them widened on
+every single sample. Along the way two things were learned that would have broken a harness built
+the obvious way — the screen only saves a value when it changes, so a frozen tag stops producing
+history exactly when you want it; and the screen reads thirteen registers at once, so a relay holding
+only one of them answers the other twelve with zero. Note 164 also carries its own correction: the
+first version claimed the block relay froze the target and left the other twelve live. It freezes all
+thirteen, and the run that appeared to show the others moving was taken before the intercept was
+connected — which is exactly the passthrough that note warns about elsewhere. The corrected account
+is better than the original: both runs freeze what the operator sees, and the real difference is
+whether the lie enters at the instrument (so program and screen agree and are both wrong) or on the
+wire to the screen (so they disagree). It was then recaptured with **all thirteen tags** so that
+evidence lives in the files, and that took three goes: a run with no live baseline because the
+intercept was left on through the quiet phase; a check that refused a perfectly good run; and a safety
+test that measured the wrong thing twice before settling on exact constancy after a settling window
+declared in advance, rather than a threshold loosened until the result passed. The files now show one
+tag freezing in the physical run and six in the cyber run, with the plant moving only in the second —
+and four tags that never move even in a healthy minute, marked so nobody counts them as evidence. It
+is a capture, not a score: no rate comes from it, there is no firewall or intrusion detection on this
+network to claim, and version 1 still stands at eight of twelve.
+
+Note 165 is we asked whether the screen and the program agree (ADRs 0407–0408). Note 164 left a pair
+of recordings and an unanswered question: a broken instrument and an attacker holding the operator's
+screen still look identical from the chair in front of the screen, and the simulator's makers say you
+can separate them by asking whether the screen and the control program agree. The question was written
+into the record *before* the computation existed, which forced two problems into the open. The screen
+polls every two seconds while the recording samples every one, so a bar phrased as "how often did the
+screen change compared with the plant" would have measured the polling interval and called it
+agreement; the bar became "did the screen change at all", and the gap is about six hundred changes
+against zero. And the plant was not in the same state in both runs, so each run is judged against its
+own numbers at the same instant rather than against the other run. All three conditions held: eight
+tags moving in the broken-instrument run all had screens that followed, six tags moving in the attack
+run all had screens that changed **zero** times, and no tag managed both. The tank level — the tag the
+whole experiment was built around — looks wrong until you sit with it: its register never moves in the
+broken run, because the fault froze the sensor at the source and fooled everything downstream
+together, which is precisely the case the makers describe. So the clean example of agreement is
+pressure, not level, and the record says so rather than leaving a reader to notice. It is a diagnosis
+on a simulator and not a detection result: no rate, no recall, no confidence, and the eight-and-six
+counts are not a success rate. The next honest step is a plant with an owner, not more seeds.
+
+Note 166 is we added two datasets and wrote down what neither can prove (ADRs 0409–0411). A weekly
+search for new public plant data turned up four candidates; two were registered, one sat behind a
+paid subscription and was not bought, and one turned out to be somebody else's results rather than a
+corpus. The first addition records a real parts-marking machine with faults deliberately injected —
+a sensor made to lie, a valve made to stick — which is valuable and is **not** an attack dataset,
+so it goes in the same bracket as the oil-well faults we already hold. Two limits went in with it:
+the data are stored as events rather than as a steady stream, so there is no "per hour" to divide by
+and a false-alarm rate is refused rather than invented; and part of it is raw network traffic in a
+protocol PHOS cannot read, which is listed and left alone rather than parsed badly. The second
+addition is two million rows of grid measurements under false-reading attacks, and it is entirely
+simulated — a calculation, not a plant — so it can diagnose and never prove, and it is never mixed
+in with real results. Each one is split into a working half and a sealed half by a rule fixed before
+anyone looked inside, because a split chosen after seeing which half reads better is not a split.
+One awkwardness was written down instead of tidied away: the sealed half of the first dataset
+contains no normal run at all, so a future score on it must bring its idea of normal from elsewhere,
+and reshuffling the batches to balance it would have meant choosing the split by looking at it. A
+verification command also failed, and which way it failed is the interesting part — it looked one
+folder too shallow, counted zero, and stopped the run; a check that finds nothing halts honest work,
+whereas one that finds the right number for the wrong reason would wave a wrong split through.
+Nothing was scored, no sealed file was opened, and version 1 still stands at eight of twelve.

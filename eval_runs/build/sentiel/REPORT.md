@@ -2,7 +2,7 @@
 
 CCH0959 is Cedric Cyrus Harrison, an industrial engineer. From 2 August to
 30 September 2010 he did two things. Through August he browsed job sites and
-sent seven messages to Mario.Truman.Telsa@lockheed.com, each ending in the
+sent seven messages to a synthetic recipient address from the CERT insider-threat dataset, each ending in the
 words "resume salary position management experience". In September he connected
 a thumb drive more often, still on his own machine, PC-0588, and on 14
 September he mailed his supervisor that he was resigning.

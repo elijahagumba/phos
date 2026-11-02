@@ -160,7 +160,7 @@ effects.
 **9. `CCH0959`'s job-hunting is in the corpus and cannot reach the feature space.** 121 of their 310
 labelled events are HTTP requests led by `lockheedmartinjobs.com` (**46**), with `linkedin.com`,
 `indeed.com`, `careerbuilder.com`, `monster.com`, `craigslist.org` and `simplyhired.com` behind it;
-**7 of the 8 labelled emails are addressed to `Mario.Truman.Telsa@lockheed.com`** — a competitor —
+**7 of the 8 labelled emails are addressed to a synthetic recipient address from the CERT insider-threat dataset** — a competitor —
 and the eighth to a colleague. The corpus states the motive in plain text. The 34 features count
 *how many* distinct hosts and *how many* external mails, never *which*: `distinct_http_hosts` moves
 from 62.394 to 63.667 across the attack, a ratio of 1.02. Ten new hosts over 60 days sits below this

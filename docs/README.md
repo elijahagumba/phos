@@ -231,7 +231,7 @@ row.
 
 ### Why it is built this way
 
-256 decision records, each with what was chosen, what was rejected and what it cost. The latest on this page is ADR 0323.
+317 decision records, each with what was chosen, what was rejected and what it cost. The latest on this page is ADR 0411.
 Several exist only to record a result that did not work. Five places to start:
 
 - [The joint model, and the model that lost](adr/0009-joint-modelling-per-signal-attribution-and-the-model-that-lost.md)
