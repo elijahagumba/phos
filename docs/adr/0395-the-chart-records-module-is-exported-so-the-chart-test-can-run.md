@@ -25,6 +25,7 @@ docstring states: *"Everything in it except `.git` is removed and rewritten."* A
 public repository and absent from the export is deleted on the next run.
 
 That is what had happened before. Commit `55cab7d` in the public repository, 29 October 2026,
+<!-- evidence-ack: 55cab7d — a commit in the public repository (elijahagumba/phos), which is what the sentence says; the lab's object store does not hold it and no tag may be made to resolve it -->
 imported the module **by hand into the destination** and recorded why:
 
 > `tests/public/test_charts_match_records.py` imports `public.figures.chart_records`, and that
