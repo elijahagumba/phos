@@ -10,8 +10,14 @@ from __future__ import annotations
 import importlib.util
 import sys
 from pathlib import Path
+from typing import TYPE_CHECKING, cast
 
 import pytest
+
+if TYPE_CHECKING:
+    # Only for the annotation below: at runtime the module is loaded from its path, so importing
+    # it here as well would hold two copies of the same dataclass.
+    from scripts.grfics.agreement import TagObservation
 
 _SCRIPT = Path(__file__).resolve().parents[2] / "scripts" / "grfics" / "agreement.py"
 _spec = importlib.util.spec_from_file_location("grfics_agreement", _SCRIPT)
@@ -21,9 +27,18 @@ sys.modules[_spec.name] = agreement
 _spec.loader.exec_module(agreement)
 
 
-def obs(tag: str, distinct: int, changes: int, register: int = 100) -> agreement.TagObservation:
-    return agreement.TagObservation(
-        tag=tag, register=register, samples=100, register_distinct=distinct, hmi_changes=changes
+def obs(tag: str, distinct: int, changes: int, register: int = 100) -> TagObservation:
+    # The cast states the assumption a path-loaded module forces: the class the type-checker
+    # reads from the file is the class this call returns.
+    return cast(
+        "TagObservation",
+        agreement.TagObservation(
+            tag=tag,
+            register=register,
+            samples=100,
+            register_distinct=distinct,
+            hmi_changes=changes,
+        ),
     )
 
 
