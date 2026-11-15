@@ -23,10 +23,46 @@ control traffic. A jacketed batch reactor is typically run from a DCS over a fie
 dissect, so `batch` declares no control network and produces telemetry only. Inventing Modbus for
 it would be fake realism, and the asymmetry is useful: it gives D3 a plant where Atlas is deaf to
 commands by construction rather than by accident.
+
+**PART R2 adds a second kind of module here, and the distinction matters.** `water`, `power` and
+`batch` are *plants*: each is one works, and a seed never gives it a second clearwell.
+`level_flow` and the modules beside it are *processes* — physics a spec sizes, shapes and tunes —
+each paired with a `_family` module that turns a master seed into one plant of that kind. A
+process has no canonical instance, which is why building one without a spec is refused rather
+than defaulted.
+
+Importing this package registers every process template and every open family, which is what
+`phos.synth.templates` and `phos.synth.families` rely on when they are asked for one. Sealed
+families are not here; they live in `phos.synth.families_sealed` and load only when the
+environment allows it.
 """
 
 from phos.synth.plants.batch import BatchReactorPlant
+from phos.synth.plants.batch_mix import BatchMixPlant
+from phos.synth.plants.batch_mix_family import BatchMixFamily
+from phos.synth.plants.generation import GenerationPlant
+from phos.synth.plants.generation_family import PowerFamily
+from phos.synth.plants.heated_chain import HeatedChainPlant
+from phos.synth.plants.heated_chain_family import HybridFamily
+from phos.synth.plants.level_flow import LevelFlowPlant
+from phos.synth.plants.level_flow_family import LevelFlowFamily
 from phos.synth.plants.power import PowerGenerationPlant
+from phos.synth.plants.thermal import ThermalPlant
+from phos.synth.plants.thermal_family import ThermalFamily
 from phos.synth.plants.water import WaterTreatmentPlant
 
-__all__ = ["BatchReactorPlant", "PowerGenerationPlant", "WaterTreatmentPlant"]
+__all__ = [
+    "BatchMixFamily",
+    "BatchMixPlant",
+    "BatchReactorPlant",
+    "GenerationPlant",
+    "HeatedChainPlant",
+    "HybridFamily",
+    "LevelFlowFamily",
+    "LevelFlowPlant",
+    "PowerFamily",
+    "PowerGenerationPlant",
+    "ThermalFamily",
+    "ThermalPlant",
+    "WaterTreatmentPlant",
+]

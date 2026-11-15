@@ -1,0 +1,161 @@
+{
+  "corpora": {
+    "synth-batch-reactor-holdout": {
+      "events": 19,
+      "files": {
+        "telemetry.csv": {
+          "kind": "telemetry-csv",
+          "records": 4320,
+          "sha256": "0917423d21414e9e6d25e48bd5880a421f9699c9ff122f5afd84ede8748e5f53",
+          "size_bytes": 615704
+        },
+        "topology.toml": {
+          "kind": "topology-toml",
+          "records": 4,
+          "sha256": "8e59ca0422c5a1ce0a3dc718600a242826f72c698ce48424e2a552b944a8ae11",
+          "size_bytes": 3026
+        }
+      },
+      "manifest_sha256": "d64b80e474d84d69bf510e1bb27b8e9f0f639b2ea75286244b769851c983ccc9",
+      "plant_id": "batch-reactor",
+      "samples": 4320,
+      "seed": 2026022,
+      "traffic_seed": 5122
+    },
+    "synth-batch-reactor-train": {
+      "events": 33,
+      "files": {
+        "telemetry.csv": {
+          "kind": "telemetry-csv",
+          "records": 8640,
+          "sha256": "145a15399346b37d2ec8ec9ab9b8ddfbf59ca648aaf85ea3f5ed937f7d325de2",
+          "size_bytes": 1231459
+        },
+        "topology.toml": {
+          "kind": "topology-toml",
+          "records": 4,
+          "sha256": "8e59ca0422c5a1ce0a3dc718600a242826f72c698ce48424e2a552b944a8ae11",
+          "size_bytes": 3026
+        }
+      },
+      "manifest_sha256": "d9ec0a8a92e1610815f16338e207f22732d96d263a03a67fd94b234faedb4e06",
+      "plant_id": "batch-reactor",
+      "samples": 8640,
+      "seed": 2026021,
+      "traffic_seed": 5121
+    },
+    "synth-power-generation-holdout": {
+      "events": 7,
+      "files": {
+        "capture.pcap": {
+          "kind": "capture-pcap",
+          "records": 51855,
+          "sha256": "091eb206bd000d7b404ee5d33a7572be1fbc834b494381d581fbcd9ec2afe3fd",
+          "size_bytes": 4450746
+        },
+        "telemetry.csv": {
+          "kind": "telemetry-csv",
+          "records": 8640,
+          "sha256": "d1e3a4231c4683389bc786900911ef068e575ab5713e4dd7339b8e6bd4aab673",
+          "size_bytes": 1523332
+        },
+        "topology.toml": {
+          "kind": "topology-toml",
+          "records": 4,
+          "sha256": "10c5b6fa066898979288cd8b53e645cc6b448323acdf8203187b46c3b62a4ac6",
+          "size_bytes": 3179
+        }
+      },
+      "manifest_sha256": "7fa5b596d192d0c726a2475dbe23d052f08306c53cd909ef9c916ecb692d0c7c",
+      "plant_id": "power-generation",
+      "samples": 8640,
+      "seed": 2026012,
+      "traffic_seed": 5112
+    },
+    "synth-power-generation-train": {
+      "events": 12,
+      "files": {
+        "capture.pcap": {
+          "kind": "capture-pcap",
+          "records": 103701,
+          "sha256": "b947b5a803a1332c00e2ed8820550100b52131ef5260a9484a366306757bb933",
+          "size_bytes": 8900838
+        },
+        "telemetry.csv": {
+          "kind": "telemetry-csv",
+          "records": 17280,
+          "sha256": "5df6bd8441fdfa4669e911b696797020b9e78d14efcc7efff76b4daf05fb696e",
+          "size_bytes": 3041746
+        },
+        "topology.toml": {
+          "kind": "topology-toml",
+          "records": 4,
+          "sha256": "10c5b6fa066898979288cd8b53e645cc6b448323acdf8203187b46c3b62a4ac6",
+          "size_bytes": 3179
+        }
+      },
+      "manifest_sha256": "c9043cb475e8afca62a7504c24860610ea524f5178d4d193b4fd486fee30d17f",
+      "plant_id": "power-generation",
+      "samples": 17280,
+      "seed": 2026011,
+      "traffic_seed": 5111
+    },
+    "synth-water-treatment-holdout": {
+      "events": 9,
+      "files": {
+        "capture.pcap": {
+          "kind": "capture-pcap",
+          "records": 34577,
+          "sha256": "e38d6e9b93526e2fa82f01cd066147e2441df86a0c7d6f014193d5b2f4cc36f5",
+          "size_bytes": 2956190
+        },
+        "telemetry.csv": {
+          "kind": "telemetry-csv",
+          "records": 5760,
+          "sha256": "fa483e656d4e3b89f76d1c5d98580c481b43aa31e59400ae1a9527b1e787ebf8",
+          "size_bytes": 892700
+        },
+        "topology.toml": {
+          "kind": "topology-toml",
+          "records": 5,
+          "sha256": "27675f8d56ee4bd5940629d7db5f2a2b017e3fd6989bf1c408e07839ed6ed82b",
+          "size_bytes": 3788
+        }
+      },
+      "manifest_sha256": "1ac9671d9fea5a6f645e355310b27633698824f35f9d04d36d0c57d271506651",
+      "plant_id": "water-treatment",
+      "samples": 5760,
+      "seed": 2026002,
+      "traffic_seed": 5102
+    },
+    "synth-water-treatment-train": {
+      "events": 21,
+      "files": {
+        "capture.pcap": {
+          "kind": "capture-pcap",
+          "records": 86427,
+          "sha256": "0d0847c62821c7507db6f032c7b54adc57d16304edafc170aae1856420bee08c",
+          "size_bytes": 7389330
+        },
+        "telemetry.csv": {
+          "kind": "telemetry-csv",
+          "records": 14400,
+          "sha256": "f56bc1b3951ae6b8d13fadc156a7e9a429d03a6d20c6adb3a8f2a50f6d5e8541",
+          "size_bytes": 2229930
+        },
+        "topology.toml": {
+          "kind": "topology-toml",
+          "records": 5,
+          "sha256": "27675f8d56ee4bd5940629d7db5f2a2b017e3fd6989bf1c408e07839ed6ed82b",
+          "size_bytes": 3788
+        }
+      },
+      "manifest_sha256": "ab7fb786b825761c5016d516a5d35f30e26b0360092c1a3805f8a493447333fc",
+      "plant_id": "water-treatment",
+      "samples": 14400,
+      "seed": 2026001,
+      "traffic_seed": 5101
+    }
+  },
+  "schema_version": 1
+}

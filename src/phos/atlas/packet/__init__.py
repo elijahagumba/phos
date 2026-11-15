@@ -154,6 +154,13 @@ from phos.atlas.packet.reassembly import (
     Reassembler,
     TcpSegment,
 )
+from phos.atlas.packet.s7comm import (
+    ISO_TSAP_PORT,
+    ISO_TSAP_PROTOCOL,
+    IsoTsapDissector,
+    IsoTsapMessage,
+    TpduCode,
+)
 
 __all__ = [
     "COMMAND_BASELINE_CAVEATS",
@@ -162,6 +169,8 @@ __all__ = [
     "COMMAND_INTERVAL_MEAN_MS",
     "DISTINCT_WRITE_ADDRESSES",
     "FUNCTION_COUNT_PREFIX",
+    "ISO_TSAP_PORT",
+    "ISO_TSAP_PROTOCOL",
     "MAX_BUFFERED_BYTES_PER_FLOW",
     "MAX_CONCURRENT_FLOWS",
     "MAX_OPEN_PAIRS",
@@ -210,6 +219,8 @@ __all__ = [
     "FunctionCode",
     "GraphComparePolicy",
     "IcsMessage",
+    "IsoTsapDissector",
+    "IsoTsapMessage",
     "MalformedFrame",
     "MalformedReason",
     "ModbusDissector",
@@ -222,6 +233,7 @@ __all__ = [
     "RawFrame",
     "Reassembler",
     "TcpSegment",
+    "TpduCode",
     "Transport",
     "UnparsedMessage",
     "Window",

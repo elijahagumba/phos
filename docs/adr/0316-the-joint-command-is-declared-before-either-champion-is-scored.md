@@ -98,7 +98,6 @@ champion.
 
 **Report:** `eval_runs/build/lane-daily/joint-champions.md`, written from that command's
 stdout. `eval_runs/log.jsonl` is not appended.
-<!-- evidence-ack: eval_runs/build/lane-daily/joint-champions.md — the declared report name; the joint-command score has not been taken, so this file does not exist -->
 
 For `joint_command` only, `M_v1` is the number of those events with no frozen alert inside
 the event window, and `M_cmd` is the same count for the command detector. `M_champion` is the

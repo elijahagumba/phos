@@ -135,6 +135,11 @@ Read them in order the first time. After that, jump.
 117. [A slot enters only as a law break](117-a-slot-enters-only-as-a-law-break.md) — the exact type is required, and a subclass that carries a magnitude is refused (ADR 0322)
 118. [Every sentence names the law it came from](118-every-sentence-names-the-law-it-came-from.md) — the law's name, then the fact, and a score-word is refused (ADR 0323)
 
+Notes **119 to 185** are spread across branches and not yet listed above; this index runs behind
+the folder and saying so is cheaper than a list written from the filenames.
+
+186. [Six plants is not enough to be tested on](186-six-plants-is-not-enough-to-be-tested-on.md) — holding back a seed holds back the noise, not the plant, so we built something that draws plants instead; five kinds and one sealed, a bad draw refused rather than nudged, and **nothing scored on any of it yet** (ADR 0433 to 0439)
+
 ## The one sentence to keep
 
 PHOS does not catalogue known attacks. It learns what *normal* looks like, flags statistically
@@ -698,3 +703,251 @@ verification command also failed, and which way it failed is the interesting par
 folder too shallow, counted zero, and stopped the run; a check that finds nothing halts honest work,
 whereas one that finds the right number for the wrong reason would wave a wrong split through.
 Nothing was scored, no sealed file was opened, and version 1 still stands at eight of twelve.
+
+Note 167 is the paperwork was the bottleneck, so we taught the paperwork to check itself (ADR 0412).
+The founder said the way this project does engineering and research is slow and mundane, so the first
+move was to measure that rather than agree with it: 320 decision records and 575 commits in 98 days,
+59 of the last 120 commits changing no code at all, more words in the documentation than code in the
+source, and about 2,200 words of hand-written record to establish one yes-or-no fact. The cause turned
+out to be written in the project's own guard program. The rule that keeps the numbers honest is that
+you commit what you will measure, and what counts as success, **before** you run anything; the guard
+that enforces it had to pattern-match the *title* of a document to decide whether a declaration
+existed, and it says so in its own comments. A guess cannot block somebody's work, so the guard only
+warned — which meant the rules had to be carried in prose a person is trusted to have read, and the
+prose made every record long. The fix is to write the declaration as data and generate the prose from
+it. The claim, the reason it might be wrong, the observation that would disprove it, the dataset and
+whether it may be touched, the exact command, and bars that are numbers a result clears or does not:
+none of them optional, and a sealed dataset refused by name. Now the gate can actually say no — to a
+measurement nothing declared, to a declaration **edited after it was committed**, and to a dataset
+whose one look is spent. The verdict stopped being something anyone writes down: you supply the
+numbers and the system compares them with the bars you declared. The charter's six rungs from "idea"
+to "scientific contribution" stopped being adjectives too; ask to promote a claim and you get back a
+list of every piece of evidence you have not got. Nothing was unlocked, nothing was scored, and the
+note is explicit that no claim is made that the project is now faster — those numbers are the
+baseline, and whether the new way beats them is its own question with its own bar.
+
+Note 168 is I said the other editor could not do this, and it could all along (ADR 0413). The record
+that introduced the research gate explained its shape with the sentence "because Cursor has neither
+skills nor hooks", and that sentence reached the charter, the always-apply rule, the front page and
+the encyclopedia. It is false: Cursor has skills, hooks, subagents and commands, ships twenty-six
+skills of its own, and this repository already contained a Cursor skill written months earlier — so
+the claim was contradicted by a file already in the project. The instruction that came with the
+research mandate had said in plain words not to assume what the other editor can do but to go and
+look, and that is the step that was skipped. The design conclusion survived, because putting the
+real work in one command-line program with a thin wrapper per editor is the right shape anyway, but
+the false sentence was covering something real: the gate had only ever been installed in one of the
+two editors, so work done in Cursor could re-run a measurement whose single look was spent, or run
+one whose declaration had been edited afterwards. The deciding now happens in one function both
+editors call, which hands back what it decided and why as data rather than as a sentence — the
+first wrapper read the other program's error message looking for the words "already judged", which
+worked and was one rewording away from letting a spent measurement through, and that is written into
+the record rather than quietly replaced. Cursor then turned out to be better at this in two ways: it
+can block when the guard itself crashes, where the other editor lets the work sail through, and it
+can stop and ask a human, which resolves the awkward compromise between refusing correct old work and
+printing a warning nobody reads. Two limits are stated rather than smoothed over: five other guards
+still exist in only one editor, including the one that warns before a protected dataset is read; and
+the new wrapper has been tested against the message format Cursor documents but has not been run
+inside a live Cursor session, which makes the contract verified and the integration not. The thing
+worth keeping is that none of the six guards had a single test before this.
+
+Note 169 is the warnings now speak in both rooms (ADR 0414). PHOS has six small guards that speak up
+before the expensive mistakes — reading a sealed dataset, writing the frozen results log, editing
+outside your lane, committing an advance without the public pages, running a measurement nothing has
+declared — and five of the six only ever ran in one of the two editors this project is built in. The
+obvious port is to write five more scripts for the second editor, and that is the wrong way, because
+a thing written twice eventually disagrees with itself; so the deciding moved out of the editor
+scripts into one function per guard in the main codebase, where the type checker and the tests can
+see it, leaving a fifty-line translator in each editor. Reading the second editor's published
+reference rather than assuming turned up a trap: the event that fires before a file is read accepts
+exactly two fields back, and a reply that does not match the expected shape **blocks the action** —
+so the first version, which helpfully included a third field aimed at the AI, would have blocked
+every file read in the project, by a guard whose whole job is to warn and get out of the way. There
+is now an allow-list and a test whose only job is to fail if that field comes back. Two things stayed
+deliberately uneven and are written down rather than left to be discovered: only the research gate
+blocks when it crashes, because a gate that waves work through the day it breaks is not a gate, while
+a warning that halts work when it breaks is just an obstacle; and the five stay warnings rather than
+questions in both editors, because turning five warnings into five questions changes how it feels to
+work here every day, which is a decision about the project rather than a porting job. One false alarm
+was found and deliberately left: the sealed-data guard reads dataset names out of the rule file by
+taking every code-formatted word in a bullet, and that bullet mentions a command-line flag in
+passing, so any command using that flag gets warned about — it predates this work, it was copied
+across unchanged on purpose so that anything breaking afterwards has exactly one explanation, and
+fixing it means deciding what counts as a name in that rule, with a real chance of accidentally
+un-protecting something. Sixty-eight tests now exist where a fortnight ago there were none, including
+tests that run each editor's real script with each editor's real message format and check the two
+agree. The honest limit is unchanged: none of it has run inside a live session of the second editor,
+so the contract is verified and the integration is not.
+
+Note 170 is eight writers, one survivor (ADR 0415). The research record is a folder of small files
+that both editors read and write, so the audit asked what happens when both write at once: eight
+requests to add a question saved **one**, and the other seven vanished with no error and nothing in
+the folder to say so, because each process read the same highest number, decided it would be number
+one, and wrote the same file. Three defects wore that one costume. Nobody held the pen — working out
+the next free number and writing the file were separate steps with nothing stopping another process
+doing the same two in between, so they are now one critical section under a lock whose useful
+property is that the operating system releases it if the holder dies. A file could be half-written —
+the old code wrote straight into the destination, so a process killed halfway left a truncated record
+that looked valid, and now every write lands in a temporary file and is moved into place, which is
+indivisible, so a reader sees the old version or the new one and a crash leaves an abandoned
+temporary beside an untouched record. And nothing noticed an overwrite — creating a record now
+refuses if something is already there, because the only way that happens is the numbering and the
+folder disagreeing, and overwriting would destroy a record nobody read. Separately, one unreadable
+file used to take down the command that tells a new session where the research stands; it now prints
+what it can read, names what it could not, and reports failure, so you get the state as well as the
+bad news. The direction of that failure got some thought: skipping an unreadable file sounds
+dangerous, but the permission check finding nothing concludes that nothing authorises the action,
+which is a refusal, so an unreadable record can never become one that lets something through, and a
+test holds that true. The fix was shown by re-running the thing that failed — eight at once gives
+eight distinct records, thirty-two gives thirty-two, no temporaries left behind — with twenty new
+tests, the concurrency one launching real separate programs rather than threads, because threads
+would share the lock and prove nothing. Still broken and named: the record takes a dataset's tier on
+trust, and the audit got a sealed dataset accepted by labelling it free to use; that is the next
+piece of work, and the older warning before a sealed dataset is actually read is still there
+meanwhile. Also stated rather than assumed: the store is safe for the two editors it serves, it is
+not a database, and growing the number of writers is a thing to revisit rather than to hope about.
+
+Note 171 is the sealed dataset would not stay sealed (ADR 0416), and it is the piece of work note 170
+named as next. The record asks which tier a dataset belongs to — free to use, scored once, or never
+touched — and it was taking that answer from the person filling in the form. The audit declared a run
+on a validation corpus the rule file lists under **never read**, simply by writing `iterate` in the
+tier field, and the record accepted it, because the only check refused the *word* `never` and never
+looked at the *corpus*: the form was being asked whether the author had misbehaved and was taking
+their word for it. Worse, the claim that this could not happen had already been written down as done,
+in a decision record and in every document repeating it. Now the tier is looked up rather than
+supplied — the record opens the rule file, finds the corpus name and reads what the rule says — and
+three things follow, each a refusal: a sealed dataset cannot be declared whatever the form says, and
+the refusal happens before the record is given a number so nothing is left behind; a dataset in
+neither the rule nor the registry cannot be declared, because "not mentioned, so probably fine" is how
+an unvetted dataset acquires a number; and a declaration stating the wrong tier is refused at the
+gate, which is the moment the wrong answer would do damage rather than the moment it is written. The
+message quotes the rule's own sentence so a reader can check it. The test whose absence all this was
+does not hold its own list of names — it reads the rule file and asserts every name under "never read"
+is refused at every tier the form allows, seventeen of them at this commit, so a corpus added to that
+sentence is covered the instant the sentence lands. One satisfying-looking gate test was deliberately
+not written: the record already refuses a sealed dataset labelled sealed, so that combination never
+reaches the gate and the test would have passed forever while proving nothing. Still not claimed: a
+live session in the second editor, any dataset opened, or any number produced.
+
+Note 172 is the guards were watched and the gate was not plugged in (ADR 0417), and it is the
+sentence the two records before it both ended on — *this has not been watched happening in the other
+editor* — finally answered. The five warnings do fire: a command naming a sealed corpus drew the
+warning unprompted, the editor's own log records that it accepted the reply, and forty-six warnings
+were delivered with none of them blocking anything, which is the guards working as designed rather
+than becoming a wall. The gate is a different story. The editor names the hook file it wants, says
+it cannot parse it, and says it has fallen back to the other editor's hooks — because the file lives
+on an unmerged branch and the editor reads its wiring from the root of the workspace, not from the
+side copy the work was happening in. Counting every event that editor has ever raised: fourteen
+thousand on the general tool event, thirty-eight on workspace open, and zero on either of the two
+events the gate is registered for. The one check in this repository that stops rather than warns
+stopped nothing on this checkout. One planned probe was deliberately not run, and that is a finding
+too: the harmless-looking `--help` on a harness script is not harmless, because that script has no
+option parsing and the whole recompute it triggers reads four corpora the rule lists as never read.
+There is a defect as well, caused by using the machinery: writing the first question created a lock
+file, which made an explanation in a prior record go stale and failed the audit that CI runs — on a
+correct change, because whether a run-time file happens to exist says nothing about a record. The
+checker was wrong and the record was right, so the checker was fixed and no accepted record edited.
+Note 173 is we caught every walk and the record called it a refusal (ADR 0418, experiment E-0001),
+and it is the first complete run of the research record this repository now keeps as data rather than
+as prose: declare, run once, judge. The question was two months old. Both Atlas champions missed one
+of nine slow walks; a column was written to fix it, missed the same walk, and was retired without
+anyone establishing whether the miss was arithmetic or the class being invisible. The experiment that
+separates those uses order rather than size — how many samples in a row a setpoint has been moving,
+which is 1 for any legitimate write and hundreds for a walk — and it caught **9 of 9** with **0**
+false alerts. The record nevertheless says **refused**, and that is the finding worth carrying: the
+question had two exclusive answers, they had to be written as two bars over the same number, only one
+of those bars can ever be met, and any missed bar means refused. No measured value could have made
+this experiment kept. Two cautions sit beside the headline and neither is decoration: zero false
+alerts is structural because in this generator a benign setpoint event is a single write, and the
+order-blind count of 2331 samples was predictable from declared constants before the run because the
+walk sweeps the whole band while three normal runs touched only part of it. The nine walks were
+rebuilt from committed generator code — nine across eight runs, one run holding two — but **which**
+walk the old champion missed is still not on the record and cannot be recovered without re-running a
+spent score.
+Note 174 is the gate is plugged in and a sentence was still wrong (ADR 0419), which finishes what
+note 172 left open. The merge put the editor's instruction file where the editor looks, and the half
+a file cannot fix turned out to be where you point the window: opened on the folder above a working
+copy, the editor loads nothing and the one check that refuses is silently absent, which nothing
+inside the repository can detect. That is now a sentence in the rules both editors load. Settling it
+turned up a fourth claim in the record that the code did not match — a record from last month says
+the stopping check had stopped reading an undocumented environment variable, which was true of the
+five warnings and not of the stopping check, and the test missed it because the test set that
+variable itself. Four such sentences in one stretch of work, each true when written and left behind
+by the work that followed, which is why a sentence about code is now worth a test even when the test
+is only a search for a word.
+Note 175 is seven plans became one (ADR 0420), and it is the first entry here that reduces the
+project rather than adding to it. Seven programmes were open at once and none of them named a target
+it moved — six opened while the partner conversation was blocked, which is the cause rather than a
+lapse, because that conversation is what orders the work. Gathering the standing in one place took an
+afternoon of reading and found that **five of Atlas's seven targets are already met**, leaving two:
+a queue that ranks, whose original ruler was retired because the queue is shorter than an operator's
+alert budget and whose ranking stage was already built and refused; and reproduced, which fails on
+three frozen constants and the outside run with both attempts spent. Reproduction goes first, because
+one configuration nobody outside can run is a claim about one laptop. The roadmap of questions and the
+daily contract are absorbed, the protocol brief is parked, the triangulation brief is adopted as the
+roadmap's later acts, and the first job is a measurement written
+down two weeks ago and never taken. Nothing was unlocked: the partner conversation is still blocked
+and the scoreboard still reads eight of twelve.
+
+Note 177 is the thing we could not do was never written down (ADRs 0346, 0422). A piece of plumbing
+that lets Atlas read a conversation rather than a single packet had been built, tested and merged two
+weeks ago, and nobody wrote the verdict — so for a week it sat in the main branch as working code
+with no result attached, which from the outside is indistinguishable from code nobody checked. It was
+checked properly this week and it **passed**: every limit matches the number promised, a refusal is
+handed back as a value rather than thrown, a repeated chunk refuses the conversation instead of
+overwriting what was there, and the one error the code can throw turns out to be aimed at a
+programmer rather than at anything arriving over the wire. Parking the programme three days earlier
+is why nobody noticed; parking a programme does not settle a debt inside it. The larger find was an
+accident: Atlas keeps a register of **what it cannot do**, twenty-six entries deep, and it had no
+entry saying Atlas speaks only one industrial language. That has been true since the first version
+and is the single most limiting fact about the product — absent because it was too obvious to feel
+like a finding. It is now **R27**, and it turned out to be the argument: the protocol work had been
+parked for not moving either open target, but both of those targets ask *is Atlas right when it
+looks?* and neither asks *can Atlas look at all?* Every language learned strikes through part of R27,
+and a language that proves unreadable sharpens the entry rather than shortening it, which is just as
+good a result. Reading more languages does not make Atlas better at its job, only applicable to more
+plants, and the record says in as many words that no protocol work may be quoted as a detection
+result. The partner conversation is still blocked and the scoreboard still reads eight of twelve.
+Note 141 is S7comm is read only as far as the bytes go (ADRs 0347, 0348). The second industrial language
+Atlas learned, and the honest headline is smaller than the name: it reads the **envelope** S7 travels
+in and not S7 itself, because Siemens publishes no frame format and says in its own manual that the
+protocol is vendor-specific and not an open standard. So the reader reports the port's registered
+service name rather than the protocol's, and cannot report the protocol's at all. The lane was meant
+to take an afternoon and took five rounds of a red team and five judgement takes, four of which found
+a real defect in a version a judge had already passed. The worst one is the reason this note is worth
+reading: the single number the module asserted about a message's contents could be **steered by the
+sender**, so a frame carrying a 22-octet program download could declare a slightly longer header and
+report that it carried nothing — every field in bounds, the message valid, the provenance intact,
+nothing crashing. Five green gates and a hundred-plus tests had no chance of catching it, because
+nothing was out of bounds. What caught it was a separate party asking *can I make this number wrong?*
+and the fix was to refuse a shape the standard does not permit rather than to calculate better. Every
+defect in this lane was found by someone whose job was breaking the work instead of confirming the
+last fix, which is the argument for three roles that never edit each other's files. What Atlas still
+cannot do is written down as a new register entry with the one document that would lift it. No corpus
+was scored, no capture is registered, and the scoreboard still reads eight of twelve.
+
+Note 155 is [the plant knows its own physics, and Atlas may not read it](<155-the-plant-knows-its-own-physics-and-atlas-may-not-read-it.md>)
+(ADRs 0423, 0372). Physics was meant to be the easy win: check the plant against the oldest sanity
+check in process engineering — what goes in, minus what goes out, equals the change in level. The plan
+named that example itself. Two things got in the way. Of the thirteen signals the simulator publishes,
+**exactly one measures a flow, and it is the outlet**; the simulator knows its own fill rate internally
+and never publishes it, so the inlet reaches the data only as a valve that is open or shut. The worked
+example is therefore **refused** rather than approximated, because the alternative was to guess a fill
+rate and let a number nobody measured hold up a conclusion. One flow meter on one pipe would lift it,
+and that is what the register entry says. The second obstacle turned out to be the answer. This
+repository *does* write down the plant's real physics — twenty-one cause-and-effect links and the
+constants behind them — in a file whose own first paragraph says **nothing that learns may read it**,
+with a test that fails if any part of Atlas imports it. That rule is right: an engine that reads the
+answer key has not worked anything out. But every physics law relates two signals, and every statement
+connecting two signals lives in that forbidden file, while the one file Atlas may read deliberately
+states no connections at all and forbids guessing them from a signal's name. So the previous rung's
+method — derive the law from the source, then check it against the hand-typed version — **cannot work
+here**, and the laws stand as hand declarations. The lift for that entry is the product itself: **the
+plant declares its own physics** and Atlas checks the plant against it, which is what the law register
+always said it held. Three laws are declared — a shut valve passes no water; with the only way in shut
+the level does not rise; and while draining with nothing coming in, the tank drains at exactly the rate
+the simulator quotes. The last is the real mass balance on the half that exists, and its two numbers are
+the plant's own, quoted with the file and commit they came from. Where a tolerance would be needed and
+none is quoted, the law is **refused rather than tuned** — a tolerance picked so a law stops complaining
+is a knob turned until the answer felt comfortable. Nothing was scored, no code was written, and the rung
+opened for its declarations only because a funding deadline in January needs the time more. A broken
+balance is still read as equipment failing, not as an attack. The scoreboard still reads eight of twelve.

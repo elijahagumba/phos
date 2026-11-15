@@ -83,6 +83,47 @@ def test_a_node_id_or_a_line_resolves_to_its_file(value: str, expected: str) -> 
     assert resolve_cited_path(value) == Path(expected)
 
 
+@pytest.mark.parametrize(
+    "value",
+    [
+        "docs/genesis/.lock",
+        "docs/genesis/.Q-0001.json.tmp",
+    ],
+)
+def test_a_run_time_artifact_is_not_a_citation(value: str) -> None:
+    """The store's mutex and write temporaries exist only while the tooling runs.
+
+    Whether one is present says only whether `genesis` has been used in this checkout, so
+    resolving it would make the gate's verdict depend on that accident — passing in CI, where
+    the lock is absent, and failing on the machine that just wrote a record.
+    """
+    assert resolve_cited_path(value) is None
+
+
+def test_the_gate_does_not_depend_on_whether_the_lock_exists(tmp_path: Path) -> None:
+    """The defect this closes: `genesis ask` created the lock and broke CI.
+
+    ADR 0415 acknowledges `docs/genesis/.lock` in the prose that explains it. Once the tooling
+    has run, the file exists; in a clean checkout it does not. The audit must reach the same
+    verdict either way, so the acknowledgement cannot go stale simply because work happened.
+    """
+    body = (
+        "The store takes a mutex on `docs/genesis/.lock`.\n"
+        "<!-- evidence-ack: docs/genesis/.lock — a run-time mutex, git-ignored on purpose -->\n"
+    )
+    _record(tmp_path, body)
+    (tmp_path / "docs" / "genesis").mkdir(parents=True)
+
+    absent = audit([str(tmp_path)], "HEAD")
+
+    (tmp_path / "docs" / "genesis" / ".lock").write_text("", encoding="utf-8")
+    present = audit([str(tmp_path)], "HEAD")
+
+    assert [ack.token for ack in absent.stale] == []
+    assert [ack.token for ack in present.stale] == []
+    assert absent.gated and present.gated
+
+
 def test_a_marker_does_not_reach_a_citation_in_another_paragraph() -> None:
     """A marker is scoped to its own block.
 

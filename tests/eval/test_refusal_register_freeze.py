@@ -5,6 +5,10 @@ reports at HEAD. These pins exist so a later edit that drops an entry, empties a
 column, re-claims the withdrawn 1.8x ratio, or quotes a z-score the U2 JSON does not
 rank as largest, turns red before the register is published as current.
 
+R27 was appended on 2026-11-05 by ADR 0422, outside the Usefulness Phase, under the
+register's own §0 rule 1. The U6 seed set stays pinned as the first twenty-six entries
+in order, so an append cannot quietly renumber or displace one; R27 carries its own pin.
+
 Numbers in the register are checked against the artefacts that computed them, not
 re-derived here.
 """
@@ -80,10 +84,128 @@ class TestTheRegisterExistsAndIsSeeded:
     def test_the_register_is_committed(self) -> None:
         assert REGISTER.is_file(), "docs/refusal-register.md is the U6 deliverable"
 
-    def test_r1_through_r26_are_present_once(self) -> None:
-        parsed = rows()
+    def test_r1_through_r26_are_the_u6_seed_set_in_order(self) -> None:
+        parsed = list(rows())
         expected = [f"R{n}" for n in range(1, 27)]
-        assert list(parsed) == expected, f"expected R1-R26 in order, got {list(parsed)}"
+        assert parsed[:26] == expected, f"expected R1-R26 first and in order, got {parsed}"
+
+    def test_every_id_is_unique_and_numbered_without_a_gap(self) -> None:
+        parsed = list(rows())
+        assert parsed == [f"R{n}" for n in range(1, len(parsed) + 1)], (
+            f"ids must run R1..R{len(parsed)} with no gap and no repeat, got {parsed}"
+        )
+
+    def test_r27_is_the_protocol_reach_refusal(self) -> None:
+        """ADR 0422's criterion. Appended after U6, pinned here so it cannot be softened.
+
+        The entry says Atlas cannot *read* a plant that does not speak Modbus/TCP. It is a
+        statement about parsing, never about detection, and a refused protocol lane sharpens
+        it rather than lifting it.
+        """
+        refusal, evidence, lift = rows()["R27"]
+        assert "Modbus/TCP" in refusal
+        assert "cannot read" in refusal.lower()
+        assert "ADR 0422" in evidence
+        assert "ADR 0012" in evidence
+        assert "refused" in lift.lower(), "a refused lane must still count as a result"
+        for word in ("recall", "precision", "false-alert", "FP/hour"):
+            assert word not in refusal, f"R27 is about reach, not performance: found {word!r}"
+
+    def test_r27_strikes_s7comm_for_the_envelope_and_names_what_it_did_not_lift(self) -> None:
+        """ADR 0348 judged the S7comm lane met on 2026-11-05.
+
+        Rule 5 of §0 says a lifted refusal is struck through with the date and the record,
+        never deleted. The strike has to be narrow: this lane read the ISO-on-TCP envelope and
+        explicitly did not read S7 itself, so R27 keeps the other seven languages and R28
+        carries the part that did not land.
+        """
+        refusal, evidence, _lift = rows()["R27"]
+        assert "cannot read" in refusal.lower(), "the refusal statement itself must stand"
+        assert "~~S7comm~~" in evidence, "a kept lane is struck through, not deleted"
+        assert "R28" in evidence, "the strike must point at the entry that sharpens it"
+        assert "iso-tsap" in evidence, "the strike covers the envelope, not the application"
+        # The seven languages the lane did not touch stay un-struck.
+        for language in ("DNP3", "IEC 60870-5-104", "EtherNet/IP", "OPC UA", "IEC 61850"):
+            assert language in evidence, f"{language} must stay in R27 until its own lane lands"
+            assert f"~~{language}~~" not in evidence, f"{language} was never lifted"
+
+    def test_r28_is_the_s7_application_refusal(self) -> None:
+        """ADR 0348's own ceiling, pinned so a later session cannot claim S7 was read.
+
+        The lane's evidence is a publication gap, not a failed search, so the lift column must
+        name a Siemens document rather than more effort.
+        """
+        refusal, evidence, lift = rows()["R28"]
+        assert "S7" in refusal
+        assert "cannot read" in refusal.lower()
+        assert "ADR 0347" in evidence and "ADR 0348" in evidence
+        assert "not an open standard" in evidence
+        assert "iso-tsap" in evidence, "the module must be recorded as naming the envelope"
+        assert "Siemens" in lift, "the lift is a published frame format, not another search"
+        assert "No amount of further searching" in lift, "the refusal must not invite a re-run"
+        for word in ("recall", "precision", "false-alert", "FP/hour"):
+            assert word not in refusal, f"R28 is about reach, not performance: found {word!r}"
+
+    def test_r29_is_the_unmeasured_inflow_refusal(self) -> None:
+        """Rung H2's own worked example, refused for want of a measurement (ADR 0372).
+
+        The brief asked for level change against flow in and flow out. Exactly one of the
+        thirteen tags is a flow and it is the outlet. The simulator computes an inflow and never
+        publishes it, so the entry must say *unmeasured* rather than *unmodelled*, and the lift
+        column must name the instrument: a single flow meter is what moves this.
+        """
+        refusal, evidence, lift = rows()["R29"]
+        assert "mass balance" in refusal.lower()
+        assert "inlet" in refusal.lower()
+        assert "no inflow is measured" in refusal, "the limit is measurement, not modelling"
+        assert "thirteen" in evidence, "the denominator is the whole tag list, not a sample"
+        assert "tank_output_flow_value" in evidence, "the one flow must be named as the outlet"
+        assert "never publishes it as a tag" in evidence, (
+            "the simulator does compute an inflow; the entry must not claim otherwise"
+        )
+        assert "tank_input_valve_status" in evidence, (
+            "the inlet is a valve state, and the entry must say so"
+        )
+        assert "ADR 0372" in evidence
+        assert "data-tiers.md" in evidence, (
+            "the never-read corpora must be recorded as unable to supply it"
+        )
+        assert "flow meter" in lift, "the lift is one instrument, named"
+        assert "no_inflow_no_rise" in lift, (
+            "the entry must say what Atlas can still state about the inlet"
+        )
+        for word in ("recall", "precision", "false-alert", "FP/hour"):
+            assert word not in refusal, f"R29 is about a missing measurement: found {word!r}"
+
+    def test_r30_keeps_the_physics_unreadable_by_the_engine(self) -> None:
+        """The ground-truth boundary, pinned (ADR 0372, ADR 0132).
+
+        This is the entry most likely to be "fixed" by a later session importing the truth graph
+        into a law, which would quietly make the engine read the answer key. The evidence must
+        keep naming the docstring and the test that forbid it, and the lift column must keep
+        saying that lifting the entry may not let Atlas discover physics from traffic.
+        """
+        refusal, evidence, lift = rows()["R30"]
+        assert "derive" in refusal.lower()
+        assert "ground truth" in refusal.lower()
+        assert "icssim_truth" in evidence, "the forbidden source must be named"
+        assert "nothing that learns may read it" in evidence, "the docstring is the evidence"
+        assert "test_interventions.py" in evidence, "the enforcing test must stay cited"
+        assert "never from a tag's name" in evidence, (
+            "the tag-name shortcut must stay closed, or two tags relate by their spelling"
+        )
+        assert "hand declarations" in evidence, (
+            "the three laws' true standing is a hand copy, the thing H1 exists to distrust"
+        )
+        assert "controller_valve" in evidence
+        assert "declaring its own physics" in lift, "the lift is the plant's declaration"
+        assert "must not make it start" in lift, (
+            "lifting this entry may not license discovering physics from traffic"
+        )
+        for word in ("confidence", "probability", "magnitude", "score"):
+            assert word not in refusal, (
+                f"R30's own statement must not carry a page-refused word: {word!r}"
+            )
 
     def test_every_entry_has_evidence_and_a_lift(self) -> None:
         for rid, (refusal, evidence, lift) in rows().items():

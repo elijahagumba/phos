@@ -59,8 +59,9 @@ from phos.synth.command import (
     PlannedWrite,
     WriteAuthority,
 )
-from phos.synth.injection import Injection, NoInjection
+from phos.synth.injection import Injection, NoInjection, ProcessLoss
 from phos.synth.process import clamp
+from phos.synth.randomise import settled
 from phos.synth.realism import RealismPlan, RealismProfile, plan_realism
 
 __all__ = [
@@ -682,7 +683,9 @@ def lay_out_events(
         if end >= spec.n_steps:
             break
         parameters = {
-            name: float(rng.uniform(bounds[0], bounds[1]))
+            # Rounded at the draw, because a raw uniform is not bit-reproducible across processor
+            # architectures and this value reaches the manifest at full precision (ADR 0441).
+            name: settled(float(rng.uniform(bounds[0], bounds[1])))
             for name, bounds in plan.parameter_ranges.items()
         }
         rendered = "; ".join(f"{name}={value:.3f}" for name, value in parameters.items())
@@ -1068,6 +1071,8 @@ class Plant(ABC):
         )
 
         self._state = dict(self.advance(self._state, actuators, active, elapsed_hours, dt_seconds))
+        if isinstance(hook, ProcessLoss):
+            self._apply_losses(hook.state_losses(clock, self._state))
         truth = self._record_truth(clock)
         readings = self._sense(truth.values, noise, elapsed_hours, clock)
         reported = self._override(
@@ -1086,6 +1091,26 @@ class Plant(ABC):
             commands=self._command_intents(index, reported, began, issued),
             issued=issued,
         )
+
+    def _apply_losses(self, losses: Mapping[str, float]) -> None:
+        """Remove inventory from the true state, for a process-layer leak.
+
+        The loss is subtracted from the signal's current value and clamped to its declared span,
+        because an instrument cannot read below its own floor however much has drained. A loss
+        named for a signal the plant does not declare is a refusal, not a no-op, for the reason
+        every other mis-targeted manipulation is: a leak that quietly drained nothing would be
+        ground truth saying a leak happened where none did.
+
+        Raises:
+            KeyError: If a loss names a signal this plant does not have.
+        """
+        for key, amount in losses.items():
+            if key not in self._state:
+                raise KeyError(
+                    f"plant {self.description.plant_id!r} has no signal {key!r} to drain"
+                )
+            signal = self.description.signal(key)
+            self._state[key] = clamp(self._state[key] - amount, signal.low, signal.high)
 
     def _check_events(self) -> None:
         """Refuse a schedule that overlaps or that starts off a sample instant.

@@ -26,6 +26,7 @@ just as an unexplained citation does; an acknowledgement cannot go quietly stale
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import re
 import subprocess
 from collections.abc import Iterable, Iterator, Sequence
@@ -80,6 +81,14 @@ PATH_WILDCARDS = ("*", "<", ">", "?", "{")
 #: Trees that are deliberately absent. Data is never committed (ADR 0006), so a cited
 #: payload path missing from a checkout is the rule working, not a dangling citation.
 UNCOMMITTED_TREES = ("data/",)
+#: Run-time artifacts inside the record directory: the store's mutex and its atomic-write
+#: temporaries (ADR 0415). Whether one exists says only whether the tooling has been used in
+#: this checkout, so neither its presence nor its absence is evidence either way. Resolving
+#: them would make the gate's verdict depend on that accident: the lock is absent in CI and
+#: present on any machine that has run `genesis`, so the same record would fail in one place
+#: and pass in the other. That is the defect this constant closes.
+RUNTIME_ARTIFACT_DIRS = ("docs/genesis/",)
+RUNTIME_ARTIFACT_NAMES = (".lock", ".*.tmp")
 #: An acknowledgement that a cited token does not resolve, written beside it in the record.
 #: Matched loosely so a near miss is reported rather than ignored.
 ACK_COMMENT = re.compile(r"<!--\s*evidence-ack(?P<body>.*?)-->")
@@ -94,6 +103,23 @@ MIN_REASON_CHARS = 20
 ACK_FORM = "<!-- evidence-ack: <token> \u2014 <why it does not resolve> -->"
 
 
+def is_runtime_artifact(value: str) -> bool:
+    """Whether a cited path is a run-time file the tooling creates, not evidence.
+
+    Args:
+        value: The cited path, as the record writes it.
+
+    Returns:
+        True for the GENESIS store's lock and atomic-write temporaries (ADR 0415), which exist
+        only while the tooling runs and are git-ignored. A record may name one to explain it;
+        whether the file is present in a particular checkout says nothing about the record.
+    """
+    if not value.startswith(RUNTIME_ARTIFACT_DIRS):
+        return False
+    name = value.rstrip("/").rsplit("/", 1)[-1]
+    return any(fnmatch.fnmatch(name, pattern) for pattern in RUNTIME_ARTIFACT_NAMES)
+
+
 def resolve_cited_path(value: str) -> Path | None:
     """The file a cited path points at, or ``None`` when it is not a single file.
 
@@ -104,6 +130,8 @@ def resolve_cited_path(value: str) -> Path | None:
     if any(mark in value for mark in PATH_WILDCARDS):
         return None
     if value.startswith(UNCOMMITTED_TREES):
+        return None
+    if is_runtime_artifact(value):
         return None
     bare = value.split("::", 1)[0]
     stem, _, suffix = bare.rpartition(":")
@@ -470,6 +498,13 @@ def reconcile(
     claimed: set[tuple[Path, int, str]] = set()
     for ack in stated:
         if ack.site not in by_site:
+            if is_runtime_artifact(ack.token):
+                # A run-time artifact is never a citation (see RUNTIME_ARTIFACT_DIRS), so an
+                # acknowledgement of one has nothing to match and nothing to be stale about.
+                # Retiring the citation without this would fail every checkout that has run the
+                # tooling, which is the opposite of what the marker is for. It is still not
+                # counted as acknowledged: it vouches for no citation in this paragraph.
+                continue
             stale.append(
                 replace(
                     ack,

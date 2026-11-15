@@ -1,9 +1,11 @@
 <img src=".github/assets/readme/poster.svg" width="100%" alt="PHOS. Security that tells you what it doesn't know. Atlas, for industrial plants. A plant names the laws in force. Each named law is held, broken, or unstated. Only a broken law takes a slot. The page holds at most eight, ordered by time, then by the law's name. Every sentence names its law, then the fact. A score is refused. A break is a false law. The page does not name the cause. Held means the check ran and the law stood. Unstated means the plant named the law and supplied nothing that law can be checked against. An empty register checks nothing. joint_move, subfloor_walk, band_handoff, program_transfer, allowed_writer, controller_valve. Research pre-release.">
 
 [![research-core quality](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml/badge.svg)](https://github.com/elijahagumba/phos/actions/workflows/research-core.yml)
-&nbsp;**4,943 tests**, no datasets required.
+&nbsp;**6,184 tests**, no datasets required.
 
-**PHOS is an independent research project, built by one researcher with AI coding agents.** There is no company, no product and no customer, yet. What there is, is a measurement record: every figure on this page reproduces from this repository and the public datasets it names, including the measurements that failed.
+**The plant's laws are the plant's.** PHOS does not learn what a site is from that site's data. Atlas reads a register the plant wrote, checks each law against files the plant already exports, and hands the register back marked. It does not connect to a control network, it holds nothing, and it has no opinion the plant's own record cannot support. That custody is the position, and it is the part of this page that is true today.
+
+**The rest is a record, and the record is the argument.** PHOS is an independent research project, built by one researcher with AI coding agents: no company, no product, no customer yet, and Atlas has never run on a live plant. Every figure here reproduces from this repository and the public datasets it names, the measurements that failed included.
 
 **The work is Atlas, and Atlas is a page.** The plant writes down the laws it runs by. Atlas checks whether each one still holds, and reports the ones that do not, **at most eight a shift**. It attaches no score, ranks nothing, and names no cause. Where the plant's own record cannot settle what happened, Atlas says so and stops. That refusal is the product and not a gap in it.
 
@@ -104,6 +106,46 @@ Stated plainly, because a reader will find these out anyway:
 - **It cannot separate maintenance from an attack without that hour's work order.** The same fact supports both explanations, and no public corpus ships a maintenance export.
 - **It has never run on a live plant.** Every figure here comes from published corpora or simulation.
 - **It has not been reproduced by anyone outside the project.**
+
+## How Atlas will be tested
+
+A detector is only as good as the thing it was tested on, and Atlas's figures come from three editions of a real industrial testbed and from simulated plants. Both have the same defect, and it is better said here than found later: **there are very few of them.**
+
+Three hand-written plants and three HAI editions are six structures. A detector fitted on everything this project can currently produce has, structurally, seen six plants. It can do well on them by learning *those six* — their capacities, their tunings, the particular shape their level traces make — rather than by learning how a plant behaves. Held-out seeds hold out noise. They do not hold out a plant.
+
+That is the failure this project exists to avoid. A detector that has memorised a plant looks excellent in evaluation and has nothing to say about a plant it has not met, which is every real plant.
+
+### The proposed answer: hold out a population, not a sample
+
+A **family** is a process structure held fixed with its numbers left open — what is connected to what, which signals exist, what kind of quantity each one measures — with capacities, gains, integral times, flow coefficients, setpoints, instrument spans and instrument error drawn per seed, together with how many units of a repeated kind the plant has.
+
+A seed draws one plant from a family. Two plants from one family are the same process at different sizes and tunings, which is what two real plants of the same kind are. The variety comes from the plant's **description** and never from perturbing its signals: a tank level that moves with no flow that moved it is not a plant, and a detector scored on one is not being measured at anything.
+
+Five families exist — pumped tank chains, heated vessel chains, islanded generating sets, parallel batch reactor trains, and a heated chain that is both — and **a sixth is sealed**: kept out of the registry, out of the listing, and out of the published bounds table, loaded only behind an explicit switch, so that nothing in the generator or its documents can point a detector-builder at it. Its source is in this repository. Sealing here is a discipline about what the generator exposes, not a secret.
+
+Four things are then true of every drawn plant, and each one costs something.
+
+**A plant that could not exist is refused, not clipped.** Every candidate is run and then judged on six checks — finite, conservation, in range, varying, not saturated, controllable — and a refused draw names the relation it broke. 52 of 150 candidates were refused on the first pass, and the count goes in every manifest, because a family that refuses often has declared ranges wider than its own physics. That is a finding about the family, not a nuisance.
+
+**Things happen to it on four layers, and the record names the layer.** The instruments, the actuators, the process itself, and the wire. A leak takes inventory out by a route nothing meters, so the plant's own conservation balance stops closing. A wire attack changes a value in transit, so the capture and the historian disagree — which is the one piece of evidence that tells them apart.
+
+**Two facts about every event are measured, not declared.** Whether it moved the process, and whether it stayed inside the range a normal run occupies, are found by running the same plant twice on the same seed and comparing every signal. A generator that *declared* an attack stealthy would be marking its own homework.
+
+**It reproduces.** A family and a seed are the whole recipe, so the data is not stored. The same seed writes byte-identical files in a fresh process on another machine — and on another *kind* of machine, which took a fix: a raw random draw is not bit-reproducible across processor architectures, so every drawn number is rounded at the draw, and the six standard corpora are now byte-for-byte identical on arm64 and x86-64, checked by generating them on both. The audit also proves the converse — that a different seed draws a structurally different plant — because a generator that ignored its seed would pass a reproducibility check perfectly. A day of a drawn plant costs under six seconds, which is what makes a population affordable as an exam.
+
+### What this section does not claim
+
+**Nothing has been scored on a generated plant.** The generator is built; the referee that would score a detector against one is not. There is no recall, no false-alarm rate and no verdict for Atlas on a drawn plant, and none may be quoted from here.
+
+And the caveat does not soften with volume. **A family generates models of an industrial process, and unlimited draws are unlimited models.** Every manifest says so. A number measured this way would be a diagnosis — a statement about how Atlas handles our model of a plant — and never a result about a real one.
+
+The decisions, written before the work and not after it: [ADR 0433](docs/adr/0433-physics-constrained-plant-randomisation-for-training-data.md) (why), [0434](docs/adr/0434-a-plant-is-a-document-and-its-physics-is-a-named-template.md) (a plant is a document), [0435](docs/adr/0435-a-family-draws-a-plant-and-one-family-is-sealed.md) (a family draws one, and one is sealed), [0436](docs/adr/0436-a-drawn-plant-is-refused-before-it-is-written.md) (a bad draw is refused), [0437](docs/adr/0437-events-happen-to-a-plant-on-four-layers-and-the-record-names-the-layer.md) (events on four layers), [0438](docs/adr/0438-the-generator-reproduces-itself-and-the-batch-describes-itself.md) (it reproduces, and what changed). The plain-language walkthrough is [docs/sim/README.md](docs/sim/README.md), and what the generator still cannot do is [docs/sim/coverage.md](docs/sim/coverage.md).
+
+### And Sentiel, later, by the same argument
+
+Sentiel's scarcity is worse, not better. There is one public insider-threat corpus of any standing, it contains two insiders, and Sentiel finds one of them. Every number Sentiel has comes from that one estate, so the question lands harder: has it learned what an insider looks like, or what *those two* looked like?
+
+The intended answer is the same shape — draw a population of estates rather than reuse one, varying the things that actually differ between organisations: team structures, working rhythms, role changes, joiners and leavers. **None of that is built and none of it is declared.** Atlas is the work now. It is written down here so the second engine's evaluation problem is on the record before it is anybody's surprise.
 
 ## Three witnesses, and what they would miss
 
@@ -213,7 +255,7 @@ A suggestion is not a declaration ([ADR 0123](docs/adr/0123-the-plant-map-propos
 uv run pytest -q
 ```
 
-4,943 tests, about three minutes, and no datasets required: the suite runs on a fresh clone with nothing downloaded. Public corpora are fetched separately and never committed; see [data/README.md](data/README.md).
+6,184 tests, about four and a half minutes, and no datasets required: the suite runs on a fresh clone with nothing downloaded. A further 162 are skipped there and each one says why — a dataset that is not on the machine, or a record this repository does not publish. Both figures were measured by exporting into a fresh clone and running it, not counted in the private tree. Public corpora are fetched separately and never committed; see [data/README.md](data/README.md).
 
 ---
 

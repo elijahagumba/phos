@@ -170,3 +170,77 @@ procedure in `docs/usefulness-phase-roadmap.md` §0 now references this file's a
 procedure; it did not, which was a U6 `success_is` gap, not a refusal.
 
 U7 is not started.
+
+---
+
+## 7. Established outside the Usefulness Phase — protocol reach (2026-11-05)
+
+Appended under rule 1 of §0: this limit has been true since ADR 0012 and was found unrecorded
+while ADR 0422 was being written. It is a refusal about reach, not about accuracy, and it is the
+criterion build brief G moves.
+
+| # | Refusal | Evidence | What would lift it |
+|---|---|---|---|
+| R27 | Cannot read any plant that does not speak Modbus/TCP | Modbus/TCP is the only dissector in `src/phos/atlas/packet/` (ADR 0012, reaffirmed by ADR 0344 and ADR 0422). The bounded stream foundation under it is built and judged met (ADR 0345, ADR 0346), so the limit is now the protocol modules alone and not the transport beneath them. A plant speaking **~~S7comm~~** (struck 2026-11-05: ADR 0348 met, envelope only, `iso-tsap`; see R28 for what stayed refused), DNP3, IEC 60870-5-104, EtherNet/IP, OPC UA, IEC 61850, Profinet or BACnet is a plant Atlas cannot see, and therefore also one it cannot honestly stay silent about | One protocol lane of build brief G per language, each reaching a verdict under ADR 0344's loop. A lane that is **refused** sharpens this entry rather than lifting it, and is struck through only for the part its verdict actually covers. MQTT and Sparkplug B have no slot in the rank and need their own record (ADR 0422) |
+
+**2026-11-05 — `S7comm` struck through for the envelope only (ADR 0347 declared, ADR 0348 met,
+`eval_runs/build/lane-g/s7comm/`).** `packet/s7comm.py` reads the ISO-on-TCP transport an S7
+controller speaks: the four-octet TPKT header (RFC 1006 §6) and the COTP TPDU header inside it
+(RFC 905 §§13.1–13.12), and it reports `iso-tsap` — the service IANA registers on port 102 — and
+never `s7comm`. The strike covers one thing: Atlas is no longer blind to a plant's ISO-on-TCP
+conversation. It does **not** cover S7 itself, which stays refused as **R28** below. Two limits
+travel with the strike: a TPKT split across TCP segments is refused rather than reassembled (the
+foundation is not on this path), and a COTP class other than 0 is recorded but its data TPDUs are
+refused, because the class-0 DT header is one octet shorter than a class-4 one this module does not
+read.
+
+Reading this entry as a detection claim reverses it. It says what Atlas can parse, never what Atlas
+can find.
+
+---
+
+## 8. Established by the S7comm lane — the application above the envelope (2026-11-05)
+
+Appended under rule 1 of §0. ADR 0347 declared the lane, ADR 0348 judged it **met**, and the
+verdict's own ceiling produced a refusal that is not a failure of the work but the shape of what
+the work could reach. One entry, per rule 2: the transport landed, and this is the part that did
+not.
+
+| # | Refusal | Evidence | What would lift it |
+|---|---|---|---|
+| R28 | Cannot read an S7 application message: no job byte, no function code, no program download | The transport is met (ADR 0347, ADR 0348) and the application is not attempted. `eval_runs/build/lane-g/s7comm/spec-audit.md` searched the Siemens *Communication Function Manual* family and found **no** published opcode, no PDU layout and no job byte; the same manual states S7 communication is "vendor-specific communication between SIMATIC CPUs (**not an open standard**)" (11/2025 A5E03735815-AN §9, printed p.161). The audit records this as a publication decision rather than a search that fell short: the manual contains zero occurrences of "opcode", "S7 header", "telegram structure" or `0x32`. `s7comm.py` therefore emits `iso-tsap`, and `IsoTsapMessage.protocol` is a `Literal["iso-tsap"]`, so `"s7comm"` is unrepresentable in the type rather than merely unused | A Siemens document that publishes the S7 protocol frame format — a protocol specification or a licensed developer document. Nothing in the S7-1500 *Communication* manual family will settle it; it is an operator's manual and does not descend to octets. **No amount of further searching lifts this entry.** It also blocks the act mapping: `program_transfer` cannot be fed from this protocol until a primary source names the job byte, and the wiring lane (ADR 0361) may not construct a `ProgramAct` from an uncited field |
+
+Two smaller limits belong to this lane and are recorded here rather than left to be discovered. A
+**COTP class other than 0** is recorded but not read: Siemens labels its own open-communication
+transport "(Class 4)" (11/2025 -AN §8.2, Table 8-1), and a class-4 data TPDU carries a fixed part
+one octet longer, so this module refuses its data TPDUs rather than applying the class-0 reading one
+octet out of place. What would lift it: a primary source stating the class an S7 connection
+requests, or a licensing-clean capture with the observation written down as an observation. And
+**TSAP values carry no meaning here**: RFC 905 §13.3.4 a) defines TSAP-ID as an opaque identifier
+with no structure, so no station, role or rack/slot is read out of it. What would lift it: a Siemens
+document defining the S7 TSAP layout.
+
+Like R27, reading this entry as a detection claim reverses it. The lane was never measured against a
+capture and says nothing about whether Atlas is right when it looks.
+
+---
+
+## 9. Established by brief H rung H2 — the physics the corpus does not measure, and the physics Atlas may not read (2026-11-07)
+
+Appended under rule 1 of §0, in the same change as the declaration that established both limits
+([ADR 0372](adr/0372-the-physics-laws-are-declared-from-the-thirteen-tags-and-the-inlet-balance-is-refused.md),
+opened by [ADR 0423](adr/0423-h2-opens-for-declarations-only-and-the-scoring-still-waits-for-the-bid.md)).
+Two entries, per rule 2: one quantity nothing measures, and one source Atlas is forbidden to read.
+Both were found by reading the record before any code was written, which is the earliest either
+could have been written down.
+
+| # | Refusal | Evidence | What would lift it |
+|---|---|---|---|
+| R29 | Cannot check a mass balance across any inlet: no inflow is measured anywhere in the ICSSIM corpus family | `data/phos-icssim-dev/roles.toml` carries **thirteen** tags, each role read from ICSSim's own source at pin `bcfd1844d3f063850c69f2643f6a052bac03d8ec` and from nothing else, and exactly one is a flow: `tank_output_flow_value`, the **outlet**. The simulator does compute an inflow — `ICSSIM_EDGES` carries `("tank_input_valve_status", "tank_level_value")` for a tank that "fills through the input valve" — but it never publishes it as a tag. The inlet reaches the data only as `tank_input_valve_status`, which says open or shut and never how much, so the balance rung H2 names as its own worked example has no inflow term that can be checked against data, and ADR 0372 refuses it rather than approximating the inflow from the valve state. The never-read corpora cannot supply it either: `hai`, `hai-21.03`, `hai-22.04`, `hai-23.05` and `batadal` are closed by `docs/rules/data-tiers.md` and ADR 0143 | **One inlet flow meter on the tank feed** — as a published tag in a regenerated corpus whose simulator exposes inflow, or as a real instrument in a plant historian a design partner supplies. This is the cheapest instrument that moves the entry and it is a single point. Until then `no_inflow_no_rise` is the whole of what Atlas says about the inlet: shut means not rising, with no quantity attached |
+| R30 | Cannot **derive** a physics law the way a code law is derived: every statement of this plant's physics is ground truth Atlas may not read | `src/phos/breaking/icssim_truth.py` carries the twenty-one `driver -> driven` edges read from `src/FactorySimulation.py` at the pin, including the pipework a physics law needs — the bottle "fills from the outflow only while it is under the filler" — and ADR 0295 quotes that file's constants (`TANK_OUTPUT_FLOW_RATE` 0.0001 litre per millisecond, `TANK_LEVEL_CAPACITY` 3 litres, `TANK_MAX_LEVEL` 10). That file's docstring forbids this use: "**This is ground truth, so nothing that learns may read it** … no module under `phos.atlas` imports this one, which a test checks", enforced at `tests/atlas/test_interventions.py:57`. The one source Atlas may read states no physical relation at all: `roles.toml` gives tag roles and six **control** loops, no connection and no physics constant, and its header forbids the remaining shortcut — roles were "Never inferred from the data, and never from a tag's name", so `tank_output_flow_value` may not be taken as the flow through `tank_output_valve_status` because the names look related. Every physics law relates two tags, so H1's derivation does not transfer and ADR 0372's three laws stand as **hand declarations** — the exact standing of `controller_valve`, the hand copy H1 exists to distrust | The plant's physics published in a source Atlas is permitted to read, to the standard `roles.toml` already sets for the control files: quoted lines with their digests, as a `physics.toml` beside it, or — on a real plant — **the plant declaring its own physics**, which is what `DeclaredLaw` was built to accept ("a law the plant or the operator already declared"). Note what this refusal is not: the physics is not unknown, it is unreadable *by the engine*, and that is deliberate. Atlas does not discover physics from traffic, and lifting this entry must not make it start |
+<!-- evidence-ack: src/FactorySimulation.py — AlirezaDehlaghi/ICSSIM's own path in the pinned checkout under data/, not a path in this repository -->
+
+
+Like R27 and R28, reading either entry as a detection claim reverses it. Rung H2 opened for its
+declarations only (ADR 0423); nothing here was measured, and neither entry says anything about
+whether Atlas is right when it looks.
