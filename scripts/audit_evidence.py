@@ -89,13 +89,17 @@ UNCOMMITTED_TREES = ("data/",)
 #: and pass in the other. That is the defect this constant closes.
 RUNTIME_ARTIFACT_DIRS = ("docs/genesis/",)
 RUNTIME_ARTIFACT_NAMES = (".lock", ".*.tmp")
-#: Byte code, anywhere in the tree. A `__pycache__` entry exists wherever something has imported
-#: the module and is absent wherever `PYTHONDONTWRITEBYTECODE` is set, so its presence is an
-#: accident of the checkout and never evidence. This is the same defect `RUNTIME_ARTIFACT_DIRS`
-#: closes, found the same way: CI compiles before it audits and the machine this was written on
-#: does not, so one record passed here and failed there, and an acknowledgement could only ever
-#: be right in one of the two places (ADR 0448).
-BYTE_CODE_DIR = "__pycache__/"
+#: Compiled Python byte code, which is the same defect in a different directory (ADR 0428). A
+#: `__pycache__` entry or a `.pyc`/`.pyo` file exists wherever something has imported the module
+#: and is absent wherever `PYTHONDONTWRITEBYTECODE` is set, so its presence is an accident of the
+#: checkout and never evidence — the same defect `RUNTIME_ARTIFACT_DIRS` closes, found the same
+#: way: CI compiles before it audits and a fresh checkout does not, so one record passed here and
+#: failed there. ADR 0348 names a stale `.pyc` precisely to warn the next reader that
+#: `grep -rn 65524 src/` matches a build artifact. It cannot be folded into the prefix tuple above
+#: without widening that tuple to `src/`, and the mark that identifies byte code is a path segment
+#: rather than a top-level directory.
+BYTECODE_SEGMENT = "__pycache__/"
+BYTECODE_SUFFIXES = (".pyc", ".pyo")
 #: An acknowledgement that a cited token does not resolve, written beside it in the record.
 #: Matched loosely so a near miss is reported rather than ignored.
 ACK_COMMENT = re.compile(r"<!--\s*evidence-ack(?P<body>.*?)-->")
@@ -117,12 +121,12 @@ def is_runtime_artifact(value: str) -> bool:
         value: The cited path, as the record writes it.
 
     Returns:
-        True for the GENESIS store's lock and atomic-write temporaries (ADR 0415), and for byte
-        code anywhere in the tree (ADR 0448). All of them exist only because something has been
-        run, and all are git-ignored. A record may name one to explain it; whether the file is
-        present in a particular checkout says nothing about the record.
+        True for the GENESIS store's lock and atomic-write temporaries (ADR 0415), and for
+        compiled Python byte code anywhere in the tree (ADR 0348), all of which exist only once
+        the tooling has run and are git-ignored. A record may name one to explain it; whether the
+        file is present in a particular checkout says nothing about the record.
     """
-    if BYTE_CODE_DIR in value:
+    if BYTECODE_SEGMENT in value or value.endswith(BYTECODE_SUFFIXES):
         return True
     if not value.startswith(RUNTIME_ARTIFACT_DIRS):
         return False

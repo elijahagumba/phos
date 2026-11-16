@@ -152,6 +152,25 @@ def test_the_gate_does_not_depend_on_whether_the_lock_exists(tmp_path: Path) -> 
     assert absent.gated and present.gated
 
 
+@pytest.mark.parametrize(
+    "value",
+    [
+        "src/phos/atlas/packet/__pycache__/s7comm.cpython-312.pyc",
+        "tests/scripts/__pycache__/test_audit_evidence.cpython-312-pytest-8.4.2.pyc",
+        "scripts/__pycache__/",
+    ],
+)
+def test_compiled_byte_code_is_not_a_citation(value: str) -> None:
+    """Byte code exists wherever something has imported the module, and nowhere else.
+
+    ADR 0348 names a stale `.pyc` to warn the next reader that `grep -rn 65524 src/` matches a
+    build artifact. Resolving it would make the gate's verdict depend on whether anything has
+    run in this checkout — the mirror of the lock in the test above, failing in CI, which runs
+    the suite before this gate, and passing on a clean clone.
+    """
+    assert resolve_cited_path(value) is None
+
+
 def test_a_marker_does_not_reach_a_citation_in_another_paragraph() -> None:
     """A marker is scoped to its own block.
 
