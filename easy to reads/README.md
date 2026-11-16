@@ -139,6 +139,7 @@ Notes **119 to 185** are spread across branches and not yet listed above; this i
 the folder and saying so is cheaper than a list written from the filenames.
 
 186. [Six plants is not enough to be tested on](186-six-plants-is-not-enough-to-be-tested-on.md) — holding back a seed holds back the noise, not the plant, so we built something that draws plants instead; five kinds and one sealed, a bad draw refused rather than nudged, and **nothing scored on any of it yet** (ADR 0433 to 0439)
+188. [We shortened the front page and named our weakest comparison](188-we-shortened-the-front-page-and-named-our-weakest-comparison.md) — four thousand words became twelve hundred, the refused detectors moved above the machinery, and the baseline behind our best number is now named as the elementary thing it is; the contract's mathematics moved to the refusal paper and **the test that pins it to the code moved with it rather than being deleted** (ADR 0443)
 
 ## The one sentence to keep
 
