@@ -7,7 +7,7 @@
   stands unchanged; this record repairs the export that decision's test depends on
 - **Depends on:** [ADR 0381](0381-the-front-door-is-corrected-and-the-freeze-opens-for-figures.md),
   [ADR 0044](0044-public-surfaces-on-main-must-move-with-every-advancement.md),
-  [ADR 0267](0267-the-public-test-job-runs-a-fresh-clone.md)
+  [ADR 0267](0267-role-files-reach-the-public-tree.md)
 
 ## Context
 

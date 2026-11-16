@@ -10,7 +10,7 @@
   [ADR 0413](0413-cursor-has-skills-and-hooks-and-the-gate-is-wired-into-both.md),
   [ADR 0414](0414-the-five-guards-are-functions-and-both-editors-run-them.md),
   [ADR 0117](0117-two-loops-a-seen-ledger-and-the-held-out-bank.md),
-  [ADR 0143](0143-the-gate-look-is-spent.md), [ADR 0044](0044-public-surfaces-on-main-must-move-with-every-advancement.md)
+  [ADR 0143](0143-the-plant-map-fails-the-gate.md), [ADR 0044](0044-public-surfaces-on-main-must-move-with-every-advancement.md)
 
 ## Context
 

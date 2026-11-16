@@ -8,7 +8,7 @@
 - **Depends on:** [ADR 0286](0286-an-appended-column-cannot-win-a-slot-without-taking-the-alert.md),
   [ADR 0344](0344-industrial-protocol-coverage-is-declared.md),
   [ADR 0049](0049-split-scorecard-public-files-vs-partner.md),
-  [ADR 0316](0316-the-joint-command-vector-is-declared.md),
+  [ADR 0316](0316-the-joint-command-is-declared-before-either-champion-is-scored.md),
   [ADR 0122](0122-a-phos-generated-icssim-corpus.md)
 
 ## Context

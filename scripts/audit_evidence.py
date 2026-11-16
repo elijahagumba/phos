@@ -89,6 +89,13 @@ UNCOMMITTED_TREES = ("data/",)
 #: and pass in the other. That is the defect this constant closes.
 RUNTIME_ARTIFACT_DIRS = ("docs/genesis/",)
 RUNTIME_ARTIFACT_NAMES = (".lock", ".*.tmp")
+#: Byte code, anywhere in the tree. A `__pycache__` entry exists wherever something has imported
+#: the module and is absent wherever `PYTHONDONTWRITEBYTECODE` is set, so its presence is an
+#: accident of the checkout and never evidence. This is the same defect `RUNTIME_ARTIFACT_DIRS`
+#: closes, found the same way: CI compiles before it audits and the machine this was written on
+#: does not, so one record passed here and failed there, and an acknowledgement could only ever
+#: be right in one of the two places (ADR 0448).
+BYTE_CODE_DIR = "__pycache__/"
 #: An acknowledgement that a cited token does not resolve, written beside it in the record.
 #: Matched loosely so a near miss is reported rather than ignored.
 ACK_COMMENT = re.compile(r"<!--\s*evidence-ack(?P<body>.*?)-->")
@@ -110,10 +117,13 @@ def is_runtime_artifact(value: str) -> bool:
         value: The cited path, as the record writes it.
 
     Returns:
-        True for the GENESIS store's lock and atomic-write temporaries (ADR 0415), which exist
-        only while the tooling runs and are git-ignored. A record may name one to explain it;
-        whether the file is present in a particular checkout says nothing about the record.
+        True for the GENESIS store's lock and atomic-write temporaries (ADR 0415), and for byte
+        code anywhere in the tree (ADR 0448). All of them exist only because something has been
+        run, and all are git-ignored. A record may name one to explain it; whether the file is
+        present in a particular checkout says nothing about the record.
     """
+    if BYTE_CODE_DIR in value:
+        return True
     if not value.startswith(RUNTIME_ARTIFACT_DIRS):
         return False
     name = value.rstrip("/").rsplit("/", 1)[-1]

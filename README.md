@@ -132,13 +132,13 @@ It proposes a role for every tag and shows the token or the statistic each propo
 
 **Nothing leaves your machine.** One local file, no network calls, no subprocesses, and it writes only the brief you asked for. The output is a draft for an engineer to correct, and the corrected list is the thing worth sending back — never the data.
 
-6,192 tests pass and 162 skip, each naming why, and no datasets are required: `uv run pytest -q` runs on a fresh clone in about five minutes.
+6,195 tests pass and 162 skip, each naming why, and no datasets are required: `uv run pytest -q` runs on a fresh clone in about five minutes.
 
 ## Talk to us
 
 **If you run or secure an industrial site** and can export historian files and write down which rules matter: that is the conversation PHOS most wants. The page will not show you a score, and Atlas will not touch your control network.
 
-**If you are a researcher**, the measurements reproduce and the corpora are named. Disagreements about method belong in [Discussions](../../discussions).
+**If you are a researcher**, the measurements reproduce and the corpora are named. Disagreements about method belong in [Discussions](https://github.com/elijahagumba/phos/discussions).
 
 [elijahagumba.research@proton.me](mailto:elijahagumba.research@proton.me)
 

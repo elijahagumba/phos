@@ -7,7 +7,7 @@
 - **Depends on:** [ADR 0397](0397-an-exploratory-measurement-session-is-declared.md),
   [ADR 0286](0286-an-appended-column-cannot-win-a-slot-without-taking-the-alert.md),
   [ADR 0273](0273-the-stronger-engine-programme-is-declared.md),
-  [ADR 0112](0112-a-window-is-a-span-of-seconds.md)
+  [ADR 0112](0112-consistency-windows-by-sample-period-and-one-batadal-score.md)
 
 ## Context
 
