@@ -1046,3 +1046,28 @@ sounds obvious and is a trap, since adding this guard meant editing those rules 
 nothing about what is published. It cannot look at the public copy — the core may not reach a network —
 so it reads a note the script leaves behind, and guards against forgetting rather than against lying.
 Nothing was measured and the scoreboard still reads eight of twelve.
+Note 190 is [we said the simulator was closed, and it was not](<190-we-said-the-simulator-was-closed-and-it-was-not.md>)
+(ADRs 0455, 0456, 0457, 0458). Three records were written in one day about whether to release the
+simulation engine. The first proposed releasing it under the licence PHOS already uses, the second built
+an outside-audit programme on that, and the third reversed both and went further: the code would not be
+public at all. **The third record was describing something that had not happened.** The one door between
+the lab and the public repository is a list of what may go through, and that list has carried the whole
+`src/` tree since the public repository existed — so fifty-two files of the generator were already
+published, continuously, and the front page printed *"The simulator is proprietary. Its source code is
+not released"* eight lines above a directory listing a reader could click into and find it. That is the
+worst kind of error here: not a number slightly off, but a sentence about ourselves that anyone can check
+in thirty seconds. The fix was to notice the licence was already doing the job. Everything in PHOS is
+PolyForm Noncommercial — read it, run it, teach with it, but not build a product on it — which *is* the
+competitor worry, already answered. Withdrawal would have bought almost nothing against it, because what
+a competitor wants is the **method**, and the same record publishes the method on purpose, including
+where the simulator is known to be wrong. Closing the code while publishing the method costs the
+researcher who cannot critique a generator they may not read and the operator who is not reassured by a
+black box, and protects nothing. The wrong record is not edited; four of its five decisions survive
+untouched, and a new one states what is in force. Checking it turned up two more things from the same
+rewrite: the front page had been cut to eighty-three lines, losing its figures, its mathematics and the
+sentence saying the operator's page holds **at most eight** alerts a shift — a sentence a test compares
+character for character with the code, so the suite went red — and two volumes of the internal
+encyclopedia had been committed straight into the public repository, around the door rather than through
+it, bringing thirty-four broken links of which four named deliberately withheld files by path. Nothing
+secret left; the index announcing it did. All three are put back. No corpus was opened, nothing was
+scored, and the scoreboard still reads eight of twelve.

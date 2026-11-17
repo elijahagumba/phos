@@ -76,7 +76,7 @@ Every D3 report is written to `eval_runs/synth/` — never to `eval_runs/log.jso
 
 ## Licence
 
-Released under the [PolyForm Noncommercial License 1.0.0](public/overlay/LICENSE). Noncommercial use,
+Released under the [PolyForm Noncommercial License 1.0.0](../LICENSE). Noncommercial use,
 research, education, and personal experimentation are permitted purposes. Commercial use requires a
 separate licence.
 

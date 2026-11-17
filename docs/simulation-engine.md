@@ -160,16 +160,16 @@ Every D3 report is written to `eval_runs/synth/` — never to `eval_runs/log.jso
 
 ## Licence
 
-Released under the [PolyForm Noncommercial License 1.0.0](public/overlay/LICENSE). Noncommercial
+Released under the [PolyForm Noncommercial License 1.0.0](../LICENSE). Noncommercial
 use, research, education, and personal experimentation are permitted purposes. Commercial use
 requires a separate licence. Copyright (c) 2026 Elijah A. Edoigiawerie.
 
 ## Related decisions
 
-- [ADR 0015](docs/adr/0015-simulated-plants-the-injection-hook-and-the-true-state-record.md) — Simulated plants, the injection hook, and the true-state record
-- [ADR 0016](docs/adr/0016-the-graded-attack-library-flavour-separation-and-the-anti-fingerprint-discipline.md) — The graded attack library: flavour separation and the anti-fingerprint discipline
-- [ADR 0029](docs/adr/0029-synthetic-dataset-library-is-not-a-public-corpus.md) — A synthetic dataset library is not a public corpus
-- [ADR 0073](docs/adr/0073-a-synthetic-command-and-maintenance-harness-that-measures-nothing.md) — A synthetic command-and-maintenance harness, built so that its results cannot be believed
-- [ADR 0078](docs/adr/0078-the-synthetic-diagnostic-environment-is-constructible-and-answers-its-four-questions.md) — The synthetic diagnostic environment is constructible and answers its four questions
-- [ADR 0454](docs/adr/0454-d3-synthetic-evaluation-harness-for-atlas.md) — D3: synthetic evaluation harness for Atlas, SYNTHETIC-DERIVED only
-- [ADR 0455](docs/adr/0455-simulation-engine-is-a-releasable-open-source-component.md) — The simulation engine is a releasable open-source component
+- [ADR 0015](adr/0015-simulated-plants-the-injection-hook-and-the-true-state-record.md) — Simulated plants, the injection hook, and the true-state record
+- [ADR 0016](adr/0016-the-graded-attack-library-flavour-separation-and-the-anti-fingerprint-discipline.md) — The graded attack library: flavour separation and the anti-fingerprint discipline
+- [ADR 0029](adr/0029-synthetic-dataset-library-is-not-a-public-corpus.md) — A synthetic dataset library is not a public corpus
+- [ADR 0073](adr/0073-a-synthetic-command-and-maintenance-harness-that-measures-nothing.md) — A synthetic command-and-maintenance harness, built so that its results cannot be believed
+- [ADR 0078](adr/0078-the-synthetic-diagnostic-environment-is-constructible-and-answers-its-four-questions.md) — The synthetic diagnostic environment is constructible and answers its four questions
+- [ADR 0454](adr/0454-d3-synthetic-evaluation-harness-for-atlas.md) — D3: synthetic evaluation harness for Atlas, SYNTHETIC-DERIVED only
+- [ADR 0455](adr/0455-simulation-engine-is-a-releasable-open-source-component.md) — The simulation engine is a releasable open-source component
