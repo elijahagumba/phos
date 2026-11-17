@@ -279,6 +279,10 @@ from phos.atlas.stability import (
     learn_process_cycle,
     process_cycle_deviation,
 )
+from phos.atlas.synchrony import (
+    CrossSubsystemSynchronyFittedModel,
+    CrossSubsystemSynchronyModel,
+)
 from phos.atlas.templates import (
     ENGINEERING_MAINTENANCE_TEMPLATE_ID,
     LOWEST_BASE_RATE_PRIOR,
@@ -393,6 +397,8 @@ __all__ = [
     "ConsistencyEvidence",
     "ConsistencyFact",
     "ConsistencyPattern",
+    "CrossSubsystemSynchronyFittedModel",
+    "CrossSubsystemSynchronyModel",
     "DeviceCommandGraph",
     "DissectorRegistry",
     "GraphChange",
