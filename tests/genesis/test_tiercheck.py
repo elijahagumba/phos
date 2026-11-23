@@ -14,14 +14,15 @@ from pathlib import Path
 from typing import get_args
 
 import pytest
-from tests.lab_only import RULES_ABSENT_REASON
 
 from phos.genesis.records import Tier
 from phos.genesis.tiercheck import (
     DECLARED_TIERS,
+    DEVELOPMENT_HALF,
     NEWLY_REGISTERED,
     REGISTRY,
     RULE_FILE,
+    SYNTHETIC_PLANTS,
     _catch_all_sentence,
     read_registry,
     resolve,
@@ -31,20 +32,6 @@ from phos.guards import tiers
 
 #: The real repository root, so the table below reads the rule this project actually ships.
 REPO = Path(__file__).resolve().parents[2]
-
-# A `lab_only` marker cannot carry this module, and the reason is worth stating. The parametrised
-# tables below call `named_in()` inside their `@pytest.mark.parametrize` decorators, so the rule
-# file is read while the module is being **imported** — before `pytest_collection_modifyitems` runs
-# and before any marker exists to be honoured. In the public tree, where `docs/rules/` is a
-# forbidden path, that import raises and takes the whole collection down with it: the public suite
-# reported one collection error and two cascading failures in `tests/eval/test_slow_marker.py`,
-# which shells out to `pytest --collect-only` and asserts a clean exit (ADR 0440). A module-level
-# skip is the only thing that runs early enough. It is the same condition the marker expresses.
-if not (REPO / "docs" / "rules" / RULE_FILE).is_file():  # pragma: no cover - public tree only
-    pytest.skip(
-        f"docs/rules/{RULE_FILE} is absent. {RULES_ABSENT_REASON}",
-        allow_module_level=True,
-    )
 
 
 def the_rule_text() -> str:
@@ -288,3 +275,81 @@ class TestTheVocabularyCannotDrift:
     def test_the_fallback_still_names_the_phrase(self) -> None:
         empty = tiers.parse("- **Iterate freely on** `x`.\n")
         assert _catch_all_sentence(empty) == NEWLY_REGISTERED
+
+
+class TestProsePhrasesTheParserCannotSee:
+    """The iterate-freely bullet names two things without backticks. ADR 0461."""
+
+    #: Development halves the shipped registry pairs with a held-back name, and that the
+    #: backticks do not already list. Held-back names are not in this set.
+    PAIRED = (
+        "daypsci-v1",
+        "fdia-synthetic-microgrid",
+        "grfics-v3",
+        "kelmarsh",
+        "penmanshiel",
+        "tu-wien-pilot-factory",
+    )
+
+    def test_both_phrases_are_in_the_shipped_rule(self) -> None:
+        text = the_rule_text()
+        assert SYNTHETIC_PLANTS in text
+        assert DEVELOPMENT_HALF in text
+
+    def test_synth_is_iterate_because_the_bullet_names_the_synthetic_plants(self) -> None:
+        verdict = resolve(REPO, "synth")
+        assert verdict.tier == "green"
+        assert verdict.expected_tier == "iterate"
+        assert not verdict.refused
+        assert SYNTHETIC_PLANTS in verdict.sentence
+
+    def test_synth_is_refused_when_the_rule_does_not_say_synthetic_plants(
+        self, tmp_path: Path
+    ) -> None:
+        rule = "- **Iterate freely on** `phos-icssim-dev`.\n- **Score once** `kept`.\n"
+        verdict = resolve(a_checkout(tmp_path, rule=rule), "synth")
+        assert verdict.refused
+        assert verdict.tier is None
+
+    def test_a_paired_development_half_is_iterate_and_its_held_back_half_is_once(self) -> None:
+        for name in self.PAIRED:
+            verdict = resolve(REPO, name)
+            assert verdict.tier == "green", name
+            assert verdict.expected_tier == "iterate", name
+            assert DEVELOPMENT_HALF in verdict.sentence
+        for name in ("daypsci-v1-heldout", "kelmarsh-heldback", "grfics-v3-heldout"):
+            verdict = resolve(REPO, name)
+            assert verdict.tier == "amber", name
+            assert verdict.expected_tier == "once", name
+
+    def test_no_other_registered_name_is_promoted_past_the_backticks(self) -> None:
+        already_green = set(named_in("green"))
+        promoted = sorted(
+            name
+            for name in read_registry(REPO).names
+            if name not in already_green and resolve(REPO, name).tier == "green"
+        )
+        assert promoted == sorted(self.PAIRED)
+
+    def test_a_development_role_without_a_held_back_pair_stays_score_once(self) -> None:
+        # dtu-lab is development in the registry and has no held-back half (ADR 0394).
+        verdict = resolve(REPO, "dtu-lab")
+        assert verdict.tier == "amber"
+        assert verdict.expected_tier == "once"
+
+    def test_a_pair_of_names_cannot_rescue_a_never_read_corpus(self, tmp_path: Path) -> None:
+        registry = {"datasets": [{"name": "hai"}, {"name": "hai-heldout", "role": "development"}]}
+        verdict = resolve(a_checkout(tmp_path, registry=registry), "hai")
+        assert verdict.refused
+        assert verdict.tier == "red"
+
+    def test_the_phrase_absent_from_the_rule_does_not_promote_a_pair(self, tmp_path: Path) -> None:
+        rule = (
+            "- **Iterate freely on** `phos-icssim-dev`.\n"
+            "- **Score once, only after a committed declaration** `kept`, "
+            "any newly registered unseen corpus.\n"
+        )
+        registry = {"datasets": [{"name": "kelmarsh"}, {"name": "kelmarsh-heldback"}]}
+        verdict = resolve(a_checkout(tmp_path, rule=rule, registry=registry), "kelmarsh")
+        assert verdict.tier == "amber"
+        assert verdict.expected_tier == "once"

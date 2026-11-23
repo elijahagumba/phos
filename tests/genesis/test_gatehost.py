@@ -20,7 +20,6 @@ from typing import Any
 
 import pytest
 from tests.genesis.conftest import COMMAND, EXPERIMENT, MEASUREMENT, QUESTION
-from tests.lab_only import RULES_ABSENT_REASON, skip_if_absent
 
 from phos.genesis.gatehost import _SEVERITY as _SEVERITY_RANKS
 from phos.genesis.gatehost import decide, is_harness, repo_root_from
@@ -64,7 +63,6 @@ def seeded(root: Path, *, phase: str = "declared") -> Store:
     declares (ADR 0416) and every gate test here would be exercising that refusal instead of the
     state it names.
     """
-    skip_if_absent(REPO / "docs" / "rules" / "data-tiers.md", RULES_ABSENT_REASON)
     store = Store(root)
     from phos.genesis.records import Question
 
@@ -306,10 +304,6 @@ def run_claude_hook(repo: Path, command: str) -> int:
 class TestCrossEnvironmentParity:
     """Mandate §14.4: both environments enforce identical gates. Tested as a pair."""
 
-    #: Drives both editors' real scripts under `.cursor/` and `.claude/`, which the public export
-    #: forbids, so these are lab-only (ADR 0440).
-    pytestmark = pytest.mark.lab_only
-
     def test_a_committed_declaration_is_allowed_in_both(self, repo: Path, commit: Commit) -> None:
         seeded(repo)
         commit("declare E-0001")
@@ -367,12 +361,6 @@ class TestCrossEnvironmentParity:
 
 
 class TestCursorHooksConfig:
-    """Cursor's own hook registration, read from `.cursor/hooks.json`."""
-
-    #: `.cursor/` is a forbidden path in the public export, so the file these read is absent and
-    #: `tests/conftest.py` skips them there (ADR 0440).
-    pytestmark = pytest.mark.lab_only
-
     def test_the_hook_is_registered_on_the_shell_event_and_fails_closed(self) -> None:
         config = json.loads((REPO / ".cursor" / "hooks.json").read_text(encoding="utf-8"))
         assert config["version"] == 1
@@ -394,11 +382,6 @@ class TestTheGateFindsItsOwnRecord:
     document. That was true of `phos_guards.py` and not of this hook, which went on reading the
     variable until ADR 0419. These tests are here so the record and the code cannot part again.
     """
-
-    #: Lab-only, and the first test below is why the marker matters rather than being tidiness: it
-    #: iterates `.cursor/hooks/*.py`, a forbidden path in the public export, so there it finds no
-    #: scripts, never reaches the assertion, and **passes having checked nothing** (ADR 0440).
-    pytestmark = pytest.mark.lab_only
 
     def test_no_cursor_hook_reads_an_undocumented_environment_variable(self) -> None:
         for script in sorted((REPO / ".cursor" / "hooks").glob("*.py")):

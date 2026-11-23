@@ -4,7 +4,7 @@
 - **Date:** 2026-11-07
 - **PART:** Atlas, build brief H, rung H2. Opening record. No code, no corpus, no measurement
 - **Supersedes:** nothing
-- **Depends on:** ADR 0369 (lab record, not published),
+- **Depends on:** [ADR 0369](0369-h1-runs-now-and-the-later-rungs-wait-for-the-bid.md),
   [ADR 0368](0368-triangulation-and-a-self-search-are-named-after-brief-g.md),
   [ADR 0420](0420-one-atlas-engineering-roadmap-and-the-rest-are-closed-or-parked.md),
   [ADR 0422](0422-build-brief-g-is-unparked-against-the-refusal-register.md),

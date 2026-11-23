@@ -20,13 +20,6 @@ from typing import Any
 
 import pytest
 
-#: Parity is asserted by running **both editors' real hook scripts** as subprocesses, and those
-#: live under `.cursor/` and `.claude/`, which `public/manifest.toml` forbids. In the public tree
-#: the scripts are absent, so every test here is lab-only and `tests/conftest.py` skips it there
-#: (ADR 0440). Skipping rather than passing matters: a parity test with no scripts to compare
-#: would have nothing to disagree about.
-pytestmark = pytest.mark.lab_only
-
 #: This repository, where the real hook scripts live.
 REPO = Path(__file__).resolve().parents[2]
 

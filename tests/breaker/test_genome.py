@@ -12,24 +12,18 @@ from phos.breaker.genome import (
 )
 
 
-def _genome(
-    technique: AttackTechnique = AttackTechnique.LEVEL_EXCURSION,
-    target_tags: tuple[str, ...] = ("tank_level",),
-    start_time: float = 100.0,
-    duration: float = 300.0,
-    intensity: float = 5.0,
-    shape: AttackShape = AttackShape.STEP,
-    layer: str = "sensor",
-) -> AttackGenome:
-    return AttackGenome(
-        technique=technique,
-        target_tags=target_tags,
-        start_time=start_time,
-        duration=duration,
-        intensity=intensity,
-        shape=shape,
-        layer=layer,
+def _genome(**overrides) -> AttackGenome:
+    data = dict(
+        technique=AttackTechnique.LEVEL_EXCURSION,
+        target_tags=("tank_level",),
+        start_time=100.0,
+        duration=300.0,
+        intensity=5.0,
+        shape=AttackShape.STEP,
+        layer="sensor",
     )
+    data.update(overrides)
+    return AttackGenome(**data)
 
 
 def test_valid_genome_passes() -> None:
@@ -67,7 +61,9 @@ def test_replay_command_wrong_layer_refused() -> None:
 
 
 def test_replay_command_network_layer_ok() -> None:
-    validate_genome(_genome(technique=AttackTechnique.REPLAY_COMMAND, layer="network"))
+    validate_genome(
+        _genome(technique=AttackTechnique.REPLAY_COMMAND, layer="network")
+    )
 
 
 __all__ = []

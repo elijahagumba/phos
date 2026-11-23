@@ -21,10 +21,6 @@ from tests.genesis.conftest import EXPERIMENT, MEASUREMENT, QUESTION
 from phos.genesis.records import Question
 from phos.genesis.store import RECORD_DIR, Store
 
-#: Same dependency as `test_store.py`: the `repo` fixture copies the real `docs/rules/`, which the
-#: public export does not carry, so these are lab-only (ADR 0440).
-pytestmark = pytest.mark.lab_only
-
 #: This repository, for driving the CLI as a subprocess.
 REPO = Path(__file__).resolve().parents[2]
 

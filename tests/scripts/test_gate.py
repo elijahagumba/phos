@@ -100,8 +100,19 @@ def test_batadal_has_no_role_file() -> None:
     assert not (ROOT / "data" / "batadal" / "roles.toml").exists()
 
 
-def test_columns_the_reader_drops_are_dropped_from_the_roles() -> None:
+def _hai_2204_roles() -> Path:
+    """The 22.04 role file, or a skip when ADR 0464 has removed it."""
     path = ROOT / "data" / "hai-22.04" / "roles.toml"
+    if not path.is_file():
+        pytest.skip(
+            "data/hai-22.04/roles.toml is absent. ADR 0464 keeps it in the encrypted image, "
+            "mounted only for a declared referee score."
+        )
+    return path
+
+
+def test_columns_the_reader_drops_are_dropped_from_the_roles() -> None:
+    path = _hai_2204_roles()
     roles = roles_for(path, ("P1_LIT01", "P1_LCV01D", "P1_B3004"))
     assert set(roles.signals) == {"P1_LIT01", "P1_LCV01D", "P1_B3004"}
     assert roles.role_of("P1_LIT01") is SignalRole.SENSOR
@@ -111,7 +122,7 @@ def test_columns_the_reader_drops_are_dropped_from_the_roles() -> None:
 
 def test_a_column_the_role_file_does_not_declare_stops_the_gate() -> None:
     with pytest.raises(SystemExit, match="does not declare"):
-        roles_for(ROOT / "data" / "hai-22.04" / "roles.toml", ("P1_LIT01", "NOT_A_POINT"))
+        roles_for(_hai_2204_roles(), ("P1_LIT01", "NOT_A_POINT"))
 
 
 def test_the_gate_ran_once_and_failed_as_adr_0143_records() -> None:
@@ -157,9 +168,15 @@ def test_adr_0142_pins_this_gate_script() -> None:
 
 
 def test_every_role_file_the_challenger_reads_is_declared() -> None:
+    """A role file present on disk is one ADR 0142 declared.
+
+    ADR 0464 removes the three declared HAI role files from the checkout. Absence is
+    allowed. A file that is present and was not declared still fails.
+    """
     for name in CORPORA:
         path = ROOT / "data" / name / "roles.toml"
-        assert path.exists() == (f"data/{name}/roles.toml" in DECLARED_FILES)
+        if path.exists():
+            assert f"data/{name}/roles.toml" in DECLARED_FILES
 
 
 def test_the_clean_editions_draw_chance_from_one_stream_in_their_published_order() -> None:

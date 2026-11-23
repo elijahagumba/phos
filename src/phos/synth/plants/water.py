@@ -46,7 +46,6 @@ from collections.abc import Mapping, Sequence
 from typing import Final
 
 from numpy.random import Generator
-from pydantic import BaseModel, ConfigDict
 
 from phos.synth.command import CommandSource, WriteAuthority
 from phos.synth.plant import (
@@ -65,20 +64,8 @@ from phos.synth.plant import (
     SignalSpec,
     lay_out_events,
 )
-from phos.synth.plant_spec import (
-    Component,
-    ComponentKind,
-    Connection,
-    ControllerKind,
-    ControllerSpec,
-    DisturbanceSpec,
-    EventPlanSpec,
-    PlantSpec,
-    pi_controller,
-)
-from phos.synth.process import accumulate, clamp, cycle_factor, first_order
+from phos.synth.process import PiController, accumulate, clamp, cycle_factor, first_order
 from phos.synth.realism import RealismProfile
-from phos.synth.templates import register_template
 
 __all__ = [
     "BOOSTER_SPEED",
@@ -97,12 +84,7 @@ __all__ = [
     "RAW_INFLOW",
     "RAW_TURBIDITY",
     "RESIDUAL_SETPOINT",
-    "WATER_COMPONENTS",
-    "WATER_CONNECTIONS",
-    "WATER_CONTROLLERS",
     "WATER_DESCRIPTION",
-    "WATER_SPEC",
-    "WaterParameters",
     "WaterTreatmentPlant",
 ]
 
@@ -163,56 +145,6 @@ _MIN_FILTER_FRACTION: Final = 0.02
 _MAX_FILTER_FRACTION: Final = 0.28
 _COAGULANT_BASE_MGPL: Final = 0.6
 _COAGULANT_PER_NTU: Final = 0.45
-
-
-class WaterParameters(BaseModel):
-    """Every free number this works' physics reads, lifted out of the module's constants.
-
-    The defaults are the values the hand-written plant carried, so `WATER_SPEC` describes exactly
-    the works that produced the corpora pinned in ``tests/synth/golden/``. PART R2's generator
-    draws a different set from the family's declared bounds and gets a different works.
-
-    Attributes:
-        clearwell_area_m2: Plan area of the clearwell. With the level span this is its volume,
-            and it is what turns a flow imbalance into a rate of level change.
-        max_intake_m3ph: Raw water flow at full intake pump speed.
-        demand_base_m3ph: Mean draw the city makes on the distribution network.
-        demand_daily_m3ph: Amplitude of the once-a-day swing in that draw.
-        demand_half_daily_m3ph: Amplitude of the twice-a-day swing — the morning and evening peaks.
-        demand_floor_m3ph: Draw the network never falls below, even at four in the morning.
-        chlorine_decay_per_hour: First-order decay rate of free chlorine in the clearwell.
-        residual_tau_s: Time constant of the residual's response to a change in dose.
-        turbidity_tau_s: Time constant of filtered turbidity's response to a change in coagulant.
-        pressure_tau_s: Time constant of distribution pressure's response to booster speed.
-        headloss_clean_m: Headloss across a filter that has just been washed.
-        headloss_per_load: Headloss added per unit of accumulated solids load.
-        backwash_intake_pct: Intake pump speed held while a filter is being washed.
-        min_filter_fraction: Best turbidity removal the filter achieves, as a surviving fraction.
-        max_filter_fraction: Worst removal, under a badly matched coagulant dose.
-        coagulant_base_mgpl: Coagulant dose at zero raw turbidity.
-        coagulant_per_ntu: Extra coagulant dosed per NTU of raw turbidity.
-    """
-
-    model_config = ConfigDict(frozen=True, extra="forbid")
-
-    clearwell_area_m2: float = _CLEARWELL_AREA_M2
-    max_intake_m3ph: float = _MAX_INTAKE_M3PH
-    demand_base_m3ph: float = _DEMAND_BASE_M3PH
-    demand_daily_m3ph: float = _DEMAND_DAILY_M3PH
-    demand_half_daily_m3ph: float = _DEMAND_HALF_DAILY_M3PH
-    demand_floor_m3ph: float = _DEMAND_FLOOR_M3PH
-    chlorine_decay_per_hour: float = _CHLORINE_DECAY_PER_HOUR
-    residual_tau_s: float = _RESIDUAL_TAU_S
-    turbidity_tau_s: float = _TURBIDITY_TAU_S
-    pressure_tau_s: float = _PRESSURE_TAU_S
-    headloss_clean_m: float = _HEADLOSS_CLEAN_M
-    headloss_per_load: float = _HEADLOSS_PER_LOAD
-    backwash_intake_pct: float = _BACKWASH_INTAKE_PCT
-    min_filter_fraction: float = _MIN_FILTER_FRACTION
-    max_filter_fraction: float = _MAX_FILTER_FRACTION
-    coagulant_base_mgpl: float = _COAGULANT_BASE_MGPL
-    coagulant_per_ntu: float = _COAGULANT_PER_NTU
-
 
 WATER_UNITS: Final = (
     PhysicalUnit(unit_id="intake", label="River intake and raw water pumps"),
@@ -615,276 +547,6 @@ _EVENT_PLANS: Final = (
 )
 
 
-WATER_COMPONENTS: Final = (
-    Component(
-        component_id="river",
-        kind=ComponentKind.SOURCE,
-        label="River abstraction point",
-        physical_unit="intake",
-        signals=(RAW_TURBIDITY,),
-        description=(
-            "Where the works takes its water from. Nobody controls how muddy the river is; after "
-            "rain it carries far more solids, and everything downstream has to cope."
-        ),
-    ),
-    Component(
-        component_id="intake_pump",
-        kind=ComponentKind.PUMP,
-        label="Raw water intake pump",
-        physical_unit="intake",
-        signals=(INTAKE_SPEED,),
-        description=(
-            "A variable-speed pump that pulls raw water out of the river. Running it faster is "
-            "how the works fills the clearwell."
-        ),
-    ),
-    Component(
-        component_id="raw_main",
-        kind=ComponentKind.PIPE,
-        label="Raw water rising main",
-        physical_unit="intake",
-        signals=(RAW_INFLOW,),
-        description=(
-            "The pipe from the intake pump to the dosing point, and the flow meter on it. Flow "
-            "follows the square root of pump speed, not speed itself, because of the restriction."
-        ),
-    ),
-    Component(
-        component_id="coagulant_skid",
-        kind=ComponentKind.MIXER,
-        label="Coagulant dosing skid",
-        physical_unit="dosing",
-        signals=(COAGULANT_DOSE,),
-        description=(
-            "Doses a chemical that makes fine particles clump together so the filter can catch "
-            "them. How much is needed depends on how muddy the raw water is."
-        ),
-    ),
-    Component(
-        component_id="chlorine_skid",
-        kind=ComponentKind.MIXER,
-        label="Chlorine dosing skid",
-        physical_unit="dosing",
-        signals=(CHLORINE_DOSE,),
-        description=(
-            "Doses chlorine to disinfect the water. What matters is not the dose but what is "
-            "still there an hour later, which is what the residual meter reads."
-        ),
-    ),
-    Component(
-        component_id="rapid_gravity_filter",
-        kind=ComponentKind.FILTER,
-        label="Rapid gravity filter",
-        physical_unit="filtration",
-        signals=(FILTERED_TURBIDITY, FILTER_HEADLOSS),
-        description=(
-            "A bed of sand the water passes down through. It gradually clogs with what it "
-            "catches, which shows up as rising headloss, and is washed clean periodically."
-        ),
-    ),
-    Component(
-        component_id="clearwell",
-        kind=ComponentKind.TANK,
-        label="Treated water clearwell",
-        physical_unit="clearwell",
-        signals=(CLEARWELL_LEVEL, CHLORINE_RESIDUAL),
-        description=(
-            "The works' storage tank. Its level is the difference between what comes in and what "
-            "the city draws out, and how long water sits here decides how much chlorine survives."
-        ),
-    ),
-    Component(
-        component_id="level_controller",
-        kind=ComponentKind.CONTROLLER,
-        label="Clearwell level loop",
-        physical_unit="clearwell",
-        signals=(LEVEL_SETPOINT,),
-        description="Holds the clearwell at its target level by varying the intake pump's speed.",
-    ),
-    Component(
-        component_id="residual_controller",
-        kind=ComponentKind.CONTROLLER,
-        label="Chlorine residual loop",
-        physical_unit="clearwell",
-        signals=(RESIDUAL_SETPOINT,),
-        description="Holds the chlorine residual at its target by varying the dose.",
-    ),
-    Component(
-        component_id="booster_set",
-        kind=ComponentKind.PUMP,
-        label="Distribution booster set",
-        physical_unit="distribution",
-        signals=(BOOSTER_SPEED,),
-        description="Pumps treated water out of the clearwell into the distribution network.",
-    ),
-    Component(
-        component_id="distribution_main",
-        kind=ComponentKind.PIPE,
-        label="Distribution main",
-        physical_unit="distribution",
-        signals=(DISTRIBUTION_FLOW, DISTRIBUTION_PRESSURE),
-        description=(
-            "The pipe to the city, with a flow meter and a pressure transmitter on it. Pressure "
-            "is what the booster set holds; flow is whatever the city decides to take."
-        ),
-    ),
-    Component(
-        component_id="pressure_controller",
-        kind=ComponentKind.CONTROLLER,
-        label="Distribution pressure loop",
-        physical_unit="distribution",
-        signals=(PRESSURE_SETPOINT,),
-        description="Holds distribution pressure at its target by varying booster speed.",
-    ),
-    Component(
-        component_id="city",
-        kind=ComponentKind.LOAD,
-        label="Distribution network demand",
-        physical_unit="distribution",
-        description=(
-            "The city drinking. A daily rhythm nobody at the works controls, and the thing "
-            "everything upstream is arranged to keep up with."
-        ),
-    ),
-)
-"""What the works is made of. Every signal is owned here exactly once, and every component sits on
-the physical unit its instruments are declared on, so the drawing and the topology cannot drift."""
-
-WATER_CONNECTIONS: Final = (
-    Connection(source="river", target="intake_pump", medium="water", label="river abstraction"),
-    Connection(
-        source="intake_pump", target="raw_main", medium="water", label="pump to rising main"
-    ),
-    Connection(
-        source="raw_main", target="coagulant_skid", medium="water", label="raw water to dosing"
-    ),
-    Connection(
-        source="coagulant_skid",
-        target="chlorine_skid",
-        medium="water",
-        label="coagulated water to chlorination",
-    ),
-    Connection(
-        source="chlorine_skid",
-        target="rapid_gravity_filter",
-        medium="water",
-        label="dosed water to the filter",
-    ),
-    Connection(
-        source="rapid_gravity_filter",
-        target="clearwell",
-        medium="water",
-        label="filtrate to storage",
-    ),
-    Connection(
-        source="clearwell", target="booster_set", medium="water", label="clearwell to the boosters"
-    ),
-    Connection(
-        source="booster_set",
-        target="distribution_main",
-        medium="water",
-        label="boosters to the distribution main",
-    ),
-    Connection(
-        source="distribution_main", target="city", medium="water", label="supply to the city"
-    ),
-    Connection(
-        source="level_controller",
-        target="intake_pump",
-        medium="signal",
-        label="level loop drives intake speed",
-    ),
-    Connection(
-        source="residual_controller",
-        target="chlorine_skid",
-        medium="signal",
-        label="residual loop drives chlorine dose",
-    ),
-    Connection(
-        source="pressure_controller",
-        target="booster_set",
-        medium="signal",
-        label="pressure loop drives booster speed",
-    ),
-)
-"""Which way the water goes, and which loop drives what."""
-
-WATER_CONTROLLERS: Final = (
-    ControllerSpec(
-        controller_id="level",
-        kind=ControllerKind.PI,
-        measurement=CLEARWELL_LEVEL,
-        setpoint=LEVEL_SETPOINT,
-        output=INTAKE_SPEED,
-        gain=26.0,
-        integral_time_seconds=900.0,
-        low=0.0,
-        high=100.0,
-        bias=33.0,
-        description="Keeps the clearwell at its setpoint by speeding the intake pump up or down.",
-    ),
-    ControllerSpec(
-        controller_id="residual",
-        kind=ControllerKind.PI,
-        measurement=CHLORINE_RESIDUAL,
-        setpoint=RESIDUAL_SETPOINT,
-        output=CHLORINE_DOSE,
-        gain=0.9,
-        integral_time_seconds=1500.0,
-        low=0.0,
-        high=6.0,
-        bias=1.4,
-        description=(
-            "Keeps the chlorine residual at its setpoint. Slow, because what it is correcting "
-            "happened an hour ago."
-        ),
-    ),
-    ControllerSpec(
-        controller_id="pressure",
-        kind=ControllerKind.PI,
-        measurement=DISTRIBUTION_PRESSURE,
-        setpoint=PRESSURE_SETPOINT,
-        output=BOOSTER_SPEED,
-        gain=9.0,
-        integral_time_seconds=300.0,
-        low=0.0,
-        high=100.0,
-        bias=55.0,
-        description="Keeps distribution pressure at its setpoint by varying booster speed.",
-    ),
-)
-"""The three closed loops. The coagulant dose is a feedforward, not a loop, so it is not here."""
-
-WATER_SPEC: Final = PlantSpec(
-    plant_id=WATER_DESCRIPTION.plant_id,
-    label=WATER_DESCRIPTION.label,
-    industry=WATER_DESCRIPTION.industry,
-    summary=WATER_DESCRIPTION.summary,
-    model_source=WATER_DESCRIPTION.model_source,
-    process="water-treatment-v1",
-    parameters=WaterParameters().model_dump(),
-    units=WATER_UNITS,
-    signals=WATER_SIGNALS,
-    components=WATER_COMPONENTS,
-    connections=WATER_CONNECTIONS,
-    controllers=WATER_CONTROLLERS,
-    couplings=WATER_COUPLINGS,
-    control_network=WATER_NETWORK,
-    write_authority=WATER_AUTHORITY,
-    disturbance=DisturbanceSpec(
-        event_plans=tuple(EventPlanSpec.from_plan(plan) for plan in _EVENT_PLANS),
-        first_start_floor=30,
-        first_start_divisor=12,
-        gap_steps=(120, 900),
-    ),
-)
-"""The works, declaratively. `WaterTreatmentPlant` builds this one unless handed another.
-
-`describe()` returns `WATER_DESCRIPTION` field for field — asserted in
-``tests/synth/test_plant_spec.py``, because the two being equal is what makes this a
-re-expression of the existing plant rather than a second, similar one."""
-
-
 class WaterTreatmentPlant(Plant):
     """A surface water treatment works with three closed loops and one feedforward.
 
@@ -897,7 +559,6 @@ class WaterTreatmentPlant(Plant):
         *,
         commands: CommandSource | None = None,
         realism: RealismProfile | None = None,
-        plant_spec: PlantSpec | None = None,
     ) -> None:
         """Build the works and its control loops for one run.
 
@@ -907,36 +568,30 @@ class WaterTreatmentPlant(Plant):
                 echo path. See `phos.synth.plant.Plant`.
             realism: Ordinary trouble to apply, or ``None`` for a quiet profile. See
                 `phos.synth.plant.Plant`.
-            plant_spec: The works to build, or ``None`` for `WATER_SPEC` — the one this module
-                has always described. A spec drawn from a family in PART R2 is built here by
-                exactly the same path, which is the point of the split: nothing below this line
-                knows whether its numbers were typed by a person or drawn from a seed.
         """
-        self._plant_spec = plant_spec if plant_spec is not None else WATER_SPEC
-        self._description = self._plant_spec.describe()
-        self._p = WaterParameters.model_validate(dict(self._plant_spec.parameters))
-        self._level_loop = pi_controller(self._plant_spec, "level")
-        self._residual_loop = pi_controller(self._plant_spec, "residual")
-        self._pressure_loop = pi_controller(self._plant_spec, "pressure")
-        self._level_bias = self._plant_spec.controller("level").bias
-        self._residual_bias = self._plant_spec.controller("residual").bias
-        self._pressure_bias = self._plant_spec.controller("pressure").bias
+        self._level_loop = PiController(gain=26.0, integral_time_seconds=900.0, low=0.0, high=100.0)
+        self._residual_loop = PiController(
+            gain=0.9, integral_time_seconds=1500.0, low=0.0, high=6.0
+        )
+        self._pressure_loop = PiController(
+            gain=9.0, integral_time_seconds=300.0, low=0.0, high=100.0
+        )
         super().__init__(spec, commands=commands, realism=realism)
 
     @property
     def description(self) -> PlantDescription:
         """The works: fifteen signals across five physical units, on a Modbus network."""
-        return self._description
+        return WATER_DESCRIPTION
 
     def initial_state(self) -> Mapping[str, float]:
         """Start from the steady state the loops would settle at under the opening demand."""
         demand = self._demand(0.0)
         inflow = demand
-        speed = 100.0 * (inflow / self._p.max_intake_m3ph) ** 2
+        speed = 100.0 * (inflow / _MAX_INTAKE_M3PH) ** 2
         turbidity = self._raw_turbidity(0.0, None)
         coagulant = self._coagulant(turbidity)
-        contact = self._p.clearwell_area_m2 * 3.0 / max(demand, 1.0)
-        survival = math.exp(-self._p.chlorine_decay_per_hour * contact)
+        contact = _CLEARWELL_AREA_M2 * 3.0 / max(demand, 1.0)
+        survival = math.exp(-_CHLORINE_DECAY_PER_HOUR * contact)
         dose = 0.6 / survival
         return {
             RAW_INFLOW: inflow,
@@ -945,7 +600,7 @@ class WaterTreatmentPlant(Plant):
             COAGULANT_DOSE: coagulant,
             CHLORINE_DOSE: dose,
             FILTERED_TURBIDITY: turbidity * self._filter_fraction(coagulant, turbidity),
-            FILTER_HEADLOSS: self._p.headloss_clean_m,
+            FILTER_HEADLOSS: _HEADLOSS_CLEAN_M,
             CLEARWELL_LEVEL: 3.0,
             CHLORINE_RESIDUAL: 0.6,
             DISTRIBUTION_FLOW: demand,
@@ -960,13 +615,12 @@ class WaterTreatmentPlant(Plant):
 
     def schedule_events(self, rng: Generator, spec: RunSpec) -> Sequence[BenignEvent]:
         """Lay the five kinds of operational event through the run, round-robin."""
-        disturbance = self._plant_spec.disturbance
         return lay_out_events(
             rng,
             spec,
-            disturbance.plans(),
-            first_start_step=disturbance.first_start_step(spec.n_steps),
-            gap_steps=disturbance.gap_steps,
+            _EVENT_PLANS,
+            first_start_step=max(30, spec.n_steps // 12),
+            gap_steps=(120, 900),
         )
 
     def begin_event(self, event: BenignEvent) -> None:
@@ -987,7 +641,7 @@ class WaterTreatmentPlant(Plant):
         """Run the three loops and the feedforward, all on what the instruments reported."""
         manual = active.kind if active is not None else ""
         if manual == BACKWASH:
-            intake = self._p.backwash_intake_pct
+            intake = _BACKWASH_INTAKE_PCT
         elif manual == INTAKE_STOP:
             intake = 0.0
         else:
@@ -995,7 +649,7 @@ class WaterTreatmentPlant(Plant):
                 measurement=report[CLEARWELL_LEVEL],
                 setpoint=report[LEVEL_SETPOINT],
                 dt_seconds=dt_seconds,
-                bias=self._level_bias,
+                bias=33.0,
             )
         return {
             INTAKE_SPEED: intake,
@@ -1004,13 +658,13 @@ class WaterTreatmentPlant(Plant):
                 measurement=report[CHLORINE_RESIDUAL],
                 setpoint=report[RESIDUAL_SETPOINT],
                 dt_seconds=dt_seconds,
-                bias=self._residual_bias,
+                bias=1.4,
             ),
             BOOSTER_SPEED: self._pressure_loop.update(
                 measurement=report[DISTRIBUTION_PRESSURE],
                 setpoint=report[PRESSURE_SETPOINT],
                 dt_seconds=dt_seconds,
-                bias=self._pressure_bias,
+                bias=55.0,
             ),
         }
 
@@ -1026,33 +680,33 @@ class WaterTreatmentPlant(Plant):
         demand = self._demand(elapsed_hours)
         turbidity = self._raw_turbidity(elapsed_hours, active)
         intake = actuators[INTAKE_SPEED]
-        inflow = self._p.max_intake_m3ph * math.sqrt(clamp(intake, 0.0, 100.0) / 100.0)
+        inflow = _MAX_INTAKE_M3PH * math.sqrt(clamp(intake, 0.0, 100.0) / 100.0)
 
         level = accumulate(
             state[CLEARWELL_LEVEL],
-            rate_per_second=(inflow - demand) / self._p.clearwell_area_m2 / 3600.0,
+            rate_per_second=(inflow - demand) / _CLEARWELL_AREA_M2 / 3600.0,
             dt_seconds=dt_seconds,
             low=0.0,
             high=6.0,
         )
         load = state[FILTER_LOAD] + inflow * turbidity * dt_seconds / 3600.0
-        headloss = clamp(self._p.headloss_clean_m + self._p.headloss_per_load * load, 0.0, 3.5)
+        headloss = clamp(_HEADLOSS_CLEAN_M + _HEADLOSS_PER_LOAD * load, 0.0, 3.5)
 
         coagulant = actuators[COAGULANT_DOSE]
         filtered = first_order(
             state[FILTERED_TURBIDITY],
             target=turbidity * self._filter_fraction(coagulant, turbidity),
             dt_seconds=dt_seconds,
-            tau_seconds=self._p.turbidity_tau_s,
+            tau_seconds=_TURBIDITY_TAU_S,
         )
 
-        contact = self._p.clearwell_area_m2 * level / max(demand, 1.0)
-        survival = math.exp(-self._p.chlorine_decay_per_hour * contact)
+        contact = _CLEARWELL_AREA_M2 * level / max(demand, 1.0)
+        survival = math.exp(-_CHLORINE_DECAY_PER_HOUR * contact)
         residual = first_order(
             state[CHLORINE_RESIDUAL],
             target=actuators[CHLORINE_DOSE] * survival,
             dt_seconds=dt_seconds,
-            tau_seconds=self._p.residual_tau_s,
+            tau_seconds=_RESIDUAL_TAU_S,
         )
 
         booster = actuators[BOOSTER_SPEED]
@@ -1060,7 +714,7 @@ class WaterTreatmentPlant(Plant):
             state[DISTRIBUTION_PRESSURE],
             target=self._pressure_for(booster, demand),
             dt_seconds=dt_seconds,
-            tau_seconds=self._p.pressure_tau_s,
+            tau_seconds=_PRESSURE_TAU_S,
         )
 
         return {
@@ -1089,9 +743,9 @@ class WaterTreatmentPlant(Plant):
         Exogenous by construction. Nothing in the works controls it, which is what makes it the
         driver every other signal is ultimately responding to.
         """
-        daily = cycle_factor(elapsed_hours, 24.0, self._p.demand_daily_m3ph, 2.0)
-        half = cycle_factor(elapsed_hours, 12.0, self._p.demand_half_daily_m3ph, 5.0)
-        return max(self._p.demand_base_m3ph + daily + half, self._p.demand_floor_m3ph)
+        daily = cycle_factor(elapsed_hours, 24.0, _DEMAND_DAILY_M3PH, 2.0)
+        half = cycle_factor(elapsed_hours, 12.0, _DEMAND_HALF_DAILY_M3PH, 5.0)
+        return max(_DEMAND_BASE_M3PH + daily + half, _DEMAND_FLOOR_M3PH)
 
     def _raw_turbidity(self, elapsed_hours: float, active: BenignEvent | None) -> float:
         """Return river turbidity: a slow natural wander, lifted while rainfall is washing in."""
@@ -1107,9 +761,7 @@ class WaterTreatmentPlant(Plant):
 
     def _coagulant(self, raw_turbidity: float) -> float:
         """Return the feedforward coagulant dose. Paced from turbidity, with no feedback."""
-        return clamp(
-            self._p.coagulant_base_mgpl + self._p.coagulant_per_ntu * raw_turbidity, 0.0, 20.0
-        )
+        return clamp(_COAGULANT_BASE_MGPL + _COAGULANT_PER_NTU * raw_turbidity, 0.0, 20.0)
 
     def _filter_fraction(self, coagulant: float, raw_turbidity: float) -> float:
         """Return the share of raw turbidity that survives coagulation and filtration.
@@ -1119,9 +771,7 @@ class WaterTreatmentPlant(Plant):
         though the dosing loop is working exactly as designed.
         """
         demand = max(0.35 * raw_turbidity, 0.1)
-        return self._p.min_filter_fraction + self._p.max_filter_fraction * math.exp(
-            -coagulant / demand
-        )
+        return _MIN_FILTER_FRACTION + _MAX_FILTER_FRACTION * math.exp(-coagulant / demand)
 
     def _pressure_for(self, booster_speed: float, flow: float) -> float:
         """Return the pressure a booster speed produces against a flow: pump curve less friction."""
@@ -1131,6 +781,3 @@ class WaterTreatmentPlant(Plant):
         """Invert the pump curve: the speed that would hold ``pressure`` at ``flow``."""
         squared = (pressure - 1.0 + 3.0e-5 * flow**2) / 9.0
         return clamp(100.0 * math.sqrt(max(squared, 0.0)), 0.0, 100.0)
-
-
-register_template("water-treatment-v1", WaterTreatmentPlant)

@@ -276,7 +276,9 @@ def _replay_one(
         event_seed=case.seed,
     )
 
-    probe = _probe_modified_plant(interface, plant, case.attack_genome, budget_per_query)
+    probe = _probe_modified_plant(
+        interface, plant, case.attack_genome, budget_per_query
+    )
     detected = cast(bool, probe["detected"])
 
     # Generate variants and test each one for generalisation evidence.
@@ -285,7 +287,9 @@ def _replay_one(
     all_variants_detected = True
     for variant in variants:
         validate_genome(variant)
-        variant_probe = _probe_modified_plant(interface, plant, variant, budget_per_query)
+        variant_probe = _probe_modified_plant(
+            interface, plant, variant, budget_per_query
+        )
         variant_results.append(
             {
                 "genome": variant,

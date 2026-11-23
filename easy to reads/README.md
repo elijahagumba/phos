@@ -135,13 +135,6 @@ Read them in order the first time. After that, jump.
 117. [A slot enters only as a law break](117-a-slot-enters-only-as-a-law-break.md) — the exact type is required, and a subclass that carries a magnitude is refused (ADR 0322)
 118. [Every sentence names the law it came from](118-every-sentence-names-the-law-it-came-from.md) — the law's name, then the fact, and a score-word is refused (ADR 0323)
 
-Notes **119 to 185** are spread across branches and not yet listed above; this index runs behind
-the folder and saying so is cheaper than a list written from the filenames.
-
-186. [Six plants is not enough to be tested on](186-six-plants-is-not-enough-to-be-tested-on.md) — holding back a seed holds back the noise, not the plant, so we built something that draws plants instead; five kinds and one sealed, a bad draw refused rather than nudged, and **nothing scored on any of it yet** (ADR 0433 to 0439)
-188. [We shortened the front page and named our weakest comparison](188-we-shortened-the-front-page-and-named-our-weakest-comparison.md) — four thousand words became twelve hundred, the refused detectors moved above the machinery, and the baseline behind our best number is now named as the elementary thing it is; the contract's mathematics moved to the refusal paper and **the test that pins it to the code moved with it rather than being deleted** (ADR 0443)
-189. [The broken image nobody saw](189-the-broken-image-nobody-saw.md) — the public record page showed a grey box for nine commits and the export had no way to notice, because its guard only ever asked what must not leave; checking that what does leave still resolves found six broken targets, **four of them decision records citing sibling records by filenames nobody had read** (ADR 0448)
-
 ## The one sentence to keep
 
 PHOS does not catalogue known attacks. It learns what *normal* looks like, flags statistically
@@ -890,21 +883,6 @@ roadmap's later acts, and the first job is a measurement written
 down two weeks ago and never taken. Nothing was unlocked: the partner conversation is still blocked
 and the scoreboard still reads eight of twelve.
 
-Note 176 is the answer was written in the file (ADR 0421), and it is a correction to our own reading
-rather than to anybody's code. A draft email was going to tell the scientist who published the
-distillation column dataset that her two sets of labels contradict each other, because that is what
-this project's record had said since August — in a dataset note, then in a decision record's title,
-then in a second record, then in prepared data files. Checking it first found the opposite. Every
-one of the 55 flagged events in the training half carries a written sentence saying the event was
-assessed as negligible and treated as normal, 55 out of 55, and the other 19 files hold only a
-placeholder meaning nothing happened. The sentence is not boilerplate: 40 of the 451 entries in the
-abnormal half carry it, against all of them in the normal half. The two labels agree and always did.
-Believing otherwise taught Atlas what normal looks like on 30.25 hours of plant operation while
-setting aside 21.19 hours of equally normal operation, and a test built on the supposed
-contradiction had no subject and was never run. No number is remeasured here and 18.72 an hour
-stands: retraining on all 51 hours is a measurement, and a measurement is declared before it runs.
-The August record keeps its title and its mistake, with the correction written beside it.
-
 Note 177 is the thing we could not do was never written down (ADRs 0346, 0422). A piece of plumbing
 that lets Atlas read a conversation rather than a single packet had been built, tested and merged two
 weeks ago, and nobody wrote the verdict — so for a week it sat in the main branch as working code
@@ -969,83 +947,6 @@ is a knob turned until the answer felt comfortable. Nothing was scored, no code 
 opened for its declarations only because a funding deadline in January needs the time more. A broken
 balance is still read as equipment failing, not as an attack. The scoreboard still reads eight of twelve.
 
-Note 179 is [five of twenty walked straight past](<179-five-of-twenty-walked-straight-past.md>)
-(ADRs 0316, 0425). The oldest open promise in the project was written down on 23 October — which plant,
-which eight practice runs, how a miss is counted, and a fingerprint of each of the two detectors so
-neither could be quietly swapped for a better one — and then nobody ran it. It stayed visible for
-seventeen days, which is the whole point of writing it down. It was run once on 9 November. Somebody at
-the desk that is *allowed* to set the plant's limits raises two of them at once, both new numbers
-perfectly ordinary on their own, no faked readings and nobody pretending to be a machine they are not.
-There were **twenty** such attempts, a number worked out from the recipe before anything was opened, so
-a run reporting a different total would have been measuring something else. **Fifteen were noticed and
-five went straight past.** The surprise was that the two detectors agreed on every printed figure —
-same five misses, same thirty-eight false alerts, same rate, same delay. There is a plain reason: the
-newer detector knows exactly two things, a machine speaking that never spoke before and a machine
-looking at something it never looked at before, and this attacker is the desk that is supposed to write
-these limits and looks at nothing unusual. So it has nothing to grip and quietly becomes the older
-detector again. That is not a verdict on it in general and does not touch what it achieved elsewhere.
-Two things this number is not: it is **not a detection rate** — one pretend plant, one plant language,
-built by us, and a reader who turns fifteen out of twenty into a percentage has been misled — and the
-false-alarm figure, a little over one an hour, is exactly what a different test produced the week
-before, because it is a property of how the practice runs are built rather than a discovery. What it
-does unlock: back in October the detector that would catch this was designed, with a written condition
-that it could only be built if the existing ones missed at least one. They missed five, so it **may** now
-be built under its own promise, and it is **not** built. One oddity worth keeping: the record calls the
-result *refused*, which is not a failure — the question had two real possible answers, both had to be
-written as conditions in advance, only one could come true, and the machinery prints *refused* when any
-condition is unmet. The answer is in which condition held. The scoreboard still reads eight of twelve.
-
-Note 181 is [the same commit failed two different ways](<181-the-same-commit-failed-two-different-ways.md>)
-(ADR 0428). The project has a gate that stops a record citing something that is not there, because a
-record whose references have quietly rotted reads exactly like one whose references are sound. It also
-has an escape hatch, which it needs: some references *should* dangle, so you may write a note beside
-one saying why, and the note has to give a reason rather than wave it through. A record about reading
-an industrial protocol contains a careful little warning — searching that folder for a number also
-matches the compiled copy Python leaves behind after it runs, and here is its name. Flagging it was
-right, and flagging it is what broke the gate. On a clean machine that file does not exist, so the gate
-failed for want of an explanation; the escape-hatch note was added; four minutes later the build failed
-for the **opposite** reason, because the build server runs the tests before the gate and running them
-creates exactly that file — so the citation resolved and the *note* was now vouching for something that
-needed no vouching. Same commit, same record, two failures pointing opposite ways, neither of them the
-gate's mistake. The actual fault was that the gate was asking a question whose answer depends on
-whether anything has run in the room yet, which is not a property of the record. The same thing had
-happened in October with a lock the research tooling creates, and the fix then was to stop treating it
-as a citation at all; compiled byte code is the same thing one folder over, so it gets the same answer.
-Two things were deliberately **not** done. The record was not edited — the sentence was correct, and a
-record reworded to suit a tool is one you can no longer trust. And the escape hatch was not widened,
-because another file looks like the same shape and is not: a measurement report a record says does not
-exist, which has since been produced. That one is real evidence, and a measurement that has not been
-taken is exactly what the gate exists to show, so it is left for its own decision. It is known to be
-fixed by making the problem happen on purpose: run the gate with the file absent, create it, run it
-again, and insist both runs agree. Nothing was measured and the scoreboard still reads eight of twelve.
-
-Note 187 is [nobody was watching the door](<187-nobody-was-watching-the-door.md>)
-(ADR 0442). There are two copies of this project: the private working one and a public one holding a
-carefully chosen subset. A script copies one into the other, refuses before writing a single file if
-it finds anything that should stay private, and never pushes, so a person always reads what goes out.
-All of that is about **what** is copied. None of it was about **when** — and between 2 and 15 November
-nobody ran it. By the time somebody asked, the public copy was missing twenty-four records and fifteen
-notes, including the research-record system, the roadmap that cut seven plans to one, the measurement
-promised since October, and a whole new tool for generating test plants. The part that stings is
-smaller: a record reserves a number for a verdict before it is written, the verdict was written on
-10 November, and for ten days afterwards the public copy told any reader in writing that the work was
-still unjudged. **No rule was broken, because there was no rule** — the existing duty covers three
-files inside the repository and says nothing about the copy strangers read, which is worse than an
-ignored rule, since an ignored rule leaves a trace. That makes three of these in one month: a verdict
-unwritten for a week, a measurement unrun for seventeen days, an export unsent for thirteen, every one
-found by a person happening to look. The obvious fix — export weekly or fail the build — is worse than
-it sounds: a deadline fails on its own one morning when a clock moves, on whoever happens to be
-working, about something they did not do, and a check that fires for a reason nobody caused gets
-loosened until it stops firing. So the bar counts **records waiting**, not days: it moves only when
-somebody writes a record, and it goes red in front of the person who just wrote it. The allowance is a
-deliberately generous ten, against a lapse that was forty-five, and the failure message says that
-raising it requires a record arguing for the change. Two smaller lessons: the script now refuses to
-publish from a half-finished working tree, because what got published would match no saved version of
-anything; and there is deliberately no check that the copying rules themselves have not changed, which
-sounds obvious and is a trap, since adding this guard meant editing those rules in a way that changes
-nothing about what is published. It cannot look at the public copy — the core may not reach a network —
-so it reads a note the script leaves behind, and guards against forgetting rather than against lying.
-Nothing was measured and the scoreboard still reads eight of twelve.
 Note 190 is [we said the simulator was closed, and it was not](<190-we-said-the-simulator-was-closed-and-it-was-not.md>)
 (ADRs 0455, 0456, 0457, 0458). Three records were written in one day about whether to release the
 simulation engine. The first proposed releasing it under the licence PHOS already uses, the second built
@@ -1071,3 +972,28 @@ encyclopedia had been committed straight into the public repository, around the 
 it, bringing thirty-four broken links of which four named deliberately withheld files by path. Nothing
 secret left; the index announcing it did. All three are put back. No corpus was opened, nothing was
 scored, and the scoreboard still reads eight of twelve.
+
+Note 191 is [five jobs that never share a chat](<191-five-jobs-that-never-share-a-chat.md>) (ADR 0460).
+Atlas research used to be one assistant having an idea, building it, choosing the test data and judging
+the result. Now a **scout** proposes ideas with a pass mark set in advance, up to three **builders** try
+them on practice data without ever seeing the sealed data, a **breaker** attacks each claimed win using
+only the plant's physics and never the engine's code, a **referee** in a fresh conversation scores each
+idea exactly once, and **Elijah** makes the calls only a person can make. Progress is one number,
+**unseen catch**: attacks put in front of the operator within eight alerts a shift on simulated runs
+nobody has seen. It starts at 87 of 120 with 6 of 40 false alarms, copied from the one unseen test Atlas
+has had. Checking that the proposed batch really is unseen found that two other held-back sets had their
+text files read, along with files in every other dataset folder, in one unexplained four-minute burst on
+17 November, so neither is called unseen until that is explained. The first scout found the weakest
+places, frozen readings (3 of 20), maintenance look-alikes (5 of 20) and false alarms (6 of 40), and
+ranked a physics check on the tank's drain first. Its most useful finding is that every live idea needs a
+decision from Elijah before anyone may build it. Nothing was scored, nothing sealed was opened, no code
+changed, and the scoreboard still reads eight of twelve.
+
+Note 192 is [the detectors built on sealed data now refuse](<192-the-detectors-built-on-sealed-data-now-refuse.md>)
+(ADR 0461, ADR 0462, ADR 0464). Six ways of building a detector from HAI, BATADAL or SWaT stop before
+they open a file, and the argument for reopening SWaT is void. The owner then hashed the five
+never-read corpora and the two held-back halves, 62 lines, and moved them into an encrypted disk
+image that is mounted only for a declared referee score. This copy of the project does not contain
+them. One worktree, `phos-g-dnp3`, still has a full set of the same folders. That copy was not opened
+and not deleted. The number on the board stays 87 of 120, and the scoreboard still reads eight of
+twelve.

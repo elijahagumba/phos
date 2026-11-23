@@ -20,6 +20,7 @@ REPOSITORY = Path(__file__).resolve().parent.parent
 if str(REPOSITORY / "src") not in sys.path:
     sys.path.insert(0, str(REPOSITORY / "src"))
 
+from phos.referee.record import record_atlas_on_run  # noqa: E402
 from phos.synth.attacks.battery import AttackDatasetConfig, load_batteries  # noqa: E402
 from phos.synth.attacks.generate import generate_attack_dataset  # noqa: E402
 
@@ -42,6 +43,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--no-capture", action="store_true", help="skip the pcap and write telemetry only"
     )
     parser.add_argument("--verbose", action="store_true", help="log what each dataset contains")
+    parser.add_argument(
+        "--write-phosrun",
+        action="store_true",
+        help="also write a .phosrun run record for each generated corpus",
+    )
     return parser.parse_args(argv)
 
 
@@ -79,6 +85,15 @@ def main(argv: list[str] | None = None) -> int:
             manifest.attacked_samples,
             directory,
         )
+        if args.write_phosrun:
+            phosrun_path = args.output / f"{config.name}.phosrun"
+            try:
+                written = record_atlas_on_run(directory, phosrun_path)
+                logger.info("wrote .phosrun: %s", written)
+            except Exception as error:  # recording never kills corpus generation
+                logger.warning(
+                    "%s: could not write .phosrun: %s", config.name, error
+                )
     return 0
 
 

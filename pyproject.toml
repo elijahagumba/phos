@@ -17,6 +17,8 @@ phos = "phos.demo.cli:main"
 phos-referee = "phos.referee.cli:main"
 phos-breaker = "phos.breaker.cli:main"
 phos-bench = "phos.release.cli:main"
+phos-run = "phos.runrecord.cli:main"
+phos-view = "phos.viewer.cli:main"
 
 [dependency-groups]
 dev = [

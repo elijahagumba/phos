@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHOS Viewer — Aggregate Views</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+<h1>PHOS Viewer — Aggregate</h1>
+<p class="subtitle">Summary across all runs</p>
+</header>
+
+<main>
+<div class="toolbar">
+<a href="/" class="back-button">← Back to library</a>
+<button id="refresh">Refresh</button>
+</div>
+
+<div id="aggregate-summary" class="aggregate-grid">
+<!-- Aggregate cards injected here by JavaScript -->
+</div>
+
+<div id="runs-table-container">
+<h2>Runs</h2>
+<table id="runs-table">
+<thead>
+<tr>
+<th>Name</th><th>Title</th><th>Kind</th><th>Pool</th><th>Alerts</th><th>Hypotheses</th><th>Narratives</th><th>Valid</th>
+</tr>
+</thead>
+<tbody>
+<!-- Rows injected here -->
+</tbody>
+</table>
+</div>
+</main>
+
+<script src="/app.js"></script>
+<script>
+const API_BASE = "";
+
+const state = {
+    runs: [],
+};
+
+async function init() {
+    try {
+        const response = await fetch(`${API_BASE}/api/runs`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        state.runs = await response.json();
+    } catch (err) {
+        document.body.innerHTML = `<p>Error loading runs: ${err.message}</p>`;
+        return;
+    }
+    renderSummary();
+    renderRunsTable();
+
+    document.getElementById("refresh").addEventListener("click", () => {
+        init();
+    });
+}
+
+function renderSummary() {
+    const runs = state.runs;
+    const total = runs.length;
+    const simulated = runs.filter(r => r.kind === "simulated").length;
+    const realData = runs.filter(r => r.kind === "real_data").length;
+    const dev = runs.filter(r => r.pool === "dev").length;
+    const publicPool = runs.filter(r => r.pool === "public").length;
+
+    const container = document.getElementById("aggregate-summary");
+    container.innerHTML = `
+        <div class="agg-card">
+            <div class="agg-value">${total}</div>
+            <div class="agg-label">Total Runs</div>
+        </div>
+        <div class="agg-card">
+            <div class="agg-value">${simulated}</div>
+            <div class="agg-label">Simulated</div>
+        </div>
+        <div class="agg-card">
+            <div class="agg-value">${realData}</div>
+            <div class="agg-label">Real Data</div>
+        </div>
+        <div class="agg-card">
+            <div class="agg-value">${dev}</div>
+            <div class="agg-label">Dev Pool</div>
+        </div>
+        <div class="agg-card">
+            <div class="agg-value">${publicPool}</div>
+            <div class="agg-label">Public Pool</div>
+        </div>
+    `;
+}
+
+function renderRunsTable() {
+    const tbody = document.querySelector("#runs-table tbody");
+    tbody.innerHTML = state.runs.map(run => `
+        <tr>
+            <td><a href="detail.html?run=${encodeURIComponent(run.name)}">${escapeHtml(run.name)}</a></td>
+            <td>${escapeHtml(run.title)}</td>
+            <td><span class="badge ${run.kind}">${escapeHtml(run.kind)}</span></td>
+            <td><span class="badge ${run.pool}">${escapeHtml(run.pool)}</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+        </tr>
+    `).join("");
+}
+
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+init();
+</script>
+</body>
+</html>

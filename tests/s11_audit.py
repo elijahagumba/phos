@@ -100,8 +100,8 @@ def _atlas_importers() -> list[str]:
 
 def test_only_referee_imports_atlas() -> None:
     importers = _atlas_importers()
-    assert not importers, "S6-S11 packages other than the referee import phos.atlas: " + str(
-        importers
+    assert not importers, (
+        "S6-S11 packages other than the referee import phos.atlas: " + str(importers)
     )
 
 
@@ -154,7 +154,9 @@ def _run_demo() -> str:
         timeout=300,
     )
     if result.returncode != 0:
-        raise AssertionError(f"demo script failed (exit {result.returncode}):\n{result.stderr}")
+        raise AssertionError(
+            f"demo script failed (exit {result.returncode}):\n{result.stderr}"
+        )
     combined = (result.stdout + result.stderr).encode("utf-8")
     return hashlib.sha256(combined).hexdigest()
 

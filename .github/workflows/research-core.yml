@@ -27,14 +27,32 @@ jobs:
       - name: Sync pinned dependencies including the dev group
         run: uv sync --frozen --all-groups
 
+      # Separate steps, and a failure in one does not skip the others. A red lint
+      # used to stop the job before mypy ran, so the type check had no result.
+      # The job still fails when any of the three is red. ADR 0461.
       - name: Lint
+        id: ruff
+        continue-on-error: true
         run: uv run ruff check .
 
       - name: Format
+        id: format
+        continue-on-error: true
         run: uv run ruff format --check .
 
       - name: Type-check
+        id: mypy
+        continue-on-error: true
         run: uv run mypy
+
+      - name: Fail when lint or types are red
+        run: |
+          echo "ruff check: ${{ steps.ruff.outcome }}"
+          echo "ruff format: ${{ steps.format.outcome }}"
+          echo "mypy: ${{ steps.mypy.outcome }}"
+          test "${{ steps.ruff.outcome }}" = "success"
+          test "${{ steps.format.outcome }}" = "success"
+          test "${{ steps.mypy.outcome }}" = "success"
 
       - name: Tests
         run: uv run pytest -q

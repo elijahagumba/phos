@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from tests.lab_only import RULES_ABSENT_REASON, skip_if_absent
 
 #: One filled-in question, the shape ``ask`` accepts.
 QUESTION: dict[str, Any] = {
@@ -82,7 +81,6 @@ def repo(tmp_path: Path) -> Path:
     real files, not a cut-down stand-in: a test that ran against a fixture rule would prove
     nothing about the rule this repository ships.
     """
-    skip_if_absent(REPO / "docs" / "rules" / "data-tiers.md", RULES_ABSENT_REASON)
     subprocess.run(["git", "init", "-q", "."], cwd=tmp_path, check=True)
     subprocess.run(["git", "config", "user.email", "t@example.invalid"], cwd=tmp_path, check=True)
     subprocess.run(["git", "config", "user.name", "test"], cwd=tmp_path, check=True)

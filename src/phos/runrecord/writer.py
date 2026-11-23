@@ -111,11 +111,15 @@ def write_run(
     # Build all member byte contents except the header (which references hashes).
     member_bytes: dict[str, bytes] = {}
 
-    member_bytes[fmt.MEMBER_PLANT] = _json_bytes(plant) if plant is not None else b"{}"
+    member_bytes[fmt.MEMBER_PLANT] = (
+        _json_bytes(plant) if plant is not None else b"{}"
+    )
     member_bytes[fmt.MEMBER_STRUCTURE] = _json_bytes(structure)
     member_bytes[fmt.MEMBER_TIMELINE] = _json_bytes(timeline)
     member_bytes[fmt.MEMBER_LABELS] = _json_bytes(labels)
-    member_bytes[fmt.MEMBER_THUMBNAIL] = thumbnail.encode("utf-8") if thumbnail is not None else b""
+    member_bytes[fmt.MEMBER_THUMBNAIL] = (
+        thumbnail.encode("utf-8") if thumbnail is not None else b""
+    )
 
     # Telemetry: chunks + index.
     telemetry_member_bytes: dict[str, bytes] = {}
@@ -139,8 +143,8 @@ def write_run(
                     "chunk_index": chunk_index,
                     "start_time": chunk["start_time"],
                     "end_time": chunk["end_time"],
-                    "file": chunk_name,
-                    "samples": int(data.shape[0]),
+                    "file": fmt.TELEMETRY_CHUNK_NAME_TEMPLATE.format(index=chunk["chunk_index"]),
+                    "samples": int(chunk["data"].shape[0]),
                     "min_max": chunk["min_max"],
                 }
             )
@@ -152,10 +156,50 @@ def write_run(
             "chunk_length": fmt.TELEMETRY_CHUNK_LENGTH,
             "chunks": telemetry_chunks_meta,
         }
-        member_bytes[fmt.MEMBER_TELEMETRY_INDEX] = _json_bytes(telemetry_index)
+    else:
+        telemetry_index = {
+            "columns": [],
+            "sample_period": 0.0,
+            "start_time": "",
+            "chunk_length": fmt.TELEMETRY_CHUNK_LENGTH,
+            "chunks": [],
+        }
+
+    member_bytes[fmt.MEMBER_TELEMETRY_INDEX] = _json_bytes(telemetry_index)
 
     # Merge telemetry chunk bytes into member bytes.
     member_bytes.update(telemetry_member_bytes)
+
+    # Add optional Atlas members.
+    if atlas is not None:
+        if "detector" in atlas:
+            member_bytes[fmt.MEMBER_ATLAS_DETECTOR] = _json_bytes(atlas["detector"])
+        if "alerts" in atlas:
+            member_bytes[fmt.MEMBER_ATLAS_ALERTS] = _jsonl_bytes(atlas["alerts"])
+        if "hypotheses" in atlas:
+            member_bytes[fmt.MEMBER_ATLAS_HYPOTHESES] = _jsonl_bytes(
+                atlas["hypotheses"]
+            )
+        if "narratives" in atlas:
+            member_bytes[fmt.MEMBER_ATLAS_NARRATIVES] = _jsonl_bytes(
+                atlas["narratives"]
+            )
+
+    # Add optional scores.
+    if scores is not None:
+        member_bytes[fmt.MEMBER_SCORES] = _json_bytes(scores)
+
+    # Add optional traffic.
+    if traffic is not None:
+        if "summary" in traffic:
+            member_bytes[fmt.MEMBER_TRAFFIC_SUMMARY] = _json_bytes(
+                traffic["summary"]
+            )
+        capture = traffic.get("capture")
+        if capture is not None:
+            member_bytes[fmt.MEMBER_TRAFFIC_CAPTURE] = (
+                capture if isinstance(capture, bytes) else capture.encode("utf-8")
+            )
 
     # Compute member hashes and sizes (excluding header which references them).
     member_hashes: dict[str, str] = {}
@@ -188,13 +232,16 @@ def write_run(
     }
     header_bytes = _json_bytes(header)
 
-    # run_id = SHA-256 over NON-header member hashes only. header.json's own
-    # hash is not included, because header.json contains run_id itself
-    # (circular dependency). header.json's hash is still included in
-    # declared_members so that corrupting header.json is detected.
-    non_header_hashes = {name: h for name, h in member_hashes.items() if name != fmt.MEMBER_HEADER}
+    # run_id = SHA-256 over "member_name:sha256" pairs for NON-header members only.
+    # header.json contains run_id itself, so we can't include it in its own
+    # hash input (circular dependency). header.json's hash is still included
+    # in declared_members so that corrupting header.json is detected by verify().
+    non_header_hashes = {
+        name: h for name, h in member_hashes.items() if name != fmt.MEMBER_HEADER
+    }
     hash_input = "".join(
-        f"{name}:{non_header_hashes[name]}" for name in sorted(non_header_hashes.keys())
+        f"{name}:{non_header_hashes[name]}"
+        for name in sorted(non_header_hashes.keys())
     ).encode("utf-8")
     run_id = hashlib.sha256(hash_input).hexdigest()
     header["run_id"] = run_id
@@ -206,31 +253,6 @@ def write_run(
 
     # Add header to members (with final run_id).
     member_bytes[fmt.MEMBER_HEADER] = header_bytes
-
-    # Add optional Atlas members.
-    if atlas is not None:
-        if "detector" in atlas:
-            member_bytes[fmt.MEMBER_ATLAS_DETECTOR] = _json_bytes(atlas["detector"])
-        if "alerts" in atlas:
-            member_bytes[fmt.MEMBER_ATLAS_ALERTS] = _jsonl_bytes(atlas["alerts"])
-        if "hypotheses" in atlas:
-            member_bytes[fmt.MEMBER_ATLAS_HYPOTHESES] = _jsonl_bytes(atlas["hypotheses"])
-        if "narratives" in atlas:
-            member_bytes[fmt.MEMBER_ATLAS_NARRATIVES] = _jsonl_bytes(atlas["narratives"])
-
-    # Add optional scores.
-    if scores is not None:
-        member_bytes[fmt.MEMBER_SCORES] = _json_bytes(scores)
-
-    # Add optional traffic.
-    if traffic is not None:
-        if "summary" in traffic:
-            member_bytes[fmt.MEMBER_TRAFFIC_SUMMARY] = _json_bytes(traffic["summary"])
-        capture = traffic.get("capture")
-        if capture is not None:
-            member_bytes[fmt.MEMBER_TRAFFIC_CAPTURE] = (
-                capture if isinstance(capture, bytes) else capture.encode("utf-8")
-            )
 
     # Write ZIP deterministically: members sorted alphabetically.
     output_path = Path(output)

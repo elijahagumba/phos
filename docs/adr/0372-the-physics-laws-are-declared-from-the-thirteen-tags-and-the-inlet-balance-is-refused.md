@@ -5,7 +5,7 @@
 - **PART:** Atlas, build brief H, rung H2. Declaration. No code exists, no corpus is opened
 - **Supersedes:** nothing
 - **Depends on:** [ADR 0423](0423-h2-opens-for-declarations-only-and-the-scoring-still-waits-for-the-bid.md),
-  ADR 0369 (lab record, not published),
+  [ADR 0369](0369-h1-runs-now-and-the-later-rungs-wait-for-the-bid.md),
   [ADR 0370](0370-code-laws-are-derived-from-the-controller-program.md),
   [ADR 0322](0322-a-slot-enters-only-as-a-law-break.md),
   [ADR 0323](0323-every-sentence-names-the-law-it-came-from.md),

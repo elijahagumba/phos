@@ -4,7 +4,7 @@
 - **Date:** 2026-10-29
 - **PART:** Atlas, build brief H, rung H1. Declaration. No code exists
 - **Supersedes:** nothing
-- **Depends on:** ADR 0369 (lab record, not published),
+- **Depends on:** [ADR 0369](0369-h1-runs-now-and-the-later-rungs-wait-for-the-bid.md),
   [ADR 0368](0368-triangulation-and-a-self-search-are-named-after-brief-g.md),
   [ADR 0321](0321-the-controller-comparison-is-true-or-false.md),
   [ADR 0322](0322-a-slot-enters-only-as-a-law-break.md),

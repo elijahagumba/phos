@@ -19,6 +19,13 @@ registered unseen corpus" is scored **once**, so its tier is ``once`` and its de
 so. Nothing here infers a tier from a registry ``role`` field — that would be the registry
 overruling the rule, and the rule wins.
 
+Two phrases in the iterate-freely bullet are not backtick names, so the parser cannot see them.
+``resolve`` reads them from the rule text. "the synthetic plants" is the corpus ``synth``.
+"the declared development half of any new corpus" is a registered name whose held-back pair is
+also registered, under the suffix ``-heldout`` or ``-heldback``. That pair is the committed
+split. The ``role`` field is still not read. A name the rule already places in never-read is
+settled before either phrase is considered.
+
 The difference between this and ``guards.tiers.check`` is the direction of the safe answer, and it
 is deliberate. That guard is advisory and warns about a tool call, so a missing rule silences it —
 it must not block every tool call the day a file is renamed. This is a declaration, where a corpus
@@ -45,6 +52,17 @@ REGISTRY: Final = Path("data") / "registry.json"
 #: tier. Quoted rather than paraphrased, and asserted against the real file by the tests, so the
 #: catch-all cannot quietly disappear from the rule while this module still claims it.
 NEWLY_REGISTERED: Final = "any newly registered unseen corpus"
+
+#: The phrase that makes the corpus name ``synth`` iterate-freely. It is prose in the green
+#: bullet, not a backtick name, so the parser never puts it in ``Tiers.green``.
+SYNTHETIC_PLANTS: Final = "synthetic plants"
+
+#: The phrase that makes a registered development half iterate-freely. Same limit as above.
+DEVELOPMENT_HALF: Final = "declared development half of any new corpus"
+
+#: How a committed held-back half is named next to its development half. The role field is
+#: not consulted. Both suffixes are in the registry.
+HELD_BACK_SUFFIXES: Final = ("-heldout", "-heldback")
 
 #: The declaration's tier vocabulary, mapped onto the rule's. Both are needed: a record stores
 #: ``iterate``/``once``/``never`` and the rule file says green/amber/red, and the mapping is the
@@ -172,6 +190,68 @@ def _unknown(root: Path, corpus: str, registry: Registry, declared: str | None) 
     )
 
 
+def _phrase_sentence(rule_text: str, phrase: str) -> str | None:
+    """Return the rule's own sentence that contains ``phrase``, or ``None``.
+
+    Args:
+        rule_text: The data-tier rule, as read from disk.
+        phrase: A phrase the bullet states in prose rather than in backticks.
+
+    Returns:
+        The sentence, whitespace collapsed, or ``None`` when the phrase is absent. An absent
+        phrase means the rule no longer says it, and the caller must not keep applying it.
+    """
+    if phrase not in rule_text:
+        return None
+    flat = " ".join(rule_text.split())
+    start = flat.find(phrase)
+    left = flat.rfind(". ", 0, start)
+    begin = 0 if left < 0 else left + 2
+    right = flat.find(". ", start)
+    end = len(flat) if right < 0 else right + 1
+    return flat[begin:end].strip()
+
+
+def _is_development_half(corpus: str, names: frozenset[str]) -> bool:
+    """Return whether ``corpus`` is the development name of a registered split.
+
+    Args:
+        corpus: The corpus name as the declaration gives it.
+        names: The registry's corpus names. The ``role`` field is not among them.
+
+    Returns:
+        True when ``corpus`` is registered, is not itself a held-back name, and the registry
+        also lists that name with a held-back suffix. A registry that cannot be read has no
+        names, so it promotes nothing.
+    """
+    name = corpus.strip()
+    if name not in names or name.endswith(HELD_BACK_SUFFIXES):
+        return False
+    return any(f"{name}{suffix}" in names for suffix in HELD_BACK_SUFFIXES)
+
+
+def _as_green(corpus: str, declared: str | None, sentence: str, because: str) -> TierVerdict:
+    """Return an iterate-freely verdict quoting ``sentence``.
+
+    Args:
+        corpus: The corpus name as the declaration gives it.
+        declared: The tier the declaration asserted, or ``None``.
+        sentence: The rule's own words.
+        because: One line saying which phrase decided it.
+
+    Returns:
+        A green verdict. A declaration that says something other than ``iterate`` disagrees.
+    """
+    return TierVerdict(
+        corpus=corpus,
+        tier="green",
+        expected_tier="iterate",
+        declared=declared,
+        sentence=sentence,
+        detail=(f"docs/rules/{RULE_FILE} — {sentence}", because),
+    )
+
+
 def resolve(root: Path, corpus: str, declared: str | None = None) -> TierVerdict:
     """Return what the data-tier rule says about declaring a run on ``corpus``.
 
@@ -238,6 +318,26 @@ def resolve(root: Path, corpus: str, declared: str | None = None) -> TierVerdict
         )
 
     registry = read_registry(root)
+
+    synthetic = _phrase_sentence(rule_text, SYNTHETIC_PLANTS)
+    if synthetic is not None and corpus.strip().lower() == "synth":
+        return _as_green(
+            corpus,
+            declared,
+            synthetic,
+            "`synth` is the synthetic plants the iterate-freely bullet names",
+        )
+
+    development = _phrase_sentence(rule_text, DEVELOPMENT_HALF)
+    if development is not None and _is_development_half(corpus, registry.names):
+        return _as_green(
+            corpus,
+            declared,
+            development,
+            f"`{corpus}` is the development half of a split the registry lists as a pair of "
+            "names. The role field is not consulted.",
+        )
+
     if corpus.strip() in registry.names:
         once_sentence = _catch_all_sentence(parsed)
         return TierVerdict(

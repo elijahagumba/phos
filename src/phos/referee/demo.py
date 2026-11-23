@@ -26,6 +26,7 @@ from phos.ontology import Domain, Observation
 from phos.reasoning import FittedPlattCalibrator
 from phos.referee.corpus import load_plant_dataset
 from phos.referee.detectors import AtlasDetector, _reconstruct_values
+from phos.referee.quarantine import QuarantinedCorpusError
 from phos.synth.families import get_family
 from phos.synth.outputs import TOPOLOGY_FILE, generate_plant
 
@@ -321,8 +322,6 @@ def icssim_detector() -> Detector:
 # BATADAL — C-Town water distribution network (water sector, real data)
 # ============================================================================
 
-_BATADAL_TRAIN: Path = Path("data/batadal/batadal-train-prepared.csv")
-
 _BATADAL_TANKS: tuple[str, ...] = tuple(f"L_T{i}" for i in range(1, 8))
 _BATADAL_PUMPS: tuple[str, ...] = tuple(f"PU{i}" for i in range(1, 12))
 _BATADAL_VALVES: tuple[str, ...] = ("V2",)
@@ -403,55 +402,19 @@ _BATADAL_ALL_SIGNALS: frozenset[str] = frozenset(
 
 
 def batadal_detector() -> Detector:
-    """Build an `AtlasDetector` fitted on BATADAL water network training data.
+    """Refuse to fit on BATADAL.
 
-    Fits on ``data/batadal/batadal-train-prepared.csv`` (attack-free year of
-    hourly SCADA from the C-Town water network) and is then reused unchanged
-    against BATADAL exam plants. The sequential consistency model is fit on
-    pump status signals (S_PU*), which are the network's commanded setpoints.
+    ADR 0461. BATADAL is never-read. This factory used to open the training file
+    and fit a model on it. It now raises before any path is opened.
 
-    Returns:
-        An `AtlasDetector` fitted on normal, attack-free BATADAL telemetry.
+    Raises:
+        QuarantinedCorpusError: Always.
     """
-    ds = _load_csv_dataset(_BATADAL_TRAIN, "batadal-normal-train")
-    train, _test = train_test_split(ds, SplitPolicy())
-
-    fitted = MahalanobisModel().fit(train.observations)
-    calibrator = FittedPlattCalibrator(coefficient=0.05, intercept=0.0)
-    consistency_calibrator = FittedPlattCalibrator(coefficient=1.0, intercept=0.0)
-
-    topology = SubsystemMap(_batadal_subsystems(), set(_BATADAL_ALL_SIGNALS))
-
-    # Fit the sequential model on pump status signals (pump setpoints).
-    train_features, _train_timestamps, train_values, _train_entity_of = _reconstruct_values(train)
-    col_map = {f: i for i, f in enumerate(train_features)}
-    sequential_model: dict[str, tuple[int, int]] = {}
-    for pump in _BATADAL_PUMPS:
-        tag = f"S_{pump}"
-        if tag in col_map:
-            col = col_map[tag]
-            longest = int(change_run(train_values[:, col]).max(initial=0.0))
-            sequential_model[tag] = (col, longest)
-    if "S_V2" in col_map:
-        col = col_map["S_V2"]
-        longest = int(change_run(train_values[:, col]).max(initial=0.0))
-        sequential_model["S_V2"] = (col, longest)
-
-    return AtlasDetector(
-        fitted=fitted,
-        calibrator=calibrator,
-        subsystem_map=topology,
-        consistency_calibrator=consistency_calibrator,
-        sequential_model=sequential_model or None,
-    )
+    raise QuarantinedCorpusError("batadal")
 
 
-# ============================================================================
-# HAI — HIL-based Augmented ICS Security Dataset (industrial ICS sector, real data)
-# ============================================================================
-
-_HAI_TRAIN: Path = Path("data/hai/hai-21.03-train-prepared.csv")
-
+# HAI process groupings. The training path is not kept here: opening it is what
+# ADR 0461 refuses. The groupings stay so the subsystem helper still has its names.
 _HAI_PROCESSES: tuple[tuple[str, tuple[str, ...]], ...] = (
     (
         "process_1",
@@ -577,62 +540,20 @@ _HAI_ALL_SIGNALS: frozenset[str] = frozenset(
 
 
 def hai_detector() -> Detector:
-    """Build an `AtlasDetector` fitted on HAI 21.03 training data.
+    """Refuse to fit on HAI.
 
-    Fits on ``data/hai/hai-21.03-train-prepared.csv`` (attack-free 60 hours of
-    HIL-based ICS telemetry) and is then reused unchanged against HAI exam
-    plants. The sequential consistency model is fit on P1_STSP (process 1
-    setpoint), which is the plant's commanded setpoint register.
+    ADR 0461. HAI is never-read. This factory used to open the training file and
+    fit a model on it. It now raises before any path is opened.
 
-    Returns:
-        An `AtlasDetector` fitted on normal, attack-free HAI telemetry.
+    Raises:
+        QuarantinedCorpusError: Always.
     """
-    ds = _load_csv_dataset(_HAI_TRAIN, "hai-normal-train")
-    train, _test = train_test_split(ds, SplitPolicy())
-
-    fitted = MahalanobisModel().fit(train.observations)
-    calibrator = FittedPlattCalibrator(coefficient=0.05, intercept=0.0)
-    consistency_calibrator = FittedPlattCalibrator(coefficient=1.0, intercept=0.0)
-
-    topology = SubsystemMap(_hai_subsystems(), set(_HAI_ALL_SIGNALS))
-
-    # Fit the sequential model on P1_STSP (process 1 setpoint).
-    train_features, _train_timestamps, train_values, _train_entity_of = _reconstruct_values(train)
-    col_map = {f: i for i, f in enumerate(train_features)}
-    sequential_model: dict[str, tuple[int, int]] = {}
-    if "P1_STSP" in col_map:
-        col = col_map["P1_STSP"]
-        longest = int(change_run(train_values[:, col]).max(initial=0.0))
-        sequential_model["P1_STSP"] = (col, longest)
-
-    # Pre-compute HAI code-law baselines from the FULL training file (not split),
-    # so baselines reflect pure attack-free operation. These are used by
-    # _build_hai_code_law_detections to detect deviations on exam plants.
-    hai_baselines: dict[str, tuple[int, float]] = {}
-    for tag in _HAI_ALL_SIGNALS:
-        if tag in col_map:
-            col = col_map[tag]
-            mean = float(train_values[:, col].mean())
-            hai_baselines[tag] = (col, mean)
-
-    return AtlasDetector(
-        fitted=fitted,
-        calibrator=calibrator,
-        subsystem_map=topology,
-        consistency_calibrator=consistency_calibrator,
-        sequential_model=sequential_model or None,
-        hai_baselines=hai_baselines,
-    )
+    raise QuarantinedCorpusError("hai")
 
 
-# ============================================================================
-# Kelmarsh — UK wind farm SCADA (power sector, UK, real data)
-# ============================================================================
-
+# Kelmarsh is a development corpus. These names stay, and kelmarsh_detector still fits on them.
 _KELMARSH_ZIP: Path = Path("data/kelmarsh/Kelmarsh_SCADA_2018_3084.zip")
 
-# Key turbine signals for detection (subset of all Greenbyte signals).
-# These cover wind, power, drive train, electrical, temperature and availability.
 _KELMARSH_SIGNALS: tuple[str, ...] = (
     "Wind speed (m/s)",
     "Wind direction (°)",
@@ -891,56 +812,15 @@ def _swat_all_signals(signal_names: list[str]) -> frozenset[str]:
 
 
 def swat_detector(train_csv: Path) -> Detector:
-    """Build an `AtlasDetector` fitted on SWaT training data.
+    """Refuse to fit on SWaT.
 
-    SWaT is form-gated at iTrust (ADR 0067). This factory is committed ready to
-    run the moment the form is returned and the training CSV is on disk. Pass the
-    path to the SWaT training CSV; the factory discovers signals from the header
-    and groups them by ADR 0063's declared physical roles.
-
-    Because SWaT data is not on disk, this factory is untested against real
-    SWaT telemetry. It is a structural readiness, not a measured result.
+    ADR 0461 and ADR 0462. SWaT is never-use by licence. The path is not opened,
+    not stated, and not tested for existence.
 
     Args:
-        train_csv: Path to the SWaT training CSV (from iTrust form return).
-
-    Returns:
-        An `AtlasDetector` fitted on normal, attack-free SWaT telemetry.
+        train_csv: Ignored. Accepted so an existing caller still type-checks.
 
     Raises:
-        FileNotFoundError: If ``train_csv`` does not exist.
+        QuarantinedCorpusError: Always.
     """
-    if not train_csv.exists():
-        raise FileNotFoundError(
-            f"SWaT training CSV not found at {train_csv}. "
-            "SWaT is form-gated at iTrust (ADR 0067); this factory waits for "
-            "the form to be returned, it does not fetch."
-        )
-
-    ds = _load_csv_dataset(train_csv, "swat-train")
-    train, _test = train_test_split(ds, SplitPolicy())
-
-    signal_names = sorted({o.feature for o in train.observations})
-    topology = SubsystemMap(_swat_subsystems(signal_names), _swat_all_signals(signal_names))
-
-    fitted = MahalanobisModel().fit(train.observations)
-    calibrator = FittedPlattCalibrator(coefficient=0.05, intercept=0.0)
-    consistency_calibrator = FittedPlattCalibrator(coefficient=1.0, intercept=0.0)
-
-    # Fit the sequential model on pump state signals (pump setpoints).
-    train_features, _train_timestamps, train_values, _train_entity_of = _reconstruct_values(train)
-    col_map = {f: i for i, f in enumerate(train_features)}
-    sequential_model: dict[str, tuple[int, int]] = {}
-    for tag in train_features:
-        if tag.startswith("P") and not tag.startswith("PIT"):
-            col = col_map[tag]
-            longest = int(change_run(train_values[:, col]).max(initial=0.0))
-            sequential_model[tag] = (col, longest)
-
-    return AtlasDetector(
-        fitted=fitted,
-        calibrator=calibrator,
-        subsystem_map=topology,
-        consistency_calibrator=consistency_calibrator,
-        sequential_model=sequential_model or None,
-    )
+    raise QuarantinedCorpusError("swat")

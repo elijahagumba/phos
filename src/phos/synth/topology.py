@@ -27,13 +27,11 @@ from typing import Final
 
 from phos.atlas.topology import SCHEMA_VERSION, Subsystem, SubsystemMap
 from phos.synth.plant import PlantDescription
-from phos.synth.plant_spec import PlantSpec
 
 __all__ = [
     "SYNTHETIC_TOPOLOGY_CAVEAT",
     "subsystem_map",
     "subsystems",
-    "subsystems_from_components",
     "topology_toml",
     "write_topology",
 ]
@@ -76,46 +74,6 @@ def subsystems(description: PlantDescription) -> tuple[Subsystem, ...]:
             source=source,
         )
         for unit in description.units
-    )
-
-
-def subsystems_from_components(spec: PlantSpec) -> tuple[Subsystem, ...]:
-    """Return the subsystems read off a plant's component graph rather than off its signals.
-
-    This is PART R1's ground-truth map: the grouping comes from *what the plant is made of* —
-    which pump, filter and vessel exist, and which unit each sits on — not from a tag name, and
-    not from any statistic computed on the data.
-
-    It is the same partition `subsystems` returns. It has to be, and that is the point rather
-    than a coincidence: `phos.synth.plant_spec.PlantSpec` refuses a component whose signals are
-    instrumented on a different unit from the component itself, and refuses a signal no component
-    owns, so the drawing and the instruments cannot disagree. The two functions are kept apart so
-    the agreement is a tested fact (``tests/synth/test_plant_spec.py``) instead of an assumption,
-    and so a generated plant in PART R2 can be grouped from its structure before anything has
-    been measured on it.
-
-    Args:
-        spec: The plant.
-
-    Returns:
-        One subsystem per physical unit, in declared unit order, carrying every signal the
-        components on that unit own.
-    """
-    source = (
-        f"Declared by the simulation that generated this corpus: "
-        f"phos.synth.plants -> {spec.plant_id} -> SignalSpec.physical_unit. "
-        f"{SYNTHETIC_TOPOLOGY_CAVEAT}"
-    )
-    return tuple(
-        Subsystem(
-            subsystem_id=unit.unit_id,
-            label=unit.label,
-            signals=frozenset(
-                key for component in spec.components_on(unit.unit_id) for key in component.signals
-            ),
-            source=source,
-        )
-        for unit in spec.units
     )
 
 

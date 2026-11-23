@@ -43,7 +43,6 @@ from collections.abc import Mapping, Sequence
 from typing import Final
 
 from numpy.random import Generator
-from pydantic import BaseModel, ConfigDict
 
 from phos.synth.command import CommandSource, WriteAuthority
 from phos.synth.plant import (
@@ -62,19 +61,8 @@ from phos.synth.plant import (
     SignalSpec,
     lay_out_events,
 )
-from phos.synth.plant_spec import (
-    Component,
-    ComponentKind,
-    Connection,
-    ControllerKind,
-    ControllerSpec,
-    DisturbanceSpec,
-    EventPlanSpec,
-    PlantSpec,
-    fixed_setpoint,
-    pi_controller,
-)
 from phos.synth.process import (
+    PiController,
     accumulate,
     clamp,
     cycle_factor,
@@ -82,7 +70,6 @@ from phos.synth.process import (
     shift_index,
 )
 from phos.synth.realism import RealismProfile
-from phos.synth.templates import register_template
 
 __all__ = [
     "AMBIENT_TEMP",
@@ -96,18 +83,13 @@ __all__ = [
     "FUEL_VALVE",
     "GENERATOR_OUTPUT",
     "GRID_DEMAND",
-    "POWER_COMPONENTS",
-    "POWER_CONNECTIONS",
-    "POWER_CONTROLLERS",
     "POWER_DESCRIPTION",
     "POWER_FACTOR",
-    "POWER_SPEC",
     "TAP_POSITION",
     "TRANSFORMER_OIL_TEMP",
     "TURBINE_SPEED",
     "VOLTAGE_SETPOINT",
     "PowerGenerationPlant",
-    "PowerParameters",
 ]
 
 GRID_DEMAND: Final = "grid_demand_mw"
@@ -151,55 +133,6 @@ _TAP_DELAY_S: Final = 90.0
 _LINE_DROP_KV_PER_A: Final = 3.0e-4
 _BUS_DROP_KV_PER_A: Final = 6.0e-4
 _ROOT_THREE: Final = math.sqrt(3.0)
-
-
-class PowerParameters(BaseModel):
-    """Every free number this machine's physics reads, lifted out of the module's constants.
-
-    The defaults are the values the hand-written plant carried, so `POWER_SPEC` describes exactly
-    the set that produced the corpora pinned in ``tests/synth/golden/``.
-
-    Attributes:
-        rated_mw: Output the machine is rated at. Also what the governor's feedforward is
-            expressed as a fraction of.
-        nominal_hz: The frequency the island runs at. `POWER_CONTROLLERS` states the governor's
-            target separately, and PART R2's validity gate owes a check that the two agree.
-        rpm_per_hz: Shaft speed per hertz, which is the machine's pole count in disguise.
-        inertia_rpm_per_mw_s: How far the shaft slows per MW of unmatched load per second. The
-            whole reason frequency moves at all.
-        rated_current_a: Feeder current at rated output and nominal voltage.
-        top_oil_rise_k: Transformer oil temperature rise above ambient at rated load.
-        oil_tau_s: Time constant of that rise. Long: a transformer is a large warm thing.
-        exhaust_tau_s: Time constant of exhaust temperature's response to fuel.
-        voltage_tau_s: Time constant of bus voltage's response to excitation.
-        tap_steps: Number of positions on the tap changer.
-        tap_ratio_per_step: Turns-ratio change one tap step makes.
-        tap_base_ratio: Turns ratio at tap position zero.
-        tap_deadband_kv: Feeder voltage error the tap changer tolerates before it moves.
-        tap_delay_s: Seconds the tap changer waits before moving, so it does not chase noise.
-        line_drop_kv_per_a: Feeder voltage lost per amp, along the line.
-        bus_drop_kv_per_a: Bus voltage lost per amp, through the machine's own impedance.
-    """
-
-    model_config = ConfigDict(frozen=True, extra="forbid")
-
-    rated_mw: float = _RATED_MW
-    nominal_hz: float = _NOMINAL_HZ
-    rpm_per_hz: float = _RPM_PER_HZ
-    inertia_rpm_per_mw_s: float = _INERTIA_RPM_PER_MW_S
-    rated_current_a: float = _RATED_CURRENT_A
-    top_oil_rise_k: float = _TOP_OIL_RISE_K
-    oil_tau_s: float = _OIL_TAU_S
-    exhaust_tau_s: float = _EXHAUST_TAU_S
-    voltage_tau_s: float = _VOLTAGE_TAU_S
-    tap_steps: float = _TAP_STEPS
-    tap_ratio_per_step: float = _TAP_RATIO_PER_STEP
-    tap_base_ratio: float = _TAP_BASE_RATIO
-    tap_deadband_kv: float = _TAP_DEADBAND_KV
-    tap_delay_s: float = _TAP_DELAY_S
-    line_drop_kv_per_a: float = _LINE_DROP_KV_PER_A
-    bus_drop_kv_per_a: float = _BUS_DROP_KV_PER_A
-
 
 POWER_UNITS: Final = (
     PhysicalUnit(unit_id="turbine", label="Gas turbine and fuel system"),
@@ -580,244 +513,6 @@ _EVENT_PLANS: Final = (
 )
 
 
-POWER_COMPONENTS: Final = (
-    Component(
-        component_id="fuel_valve",
-        kind=ComponentKind.VALVE,
-        label="Fuel control valve",
-        physical_unit="turbine",
-        signals=(FUEL_VALVE,),
-        description=(
-            "How much gas the turbine is given. Opening it further is the only way the set can "
-            "make more power."
-        ),
-    ),
-    Component(
-        component_id="gas_turbine",
-        kind=ComponentKind.TURBINE,
-        label="Gas turbine",
-        physical_unit="turbine",
-        signals=(TURBINE_SPEED, EXHAUST_TEMP),
-        description=(
-            "Burns the gas and turns the shaft. How hot the exhaust runs follows how hard it is "
-            "working, with a lag."
-        ),
-    ),
-    Component(
-        component_id="generator",
-        kind=ComponentKind.GENERATOR,
-        label="Synchronous generator",
-        physical_unit="generator",
-        signals=(GENERATOR_OUTPUT, BUS_FREQUENCY),
-        description=(
-            "Turns shaft power into electrical power. Because this island has no grid behind it, "
-            "frequency is the shaft's own speed: take more power than the turbine makes and the "
-            "whole island slows down."
-        ),
-    ),
-    Component(
-        component_id="exciter",
-        kind=ComponentKind.OTHER,
-        label="Excitation system",
-        physical_unit="generator",
-        signals=(EXCITATION,),
-        description=(
-            "Feeds current to the generator's field winding. More excitation, higher voltage — "
-            "this is the only handle the machine has on voltage."
-        ),
-    ),
-    Component(
-        component_id="generator_bus",
-        kind=ComponentKind.BUS,
-        label="Generator bus",
-        physical_unit="generator",
-        signals=(BUS_VOLTAGE,),
-        description="The machine's own terminals, before the step-up transformer.",
-    ),
-    Component(
-        component_id="dispatch_controller",
-        kind=ComponentKind.CONTROLLER,
-        label="Dispatch instruction",
-        physical_unit="generator",
-        signals=(DISPATCH_SETPOINT,),
-        description=(
-            "How much power the operator has told the set to make. The governor's feedforward is "
-            "paced from it."
-        ),
-    ),
-    Component(
-        component_id="step_up_transformer",
-        kind=ComponentKind.TRANSFORMER,
-        label="Step-up transformer with on-load tap changer",
-        physical_unit="transformer",
-        signals=(TAP_POSITION, TRANSFORMER_OIL_TEMP),
-        description=(
-            "Raises the machine's voltage to the feeder's. Its tap changer does not glide: it "
-            "waits out a timer and then moves one whole step, which is why its position staircases."
-        ),
-    ),
-    Component(
-        component_id="ambient",
-        kind=ComponentKind.SOURCE,
-        label="Ambient conditions",
-        physical_unit="transformer",
-        signals=(AMBIENT_TEMP,),
-        description=(
-            "The weather. Nobody controls it, and the transformer's oil temperature is measured "
-            "from it rather than from zero."
-        ),
-    ),
-    Component(
-        component_id="voltage_controller",
-        kind=ComponentKind.CONTROLLER,
-        label="Feeder voltage target",
-        physical_unit="transformer",
-        signals=(VOLTAGE_SETPOINT,),
-        description="The feeder voltage the tap changer is holding to.",
-    ),
-    Component(
-        component_id="outgoing_feeder",
-        kind=ComponentKind.FEEDER,
-        label="Outgoing feeder and metering",
-        physical_unit="feeder",
-        signals=(FEEDER_VOLTAGE, FEEDER_CURRENT, POWER_FACTOR),
-        description=(
-            "The circuit leaving the site, with its metering. Power factor moves when the mix of "
-            "customers on it changes, which is switching rather than anything the set did."
-        ),
-    ),
-    Component(
-        component_id="island_load",
-        kind=ComponentKind.LOAD,
-        label="Island demand",
-        physical_unit="feeder",
-        signals=(GRID_DEMAND,),
-        description=(
-            "What the island is actually drawing. The set has to follow it; nothing here gets to "
-            "decide it."
-        ),
-    ),
-)
-"""What the generating set is made of, every signal owned exactly once."""
-
-POWER_CONNECTIONS: Final = (
-    Connection(source="fuel_valve", target="gas_turbine", medium="fuel", label="gas to the burner"),
-    Connection(
-        source="gas_turbine", target="generator", medium="shaft", label="shaft power to the rotor"
-    ),
-    Connection(
-        source="exciter",
-        target="generator",
-        medium="electrical",
-        label="field current to the rotor",
-    ),
-    Connection(
-        source="generator",
-        target="generator_bus",
-        medium="electrical",
-        label="machine terminals to the bus",
-    ),
-    Connection(
-        source="generator_bus",
-        target="step_up_transformer",
-        medium="electrical",
-        label="bus to the transformer's low-voltage winding",
-    ),
-    Connection(
-        source="step_up_transformer",
-        target="outgoing_feeder",
-        medium="electrical",
-        label="transformer to the outgoing feeder",
-    ),
-    Connection(
-        source="outgoing_feeder",
-        target="island_load",
-        medium="electrical",
-        label="feeder to the island's customers",
-    ),
-    Connection(
-        source="ambient",
-        target="step_up_transformer",
-        medium="heat",
-        label="ambient air the oil temperature is measured from",
-    ),
-    Connection(
-        source="dispatch_controller",
-        target="fuel_valve",
-        medium="signal",
-        label="dispatch paces the governor's feedforward",
-    ),
-    Connection(
-        source="voltage_controller",
-        target="step_up_transformer",
-        medium="signal",
-        label="voltage target drives the tap changer",
-    ),
-)
-"""Which way the energy goes, and which instruction drives what."""
-
-POWER_CONTROLLERS: Final = (
-    ControllerSpec(
-        controller_id="governor",
-        kind=ControllerKind.PI,
-        measurement=BUS_FREQUENCY,
-        setpoint_value=_NOMINAL_HZ,
-        output=FUEL_VALVE,
-        gain=9.0,
-        integral_time_seconds=25.0,
-        low=0.0,
-        high=100.0,
-        description=(
-            "Holds the island at nominal frequency by moving the fuel valve. Its feedforward is "
-            "not a constant and so is not declared here: the template paces it from the dispatch "
-            "setpoint, as a fraction of rated output."
-        ),
-    ),
-    ControllerSpec(
-        controller_id="avr",
-        kind=ControllerKind.PI,
-        measurement=BUS_VOLTAGE,
-        setpoint_value=11.0,
-        output=EXCITATION,
-        gain=14.0,
-        integral_time_seconds=6.0,
-        low=0.0,
-        high=100.0,
-        bias=75.0,
-        description="Holds the generator bus at nominal voltage by varying excitation.",
-    ),
-)
-"""The two continuous regulators. The tap changer is neither a PI loop nor a hysteresis element —
-it is a timer and a single step — so it stays in the template rather than being misdescribed as
-one of the two control elements `phos.synth.process` implements."""
-
-POWER_SPEC: Final = PlantSpec(
-    plant_id=POWER_DESCRIPTION.plant_id,
-    label=POWER_DESCRIPTION.label,
-    industry=POWER_DESCRIPTION.industry,
-    summary=POWER_DESCRIPTION.summary,
-    model_source=POWER_DESCRIPTION.model_source,
-    process="power-generation-v1",
-    parameters=PowerParameters().model_dump(),
-    units=POWER_UNITS,
-    signals=POWER_SIGNALS,
-    components=POWER_COMPONENTS,
-    connections=POWER_CONNECTIONS,
-    controllers=POWER_CONTROLLERS,
-    couplings=POWER_COUPLINGS,
-    control_network=POWER_NETWORK,
-    write_authority=POWER_AUTHORITY,
-    disturbance=DisturbanceSpec(
-        event_plans=tuple(EventPlanSpec.from_plan(plan) for plan in _EVENT_PLANS),
-        first_start_floor=60,
-        first_start_divisor=12,
-        gap_steps=(300, 2400),
-    ),
-)
-"""The generating set, declaratively. `PowerGenerationPlant` builds this one unless handed
-another, and `describe()` returns `POWER_DESCRIPTION` field for field."""
-
-
 class PowerGenerationPlant(Plant):
     """A generating set with a governor, an AVR and a tap changer.
 
@@ -830,7 +525,6 @@ class PowerGenerationPlant(Plant):
         *,
         commands: CommandSource | None = None,
         realism: RealismProfile | None = None,
-        plant_spec: PlantSpec | None = None,
     ) -> None:
         """Build the machine and its regulators for one run.
 
@@ -840,24 +534,16 @@ class PowerGenerationPlant(Plant):
                 echo path. See `phos.synth.plant.Plant`.
             realism: Ordinary trouble to apply, or ``None`` for a quiet profile. See
                 `phos.synth.plant.Plant`.
-            plant_spec: The set to build, or ``None`` for `POWER_SPEC` — the one this module has
-                always described. See `phos.synth.plants.water.WaterTreatmentPlant`.
         """
-        self._plant_spec = plant_spec if plant_spec is not None else POWER_SPEC
-        self._description = self._plant_spec.describe()
-        self._p = PowerParameters.model_validate(dict(self._plant_spec.parameters))
-        self._governor = pi_controller(self._plant_spec, "governor")
-        self._avr = pi_controller(self._plant_spec, "avr")
-        self._governor_setpoint = fixed_setpoint(self._plant_spec, "governor")
-        self._avr_setpoint = fixed_setpoint(self._plant_spec, "avr")
-        self._avr_bias = self._plant_spec.controller("avr").bias
+        self._governor = PiController(gain=9.0, integral_time_seconds=25.0, low=0.0, high=100.0)
+        self._avr = PiController(gain=14.0, integral_time_seconds=6.0, low=0.0, high=100.0)
         self._tap_timer = 0.0
         super().__init__(spec, commands=commands, realism=realism)
 
     @property
     def description(self) -> PlantDescription:
         """The machine: sixteen signals across four physical units, on a Modbus network."""
-        return self._description
+        return POWER_DESCRIPTION
 
     def initial_state(self) -> Mapping[str, float]:
         """Start from the electrical solution the machine settles at under the opening load."""
@@ -868,16 +554,15 @@ class PowerGenerationPlant(Plant):
         excitation = self._excitation_for(11.0, current)
         tap = self._tap_for(10.8, 11.0, current)
         return {
-            FUEL_VALVE: 100.0 * output / self._p.rated_mw,
-            TURBINE_SPEED: self._p.nominal_hz * self._p.rpm_per_hz,
-            EXHAUST_TEMP: self._exhaust_target(100.0 * output / self._p.rated_mw, ambient),
+            FUEL_VALVE: 100.0 * output / _RATED_MW,
+            TURBINE_SPEED: _NOMINAL_HZ * _RPM_PER_HZ,
+            EXHAUST_TEMP: self._exhaust_target(100.0 * output / _RATED_MW, ambient),
             GENERATOR_OUTPUT: output,
-            BUS_FREQUENCY: self._p.nominal_hz,
+            BUS_FREQUENCY: _NOMINAL_HZ,
             EXCITATION: excitation,
             BUS_VOLTAGE: 11.0,
             TAP_POSITION: tap,
-            TRANSFORMER_OIL_TEMP: ambient
-            + self._p.top_oil_rise_k * (current / self._p.rated_current_a) ** 2,
+            TRANSFORMER_OIL_TEMP: ambient + _TOP_OIL_RISE_K * (current / _RATED_CURRENT_A) ** 2,
             AMBIENT_TEMP: ambient,
             FEEDER_VOLTAGE: self._feeder_voltage(11.0, tap, current),
             FEEDER_CURRENT: current,
@@ -889,13 +574,12 @@ class PowerGenerationPlant(Plant):
 
     def schedule_events(self, rng: Generator, spec: RunSpec) -> Sequence[BenignEvent]:
         """Lay the four kinds of operational event through the run, round-robin."""
-        disturbance = self._plant_spec.disturbance
         return lay_out_events(
             rng,
             spec,
-            disturbance.plans(),
-            first_start_step=disturbance.first_start_step(spec.n_steps),
-            gap_steps=disturbance.gap_steps,
+            _EVENT_PLANS,
+            first_start_step=max(60, spec.n_steps // 12),
+            gap_steps=(300, 2400),
         )
 
     def begin_event(self, event: BenignEvent) -> None:
@@ -914,15 +598,15 @@ class PowerGenerationPlant(Plant):
         """Run the governor, the AVR and the tap changer, all on what the instruments reported."""
         fuel = self._governor.update(
             measurement=report[BUS_FREQUENCY],
-            setpoint=self._governor_setpoint,
+            setpoint=_NOMINAL_HZ,
             dt_seconds=dt_seconds,
-            bias=100.0 * report[DISPATCH_SETPOINT] / self._p.rated_mw,
+            bias=100.0 * report[DISPATCH_SETPOINT] / _RATED_MW,
         )
         excitation = self._avr.update(
             measurement=report[BUS_VOLTAGE],
-            setpoint=self._avr_setpoint,
+            setpoint=11.0,
             dt_seconds=dt_seconds,
-            bias=self._avr_bias,
+            bias=75.0,
         )
         return {
             FUEL_VALVE: fuel,
@@ -955,13 +639,12 @@ class PowerGenerationPlant(Plant):
             state[BUS_VOLTAGE],
             target=self._bus_voltage_target(actuators[EXCITATION], state[FEEDER_CURRENT]),
             dt_seconds=dt_seconds,
-            tau_seconds=self._p.voltage_tau_s,
+            tau_seconds=_VOLTAGE_TAU_S,
         )
         output, current = self._electrical_solution(demand, bus_voltage, factor)
         speed = accumulate(
             state[TURBINE_SPEED],
-            rate_per_second=self._p.inertia_rpm_per_mw_s
-            * (self._p.rated_mw * fuel / 100.0 - output),
+            rate_per_second=_INERTIA_RPM_PER_MW_S * (_RATED_MW * fuel / 100.0 - output),
             dt_seconds=dt_seconds,
             low=0.0,
             high=3600.0,
@@ -973,18 +656,18 @@ class PowerGenerationPlant(Plant):
                 state[EXHAUST_TEMP],
                 target=self._exhaust_target(fuel, ambient),
                 dt_seconds=dt_seconds,
-                tau_seconds=self._p.exhaust_tau_s,
+                tau_seconds=_EXHAUST_TAU_S,
             ),
             GENERATOR_OUTPUT: output,
-            BUS_FREQUENCY: speed / self._p.rpm_per_hz,
+            BUS_FREQUENCY: speed / _RPM_PER_HZ,
             EXCITATION: actuators[EXCITATION],
             BUS_VOLTAGE: bus_voltage,
             TAP_POSITION: tap,
             TRANSFORMER_OIL_TEMP: first_order(
                 state[TRANSFORMER_OIL_TEMP],
-                target=ambient + self._p.top_oil_rise_k * (current / self._p.rated_current_a) ** 2,
+                target=ambient + _TOP_OIL_RISE_K * (current / _RATED_CURRENT_A) ** 2,
                 dt_seconds=dt_seconds,
-                tau_seconds=self._p.oil_tau_s,
+                tau_seconds=_OIL_TAU_S,
             ),
             AMBIENT_TEMP: ambient,
             FEEDER_VOLTAGE: self._feeder_voltage(bus_voltage, tap, current),
@@ -1037,25 +720,21 @@ class PowerGenerationPlant(Plant):
 
     def _bus_voltage_target(self, excitation: float, current: float) -> float:
         """Return the terminal voltage an excitation holds against a load current."""
-        return 8.0 + 5.0 * excitation / 100.0 - self._p.bus_drop_kv_per_a * current
+        return 8.0 + 5.0 * excitation / 100.0 - _BUS_DROP_KV_PER_A * current
 
     def _excitation_for(self, bus_voltage: float, current: float) -> float:
         """Invert the excitation relation: the excitation that would hold ``bus_voltage``."""
-        return clamp((bus_voltage - 8.0 + self._p.bus_drop_kv_per_a * current) * 20.0, 0.0, 100.0)
+        return clamp((bus_voltage - 8.0 + _BUS_DROP_KV_PER_A * current) * 20.0, 0.0, 100.0)
 
     def _feeder_voltage(self, bus_voltage: float, tap: float, current: float) -> float:
         """Return the feeder voltage: bus voltage through the tap ratio, less the line drop."""
-        ratio = self._p.tap_base_ratio + self._p.tap_ratio_per_step * tap
-        return bus_voltage * ratio - self._p.line_drop_kv_per_a * current
+        ratio = _TAP_BASE_RATIO + _TAP_RATIO_PER_STEP * tap
+        return bus_voltage * ratio - _LINE_DROP_KV_PER_A * current
 
     def _tap_for(self, wanted: float, bus_voltage: float, current: float) -> float:
         """Return the tap position that would put the feeder closest to ``wanted``."""
-        ratio = (wanted + self._p.line_drop_kv_per_a * current) / max(bus_voltage, 0.1)
-        return clamp(
-            round((ratio - self._p.tap_base_ratio) / self._p.tap_ratio_per_step),
-            0.0,
-            self._p.tap_steps,
-        )
+        ratio = (wanted + _LINE_DROP_KV_PER_A * current) / max(bus_voltage, 0.1)
+        return clamp(round((ratio - _TAP_BASE_RATIO) / _TAP_RATIO_PER_STEP), 0.0, _TAP_STEPS)
 
     def _tap_step(
         self, feeder_voltage: float, setpoint: float, tap: float, dt_seconds: float
@@ -1067,14 +746,11 @@ class PowerGenerationPlant(Plant):
         """
         self._tap_timer += dt_seconds
         error = feeder_voltage - setpoint
-        if self._tap_timer < self._p.tap_delay_s or abs(error) <= self._p.tap_deadband_kv:
+        if self._tap_timer < _TAP_DELAY_S or abs(error) <= _TAP_DEADBAND_KV:
             return tap
         self._tap_timer = 0.0
-        return clamp(round(tap) + (-1.0 if error > 0.0 else 1.0), 0.0, self._p.tap_steps)
+        return clamp(round(tap) + (-1.0 if error > 0.0 else 1.0), 0.0, _TAP_STEPS)
 
     def _exhaust_target(self, fuel: float, ambient: float) -> float:
         """Return the exhaust temperature a firing rate implies, from the inlet air up."""
         return ambient + 120.0 + 5.2 * fuel
-
-
-register_template("power-generation-v1", PowerGenerationPlant)

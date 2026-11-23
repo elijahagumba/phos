@@ -104,13 +104,19 @@ def main(argv: list[str] | None = None) -> int:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    inspect_p = subparsers.add_parser("inspect", help="print a plain-language summary")
+    inspect_p = subparsers.add_parser(
+        "inspect", help="print a plain-language summary"
+    )
     inspect_p.add_argument("file", type=Path, help="path to a .phosrun file")
 
-    verify_p = subparsers.add_parser("verify", help="check every member hash and run_id")
+    verify_p = subparsers.add_parser(
+        "verify", help="check every member hash and run_id"
+    )
     verify_p.add_argument("file", type=Path, help="path to a .phosrun file")
 
-    list_p = subparsers.add_parser("list", help="describe every .phosrun in a directory")
+    list_p = subparsers.add_parser(
+        "list", help="describe every .phosrun in a directory"
+    )
     list_p.add_argument("directory", type=Path, help="directory of .phosrun files")
 
     args = parser.parse_args(argv)

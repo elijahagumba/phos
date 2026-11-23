@@ -54,7 +54,6 @@ __all__ = [
     "HoldReading",
     "Injection",
     "NoInjection",
-    "ProcessLoss",
     "TimeWindow",
 ]
 
@@ -128,40 +127,6 @@ class Injection(Protocol):
             The subset of signals to falsify, and what to report for them. Empty for no
             manipulation. The true state is unaffected either way — that separation is what lets
             D2 label a fabricated reading honestly.
-        """
-        ...
-
-
-@runtime_checkable
-class ProcessLoss(Protocol):
-    """An optional third layer: inventory leaving the process by a route nothing meters.
-
-    `Injection` reaches a plant at two layers — what the instruments report and what the actuators
-    do. A leak is neither: it removes material from the true process state directly, the way a
-    cracked pipe or a passing drain valve does, with no actuator commanding it and no instrument on
-    the loss itself. So it is a separate, *opt-in* capability rather than a third method on every
-    injection: the plant applies it only when the hook it is given declares it (``isinstance``), so
-    every existing injection and `NoInjection` are untouched and a normal run is byte-identical.
-
-    The loss is applied to the **true state** after the physics has advanced and before the
-    instruments read it, so its consequences propagate through the loops exactly as a real leak's
-    do: the level falls, the sensor sees it, the controller pumps harder. The effect is not painted
-    on — it is removed from the inventory, and everything downstream follows because the inventory
-    is lower. It is also the one fault a conservation check should *see*: what left by the leak is
-    not in the declared inflows and outflows, so the balance stops closing, which is the point.
-
-    Implementations are pure functions of their arguments, as every hook here is.
-    """
-
-    def state_losses(self, clock: datetime, state: Mapping[str, float]) -> Mapping[str, float]:
-        """Return how much to remove from each true-state signal this step, in engineering units.
-
-        Args:
-            clock: The instant being simulated, UTC.
-            state: The true process state after the physics advanced, keyed by signal.
-
-        Returns:
-            The signals to deplete and the amount to subtract from each. Empty for no loss.
         """
         ...
 

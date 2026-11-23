@@ -236,7 +236,6 @@ def build_release(
         ReleaseAuditError: If the audit finds forbidden content.
     """
     require_locked_exam(exam_report_path, code_version)
-    assert exam_report_path is not None  # the gate above refuses None before this point
 
     output_folder.mkdir(parents=True, exist_ok=True)
 
@@ -245,12 +244,13 @@ def build_release(
     synth_dest = output_folder / "simulator" / "phos" / "synth"
     shutil.copytree(simulator_source, synth_dest, dirs_exist_ok=True)
 
-    scoring_dest = output_folder / "scoring" / "phos" / "referee" / "scoring"
+    scoring_dest = (
+        output_folder / "scoring" / "phos" / "referee" / "scoring"
+    )
     shutil.copytree(scoring_source, scoring_dest, dirs_exist_ok=True)
 
     shutil.copytree(
-        detector_interface_source,
-        output_folder / "detector-interface",
+        detector_interface_source, output_folder / "detector-interface",
         dirs_exist_ok=True,
     )
 
@@ -269,9 +269,9 @@ def build_release(
 
     # Write the README.
     readme = _RELEASE_README_TEMPLATE.format(
-        exam_hash=json.loads(exam_report_path.read_text(encoding="utf-8")).get(
-            "exam_id", "unknown"
-        ),
+        exam_hash=json.loads(
+            exam_report_path.read_text(encoding="utf-8")
+        ).get("exam_id", "unknown"),
         scorer_version=scorer_version,
         code_version=code_version,
     )

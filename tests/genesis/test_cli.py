@@ -19,12 +19,6 @@ from phos.genesis.cli import EXIT_REFUSED, main
 from phos.genesis.records import Experiment, Question
 from phos.genesis.store import RECORD_DIR, Store
 
-#: Every test here drives the CLI against a checkout built by the `repo` fixture, which copies the
-#: real `docs/rules/` into it — a symlink into `.cursor/rules/`, which the public export forbids.
-#: So none of them can run in the public tree, and `tests/conftest.py` skips the marker there
-#: (ADR 0440). The fixture guards itself as well; this states the fact where a reader meets it.
-pytestmark = pytest.mark.lab_only
-
 Payload = Callable[[str, dict[str, Any]], Path]
 Commit = Callable[[str], None]
 
@@ -212,7 +206,10 @@ class TestDeclare:
     ) -> None:
         assert run(repo, "ask", "--from", str(payload("q", QUESTION))) == 0
         registered = json.loads(json.dumps(EXPERIMENT))
-        registered["declared"]["corpus"] = "kelmarsh"
+        # kelmarsh is a paired development half (ADR 0461), so it is iterate.
+        # dtu-lab is registered and has no held-back pair, so the catch-all still
+        # scores it once.
+        registered["declared"]["corpus"] = "dtu-lab"
         registered["declared"]["tier"] = "once"
         assert run(repo, "declare", "--from", str(payload("e", registered))) == 0
 
@@ -224,7 +221,7 @@ class TestDeclare:
         # same breath, that the run it describes is going to be refused.
         assert run(repo, "ask", "--from", str(payload("q", QUESTION))) == 0
         wrong = json.loads(json.dumps(EXPERIMENT))
-        wrong["declared"]["corpus"] = "kelmarsh"
+        wrong["declared"]["corpus"] = "dtu-lab"
         wrong["declared"]["tier"] = "iterate"
         assert run(repo, "declare", "--from", str(payload("e", wrong))) == 0
         assert "the gate will refuse this run" in capsys.readouterr().err

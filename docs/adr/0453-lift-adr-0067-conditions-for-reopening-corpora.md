@@ -1,6 +1,6 @@
 # Lift ADR 0067: conditions for reopening follow-up corpora (ADR 0453)
 
-**Status:** Declared  
+**Status:** Superseded by ADR 0462. The detection counts in the hypothesis below were measured on corpora the tier rule says never to read. They are not a reason to reopen anything. The text is otherwise unchanged.  
 **Date:** 2026-11-16  
 **Part:** S6-S11  
 **Phase:** Declare (five-phase cycle, phase 1 of 5)  

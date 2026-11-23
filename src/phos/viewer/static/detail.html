@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHOS Viewer — Run Detail</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+<h1><span id="run-title">Run Details</span></h1>
+<div class="run-meta">
+  <span class="badge" id="kind-badge">—</span>
+  <span class="badge" id="pool-badge">—</span>
+  <span id="run-id">—</span>
+  <span id="run-summary">—</span>
+</div>
+</header>
+
+<main>
+<div class="plant-view">
+  <h2>Plant</h2>
+  <div class="plant-drawing" id="plant-drawing">
+    <p>Loading plant drawing...</p>
+  </div>
+  <div class="plant-info" id="plant-info">
+    <p>Plant information will appear here.</p>
+  </div>
+</div>
+
+<div class="timeline-view">
+  <h2>Timeline</h2>
+  <div id="timeline-list">
+    <p>Timeline events will appear here.</p>
+  </div>
+</div>
+
+<div class="playback-bar">
+  <div class="playback-controls">
+    <button id="play-pause">▶ Play</button>
+    <button id="step-back">◀◀</button>
+    <button id="step-fwd">▶▶</button>
+    <span class="time-display" id="time-display">0000 / 0000</span>
+    <input type="range" id="scrubber" min="0" max="100" value="0">
+    <span id="speed-display">1×</span>
+    <select id="speed-select">
+      <option value="1">1×</option>
+      <option value="2">2×</option>
+      <option value="5">5×</option>
+      <option value="10">10×</option>
+    </select>
+  </div>
+  <div class="event-markers" id="event-markers">
+    <!-- Event markers rendered here -->
+  </div>
+</div>
+
+<div class="trace-chart-container">
+  <h2>Trace Charts</h2>
+  <div id="trace-charts">
+    <p>Click a signal node in the plant drawing to view its trace.</p>
+  </div>
+</div>
+
+<div class="atlas-lanes">
+  <h2>Atlas Reasoning</h2>
+  <div id="atlas-lanes">
+    <p class="no-atlas">Atlas has not been run on this corpus yet.</p>
+  </div>
+</div>
+
+<div class="performance-view">
+  <h2>Performance</h2>
+  <div id="performance-metrics">
+    <p>Performance metrics will appear here.</p>
+  </div>
+</div>
+
+<div class="evidence-drawer" id="evidence-drawer" style="display:none;">
+  <div class="evidence-drawer-header">
+    <h3 id="evidence-title">Evidence Details</h3>
+    <button id="close-drawer">×</button>
+  </div>
+  <div class="evidence-content">
+    <p>Select an alert or node to view details.</p>
+  </div>
+</div>
+</main>
+
+<script src="/app.js"></script>
+<script src="/detail.js"></script>
+</body>
+</html>

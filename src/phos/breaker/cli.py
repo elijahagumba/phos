@@ -10,12 +10,10 @@ import argparse
 import sys
 from collections.abc import Sequence
 from pathlib import Path
-from typing import Final, cast
+from typing import Final
 
 from phos.breaker.genome import AttackTechnique
 from phos.breaker.round_runner import run_round
-from phos.breaker.search import SearchStrategy
-from phos.eval import Detector
 from phos.referee.seeds import SeedVault
 
 __all__ = ["build_parser", "main"]
@@ -88,7 +86,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _resolve_detector(factory_path: str) -> Detector:
+def _resolve_detector(factory_path: str) -> object:
     """Import and call a ``module:function`` factory, returning what it builds."""
     import importlib
 
@@ -98,15 +96,19 @@ def _resolve_detector(factory_path: str) -> Detector:
     try:
         module = importlib.import_module(module_name)
     except ImportError as error:
-        raise ValueError(f"{factory_path!r}: could not import {module_name!r}: {error}") from error
+        raise ValueError(
+            f"{factory_path!r}: could not import {module_name!r}: {error}"
+        ) from error
     try:
         factory = getattr(module, function_name)
     except AttributeError as error:
-        raise ValueError(f"{factory_path!r}: {module_name!r} has no {function_name!r}") from error
-    return cast(Detector, factory())
+        raise ValueError(
+            f"{factory_path!r}: {module_name!r} has no {function_name!r}"
+        ) from error
+    return factory()
 
 
-def _build_strategy(name: str, seed: int) -> SearchStrategy:
+def _build_strategy(name: str, seed: int) -> object:
     import random
 
     rng = random.Random(seed)
@@ -120,11 +122,15 @@ def _build_strategy(name: str, seed: int) -> SearchStrategy:
     if name == "evolutionary":
         from phos.breaker.search import EvolutionarySearch
 
-        return EvolutionarySearch(rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0)
+        return EvolutionarySearch(
+            rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0
+        )
     if name == "hillclimb":
         from phos.breaker.search import HillClimber
 
-        return HillClimber(rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0)
+        return HillClimber(
+            rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0
+        )
     from phos.breaker.search import RandomSearch
 
     return RandomSearch(rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0)
@@ -145,8 +151,28 @@ def _cmd_round(arguments: argparse.Namespace) -> int:
         work_dir=arguments.work_dir,
     )
 
-    print(report.to_json())
+    print(
+        json_report(report)
+    )
     return 0
+
+
+def json_report(report: object) -> str:
+    """Return a round report as a JSON string."""
+    import json
+
+    return json.dumps(
+        {
+            "round_id": report.round_id,
+            "detector_name": report.detector_name,
+            "n_dev_seeds": report.n_dev_seeds,
+            "n_attempts": report.n_attempts,
+            "n_successes": report.n_successes,
+            "n_queries": report.n_queries,
+            "open_findings": report.open_findings,
+        },
+        indent=2,
+    )
 
 
 _COMMANDS = {

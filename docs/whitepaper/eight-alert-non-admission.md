@@ -15,26 +15,6 @@ ALERTS_PER_SHIFT: Final = 8
 
 This is a description of committed code and of fixtures. It is not a control-room deployment, and it is not a field rate.
 
-## The contract, exactly
-
-Four lines, and they are the whole of it. Each one is what `src/phos/atlas/declared_law.py` already enforces, not a description of what it is meant to do. They were on the public front page until the page was shortened; they are pinned here instead, and `tests/public/test_overlay_readme.py` fails if any of them drifts from the code constants.
-
-$$\mathcal{R} \;=\; H \;\sqcup\; B \;\sqcup\; U$$
-
-Every law in the register the plant signed ends in exactly one of three standings: held, broken, or unstated. A law that turns up in two of them is refused, and no report is built.
-
-$$\mathrm{page} \;=\; (\mathrm{sort}_{(t,\,n)} B)_{1 \ldots \min(|B|,\,8)}$$
-
-The page is the broken laws, ordered by the time of the broken fact and then by the law's name, cut at eight. Held and unstated laws are listed and take no slot, and a later break is never promoted for being louder, because a break carries nothing to be louder with.
-
-$$W \;=\; \{\textsf{confidence},\; \textsf{probability},\; \textsf{weight},\; \textsf{magnitude},\; \textsf{score}\}$$
-
-Five words a sentence may not contain. The refusal is the word, not a number: a decimal the plant already uses is allowed, and a law whose own name carries one of these words is the plant's word and is read as a name.
-
-$$\text{placed}(b) \iff \mathrm{type}(b) = \texttt{LawBreak} \;\wedge\; s_b = n_b \,\Vert\, \text{". "} \,\Vert\, f_b \;\wedge\; \forall w \in W: w \not\subseteq \mathrm{fold}(f_b)$$
-
-A line is placed only if it is exactly a break, its sentence opens with its own law's name, and the fact after that name contains none of the five words in any case. The type check is exact rather than by inheritance, because a subclass could carry a magnitude. A sentence that fails any of the three raises, and nothing else in that call is placed either.
-
 ## The frozen allocator
 
 `budget_alerts` bins events by `(onset_time - origin) // SHIFT_SECONDS`. Inside one bin it sorts by descending score and keeps `ALERTS_PER_SHIFT` of them. The alert row is the event onset, not the peak.

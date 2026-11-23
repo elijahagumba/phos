@@ -46,6 +46,7 @@ from phos.models import FittedModel, ModelDetector
 from phos.models.ewma import EwmaBaseline
 from phos.ontology import Domain, EntityId, EvidenceStore, Hypothesis, Narrative
 from phos.reasoning import FittedCalibrator
+from phos.referee.quarantine import QuarantinedCorpusError
 
 __all__ = [
     "AtlasDetector",
@@ -448,342 +449,54 @@ def _build_code_law_detections(
 def _build_batadal_code_law_detections(
     dataset: Dataset,
 ) -> list[Detection]:
-    """Build detections from BATADAL code-law: pump status vs flow physical consistency.
+    """Refuse to score BATADAL by its pump laws.
 
-    BATADAL attacks are pump manipulations: a pump's commanded status changes while its
-    flow doesn't follow, or a pump stays on/off when tank level says otherwise. These
-    violate the plant's own physical relationships even when every individual reading
-    stays inside its normal band.
-
-    Rules (checked per pump):
-    1. Pump on (status > 0.5) but flow ≈ 0 → violation (commanded but not delivering)
-    2. Pump off (status < 0.5) but flow > 0 → violation (flow without command)
-    3. Tank level at historical max but its pump still on → violation (should be off)
-    4. Tank level at historical min but its pump still off → violation (should be on)
-
-    Pump-to-tank mapping: pump PU{i} serves tank T{i} (i = 1..11), based on BATADAL's
-    stage-1 tank feeding its corresponding pump.
+    ADR 0461. This builder was written around BATADAL's labelled attacks. BATADAL
+    is never-read. ``dataset`` is not inspected.
 
     Args:
-        dataset: The corpus to score.
+        dataset: Ignored.
 
-    Returns:
-        One `Detection` per code-law violation, or an empty list if the dataset has
-        too few rows or lacks BATADAL signals.
+    Raises:
+        QuarantinedCorpusError: Always.
     """
-    features, timestamps, values, entity_of = _reconstruct_values(dataset)
-    n_rows = len(timestamps)
-    if n_rows < 4:
-        return []
-
-    split = n_rows // 2
-    train_values = values[:split]
-    test_values = values[split:]
-    test_timestamps = timestamps[split:]
-
-    col_map = {f: i for i, f in enumerate(features)}
-
-    # Find pump status tags and their matching flow tags.
-    pump_tags = [f for f in features if f.startswith("S_PU")]
-    flow_tags = {
-        f"F_{tag[2:]}": col_map[f"F_{tag[2:]}"] for tag in pump_tags if f"F_{tag[2:]}" in col_map
-    }
-
-    # Find tank level tags.
-    tank_tags = [f for f in features if f.startswith("L_T")]
-
-    # Compute per-tank min/max from training data.
-    tank_min_max: dict[str, tuple[float, float]] = {}
-    for tank in tank_tags:
-        if tank in col_map:
-            col = col_map[tank]
-            tank_min_max[tank] = (
-                float(train_values[:, col].min()),
-                float(train_values[:, col].max()),
-            )
-
-    detections: list[Detection] = []
-    for i in range(len(test_timestamps)):
-        for pump_tag, pump_col in ((t, col_map[t]) for t in pump_tags if t in col_map):
-            pump_num = pump_tag[2:]  # e.g. "PU6" -> "6"
-            flow_tag = f"F_PU{pump_num}"
-            flow_col = flow_tags.get(flow_tag)
-            if flow_col is None:
-                continue
-
-            pump_status = float(test_values[i, pump_col])
-            flow = float(test_values[i, flow_col])
-
-            # Rule 1: pump on but no flow
-            if pump_status > 0.5 and abs(flow) < 1.0:
-                detections.append(
-                    Detection(
-                        timestamp=test_timestamps[i],
-                        score=1.0,
-                        confidence=1.0,
-                        entity_ids=[entity_of.get(pump_tag, "")],
-                        feature=pump_tag,
-                    )
-                )
-                continue
-
-            # Rule 2: pump off but has flow
-            if pump_status < 0.5 and flow > 1.0:
-                detections.append(
-                    Detection(
-                        timestamp=test_timestamps[i],
-                        score=1.0,
-                        confidence=1.0,
-                        entity_ids=[entity_of.get(pump_tag, "")],
-                        feature=pump_tag,
-                    )
-                )
-                continue
-
-            # Rules 3 & 4: tank level extreme with wrong pump status
-            tank_tag = f"L_T{pump_num}"
-            if tank_tag in tank_min_max:
-                tank_col = col_map.get(tank_tag)
-                if tank_col is not None:
-                    tank_level = float(test_values[i, tank_col])
-                    tank_lo, tank_hi = tank_min_max[tank_tag]
-                    tank_range = tank_hi - tank_lo
-                    if tank_range > 0:
-                        # Near max (top 5% of training range)
-                        near_max = tank_level > tank_hi - 0.05 * tank_range
-                        # Near min (bottom 5% of training range)
-                        near_min = tank_level < tank_lo + 0.05 * tank_range
-
-                        if near_max and pump_status > 0.5:
-                            detections.append(
-                                Detection(
-                                    timestamp=test_timestamps[i],
-                                    score=1.0,
-                                    confidence=1.0,
-                                    entity_ids=[entity_of.get(pump_tag, "")],
-                                    feature=pump_tag,
-                                )
-                            )
-                            continue
-                        if near_min and pump_status < 0.5:
-                            detections.append(
-                                Detection(
-                                    timestamp=test_timestamps[i],
-                                    score=1.0,
-                                    confidence=1.0,
-                                    entity_ids=[entity_of.get(pump_tag, "")],
-                                    feature=pump_tag,
-                                )
-                            )
-                            continue
-
-    return detections
+    raise QuarantinedCorpusError("batadal")
 
 
 def _build_batadal_flow_anomaly_detections(
     dataset: Dataset,
 ) -> list[Detection]:
-    """Build detections from BATADAL flow anomaly: pump flow deviates from expected.
+    """Refuse to score BATADAL by pump flow.
 
-    BATADAL attacks manipulate pump flow: Pump 6 flow jumps 0.3→13.4, Pump 7 drops
-    41.4→27.7, Pump 11 rises 0→2.7. These stay within per-signal bands but violate
-    the physical relationship between pump status and delivered flow.
-
-    Rules (per pump):
-    1. Pump on but flow deviates significantly from training baseline for "on" state
-    2. Pump off but flow deviates significantly from training baseline for "off" state
-
-    Thresholds are learned from training data: mean + 3*std for each pump-status
-    combination.
+    ADR 0461. This builder was written around BATADAL's labelled attacks. BATADAL
+    is never-read. ``dataset`` is not inspected.
 
     Args:
-        dataset: The corpus to score.
+        dataset: Ignored.
 
-    Returns:
-        One `Detection` per flow anomaly, or an empty list if BATADAL signals
-        are absent.
+    Raises:
+        QuarantinedCorpusError: Always.
     """
-    features, timestamps, values, entity_of = _reconstruct_values(dataset)
-    n_rows = len(timestamps)
-    if n_rows < 4:
-        return []
-
-    split = n_rows // 2
-    train_values = values[:split]
-    test_values = values[split:]
-    test_timestamps = timestamps[split:]
-
-    col_map = {f: i for i, f in enumerate(features)}
-
-    # Learn expected flow per pump-status combination from training data.
-    pump_flow_stats: dict[str, dict[bool, tuple[float, float]]] = {}
-    for pump_num in range(1, 12):
-        pump_tag = f"S_PU{pump_num}"
-        flow_tag = f"F_PU{pump_num}"
-        if pump_tag not in col_map or flow_tag not in col_map:
-            continue
-        pump_col = col_map[pump_tag]
-        flow_col = col_map[flow_tag]
-        pump_statuses = train_values[:, pump_col]
-        flows = train_values[:, flow_col]
-        on_mask = pump_statuses > 0.5
-        off_mask = pump_statuses <= 0.5
-        stats: dict[bool, tuple[float, float]] = {}
-        if on_mask.any():
-            on_flows = flows[on_mask]
-            stats[True] = (float(on_flows.mean()), float(on_flows.std()))
-        if off_mask.any():
-            off_flows = flows[off_mask]
-            stats[False] = (float(off_flows.mean()), float(off_flows.std()))
-        if stats:
-            pump_flow_stats[pump_tag] = stats
-
-    detections: list[Detection] = []
-    for i in range(len(test_timestamps)):
-        for pump_tag, stats in pump_flow_stats.items():
-            flow_tag = f"F_{pump_tag[2:]}"
-            flow_col_opt = col_map.get(flow_tag)
-            pump_col_opt = col_map.get(pump_tag)
-            if flow_col_opt is None or pump_col_opt is None:
-                continue
-            flow_col = flow_col_opt
-            pump_col = pump_col_opt
-
-            pump_status = float(test_values[i, pump_col])
-            flow = float(test_values[i, flow_col])
-            is_on = pump_status > 0.5
-
-            if is_on not in stats:
-                continue
-            mean, std = stats[is_on]
-            threshold = abs(mean) + 3.0 * std
-            if threshold < 1.0:
-                threshold = 1.0  # minimum meaningful deviation
-
-            if abs(flow - mean) > threshold:
-                detections.append(
-                    Detection(
-                        timestamp=test_timestamps[i],
-                        score=1.0,
-                        confidence=1.0,
-                        entity_ids=[entity_of.get(flow_tag, "")],
-                        feature=flow_tag,
-                    )
-                )
-
-    return detections
+    raise QuarantinedCorpusError("batadal")
 
 
 def _build_hai_code_law_detections(
     dataset: Dataset,
     baselines: dict[str, tuple[int, float]] | None = None,
 ) -> list[Detection]:
-    """Build detections from HAI code-law: valve-flow correlation and process shutdown.
+    """Refuse to score HAI by its valve and flow laws.
 
-    HAI attacks manipulate valves and flows: FT02 flow 1194→1962 (64%↑),
-    FT02Z flow 1873→2825 (51%↑), FCV03 valve 60→53, P4_ST_PS pressure 20→0
-    (process shutdown). These violate physical relationships between valve
-    position, flow, and process state.
-
-    Rules:
-    1. Process shutdown: P4_ST_PS or P4_HT_PS transitions from non-zero to near-zero
-       (stateful: tracked while value stays near-zero).
-    2. Flow anomaly: FT* deviates by more than 40% from rolling median (window=5).
-    3. Valve anomaly: FCV* deviates by more than 15% from rolling median (window=5).
-
-    Using a rolling baseline adapts to HAI's different operating regime in test
-    data vs training data. Sustained detection keeps flagging while an attack
-    persists at its new level.
+    ADR 0461. This builder was tuned against HAI's labelled attacks. HAI is
+    never-read. Neither argument is inspected.
 
     Args:
-        dataset: The corpus to score.
-        baselines: Unused (kept for API compatibility).
+        dataset: Ignored.
+        baselines: Ignored. Kept so an existing caller still type-checks.
 
-    Returns:
-        One `Detection` per code-law violation, or an empty list if HAI signals
-        are absent.
+    Raises:
+        QuarantinedCorpusError: Always.
     """
-    import numpy as np
-
-    features, timestamps, values, entity_of = _reconstruct_values(dataset)
-    n_rows = len(timestamps)
-    if n_rows < 4:
-        return []
-
-    col_map = {f: i for i, f in enumerate(features)}
-
-    # Collect HAI-relevant signal column indices.
-    signal_cols: dict[str, int] = {}
-    for tag in features:
-        # HAI signals are named P{X}_FT{Y}, P{X}_FCV{Z}, etc.
-        is_flow = "_FT" in tag
-        is_valve = "_FCV" in tag
-        is_process_state = tag in ("P4_ST_PS", "P4_HT_PS")
-        if not (is_flow or is_valve or is_process_state):
-            continue
-        signal_cols[tag] = col_map[tag]
-
-    # Rolling window for baseline computation.
-    window = 5
-    # Rolling buffers per signal.
-    rolling: dict[int, list[float]] = {}
-
-    detections: list[Detection] = []
-    for i in range(len(timestamps)):
-        for tag, col in signal_cols.items():
-            value = float(values[i, col])
-
-            # Rule 1: Process shutdown - P4_ST_PS or P4_HT_PS transitions from
-            # non-zero to near-zero (stateful, sustained while near-zero)
-            if tag in ("P4_ST_PS", "P4_HT_PS"):
-                if i > 0:
-                    prev = float(values[i - 1, col])
-                    if prev > 1.0 and value < 0.05 * prev:
-                        detections.append(
-                            Detection(
-                                timestamp=timestamps[i],
-                                score=1.0,
-                                confidence=1.0,
-                                entity_ids=[entity_of.get(tag, "")],
-                                feature=tag,
-                            )
-                        )
-                    elif i > 0 and value < 0.05 * max(float(values[i - 1, col]), 1.0):
-                        # Still in shutdown - keep detecting
-                        detections.append(
-                            Detection(
-                                timestamp=timestamps[i],
-                                score=1.0,
-                                confidence=1.0,
-                                entity_ids=[entity_of.get(tag, "")],
-                                feature=tag,
-                            )
-                        )
-                continue
-
-            # Rule 2 & 3: Deviation from rolling median
-            buf = rolling.setdefault(col, [])
-            buf.append(value)
-            if len(buf) > window:
-                buf.pop(0)
-
-            if len(buf) >= 3:
-                median = float(np.median(buf))
-                if median != 0:
-                    deviation = abs(value - median) / abs(median)
-                    threshold = 0.4 if tag.startswith("_FT") else 0.15
-                    if deviation > threshold:
-                        detections.append(
-                            Detection(
-                                timestamp=timestamps[i],
-                                score=1.0,
-                                confidence=1.0,
-                                entity_ids=[entity_of.get(tag, "")],
-                                feature=tag,
-                            )
-                        )
-
-    return detections
+    raise QuarantinedCorpusError("hai")
 
 
 class AtlasDetector:
@@ -851,10 +564,8 @@ class AtlasDetector:
             sequential_model: A mapping from setpoint tag name to ``(column, longest_run)``
                 learned from attack-free training on a separate training plant, or ``None`` to
                 run Atlas without sequential consistency evidence.
-            hai_baselines: Optional pre-computed baselines mapping HAI signal name to
-                ``(column_index, training_mean)``, computed from a separate attack-free
-                training file. Used by HAI code-law detection to avoid contaminating
-                baselines with attack rows.
+            hai_baselines: Ignored. Kept so an existing caller still constructs. The HAI
+                builder this used to feed is quarantined (ADR 0461) and is not called.
         """
         self._fitted = fitted
         self._calibrator = calibrator
@@ -967,20 +678,8 @@ class AtlasDetector:
         code_law_detections = _build_code_law_detections(dataset)
         detections.extend(code_law_detections)
 
-        # Add BATADAL code-law detections (pump status vs flow physical consistency)
-        batadal_code_law_detections = _build_batadal_code_law_detections(dataset)
-        detections.extend(batadal_code_law_detections)
-
-        # Add BATADAL flow anomaly detections (pump flow deviates from expected)
-        batadal_flow_anomaly_detections = _build_batadal_flow_anomaly_detections(dataset)
-        detections.extend(batadal_flow_anomaly_detections)
-
-        # Add HAI code-law detections (valve-flow correlation and process shutdown)
-        hai_code_law_detections = _build_hai_code_law_detections(
-            dataset, baselines=self._hai_baselines
-        )
-        detections.extend(hai_code_law_detections)
-
+        # The BATADAL and HAI builders are quarantined (ADR 0461). They are not
+        # called. Each raises QuarantinedCorpusError before it reads a corpus.
         return detections
 
 

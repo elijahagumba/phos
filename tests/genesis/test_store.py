@@ -11,10 +11,6 @@ from tests.genesis.conftest import EXPERIMENT, MEASUREMENT, QUESTION
 from phos.genesis.records import Experiment, Question
 from phos.genesis.store import RECORD_DIR, Store
 
-#: The store tests build their checkout from the `repo` fixture, which copies the real
-#: `docs/rules/` — absent from the public tree, where `tests/conftest.py` skips this (ADR 0440).
-pytestmark = pytest.mark.lab_only
-
 
 class TestRoundTrip:
     def test_a_question_written_is_a_question_read(self, repo: Path) -> None:

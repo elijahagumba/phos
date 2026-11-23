@@ -31,6 +31,7 @@ REPO_ROOT: Final = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from phos.referee.record import record_atlas_on_run  # noqa: E402
 from phos.synth.catalogue import DatasetConfig, load_configs  # noqa: E402
 from phos.synth.generate import GenerationError, generate_dataset  # noqa: E402
 
@@ -96,6 +97,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument(
         "--no-capture", action="store_true", help="write telemetry and topology only"
     )
+    parser.add_argument(
+        "--write-phosrun",
+        action="store_true",
+        help="also write a .phosrun run record for each generated corpus",
+    )
     arguments = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -117,6 +123,16 @@ def main(argv: Sequence[str] | None = None) -> int:
                 ", ".join(f"{file.filename} ({file.records})" for file in manifest.files),
             )
             logger.debug("written to %s", directory)
+
+            if arguments.write_phosrun:
+                phosrun_path = arguments.output / f"{config.name}.phosrun"
+                try:
+                    written = record_atlas_on_run(directory, phosrun_path)
+                    logger.info("wrote .phosrun: %s", written)
+                except Exception as error:  # recording never kills corpus generation
+                    logger.warning(
+                        "%s: could not write .phosrun: %s", config.name, error
+                    )
     except (GenerationError, ValueError) as error:
         logger.error("%s", error)
         return 2

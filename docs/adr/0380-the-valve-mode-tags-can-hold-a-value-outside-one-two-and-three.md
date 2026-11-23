@@ -6,7 +6,7 @@
 - **Supersedes:** nothing
 - **Depends on:** [ADR 0371](0371-code-laws-derived-from-the-controller-program-are-judged.md),
   [ADR 0370](0370-code-laws-are-derived-from-the-controller-program.md),
-  ADR 0369 (lab record, not published),
+  [ADR 0369](0369-h1-runs-now-and-the-later-rungs-wait-for-the-bid.md),
   [ADR 0122](0122-a-phos-generated-icssim-corpus.md),
   [ADR 0073](0073-a-synthetic-command-and-maintenance-harness-that-measures-nothing.md)
 

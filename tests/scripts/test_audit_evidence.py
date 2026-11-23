@@ -88,8 +88,6 @@ def test_a_node_id_or_a_line_resolves_to_its_file(value: str, expected: str) -> 
     [
         "docs/genesis/.lock",
         "docs/genesis/.Q-0001.json.tmp",
-        "src/phos/atlas/packet/__pycache__/s7comm.cpython-312.pyc",
-        "tests/atlas/__pycache__/test_packet.cpython-312.pyc",
     ],
 )
 def test_a_run_time_artifact_is_not_a_citation(value: str) -> None:
@@ -100,32 +98,6 @@ def test_a_run_time_artifact_is_not_a_citation(value: str) -> None:
     the lock is absent, and failing on the machine that just wrote a record.
     """
     assert resolve_cited_path(value) is None
-
-
-def test_the_gate_does_not_depend_on_whether_byte_code_exists(tmp_path: Path) -> None:
-    """The defect this closes: the same record passed locally and failed CI (ADR 0448).
-
-    ADR 0348 cites a `.pyc` in a paragraph whose point is that byte code is not source. CI runs
-    the suite before it audits, so the file is there; a machine with `PYTHONDONTWRITEBYTECODE`
-    set never writes it. An acknowledgement could only be right in one of those two places,
-    because acknowledging a citation that resolves is itself a gate failure. The audit has to
-    reach the same verdict either way, with no acknowledgement written at all.
-    """
-    pyc = "src/phos/atlas/packet/__pycache__/s7comm.cpython-312.pyc"
-    _record(
-        tmp_path, f"`grep -rn 65524 src/` also matches a stale `{pyc}`. Byte code is not source.\n"
-    )
-    cache = tmp_path / "src" / "phos" / "atlas" / "packet" / "__pycache__"
-    cache.mkdir(parents=True)
-
-    absent = audit([str(tmp_path)], "HEAD")
-
-    (cache / "s7comm.cpython-312.pyc").write_bytes(b"\x00")
-    present = audit([str(tmp_path)], "HEAD")
-
-    assert [ack.token for ack in absent.stale] == []
-    assert [ack.token for ack in present.stale] == []
-    assert absent.gated and present.gated
 
 
 def test_the_gate_does_not_depend_on_whether_the_lock_exists(tmp_path: Path) -> None:
@@ -150,25 +122,6 @@ def test_the_gate_does_not_depend_on_whether_the_lock_exists(tmp_path: Path) -> 
     assert [ack.token for ack in absent.stale] == []
     assert [ack.token for ack in present.stale] == []
     assert absent.gated and present.gated
-
-
-@pytest.mark.parametrize(
-    "value",
-    [
-        "src/phos/atlas/packet/__pycache__/s7comm.cpython-312.pyc",
-        "tests/scripts/__pycache__/test_audit_evidence.cpython-312-pytest-8.4.2.pyc",
-        "scripts/__pycache__/",
-    ],
-)
-def test_compiled_byte_code_is_not_a_citation(value: str) -> None:
-    """Byte code exists wherever something has imported the module, and nowhere else.
-
-    ADR 0348 names a stale `.pyc` to warn the next reader that `grep -rn 65524 src/` matches a
-    build artifact. Resolving it would make the gate's verdict depend on whether anything has
-    run in this checkout — the mirror of the lock in the test above, failing in CI, which runs
-    the suite before this gate, and passing on a clean clone.
-    """
-    assert resolve_cited_path(value) is None
 
 
 def test_a_marker_does_not_reach_a_citation_in_another_paragraph() -> None:

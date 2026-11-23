@@ -10,7 +10,7 @@
 - **Depends on:** [ADR 0371](0371-code-laws-derived-from-the-controller-program-are-judged.md),
   [ADR 0380](0380-the-valve-mode-tags-can-hold-a-value-outside-one-two-and-three.md),
   [ADR 0370](0370-code-laws-are-derived-from-the-controller-program.md),
-  ADR 0369 (lab record, not published),
+  [ADR 0369](0369-h1-runs-now-and-the-later-rungs-wait-for-the-bid.md),
   [ADR 0368](0368-triangulation-and-a-self-search-are-named-after-brief-g.md),
   [ADR 0323](0323-every-sentence-names-the-law-it-came-from.md),
   [ADR 0322](0322-a-slot-enters-only-as-a-law-break.md),

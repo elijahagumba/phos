@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, cast
 
 import numpy
 
@@ -42,13 +41,12 @@ def load_process_csv(path: Path) -> dict[str, list[float]]:
     return values
 
 
-def load_events(path: Path) -> list[dict[str, Any]]:
+def load_events(path: Path) -> list[dict]:
     """Return events from events.json."""
-    return cast(list[dict[str, Any]], json.loads(path.read_text()))
+    return json.loads(path.read_text())
 
 
 def main() -> None:
-    """Fit sequential consistency on normal ICSSim plants and score it on mixed plants."""
     # --- Fit on normal data ---
     normal_series: list[numpy.ndarray] = []
     for d in NORMAL_DIRS:
@@ -80,7 +78,9 @@ def main() -> None:
         # Load attack windows from events.json
         events = load_events(d / "events.json")
         attack_windows = [
-            (float(e["start"]), float(e["end"])) for e in events if e.get("label") == "attack"
+            (float(e["start"]), float(e["end"]))
+            for e in events
+            if e.get("label") == "attack"
         ]
 
         # Timestamp column is epoch seconds, 1 sample per second
@@ -106,21 +106,23 @@ def main() -> None:
 
         # Summarise attack types
         attack_types = [
-            (e["kind"], float(e["start"]), float(e["end"]))
+            (e["kind"], e["start"], e["end"])
             for e in events
             if e.get("label") == "attack"
         ]
-        print(f"\n{d.name}: {hits} hits ({inside} inside attack, {outside} outside)")
-        for kind, attack_start, attack_end in attack_types:
+        print(
+            f"\n{d.name}: {hits} hits ({inside} inside attack, {outside} outside)"
+        )
+        for kind, s, e in attack_types:
             hits_in = sum(
                 1
                 for i in range(len(runs))
-                if runs[i] > threshold and attack_start <= (timestamps[i] - epoch) <= attack_end
+                if runs[i] > threshold and s <= (timestamps[i] - epoch) <= e
             )
             if hits_in > 0:
-                print(f"  {kind} [{attack_start:.1f}-{attack_end:.1f}s]: {hits_in} hits")
+                print(f"  {kind} [{s:.1f}-{e:.1f}s]: {hits_in} hits")
 
-    print("\n=== SUMMARY ===")
+    print(f"\n=== SUMMARY ===")
     print(f"Mixed plants scored: {len(MIXED_DIRS)}")
     print(f"Total sequential hits above threshold: {total_hits}")
     print(f"Hits inside attack windows: {total_inside_attack}")

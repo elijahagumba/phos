@@ -13,7 +13,7 @@
   [ADR 0412](0412-research-and-engineering-run-through-a-record-a-machine-can-read.md),
   [ADR 0336](0336-the-law-page-invariants-hold-and-the-corpus-was-silent.md),
   [ADR 0368](0368-triangulation-and-a-self-search-are-named-after-brief-g.md),
-  ADR 0369 (lab record, not published)
+  [ADR 0369](0369-h1-runs-now-and-the-later-rungs-wait-for-the-bid.md)
 
 ## Context
 

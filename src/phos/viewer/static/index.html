@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHOS Viewer — Run Library</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+<h1>PHOS Viewer</h1>
+<p class="subtitle">Run library — synthetic and real-data runs</p>
+</header>
+
+<main>
+<div class="toolbar">
+<input type="text" id="search" placeholder="Search runs by title, tags, or notes...">
+<select id="filter-kind">
+<option value="">All kinds</option>
+<option value="simulated">Simulated</option>
+<option value="real_data">Real data</option>
+</select>
+<select id="filter-pool">
+<option value="">All pools</option>
+<option value="dev">Dev</option>
+<option value="public">Public</option>
+<option value="private">Private</option>
+<option value="retired">Retired</option>
+<option value="real_data">Real data</option>
+</select>
+<label><input type="checkbox" id="has-atlas"> Has Atlas results</label>
+<label><input type="checkbox" id="show-starred"> Starred only</label>
+<button id="refresh">Refresh</button>
+</div>
+
+<div id="run-list" class="run-list">
+<!-- Runs are injected here by JavaScript -->
+</div>
+
+<div id="empty-state" class="empty-state" style="display:none;">
+<p>No runs match your filters.</p>
+<p>Generate a run with:</p>
+<pre>python scripts/generate_attacks.py --all --write-phosrun</pre>
+<p>or:</p>
+<pre>python scripts/generate_synth_runs.py --all</pre>
+</div>
+</main>
+
+<footer>
+<p>PHOS — behavioural cybersecurity research. Not for clinical use.</p>
+<p><a href="/aggregate.html">View aggregate statistics across all runs</a></p>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>
