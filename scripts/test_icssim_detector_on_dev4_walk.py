@@ -15,12 +15,13 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from phos.referee.demo import icssim_detector, _load_icssim_csv
+from phos.referee.demo import _load_icssim_csv, icssim_detector
 
 DATA = Path("data/phos-icssim-dev4-walk")
 
 
 def main() -> None:
+    """Score the walk detector on the dev4 walk corpus and print the windows."""
     print("Building ICSSim AtlasDetector (fitted on data/phos-icssim-dev/normal-*)")
     detector = icssim_detector()
     print(f"Detector: {detector.name}")
@@ -81,7 +82,10 @@ def main() -> None:
             f"({inside_attack} inside subfloor_walk window, {outside_attack} outside)"
         )
         if attack_windows:
-            print(f"    subfloor_walk window: {attack_windows[0][0]:.1f}s - {attack_windows[0][1]:.1f}s")
+            print(
+                "    subfloor_walk window: "
+                f"{attack_windows[0][0]:.1f}s - {attack_windows[0][1]:.1f}s"
+            )
 
     print()
     print("=== SUMMARY ===")

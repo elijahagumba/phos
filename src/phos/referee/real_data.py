@@ -230,11 +230,15 @@ def run_real_data_exam(
         work_dir: Where intermediate files are written.
 
     Returns:
-        The exam record and the report.
+        The exam record and the report — but see ``Raises``: the scoring half is not built,
+        so this function does not currently return.
 
     Raises:
         ManifestError: If the dataset has no manifest.
         LicenceError: If the licence is not commercial-safe and not internal-only.
+        ValueError: If a file's hash does not match the manifest.
+        NotImplementedError: Always, once the manifest and hashes have been checked. The
+            scoring half of the exam is not built, and this call will not invent a report.
     """
     manifest = manifest_gate.require(dataset_name, internal_only=internal_only)
 
@@ -245,9 +249,7 @@ def run_real_data_exam(
             actual = hashlib.sha256(path.read_bytes()).hexdigest()
             expected = manifest.file_hashes.get(filename)
             if expected is not None and actual != expected:
-                raise ValueError(
-                    f"{filename}: hash {actual} does not match manifest {expected}"
-                )
+                raise ValueError(f"{filename}: hash {actual} does not match manifest {expected}")
 
     exam = RealDataExam.create(
         dataset=dataset_name,
@@ -260,70 +262,18 @@ def run_real_data_exam(
         internal_only=internal_only,
     )
 
-    # Score the detector on the test split using the referee's existing scoring.
-
-    # Build a synthetic plant wrapper for the real data — this is an adapter, not a
-    # modification of Atlas. The real data is read as telemetry and scored as one plant.
-    # For now, we score using the detector directly on a Dataset built from the CSV.
-    import pandas
-
-    from phos.eval import Dataset, Observation
-    from phos.ontology import Domain as OntDomain
-
-    frame = pandas.read_csv(data_dir / test_files[0])
-    value_columns = [c for c in frame.columns if c not in ("timestamp", "label")]
-    timestamps = [
-        stamp.to_pydatetime()
-        for stamp in pandas.to_datetime(frame["timestamp"], utc=True)
-    ]
-    entity = f"real-data:{dataset_name}"
-    observations = [
-        Observation(
-            id=f"obs_rd{row_index:08d}c{column_index:02d}",
-            entity_ids=[entity],
-            feature=column,
-            value=float(frame[column].iloc[row_index]),
-            timestamp=timestamp,
-            domain=OntDomain.ATLAS,
-            context={"dataset": dataset_name},
-        )
-        for row_index, timestamp in enumerate(timestamps)
-        for column_index, column in enumerate(value_columns)
-    ]
-    Dataset(
-        name=dataset_name,
-        domain=OntDomain.ATLAS,
-        observations=observations,
-        attack_intervals=[],
-        unscored_intervals=[],
-        source_note=f"real data: {dataset_name}, file={test_files[0]}",
+    # The scoring half of this exam is not built. What stood here imported
+    # `phos.eval.Observation`, which does not exist, so the call raised ImportError before it
+    # scored anything; it then built a `Dataset` it discarded and an `EvaluationReport` whose
+    # every field was 0.0. A report of zeros presented as a measurement is a fabricated
+    # result, which Constitution §3 and §10 forbid, so the call refuses instead of returning
+    # one. The manifest gate, the licence check and the hash verification above are real and
+    # still run. Writing the scoring needs its own declaration (GENESIS `declare`).
+    raise NotImplementedError(
+        f"real-data scoring is not built: exam {exam.exam_id} was recorded for "
+        f"dataset {dataset_name!r}, but no detector was run and no report was produced. "
+        "The scoring half needs its own declaration before it is written."
     )
-    # detector.run returns detections; we wrap into a minimal report below.
-    from phos.eval import EvaluationReport
-
-    eval_report = EvaluationReport(
-        dataset_name=dataset_name,
-        false_positive_rate=0.0,
-        window_recall=0.0,
-        recall_sample=0.0,
-        expected_calibration_error=0.0,
-        brier_score=0.0,
-    )
-
-    real_report = RealDataReport(
-        exam_id=exam.exam_id,
-        dataset=dataset_name,
-        label=f"REAL DATA ({dataset_name})",
-        detector_name=getattr(detector, "name", "unknown"),
-        report=eval_report,
-        internal_only=internal_only,
-        limitations=[
-            "Real-data results are not simulated results and are never merged with them.",
-            "Coarse labels mean recall may be under- or over-counted.",
-            "No red-tier corpus was read; this is the dataset's own labels only.",
-        ],
-    )
-    return exam, real_report
 
 
 __all__ = [

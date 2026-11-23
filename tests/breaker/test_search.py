@@ -3,20 +3,25 @@
 from __future__ import annotations
 
 import random
+from collections.abc import Callable
+from dataclasses import FrozenInstanceError
 
 import pytest
 
-from phos.breaker.genome import AttackTechnique, validate_genome
+from phos.breaker.genome import AttackGenome, AttackTechnique, validate_genome
 from phos.breaker.objective import Objective
 from phos.breaker.search import (
     EvolutionarySearch,
     HillClimber,
     RandomSearch,
     SearchResult,
+    SearchStrategy,
 )
 
 
-def _make_strategy(cls, seed: int = 42, **kwargs):
+def _make_strategy[StrategyT: SearchStrategy](
+    cls: Callable[..., StrategyT], seed: int = 42, **kwargs: object
+) -> StrategyT:
     tag_pool = ("tank_level", "outlet_flow", "inlet_valve")
     techniques = (
         AttackTechnique.LEVEL_EXCURSION,
@@ -31,7 +36,7 @@ def _make_strategy(cls, seed: int = 42, **kwargs):
     )
 
 
-def _result(genome, stealth: float = 0.8, harm: float = 0.9) -> SearchResult:
+def _result(genome: AttackGenome, stealth: float = 0.8, harm: float = 0.9) -> SearchResult:
     return SearchResult(
         genome=genome,
         objective=Objective(stealth=stealth, harm=harm, value=stealth * harm),
@@ -44,7 +49,10 @@ def test_random_search_always_produces_valid_genome() -> None:
     for _ in range(20):
         genome = strategy.next_genome()
         validate_genome(genome)
-        assert genome.technique in (AttackTechnique.LEVEL_EXCURSION, AttackTechnique.TEMPERATURE_RAMP)
+        assert genome.technique in (
+            AttackTechnique.LEVEL_EXCURSION,
+            AttackTechnique.TEMPERATURE_RAMP,
+        )
         assert set(genome.target_tags) <= {"tank_level", "outlet_flow", "inlet_valve"}
 
 
@@ -114,9 +122,11 @@ def test_hill_climber_improves_keeps_current() -> None:
 def test_search_result_is_frozen() -> None:
     strategy = _make_strategy(RandomSearch)
     genome = strategy.next_genome()
-    result = SearchResult(genome=genome, objective=Objective(stealth=0.5, harm=0.5, value=0.25), queries=1)
-    with pytest.raises(Exception):
-        result.queries = 999
+    result = SearchResult(
+        genome=genome, objective=Objective(stealth=0.5, harm=0.5, value=0.25), queries=1
+    )
+    with pytest.raises(FrozenInstanceError):
+        result.queries = 999  # type: ignore[misc]
 
 
 __all__ = []

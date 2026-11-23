@@ -175,7 +175,7 @@ def audit_release_folder(folder: Path) -> None:
         )
 
 
-def require_locked_exam(exam_report_path: Path | None, code_version: str) -> None:
+def require_locked_exam(exam_report_path: Path | None, code_version: str) -> Path:
     """Refuse to build a release unless a completed locked-exam run exists.
 
     Args:
@@ -184,6 +184,9 @@ def require_locked_exam(exam_report_path: Path | None, code_version: str) -> Non
 
     Raises:
         ReleaseGateError: If no exam report exists or it doesn't match the code version.
+
+    Returns:
+        The same path, now known to exist and to match ``code_version``.
     """
     if exam_report_path is None or not exam_report_path.exists():
         raise ReleaseGateError(
@@ -199,6 +202,7 @@ def require_locked_exam(exam_report_path: Path | None, code_version: str) -> Non
             f"exam report code_version {content.get('code_version')!r} does not match "
             f"current code {code_version!r}; re-run the exam"
         )
+    return exam_report_path
 
 
 def build_release(
@@ -235,7 +239,7 @@ def build_release(
         ReleaseGateError: If the release gate blocks (no locked exam).
         ReleaseAuditError: If the audit finds forbidden content.
     """
-    require_locked_exam(exam_report_path, code_version)
+    exam_report_path = require_locked_exam(exam_report_path, code_version)
 
     output_folder.mkdir(parents=True, exist_ok=True)
 
@@ -244,13 +248,12 @@ def build_release(
     synth_dest = output_folder / "simulator" / "phos" / "synth"
     shutil.copytree(simulator_source, synth_dest, dirs_exist_ok=True)
 
-    scoring_dest = (
-        output_folder / "scoring" / "phos" / "referee" / "scoring"
-    )
+    scoring_dest = output_folder / "scoring" / "phos" / "referee" / "scoring"
     shutil.copytree(scoring_source, scoring_dest, dirs_exist_ok=True)
 
     shutil.copytree(
-        detector_interface_source, output_folder / "detector-interface",
+        detector_interface_source,
+        output_folder / "detector-interface",
         dirs_exist_ok=True,
     )
 
@@ -269,9 +272,9 @@ def build_release(
 
     # Write the README.
     readme = _RELEASE_README_TEMPLATE.format(
-        exam_hash=json.loads(
-            exam_report_path.read_text(encoding="utf-8")
-        ).get("exam_id", "unknown"),
+        exam_hash=json.loads(exam_report_path.read_text(encoding="utf-8")).get(
+            "exam_id", "unknown"
+        ),
         scorer_version=scorer_version,
         code_version=code_version,
     )

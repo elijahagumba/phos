@@ -26,17 +26,23 @@ commands by construction rather than by accident.
 """
 
 from phos.synth.plants.batch import BatchReactorPlant
-from phos.synth.plants.batch_mix import BatchMixPlant  # noqa: F401
-from phos.synth.plants.batch_mix_family import BatchMixFamily  # noqa: F401  # registers BatchMixFamily
-from phos.synth.plants.generation import GenerationPlant  # noqa: F401
-from phos.synth.plants.generation_family import PowerFamily  # noqa: F401  # registers PowerFamily
-from phos.synth.plants.heated_chain import HeatedChainPlant  # noqa: F401
-from phos.synth.plants.heated_chain_family import HybridFamily  # noqa: F401  # registers HybridFamily
-from phos.synth.plants.level_flow import LevelFlowPlant  # noqa: F401
-from phos.synth.plants.level_flow_family import LevelFlowFamily  # noqa: F401  # registers LevelFlowFamily
+from phos.synth.plants.batch_mix import BatchMixPlant
+from phos.synth.plants.batch_mix_family import (
+    BatchMixFamily,  # registers BatchMixFamily
+)
+from phos.synth.plants.generation import GenerationPlant
+from phos.synth.plants.generation_family import PowerFamily  # registers PowerFamily
+from phos.synth.plants.heated_chain import HeatedChainPlant
+from phos.synth.plants.heated_chain_family import (
+    HybridFamily,  # registers HybridFamily
+)
+from phos.synth.plants.level_flow import LevelFlowPlant
+from phos.synth.plants.level_flow_family import (
+    LevelFlowFamily,  # registers LevelFlowFamily
+)
 from phos.synth.plants.power import PowerGenerationPlant
-from phos.synth.plants.thermal import ThermalPlant  # noqa: F401
-from phos.synth.plants.thermal_family import ThermalFamily  # noqa: F401  # registers ThermalFamily
+from phos.synth.plants.thermal import ThermalPlant
+from phos.synth.plants.thermal_family import ThermalFamily  # registers ThermalFamily
 from phos.synth.plants.water import WaterTreatmentPlant
 
 __all__ = [

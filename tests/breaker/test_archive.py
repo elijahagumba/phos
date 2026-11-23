@@ -11,7 +11,11 @@ from phos.breaker.genome import (
 from phos.breaker.objective import Objective
 
 
-def _genome(technique=AttackTechnique.LEVEL_EXCURSION, start_time=100.0, intensity=5.0) -> AttackGenome:
+def _genome(
+    technique: AttackTechnique = AttackTechnique.LEVEL_EXCURSION,
+    start_time: float = 100.0,
+    intensity: float = 5.0,
+) -> AttackGenome:
     return AttackGenome(
         technique=technique,
         target_tags=("tank_level",),

@@ -123,7 +123,7 @@ A plant that could not physically exist is refused rather than clipped, and a th
 
 **Nothing has been scored on a drawn plant yet.** The generator is built. The referee is not. There is no recall and no verdict for Atlas here, and none may be quoted from this page.
 
-[How a plant is drawn →](docs/sim/README.md) · [What it still cannot do →](docs/sim/coverage.md)
+[What the simulation engine is, and what it still cannot do →](docs/simulation-engine.md)
 
 ### What is public about the simulator, and why
 

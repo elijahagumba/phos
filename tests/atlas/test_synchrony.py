@@ -153,9 +153,7 @@ def test_derives_subsystems_from_signal_keys_without_map() -> None:
         noise=0.1,
         seed=7,
     )
-    model = CrossSubsystemSynchronyModel(
-        window_minutes=10, step_minutes=1, min_window_samples=20
-    )
+    model = CrossSubsystemSynchronyModel(window_minutes=10, step_minutes=1, min_window_samples=20)
     fitted = model.fit(obs)
     assert ("alpha", "beta") in fitted.subsystem_pairs
 
@@ -168,8 +166,6 @@ def test_refuses_insufficient_data() -> None:
         base_correlation=0.0,
         seed=7,
     )
-    model = CrossSubsystemSynchronyModel(
-        window_minutes=1, step_minutes=1, min_window_samples=5
-    )
+    model = CrossSubsystemSynchronyModel(window_minutes=1, step_minutes=1, min_window_samples=5)
     with pytest.raises(ValueError):
         model.fit(obs)

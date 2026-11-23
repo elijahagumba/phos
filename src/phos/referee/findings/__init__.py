@@ -119,11 +119,7 @@ class Finding:
         }
         finding_id = hashlib.sha256(
             json.dumps(
-                {
-                    k: v
-                    for k, v in content.items()
-                    if k != "date"
-                },
+                {k: v for k, v in content.items() if k != "date"},
                 sort_keys=True,
             ).encode("utf-8")
         ).hexdigest()

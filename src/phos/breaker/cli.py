@@ -10,10 +10,12 @@ import argparse
 import sys
 from collections.abc import Sequence
 from pathlib import Path
-from typing import Final
+from typing import Final, cast
 
 from phos.breaker.genome import AttackTechnique
-from phos.breaker.round_runner import run_round
+from phos.breaker.round_runner import RoundReport, run_round
+from phos.breaker.search import SearchStrategy
+from phos.eval import Detector
 from phos.referee.seeds import SeedVault
 
 __all__ = ["build_parser", "main"]
@@ -86,7 +88,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _resolve_detector(factory_path: str) -> object:
+def _resolve_detector(factory_path: str) -> Detector:
     """Import and call a ``module:function`` factory, returning what it builds."""
     import importlib
 
@@ -96,19 +98,17 @@ def _resolve_detector(factory_path: str) -> object:
     try:
         module = importlib.import_module(module_name)
     except ImportError as error:
-        raise ValueError(
-            f"{factory_path!r}: could not import {module_name!r}: {error}"
-        ) from error
+        raise ValueError(f"{factory_path!r}: could not import {module_name!r}: {error}") from error
     try:
         factory = getattr(module, function_name)
     except AttributeError as error:
-        raise ValueError(
-            f"{factory_path!r}: {module_name!r} has no {function_name!r}"
-        ) from error
-    return factory()
+        raise ValueError(f"{factory_path!r}: {module_name!r} has no {function_name!r}") from error
+    # The factory is resolved by name at run time, so what it returns is untyped here.
+    # It is used only through the `Detector` protocol that `run_round` requires.
+    return cast("Detector", factory())
 
 
-def _build_strategy(name: str, seed: int) -> object:
+def _build_strategy(name: str, seed: int) -> SearchStrategy:
     import random
 
     rng = random.Random(seed)
@@ -122,15 +122,11 @@ def _build_strategy(name: str, seed: int) -> object:
     if name == "evolutionary":
         from phos.breaker.search import EvolutionarySearch
 
-        return EvolutionarySearch(
-            rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0
-        )
+        return EvolutionarySearch(rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0)
     if name == "hillclimb":
         from phos.breaker.search import HillClimber
 
-        return HillClimber(
-            rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0
-        )
+        return HillClimber(rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0)
     from phos.breaker.search import RandomSearch
 
     return RandomSearch(rng=rng, tag_pool=tag_pool, techniques=_TECHNIQUES, hours=24.0)
@@ -151,13 +147,11 @@ def _cmd_round(arguments: argparse.Namespace) -> int:
         work_dir=arguments.work_dir,
     )
 
-    print(
-        json_report(report)
-    )
+    print(json_report(report))
     return 0
 
 
-def json_report(report: object) -> str:
+def json_report(report: RoundReport) -> str:
     """Return a round report as a JSON string."""
     import json
 

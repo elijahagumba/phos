@@ -6,15 +6,13 @@ anti-fingerprinting (no Atlas import), and optional-member handling.
 
 from __future__ import annotations
 
-import json
 import zipfile
 from pathlib import Path
+from typing import Any
 
 import numpy
-import pytest
 
 from phos.runrecord import (
-    FORMAT_VERSION_MAJOR,
     FORMAT_VERSION_STRING,
     RunRecord,
     read_header,
@@ -23,9 +21,11 @@ from phos.runrecord import (
 )
 
 
-def _minimal_telemetry_chunks(n_chunks: int = 2, samples_per_chunk: int = 100) -> list[dict]:
+def _minimal_telemetry_chunks(
+    n_chunks: int = 2, samples_per_chunk: int = 100
+) -> list[dict[str, Any]]:
     """Build synthetic telemetry chunks for testing."""
-    chunks: list[dict] = []
+    chunks: list[dict[str, Any]] = []
     columns = [
         {"tag": "reactor_temp_c", "unit": "degC", "valid_range": [0.0, 100.0], "role": "sensor"},
         {"tag": "jacket_valve_pct", "unit": "%", "valid_range": [0.0, 100.0], "role": "actuator"},
@@ -51,9 +51,9 @@ def _minimal_telemetry_chunks(n_chunks: int = 2, samples_per_chunk: int = 100) -
     return chunks
 
 
-def _minimal_run_kwargs(tmp_path: Path, **overrides: object) -> dict:
+def _minimal_run_kwargs(tmp_path: Path, **overrides: object) -> dict[str, Any]:
     """Build minimal kwargs for write_run."""
-    kwargs: dict = {
+    kwargs: dict[str, Any] = {
         "output": tmp_path / "test.phosrun",
         "kind": "simulated",
         "title": "Test run",
@@ -87,7 +87,11 @@ def _minimal_run_kwargs(tmp_path: Path, **overrides: object) -> dict:
         ],
         "telemetry_chunks": _minimal_telemetry_chunks(),
         "labels": [
-            {"start": "2026-05-01T04:00:00+00:00", "end": "2026-05-01T05:30:00+00:00", "class": "attack"}
+            {
+                "start": "2026-05-01T04:00:00+00:00",
+                "end": "2026-05-01T05:30:00+00:00",
+                "class": "attack",
+            }
         ],
     }
     kwargs.update(overrides)
@@ -132,7 +136,9 @@ def test_write_and_read_roundtrip(tmp_path: Path) -> None:
         assert chunk0.shape == (100, 2)
 
         # Telemetry range query
-        result = run.telemetry_range("reactor_temp_c", "2026-05-01T00:00:00+00:00", "2026-05-01T00:02:00+00:00")
+        result = run.telemetry_range(
+            "reactor_temp_c", "2026-05-01T00:00:00+00:00", "2026-05-01T00:02:00+00:00"
+        )
         assert len(result["timestamps"]) > 0
         assert len(result["values"]) == len(result["timestamps"])
 
@@ -275,8 +281,8 @@ def test_runrecord_does_not_import_atlas() -> None:
 
 def test_runrecord_module_imports_only_allowed_atlas_modules() -> None:
     """runrecord/writer.py and reader.py only import format, not phos.atlas."""
-    import phos.runrecord.writer
     import phos.runrecord.reader
+    import phos.runrecord.writer
 
     for mod in (phos.runrecord.writer, phos.runrecord.reader):
         mod_name = mod.__name__

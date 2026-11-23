@@ -20,8 +20,8 @@ class DiversityArchive:
     attacks in the same region are treated as variants of one another.
     """
 
-    entries: dict[tuple[str, str, str, str], list[tuple[AttackGenome, Objective]]] = (
-        field(default_factory=dict)
+    entries: dict[tuple[str, str, str, str], list[tuple[AttackGenome, Objective]]] = field(
+        default_factory=dict
     )
 
     def add(self, genome: AttackGenome, objective: Objective) -> bool:

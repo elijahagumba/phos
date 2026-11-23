@@ -114,14 +114,10 @@ class CrossSubsystemSynchronyFittedModel(FittedModel):
             return deviations
 
         # Build the matrix: columns are all signals this model knows about, rows are timestamps.
-        all_signal_keys = sorted(
-            key for cols in self.signal_columns.values() for key in cols
-        )
+        all_signal_keys = sorted(key for cols in self.signal_columns.values() for key in cols)
         key_to_col = {key: i for i, key in enumerate(all_signal_keys)}
 
-        matrix = numpy.full(
-            (len(ordered_ts), len(all_signal_keys)), numpy.nan, dtype=numpy.float64
-        )
+        matrix = numpy.full((len(ordered_ts), len(all_signal_keys)), numpy.nan, dtype=numpy.float64)
         for row_idx, ts in enumerate(ordered_ts):
             for key, value in by_timestamp[ts].items():
                 if key in key_to_col:
@@ -147,9 +143,7 @@ class CrossSubsystemSynchronyFittedModel(FittedModel):
         n_windows = matrix.shape[0] - self.window_samples + 1
         # Consecutive-window counter per pair: counts how many windows in a row
         # have exceeded the threshold. Resets to zero on any non-exceeding window.
-        consecutive: dict[tuple[str, str], int] = {
-            pair: 0 for pair in self.subsystem_pairs
-        }
+        consecutive: dict[tuple[str, str], int] = dict.fromkeys(self.subsystem_pairs, 0)
         for start in range(0, n_windows, self.step_samples):
             end = start + self.window_samples
             window_ts = ordered_ts[end - 1]  # stamp the window at its latest instant
@@ -183,18 +177,12 @@ class CrossSubsystemSynchronyFittedModel(FittedModel):
                 magnitude = clamp_magnitude(zscore)
                 deviations.append(
                     Deviation(
-                        observation_id=(
-                            f"synchrony:{sub_a}:{sub_b}:{window_ts.isoformat()}"
-                        ),
+                        observation_id=(f"synchrony:{sub_a}:{sub_b}:{window_ts.isoformat()}"),
                         expected=ExpectedRange(
                             feature=f"synchrony:{sub_a}:{sub_b}",
                             entity_id=sub_a,
-                            low=(
-                                mean - 3.0 * stddev if stddev > 0 else mean
-                            ),
-                            high=(
-                                mean + 3.0 * stddev if stddev > 0 else mean
-                            ),
+                            low=(mean - 3.0 * stddev if stddev > 0 else mean),
+                            high=(mean + 3.0 * stddev if stddev > 0 else mean),
                             mean=mean,
                             stddev=stddev,
                             learned_from_window=(self.train_start, self.train_end),
@@ -267,9 +255,7 @@ class CrossSubsystemSynchronyModel(BehaviouralModel):
         ordered_keys = sorted(signal_keys)
         key_to_col = {key: i for i, key in enumerate(ordered_keys)}
 
-        matrix = numpy.full(
-            (len(ordered_ts), len(ordered_keys)), numpy.nan, dtype=numpy.float64
-        )
+        matrix = numpy.full((len(ordered_ts), len(ordered_keys)), numpy.nan, dtype=numpy.float64)
         for row_idx, ts in enumerate(ordered_ts):
             for key, value in by_timestamp[ts].items():
                 matrix[row_idx, key_to_col[key]] = value
@@ -309,15 +295,12 @@ class CrossSubsystemSynchronyModel(BehaviouralModel):
                 )
 
         if not pairs:
-            raise ValueError(
-                "fewer than two subsystems in training data; no pairs to learn"
-            )
+            raise ValueError("fewer than two subsystems in training data; no pairs to learn")
 
         # Derive samples-per-minute from the actual timestamp spacing so the
         # minute-based window parameters work at any sampling rate.
         deltas = [
-            (ordered_ts[i + 1] - ordered_ts[i]).total_seconds()
-            for i in range(len(ordered_ts) - 1)
+            (ordered_ts[i + 1] - ordered_ts[i]).total_seconds() for i in range(len(ordered_ts) - 1)
         ]
         median_delta = float(numpy.median(deltas)) if deltas else 1.0
         samples_per_minute = max(1, round(60.0 / median_delta))
@@ -374,8 +357,7 @@ class CrossSubsystemSynchronyModel(BehaviouralModel):
             step_samples=step_samples,
             persistence_windows=self.persistence_windows,
             signal_columns={
-                sub: [k for k in keys if k in key_to_col]
-                for sub, keys in signal_columns.items()
+                sub: [k for k in keys if k in key_to_col] for sub, keys in signal_columns.items()
             },
             train_start=ordered_ts[0],
             train_end=ordered_ts[-1],

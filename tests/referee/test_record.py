@@ -31,9 +31,7 @@ def small_corpus(tmp_path_factory: pytest.TempPathFactory) -> Path:
     configs = load_batteries(CONFIG_DIR)
     config = next(c for c in configs if c.name == "synth-attack-water-unknown-master")
     output = tmp_path_factory.mktemp("recorder-corpus")
-    directory, _manifest = generate_attack_dataset(
-        config, output, with_capture=True
-    )
+    directory, _manifest = generate_attack_dataset(config, output, with_capture=True)
     return directory
 
 
@@ -98,8 +96,14 @@ def test_record_writes_valid_phosrun(phosrun_path: Path) -> None:
     members = set(header["members"].keys())
     # Required members present (header.json is not declared in members by design:
     # it contains run_id which is computed from the other member hashes).
-    for req in ("plant.json", "structure.json", "timeline.json",
-                "telemetry/index.json", "labels.json", "thumbnail.svg"):
+    for req in (
+        "plant.json",
+        "structure.json",
+        "timeline.json",
+        "telemetry/index.json",
+        "labels.json",
+        "thumbnail.svg",
+    ):
         assert req in members, f"missing required member: {req}"
     # Atlas members present
     assert "atlas/detector.json" in members

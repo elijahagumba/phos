@@ -130,9 +130,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     written = record_atlas_on_run(directory, phosrun_path)
                     logger.info("wrote .phosrun: %s", written)
                 except Exception as error:  # recording never kills corpus generation
-                    logger.warning(
-                        "%s: could not write .phosrun: %s", config.name, error
-                    )
+                    logger.warning("%s: could not write .phosrun: %s", config.name, error)
     except (GenerationError, ValueError) as error:
         logger.error("%s", error)
         return 2

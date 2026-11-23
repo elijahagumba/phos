@@ -55,9 +55,7 @@ def _load_telemetry(corpus_dir: Path) -> dict[str, list[float]]:
     `LabelledCsvAdapter`. This function never reads labels or attack windows.
     """
     frame = pandas.read_csv(corpus_dir / "telemetry.csv")
-    value_columns = [
-        c for c in frame.columns if c not in ("timestamp", "label")
-    ]
+    value_columns = [c for c in frame.columns if c not in ("timestamp", "label")]
     return {c: frame[c].tolist() for c in value_columns}
 
 
@@ -368,9 +366,7 @@ def build_timeline(corpus_dir: Path) -> list[dict[str, Any]]:
     return timeline
 
 
-def build_telemetry_chunks(
-    corpus_dir: Path, chunk_length: int = 3600
-) -> list[dict[str, Any]]:
+def build_telemetry_chunks(corpus_dir: Path, chunk_length: int = 3600) -> list[dict[str, Any]]:
     """Build telemetry chunks from telemetry.csv for the viewer.
 
     Splits the CSV into fixed-size row chunks and returns chunk dicts with
@@ -403,9 +399,7 @@ def build_telemetry_chunks(
         min_max = []
         for c in value_cols:
             col_values = numpy.asarray(chunk_df[c].values, dtype="float64")
-            min_max.append(
-                [float(col_values.min()), float(col_values.max())]
-            )
+            min_max.append([float(col_values.min()), float(col_values.max())])
         array = numpy.array(data, dtype="float64")
         chunks.append(
             {

@@ -34,9 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
 
     run_parser = sub.add_parser("run", help="Run a detector on the public scenarios.")
-    run_parser.add_argument(
-        "--detector", required=True, help='detector "module:function" factory'
-    )
+    run_parser.add_argument("--detector", required=True, help='detector "module:function" factory')
     run_parser.add_argument(
         "--scenarios", type=Path, required=True, help="folder of public scenario files"
     )
@@ -64,9 +62,7 @@ def _resolve_detector(factory_path: str) -> object:
     try:
         factory = getattr(module, function_name)
     except AttributeError as error:
-        raise ValueError(
-            f"{factory_path!r}: {module_name!r} has no {function_name!r}"
-        ) from error
+        raise ValueError(f"{factory_path!r}: {module_name!r} has no {function_name!r}") from error
     return factory()
 
 
@@ -116,8 +112,7 @@ def _cmd_compare(arguments: argparse.Namespace) -> int:
     arguments.out.parent.mkdir(parents=True, exist_ok=True)
     arguments.out.write_text(json.dumps(table, indent=2) + "\n", encoding="utf-8")
     print(
-        f"wrote comparison table: {len(passes)} passed, "
-        f"{len(failures)} failures → {arguments.out}"
+        f"wrote comparison table: {len(passes)} passed, {len(failures)} failures → {arguments.out}"
     )
     return 0
 

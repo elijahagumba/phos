@@ -276,9 +276,7 @@ def run_corpus(name: str, corpus_dir: Path, manifest: Mapping[str, Any]) -> Synt
         scores, labels = scores_and_labels_from(fitted, calib)
         calibrator = IsotonicCalibrator(seed=SEED).fit(scores, labels)
     except ValueError as error:
-        logger.warning(
-            "%s: no calibrator fitted (%s); reporting 5A context only", name, error
-        )
+        logger.warning("%s: no calibrator fitted (%s); reporting 5A context only", name, error)
 
     topology_corpus = str(manifest.get("plant_id", name))
     topology = load_topology(

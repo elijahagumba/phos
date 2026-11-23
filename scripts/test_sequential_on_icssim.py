@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any, cast
 
 import numpy
 
@@ -41,12 +42,13 @@ def load_process_csv(path: Path) -> dict[str, list[float]]:
     return values
 
 
-def load_events(path: Path) -> list[dict]:
+def load_events(path: Path) -> list[dict[str, Any]]:
     """Return events from events.json."""
-    return json.loads(path.read_text())
+    return cast("list[dict[str, Any]]", json.loads(path.read_text()))
 
 
 def main() -> None:
+    """Fit the sequential run-length model on ICSSim normals and score the events."""
     # --- Fit on normal data ---
     normal_series: list[numpy.ndarray] = []
     for d in NORMAL_DIRS:
@@ -78,9 +80,7 @@ def main() -> None:
         # Load attack windows from events.json
         events = load_events(d / "events.json")
         attack_windows = [
-            (float(e["start"]), float(e["end"]))
-            for e in events
-            if e.get("label") == "attack"
+            (float(e["start"]), float(e["end"])) for e in events if e.get("label") == "attack"
         ]
 
         # Timestamp column is epoch seconds, 1 sample per second
@@ -106,13 +106,9 @@ def main() -> None:
 
         # Summarise attack types
         attack_types = [
-            (e["kind"], e["start"], e["end"])
-            for e in events
-            if e.get("label") == "attack"
+            (e["kind"], e["start"], e["end"]) for e in events if e.get("label") == "attack"
         ]
-        print(
-            f"\n{d.name}: {hits} hits ({inside} inside attack, {outside} outside)"
-        )
+        print(f"\n{d.name}: {hits} hits ({inside} inside attack, {outside} outside)")
         for kind, s, e in attack_types:
             hits_in = sum(
                 1
@@ -122,7 +118,7 @@ def main() -> None:
             if hits_in > 0:
                 print(f"  {kind} [{s:.1f}-{e:.1f}s]: {hits_in} hits")
 
-    print(f"\n=== SUMMARY ===")
+    print("\n=== SUMMARY ===")
     print(f"Mixed plants scored: {len(MIXED_DIRS)}")
     print(f"Total sequential hits above threshold: {total_hits}")
     print(f"Hits inside attack windows: {total_inside_attack}")

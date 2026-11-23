@@ -37,7 +37,7 @@ def load_csv(path: Path) -> tuple[list[str], list[str], dict[str, list[float]]]:
     for line in lines[1:]:
         fields = line.split(",")
         timestamps.append(fields[ts_col])
-        for i, name in zip(value_cols, col_names):
+        for i, name in zip(value_cols, col_names, strict=True):
             try:
                 values[name].append(float(fields[i]))
             except ValueError:
@@ -46,6 +46,7 @@ def load_csv(path: Path) -> tuple[list[str], list[str], dict[str, list[float]]]:
 
 
 def main() -> None:
+    """Fit the sequential run-length model on HAI train and report hits on test."""
     train_cols, _train_ts, train_vals = load_csv(TRAIN)
     test_cols, test_ts, test_vals = load_csv(TEST)
 
@@ -70,7 +71,7 @@ def main() -> None:
     margin = 1
     detections = 0
     detections_by_tag: dict[str, int] = {}
-    for tag, (col, longest_run) in models.items():
+    for tag, (_col, longest_run) in models.items():
         series = numpy.array(test_vals[tag], dtype=numpy.float64)
         runs = change_run(series)
         threshold = float(longest_run) + margin
@@ -109,10 +110,10 @@ def main() -> None:
                 in_attack = False
     if in_attack:
         attack_ends.append(len(test_ts) - 1)
-    print(f"Attack windows: {list(zip(attack_starts, attack_ends))}")
+    print(f"Attack windows: {list(zip(attack_starts, attack_ends, strict=True))}")
 
     # For each tag, count hits inside attack windows.
-    for tag, (col, longest_run) in models.items():
+    for tag, (_col, longest_run) in models.items():
         series = numpy.array(test_vals[tag], dtype=numpy.float64)
         runs = change_run(series)
         threshold = float(longest_run) + margin
@@ -120,11 +121,9 @@ def main() -> None:
         inside_attack = sum(
             1
             for i in hit_indices
-            if any(s <= i <= e for s, e in zip(attack_starts, attack_ends))
+            if any(s <= i <= e for s, e in zip(attack_starts, attack_ends, strict=True))
         )
-        print(
-            f"  {tag}: {len(hit_indices)} hits, {inside_attack} inside attack windows"
-        )
+        print(f"  {tag}: {len(hit_indices)} hits, {inside_attack} inside attack windows")
 
 
 if __name__ == "__main__":

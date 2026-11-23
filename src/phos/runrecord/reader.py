@@ -167,9 +167,7 @@ class RunRecord:
     def telemetry_index(self) -> dict[str, Any]:
         """The telemetry index dict (columns, sample period, chunk map)."""
         if self._telemetry_index is None:
-            self._telemetry_index = _json_bytes_to_obj(
-                self._zip.read(fmt.MEMBER_TELEMETRY_INDEX)
-            )
+            self._telemetry_index = _json_bytes_to_obj(self._zip.read(fmt.MEMBER_TELEMETRY_INDEX))
         return self._telemetry_index
 
     def telemetry_chunk(self, chunk_index: int) -> numpy.ndarray:
@@ -225,9 +223,7 @@ class RunRecord:
             chunk_start_offset = int((chunk_start - run_start_dt).total_seconds())
             for row_idx in range(array.shape[0]):
                 sample_offset = chunk_start_offset + row_idx
-                sample_dt = run_start_dt + timedelta(
-                    seconds=sample_offset * sample_period
-                )
+                sample_dt = run_start_dt + timedelta(seconds=sample_offset * sample_period)
                 if sample_dt < start_dt or sample_dt >= end_dt:
                     continue
                 result_timestamps.append(sample_dt.isoformat())
@@ -251,9 +247,7 @@ class RunRecord:
         narratives_data = _read_member(self._zip, fmt.MEMBER_ATLAS_NARRATIVES)
         self._atlas = {
             "detector": _json_bytes_to_obj(detector_data),
-            "alerts": _jsonl_bytes_to_objs(alerts_data)
-            if alerts_data is not None
-            else [],
+            "alerts": _jsonl_bytes_to_objs(alerts_data) if alerts_data is not None else [],
             "hypotheses": _jsonl_bytes_to_objs(hypotheses_data)
             if hypotheses_data is not None
             else [],
@@ -284,9 +278,7 @@ class RunRecord:
             self._traffic = None
             return None
         self._traffic = {
-            "summary": _json_bytes_to_obj(summary_data)
-            if summary_data is not None
-            else None,
+            "summary": _json_bytes_to_obj(summary_data) if summary_data is not None else None,
             "capture": capture_data,
         }
         return self._traffic
@@ -351,8 +343,7 @@ def verify(path: str | Path) -> list[str]:
                     problems.append(f"undeclared member: {name}")
 
             member_hashes = {
-                name: info.get("sha256", "")
-                for name, info in declared_members.items()
+                name: info.get("sha256", "") for name, info in declared_members.items()
             }
             hash_input = "".join(
                 f"{name}:{member_hashes[name]}" for name in sorted(member_hashes.keys())
@@ -360,8 +351,7 @@ def verify(path: str | Path) -> list[str]:
             actual_run_id = hashlib.sha256(hash_input).hexdigest()
             if actual_run_id != declared_run_id:
                 problems.append(
-                    f"run_id mismatch: declared {declared_run_id}, "
-                    f"actual {actual_run_id}"
+                    f"run_id mismatch: declared {declared_run_id}, actual {actual_run_id}"
                 )
 
     except zipfile.BadZipFile as exc:

@@ -111,15 +111,11 @@ def write_run(
     # Build all member byte contents except the header (which references hashes).
     member_bytes: dict[str, bytes] = {}
 
-    member_bytes[fmt.MEMBER_PLANT] = (
-        _json_bytes(plant) if plant is not None else b"{}"
-    )
+    member_bytes[fmt.MEMBER_PLANT] = _json_bytes(plant) if plant is not None else b"{}"
     member_bytes[fmt.MEMBER_STRUCTURE] = _json_bytes(structure)
     member_bytes[fmt.MEMBER_TIMELINE] = _json_bytes(timeline)
     member_bytes[fmt.MEMBER_LABELS] = _json_bytes(labels)
-    member_bytes[fmt.MEMBER_THUMBNAIL] = (
-        thumbnail.encode("utf-8") if thumbnail is not None else b""
-    )
+    member_bytes[fmt.MEMBER_THUMBNAIL] = thumbnail.encode("utf-8") if thumbnail is not None else b""
 
     # Telemetry: chunks + index.
     telemetry_member_bytes: dict[str, bytes] = {}
@@ -177,13 +173,9 @@ def write_run(
         if "alerts" in atlas:
             member_bytes[fmt.MEMBER_ATLAS_ALERTS] = _jsonl_bytes(atlas["alerts"])
         if "hypotheses" in atlas:
-            member_bytes[fmt.MEMBER_ATLAS_HYPOTHESES] = _jsonl_bytes(
-                atlas["hypotheses"]
-            )
+            member_bytes[fmt.MEMBER_ATLAS_HYPOTHESES] = _jsonl_bytes(atlas["hypotheses"])
         if "narratives" in atlas:
-            member_bytes[fmt.MEMBER_ATLAS_NARRATIVES] = _jsonl_bytes(
-                atlas["narratives"]
-            )
+            member_bytes[fmt.MEMBER_ATLAS_NARRATIVES] = _jsonl_bytes(atlas["narratives"])
 
     # Add optional scores.
     if scores is not None:
@@ -192,9 +184,7 @@ def write_run(
     # Add optional traffic.
     if traffic is not None:
         if "summary" in traffic:
-            member_bytes[fmt.MEMBER_TRAFFIC_SUMMARY] = _json_bytes(
-                traffic["summary"]
-            )
+            member_bytes[fmt.MEMBER_TRAFFIC_SUMMARY] = _json_bytes(traffic["summary"])
         capture = traffic.get("capture")
         if capture is not None:
             member_bytes[fmt.MEMBER_TRAFFIC_CAPTURE] = (
@@ -236,12 +226,9 @@ def write_run(
     # header.json contains run_id itself, so we can't include it in its own
     # hash input (circular dependency). header.json's hash is still included
     # in declared_members so that corrupting header.json is detected by verify().
-    non_header_hashes = {
-        name: h for name, h in member_hashes.items() if name != fmt.MEMBER_HEADER
-    }
+    non_header_hashes = {name: h for name, h in member_hashes.items() if name != fmt.MEMBER_HEADER}
     hash_input = "".join(
-        f"{name}:{non_header_hashes[name]}"
-        for name in sorted(non_header_hashes.keys())
+        f"{name}:{non_header_hashes[name]}" for name in sorted(non_header_hashes.keys())
     ).encode("utf-8")
     run_id = hashlib.sha256(hash_input).hexdigest()
     header["run_id"] = run_id

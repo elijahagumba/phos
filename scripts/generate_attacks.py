@@ -91,9 +91,7 @@ def main(argv: list[str] | None = None) -> int:
                 written = record_atlas_on_run(directory, phosrun_path)
                 logger.info("wrote .phosrun: %s", written)
             except Exception as error:  # recording never kills corpus generation
-                logger.warning(
-                    "%s: could not write .phosrun: %s", config.name, error
-                )
+                logger.warning("%s: could not write .phosrun: %s", config.name, error)
     return 0
 
 

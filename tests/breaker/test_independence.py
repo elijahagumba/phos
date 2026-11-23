@@ -1,4 +1,4 @@
-"""Independence: the breaker must not import Atlas or referee internals that expose its rules (PART S7).
+"""Independence: the breaker imports no Atlas or rule-exposing referee internals (PART S7).
 
 The breaker may import ``phos.referee.seeds`` (seed pool management, no Atlas rules) but must never
 import ``phos.atlas`` or any referee module that touches Atlas's rules, thresholds, models or
@@ -48,7 +48,9 @@ def _imported(path: Path) -> set[str]:
 
 
 def _reaches_banned(names: set[str]) -> list[str]:
-    return sorted(name for name in names if any(name == b or name.startswith(b) for b in BANNED_MODULES))
+    return sorted(
+        name for name in names if any(name == b or name.startswith(b) for b in BANNED_MODULES)
+    )
 
 
 def test_the_scan_finds_enough_modules_to_mean_something() -> None:

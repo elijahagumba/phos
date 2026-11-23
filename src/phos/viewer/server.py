@@ -40,10 +40,10 @@ class ViewerRequestHandler(http.server.SimpleHTTPRequestHandler):
         if parsed_path == "/api/runs":
             self._serve_runs_list()
         elif parsed_path.startswith("/api/run/"):
-            run_name = parsed_path[len("/api/run/"):]
+            run_name = parsed_path[len("/api/run/") :]
             self._serve_run_detail(run_name)
         elif parsed_path.startswith("/api/telemetry/"):
-            run_name = parsed_path[len("/api/telemetry/"):]
+            run_name = parsed_path[len("/api/telemetry/") :]
             self._serve_telemetry_range(run_name)
         elif parsed_path == "/detail":
             self._serve_detail_page()

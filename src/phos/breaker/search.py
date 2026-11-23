@@ -209,9 +209,7 @@ class EvolutionarySearch(SearchStrategy):
         )
 
     def _crossover(self, a: AttackGenome, b: AttackGenome) -> AttackGenome:
-        tags = tuple(
-            sorted(set(a.target_tags) | set(b.target_tags))[: min(3, len(self.tag_pool))]
-        )
+        tags = tuple(sorted(set(a.target_tags) | set(b.target_tags))[: min(3, len(self.tag_pool))])
         return AttackGenome(
             technique=self.rng.choice((a.technique, b.technique)),
             target_tags=tags,
@@ -309,8 +307,10 @@ class HillClimber(SearchStrategy):
         duration = max(300.0, genome.duration + self.rng.uniform(-300.0, 300.0))
         intensity = max(0.1, genome.intensity + self.rng.uniform(-1.0, 1.0))
         shape = genome.shape if self.rng.random() < 0.8 else self.rng.choice(list(AttackShape))
-        layer = genome.layer if self.rng.random() < 0.8 else self.rng.choice(
-            ("sensor", "actuator", "network")
+        layer = (
+            genome.layer
+            if self.rng.random() < 0.8
+            else self.rng.choice(("sensor", "actuator", "network"))
         )
         return AttackGenome(
             technique=genome.technique,

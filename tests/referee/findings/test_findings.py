@@ -33,21 +33,31 @@ def _genome() -> AttackGenome:
     )
 
 
-def _finding(**overrides) -> Finding:
-    data = dict(
-        source="test-round",
-        plant_spec_hash="plant-abc",
-        seed=4242,
-        family="level_flow",
-        attack_genome=_genome(),
-        what_happened="The level was nudged up and Atlas said nothing.",
-        atlas_output="no alerts raised",
-        why_missed="The departure stayed inside the per-signal band.",
-        physical_harm=True,
-        stealthy=True,
+def _finding(
+    *,
+    source: str = "test-round",
+    plant_spec_hash: str = "plant-abc",
+    seed: int = 4242,
+    family: str = "level_flow",
+    attack_genome: AttackGenome | None = None,
+    what_happened: str = "The level was nudged up and Atlas said nothing.",
+    atlas_output: str = "no alerts raised",
+    why_missed: str = "The departure stayed inside the per-signal band.",
+    physical_harm: bool = True,
+    stealthy: bool = True,
+) -> Finding:
+    return Finding.create(
+        source=source,
+        plant_spec_hash=plant_spec_hash,
+        seed=seed,
+        family=family,
+        attack_genome=_genome() if attack_genome is None else attack_genome,
+        what_happened=what_happened,
+        atlas_output=atlas_output,
+        why_missed=why_missed,
+        physical_harm=physical_harm,
+        stealthy=stealthy,
     )
-    data.update(overrides)
-    return Finding.create(**data)
 
 
 def test_finding_create_sets_open_status() -> None:
@@ -116,6 +126,7 @@ def test_change_status_appends_history(tmp_path: Path) -> None:
         generalisation=[{"variant": "level+10%", "detected": True}],
     )
     got = registry.get(finding.id)
+    assert got is not None
     assert got.status == "fixed"
     assert got.fixed_commit == "abc123"
     assert got.history[-1]["status"] == "fixed"
@@ -128,6 +139,7 @@ def test_fixed_without_generalisation_becomes_narrowly(tmp_path: Path) -> None:
     registry.add(finding)
     registry.change_status(finding.id, FindingStatus.FIXED, "fixed only on exact case")
     got = registry.get(finding.id)
+    assert got is not None
     assert got.status == "fixed narrowly"
 
 
