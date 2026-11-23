@@ -61,3 +61,4 @@ Lift ADR 0067 conditionally, replacing its blanket closure with a **measured reo
 - `docs/data-campaign/outreach.md`: Contact routes and email drafts for A1–A7
 - `src/phos/referee/demo.py`: Five detector factories including `swat_detector()` (built in this change)
 - `docs/real_data/`: Real-data exam reports (S9)
+<!-- evidence-ack: docs/real_data/ — never created, because no real-data exam was ever run: `run_real_data_exam` refuses rather than score, and ADR 0462 superseded the reopening this record proposed -->

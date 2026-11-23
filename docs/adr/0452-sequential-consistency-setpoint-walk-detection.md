@@ -42,6 +42,7 @@ A "previously-missed attack" is one that Round 1's breaker found (`physical_effe
 ## Constraints (all still in force)
 
 - No changes to `src/phos/atlas/sentinent/` or other non-atlas modules — only changes to `src/phos/referee/detectors.py` and `src/phos/referee/demo.py`
+  <!-- evidence-ack: src/phos/atlas/sentinent/ — never a path in any branch of this repository; the engine this constraint protects is `src/phos/sentiel/`, which is not under `atlas`, and the constraint held as written -->
 - No changes to frozen numbers, frozen rows, or `eval_runs/log.jsonl`
 - No red-tier corpus reads
 - Everything simulated and offline (PART S0 rule 5)

@@ -153,6 +153,7 @@ These live in the public specification.
 ### Decision 8 — Licensing arrangements require professional review
 
 The existing PolyForm Noncommercial licence (`public/overlay/LICENCE`) applies to the PHOS repository. The
+<!-- evidence-ack: public/overlay/LICENCE — the British spelling; the file is `public/overlay/LICENSE` and does carry PolyForm Noncommercial 1.0.0, so the sentence is true and only the spelling does not resolve -->
 hybrid model (public methodology, proprietary implementation, public example corpora) has not been reviewed
 by counsel. Licensing arrangements should be reviewed professionally before publication, particularly where
 existing PolyForm restrictions and third-party dependencies are involved.

@@ -67,6 +67,7 @@ Runs write to the folder named by `PHOS_RUNS_DIR`, defaulting to `~/PHOS_runs` (
 ## Success is
 
 - `docs/viewer/FORMAT.md` fully specifies the format with a worked example and a version number.
+  <!-- evidence-ack: docs/viewer/FORMAT.md — never written in any branch; `src/phos/runrecord/` and `src/phos/viewer/` were built without it, so this criterion is unmet and the format is specified only in code -->
 - `docs/viewer/PLAN.md` and `docs/viewer/recon.md` exist (recon and plan already written).
 - `src/phos/runrecord/` implements `write_run`, `read_header`, `open_run`, `verify` and the `phos-run` CLI.
 - `src/phos/viewer/` implements `phos-view` and the library screen; backend + plain HTML/CSS/JS front end.

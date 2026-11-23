@@ -19,7 +19,7 @@ reviewed as a consequence of ADR 0457. It is an inventory, not a decision itself
 | Public overlay copies | `public/overlay/docs/simulation-engine.md`, `public/overlay/docs/independent-validation-programme.md` | Mirror the rewritten documents. |
 | README | `README.md` | Rewrite with lab tone: what Atlas is, what Sentiel is, why Atlas is current work, transparent vernacular. |
 | Public release note | `public/overlay/docs/release.md` | Update to reflect proprietary engine / public methodology position. |
-| Licence file | `public/overlay/LICENCE` | Professional legal review required (PolyForm vs. hybrid model). |
+| Licence file | `public/overlay/LICENSE` | Professional legal review required (PolyForm vs. hybrid model). |
 
 ## Artefacts to publish (example corpora)
 
