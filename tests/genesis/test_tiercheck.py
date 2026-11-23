@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import get_args
 
 import pytest
+from tests.lab_only import RULES_ABSENT_REASON
 
 from phos.genesis.records import Tier
 from phos.genesis.tiercheck import (
@@ -32,6 +33,19 @@ from phos.guards import tiers
 
 #: The real repository root, so the table below reads the rule this project actually ships.
 REPO = Path(__file__).resolve().parents[2]
+
+# A `lab_only` marker cannot carry this module, and the reason is worth stating. The parametrised
+# tables below call `named_in()` inside their `@pytest.mark.parametrize` decorators, so the rule
+# file is read while the module is being **imported** — before `pytest_collection_modifyitems` runs
+# and before any marker exists to be honoured. In the public tree, where `docs/rules/` is a
+# forbidden path, that import raises and takes the whole collection down with it (ADR 0440: the
+# exported suite is green, and a false green is gone). A module-level skip is the only thing that
+# runs early enough. It is the same condition the marker expresses.
+if not (REPO / "docs" / "rules" / RULE_FILE).is_file():  # pragma: no cover - public tree only
+    pytest.skip(
+        f"docs/rules/{RULE_FILE} is absent. {RULES_ABSENT_REASON}",
+        allow_module_level=True,
+    )
 
 
 def the_rule_text() -> str:

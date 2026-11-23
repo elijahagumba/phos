@@ -22,6 +22,26 @@ TRACKER_ABSENT_REASON = (
 )
 
 
+#: Why an agent rule file is absent. `docs/rules/` symlinks into `.cursor/rules/`, and
+#: `.cursor/*` is a forbidden path in `public/manifest.toml`, so the rule never reaches the
+#: public tree and a test that reads it has nothing to read there.
+RULES_ABSENT_REASON = (
+    "docs/rules/ symlinks into .cursor/rules/, which is a forbidden path in "
+    "public/manifest.toml, so the agent rule is not in the public tree and this test has "
+    "nothing to read. In the lab, where the rule is present, a moved name still fails it."
+)
+
+
+#: Why the Cursor guards shim is absent. `.cursor/*` is a forbidden path in
+#: `public/manifest.toml`, so neither editor's hooks reach the public tree and a parity test
+#: between them has nothing to compare there.
+CURSOR_HOOKS_ABSENT_REASON = (
+    ".cursor/* is a forbidden path in public/manifest.toml, so the Cursor guards shim is not "
+    "in the public tree and there is no second editor to compare against. In the lab, where "
+    "both shims are present, a drifting answer still fails the parity test."
+)
+
+
 def skip_if_absent(path: Path, reason: str = ABSENT_REASON) -> None:
     """Skip when ``path`` is not a file. A present file is checked by the caller.
 

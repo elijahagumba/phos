@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any, cast
 
 import pytest
+from tests.lab_only import RULES_ABSENT_REASON
 
 from phos.eval import Dataset
 from phos.genesis.tiercheck import resolve
@@ -31,7 +32,20 @@ from phos.referee.quarantine import QUARANTINE_ADR, QuarantinedCorpusError
 
 REPO = Path(__file__).resolve().parents[2]
 REFEREE = REPO / "src" / "phos" / "referee"
-RULE = (REPO / "docs" / "rules" / "data-tiers.md").read_text(encoding="utf-8")
+
+# The rule is read while this module is being **imported**, so no marker exists yet to be
+# honoured and a module-level skip is the only thing that runs early enough — the same reason
+# `tests/genesis/test_tiercheck.py` carries one. `docs/rules/` symlinks into `.cursor/rules/`,
+# a forbidden path, so in the public tree this import would raise and take the whole collection
+# down with it (ADR 0440). Every assertion below still runs in the lab, where the rule is present.
+_RULE_PATH = REPO / "docs" / "rules" / "data-tiers.md"
+if not _RULE_PATH.is_file():  # pragma: no cover - public tree only
+    pytest.skip(
+        f"docs/rules/data-tiers.md is absent. {RULES_ABSENT_REASON}",
+        allow_module_level=True,
+    )
+
+RULE = _RULE_PATH.read_text(encoding="utf-8")
 
 #: Path prefixes a red corpus would be opened through. None of these may remain
 #: in the referee package: a constant that names the file is still a way to open it.

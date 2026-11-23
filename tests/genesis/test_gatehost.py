@@ -20,6 +20,11 @@ from typing import Any
 
 import pytest
 from tests.genesis.conftest import COMMAND, EXPERIMENT, MEASUREMENT, QUESTION
+from tests.lab_only import (
+    CURSOR_HOOKS_ABSENT_REASON,
+    RULES_ABSENT_REASON,
+    skip_if_absent,
+)
 
 from phos.genesis.gatehost import _SEVERITY as _SEVERITY_RANKS
 from phos.genesis.gatehost import decide, is_harness, repo_root_from
@@ -63,6 +68,8 @@ def seeded(root: Path, *, phase: str = "declared") -> Store:
     declares (ADR 0416) and every gate test here would be exercising that refusal instead of the
     state it names.
     """
+    for name in ("data-tiers.md", "docs-on-main.md"):
+        skip_if_absent(REPO / "docs" / "rules" / name, RULES_ABSENT_REASON)
     store = Store(root)
     from phos.genesis.records import Question
 
@@ -362,6 +369,7 @@ class TestCrossEnvironmentParity:
 
 class TestCursorHooksConfig:
     def test_the_hook_is_registered_on_the_shell_event_and_fails_closed(self) -> None:
+        skip_if_absent(REPO / ".cursor" / "hooks.json", CURSOR_HOOKS_ABSENT_REASON)
         config = json.loads((REPO / ".cursor" / "hooks.json").read_text(encoding="utf-8"))
         assert config["version"] == 1
         entries = config["hooks"]["beforeShellExecution"]
@@ -370,6 +378,7 @@ class TestCursorHooksConfig:
         assert "matcher" not in entry, "Cursor advises script-side filtering before a matcher"
 
     def test_the_registered_script_exists_and_is_executable(self) -> None:
+        skip_if_absent(REPO / ".cursor" / "hooks" / "genesis_gate.py", CURSOR_HOOKS_ABSENT_REASON)
         script = REPO / ".cursor" / "hooks" / "genesis_gate.py"
         assert script.is_file()
         assert script.stat().st_mode & 0o111, "Cursor runs it directly"
@@ -384,6 +393,7 @@ class TestTheGateFindsItsOwnRecord:
     """
 
     def test_no_cursor_hook_reads_an_undocumented_environment_variable(self) -> None:
+        skip_if_absent(REPO / ".cursor" / "hooks" / "genesis_gate.py", CURSOR_HOOKS_ABSENT_REASON)
         for script in sorted((REPO / ".cursor" / "hooks").glob("*.py")):
             body = script.read_text(encoding="utf-8")
             assert "CURSOR_PROJECT_DIR" not in body, f"{script.name} reads an undocumented variable"
@@ -411,6 +421,7 @@ class TestTheGateFindsItsOwnRecord:
         )
 
     def test_without_a_workspace_root_it_falls_back_to_its_own_checkout(self) -> None:
+        skip_if_absent(REPO / ".cursor" / "hooks" / "genesis_gate.py", CURSOR_HOOKS_ABSENT_REASON)
         done = subprocess.run(
             [sys.executable, str(REPO / ".cursor" / "hooks" / "genesis_gate.py")],
             input=json.dumps({"command": "echo ordinary"}),

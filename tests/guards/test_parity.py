@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from tests.lab_only import CURSOR_HOOKS_ABSENT_REASON, skip_if_absent
 
 #: This repository, where the real hook scripts live.
 REPO = Path(__file__).resolve().parents[2]
@@ -50,6 +51,7 @@ def claude_hook(
 
 def cursor_hook(checkout: Path, payload: dict[str, Any], role: str = "") -> dict[str, Any]:
     """Run the Cursor guards shim with Cursor's payload; return its parsed answer."""
+    skip_if_absent(REPO / ".cursor" / "hooks" / "phos_guards.py", CURSOR_HOOKS_ABSENT_REASON)
     env = {"PATH": "/usr/bin:/bin", "PYTHONPATH": str(REPO / "src")}
     if role:
         env["PHOS_SWARM_ROLE"] = role
@@ -251,6 +253,7 @@ class TestCursorResponseSchema:
         assert answer["permission"] == "allow"
 
     def test_a_malformed_payload_allows_rather_than_blocking(self, checkout: Path) -> None:
+        skip_if_absent(REPO / ".cursor" / "hooks" / "phos_guards.py", CURSOR_HOOKS_ABSENT_REASON)
         done = subprocess.run(
             [sys.executable, str(REPO / ".cursor" / "hooks" / "phos_guards.py")],
             input='{"broken',
