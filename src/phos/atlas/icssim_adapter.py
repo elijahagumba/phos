@@ -81,6 +81,52 @@ class IcssimRun:
     times: _Float64
 
 
+def _parse_number(path: Path, line: int, column: str, cell: str) -> float:
+    """Return one cell as a finite float, or refuse explaining exactly which cell is wrong.
+
+    Three things are refused here that ``float()`` accepts or reports badly:
+
+    * A cell that is not a number at all. ``float()`` says "could not convert string to float",
+      which names neither the file nor the line nor the column, so a plant engineer holding a
+      corrupted export cannot find the bad cell.
+    * ``nan``, which ``float()`` accepts. A NaN that reaches a consistency detector poisons every
+      comparison after it, because ``nan > x`` is false for every x, so the detector goes quiet
+      rather than wrong. Silence that looks like a clean plant is the worst outcome this package
+      can produce, so a NaN in telemetry is refused rather than carried.
+    * ``inf``, for the same reason: one infinite value makes every band comparison meaningless.
+
+    An empty cell is left to the caller, because a never-commanded command column is legitimately
+    empty and the docstring says so. This function is for telemetry, where every cell is required.
+
+    Args:
+        path: The file, for the message.
+        line: The 1-based line number, counting the header as line 1.
+        column: The column's name, from the header.
+        cell: The raw text.
+
+    Returns:
+        The value.
+
+    Raises:
+        ValueError: If the cell is empty, not a number, or not finite.
+    """
+    text = cell.strip()
+    if not text:
+        raise ValueError(f"{path} line {line}, column {column!r}: the cell is empty")
+    try:
+        value = float(text)
+    except ValueError:
+        raise ValueError(
+            f"{path} line {line}, column {column!r}: {text!r} is not a number"
+        ) from None
+    if not numpy.isfinite(value):
+        raise ValueError(
+            f"{path} line {line}, column {column!r}: {text!r} is not a finite number. A NaN or an "
+            "infinity in telemetry makes every comparison after it meaningless without saying so"
+        )
+    return value
+
+
 def read_run(directory: Path) -> IcssimRun:
     """Read ``process.csv`` from a run directory into the telemetry inlet.
 
@@ -106,10 +152,27 @@ def read_run(directory: Path) -> IcssimRun:
         for line, row in enumerate(reader, start=2):
             if len(row) != len(header):
                 raise ValueError(f"{path} line {line} has {len(row)} fields, not {len(header)}")
-            times.append(float(row[0]))
-            rows.append([float(cell) for cell in row[1:]])
+            times.append(_parse_number(path, line, header[0], row[0]))
+            rows.append(
+                [
+                    _parse_number(path, line, keys[index], cell)
+                    for index, cell in enumerate(row[1:])
+                ]
+            )
     if not rows:
         raise ValueError(f"{path} has a header and no rows")
+    # Strictly increasing. A repeated timestamp makes two measurements look simultaneous and a
+    # backwards one makes any window, rate or duration computed from the series silently wrong.
+    # Neither is a corruption the generator can produce, so either means the file is not what it
+    # claims and should be refused rather than analysed.
+    for index in range(1, len(times)):
+        if times[index] <= times[index - 1]:
+            where = "repeats" if times[index] == times[index - 1] else "goes backwards"
+            raise ValueError(
+                f"{path} line {index + 2}: the timestamp {where} ({times[index - 1]!r} then "
+                f"{times[index]!r}). A series that is not strictly increasing makes every window "
+                "and duration computed from it wrong"
+            )
     return IcssimRun(
         values=numpy.asarray(rows, dtype=numpy.float64),
         keys=keys,

@@ -6,6 +6,17 @@ supplied. A function code is not read. A program act is a ``ProgramAct`` the
 caller named. An integer offered as an act is refused, and no inlet is
 returned. A malformed frame raises before an inlet exists.
 
+A historian row is a **reading**. A ``SetpointStep`` is a **write**. On a
+historian every sample of a setpoint tag carries the value, so a value that is
+written once and then held appears as one row per sample and none of the later
+rows is a write. ``step_source`` states which of the two the caller means.
+``"row"`` is the historical reading: every listed row is a step. ``"change"``
+emits one step per tag only where its value differs from that tag's previous
+row, which is the write a historian actually records. A caller that leaves
+``step_source`` alone gets the behaviour every earlier record measured; a
+caller that means writes asks for ``"change"`` and says so in its declaration
+(ADR 0465).
+
 This module does not call ``assess_plant``, does not open a file, and does
 not import the residual detectors. ADR 0325. Nothing here is a score.
 """
@@ -17,7 +28,7 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import datetime
 from types import MappingProxyType
-from typing import Final
+from typing import Final, Literal
 
 from phos.atlas.declared_law import ControllerSample, LawRegister, WriterWrite
 from phos.atlas.handoff_booking import TagBooking
@@ -34,10 +45,15 @@ __all__ = [
     "PLC1_CONTROLLER_TAGS",
     "HistorianRow",
     "LawInlet",
+    "StepSource",
     "inlet_from_tables",
 ]
 
 logger = logging.getLogger(__name__)
+
+#: What a listed historian row means. ``"row"`` is every sample; ``"change"`` is one step per
+#: value change. The default preserves what every record before ADR 0465 measured.
+StepSource = Literal["row", "change"]
 
 _CONTROLLER_FIELDS: Final[tuple[str, ...]] = (
     "level",
@@ -116,6 +132,7 @@ def inlet_from_tables(
     register: LawRegister,
     historian: Sequence[HistorianRow] = (),
     setpoint_tags: frozenset[str] = frozenset(),
+    step_source: StepSource = "row",
     controller_tags: Mapping[str, str] | None = None,
     writes: Sequence[WriterWrite] = (),
     modbus_writes: Sequence[tuple[str, ModbusMessage]] = (),
@@ -140,6 +157,11 @@ def inlet_from_tables(
         register: The laws the plant named. Stored, not evaluated.
         historian: Rows the caller already named.
         setpoint_tags: Tags that are setpoint steps. Other tags are not steps.
+        step_source: ``"row"`` makes every listed row a step, which is the
+            reading an earlier record measured. ``"change"`` makes a step only
+            where a tag's value differs from that tag's previous row. A caller
+            that means writes asks for ``"change"``; the default keeps the
+            behaviour every record before ADR 0465 measured.
         controller_tags: Field name to historian tag. ``None`` leaves the
             sample unset. ``PLC1_CONTROLLER_TAGS`` is the quoted map.
         writes: Station writes the caller already built.
@@ -162,7 +184,7 @@ def inlet_from_tables(
     if len(malformed) > 0:
         raise ValueError("a malformed frame is not a write")
     inlet = LawInlet(
-        steps=_steps(historian, setpoint_tags),
+        steps=_steps(historian, setpoint_tags, step_source),
         transfers=_transfers(transfers),
         register=register,
         bookings=tuple(bookings),
@@ -191,15 +213,43 @@ def _aware(moment: datetime, name: str) -> None:
 def _steps(
     historian: Sequence[HistorianRow],
     setpoint_tags: frozenset[str],
+    step_source: StepSource,
 ) -> tuple[SetpointStep, ...]:
-    """Return a step for each listed tag, in row order."""
+    """Return steps for the listed tags, honouring ``step_source``.
+
+    ``"row"`` emits one step per listed row, in row order: the reading an
+    earlier harness measured, where a held value appears once per sample.
+    ``"change"`` emits one step per tag only where that tag's value differs
+    from its own previous listed row, which is the write a historian records.
+    A tag whose first listed row is its first appearance is a step in both
+    modes, because the first row is the only evidence of that tag's value.
+
+    Args:
+        historian: Rows the caller already named.
+        setpoint_tags: Tags that are setpoint steps.
+        step_source: ``"row"`` or ``"change"``.
+
+    Returns:
+        Steps in row order. A tag no row names contributes nothing.
+
+    Raises:
+        ValueError: If a tag is empty, a listed row's time is naive, or
+            ``step_source`` is neither ``"row"`` nor ``"change"``.
+    """
+    if step_source not in ("row", "change"):
+        raise ValueError('step_source is "row" or "change"')
+    previous: dict[str, float] = {}
     steps: list[SetpointStep] = []
     for row in historian:
         if row.tag == "":
             raise ValueError("tag is empty")
         _aware(row.at, "historian time")
-        if row.tag in setpoint_tags:
-            steps.append(SetpointStep(row.tag, row.at, row.value))
+        if row.tag not in setpoint_tags:
+            continue
+        if step_source == "change" and row.tag in previous and previous[row.tag] == row.value:
+            continue
+        previous[row.tag] = row.value
+        steps.append(SetpointStep(row.tag, row.at, row.value))
     return tuple(steps)
 
 

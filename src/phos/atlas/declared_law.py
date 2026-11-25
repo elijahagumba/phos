@@ -143,6 +143,15 @@ _CONTROLLER_MANUAL: Final = "A valve mode is not release, so controller_valve wa
 _CONTROLLER_HELD: Final = (
     "A controller sample was supplied, both modes are release, and neither side disagrees."
 )
+_UNBOOKED_UNSTATED: Final = "No valve tag was named, so unbooked_command was not stated."
+_UNBOOKED_NO_WRITE: Final = "No write touched a valve, so unbooked_command was not stated."
+_UNBOOKED_HELD: Final = (
+    "No valve write forces a mode away from release without a work order covering it."
+)
+_STILL_UNSTATED: Final = (
+    "No drain of two or more samples was supplied, so still_drain was not stated."
+)
+_STILL_HELD: Final = "Every drain of two or more samples changes the level."
 _UNCHECKED_UNSTATED: Final = "This page has no check for this law, so it was not stated."
 
 # PLC1 at bcfd1844d3f063850c69f2643f6a052bac03d8ec, which is not in this
@@ -153,6 +162,13 @@ _VALVE_OPEN: Final = 1.0
 """What the quoted line writes to open a valve."""
 _MODE_RELEASE: Final = 3.0
 """The release value the generator already uses. Any other mode is manual."""
+_OUTPUT_FLOW_RATE: Final = 0.0001
+"""The outlet flow ICSSim writes while the outlet valve is open and the tank holds water.
+
+``Configs.py`` names it ``PHYSICS.TANK_OUTPUT_FLOW_RATE``, in litres per millisecond, at the
+pin recorded in ``data/phos-icssim-dev/roles.toml``. ``scripts/icssim/phos_icssim.py`` carries
+the same constant. It is not a threshold and it is not fitted.
+"""
 _BELT_PAST_FILLER: Final = 1.0
 """The belt distance the quoted output line compares with a strict greater-than."""
 
@@ -330,6 +346,37 @@ class ControllerSample:
         _require_aware(self.at, "controller time")
 
 
+@dataclass(frozen=True)
+class DrainSample:
+    """One recorder row the drain law can read.
+
+    The caller passes every row, in time order, including rows that are not a drain. A row
+    that is not a drain ends the current drain. Dropping those rows would join two drains
+    into one.
+
+    Attributes:
+        at: When the row was recorded. Timezone-aware.
+        level: ``tank_level_value``.
+        input_valve: ``tank_input_valve_status``.
+        input_mode: ``tank_input_valve_mode``.
+        output_valve: ``tank_output_valve_status``.
+        output_mode: ``tank_output_valve_mode``.
+        flow: ``tank_output_flow_value``.
+    """
+
+    at: datetime
+    level: float
+    input_valve: float
+    input_mode: float
+    output_valve: float
+    output_mode: float
+    flow: float
+
+    def __post_init__(self) -> None:
+        """Refuse a row whose time has no timezone."""
+        _require_aware(self.at, "drain time")
+
+
 JOINT_MOVE: Final = DeclaredLaw(
     name="joint_move",
     statement=(
@@ -376,6 +423,23 @@ CONTROLLER_VALVE: Final = DeclaredLaw(
         "Manual mode means this law was not stated."
     ),
 )
+UNBOOKED_COMMAND: Final = DeclaredLaw(
+    name="unbooked_command",
+    statement=(
+        "A setpoint write that forces a valve mode away from release is a break while no "
+        "work order names that tag and covers the time. A work order that names the tag "
+        "and covers the time is silence. No write that touches a valve means the law was "
+        "not stated."
+    ),
+)
+STILL_DRAIN: Final = DeclaredLaw(
+    name="still_drain",
+    statement=(
+        "A drain whose level does not change is a break. The outlet is open, the inlet is "
+        "shut, both modes are release, and the tank holds water. A drain whose level "
+        "changes is silence. A single sample is not a drain, so the law was not stated."
+    ),
+)
 LAWS: Final[tuple[DeclaredLaw, ...]] = (
     JOINT_MOVE,
     SUBFLOOR_WALK,
@@ -383,6 +447,8 @@ LAWS: Final[tuple[DeclaredLaw, ...]] = (
     PROGRAM_TRANSFER,
     ALLOWED_WRITER,
     CONTROLLER_VALVE,
+    UNBOOKED_COMMAND,
+    STILL_DRAIN,
 )
 
 _ACT_WORDS: Final[dict[ProgramAct, str]] = {
@@ -538,6 +604,8 @@ def assess_plant(
     writes: Sequence[WriterWrite] = (),
     allowed_stations: frozenset[str] = frozenset(),
     controller: ControllerSample | None = None,
+    valve_tags: frozenset[str] = frozenset(),
+    drain_samples: Sequence[DrainSample] = (),
 ) -> LawReport:
     """Judge each named law once, as held, broken, or unstated.
 
@@ -564,13 +632,20 @@ def assess_plant(
             the act. A function code is not an act.
         register: The laws the plant named. Required. There is no default.
         bookings: Bookings that can cover a program act.
-        work_orders: Work orders that can cover a program act when they name it.
+        work_orders: Work orders that can cover a program act when they name it, and a
+            valve-mode write when they name that tag.
         tag_bookings: Bookings that name both tags of a handoff.
         writes: Writes whose station the caller named. A function code is not a
             station, and this function does not infer one.
         allowed_stations: Stations the plant allowed to write. Empty means the
             directory was not stated.
         controller: One PLC1 sample. ``None`` means the comparison was not supplied.
+        valve_tags: Tags that carry a valve mode, which is what ``unbooked_command``
+            judges. Empty means the plant named no valve and that law is unstated.
+            Named tags that no write touches are unstated too. A write of the
+            release mode is not a break.
+        drain_samples: Every recorder row, in time order, including rows that are not a
+            drain. Empty means ``still_drain`` was not stated.
 
     Returns:
         Held laws ordered by name, broken laws ordered by time then name, and
@@ -678,6 +753,38 @@ def assess_plant(
                 broken=broken,
                 unstated=unstated,
             )
+    if UNBOOKED_COMMAND.name in names:
+        if not valve_tags:
+            unbooked_stated = False
+            unbooked_unstated = _UNBOOKED_UNSTATED
+        elif not any(step.tag in valve_tags for step in steps):
+            unbooked_stated = False
+            unbooked_unstated = _UNBOOKED_NO_WRITE
+        else:
+            unbooked_stated = True
+            unbooked_unstated = _UNBOOKED_UNSTATED
+        _classify(
+            _unbooked_breaks(steps, work_orders, valve_tags),
+            has_facts=unbooked_stated,
+            law=UNBOOKED_COMMAND,
+            unstated_statement=unbooked_unstated,
+            held_statement=_UNBOOKED_HELD,
+            held=held,
+            broken=broken,
+            unstated=unstated,
+        )
+    if STILL_DRAIN.name in names:
+        drains = _drain_segments(drain_samples)
+        _classify(
+            _still_breaks(drains),
+            has_facts=any(len(segment) >= 2 for segment in drains),
+            law=STILL_DRAIN,
+            unstated_statement=_STILL_UNSTATED,
+            held_statement=_STILL_HELD,
+            held=held,
+            broken=broken,
+            unstated=unstated,
+        )
     listed = {item.name for item in held}
     listed.update(item.name for item in broken)
     listed.update(item.name for item in unstated)
@@ -710,6 +817,8 @@ def breaks_from_plant(
     writes: Sequence[WriterWrite] = (),
     allowed_stations: frozenset[str] = frozenset(),
     controller: ControllerSample | None = None,
+    valve_tags: frozenset[str] = frozenset(),
+    drain_samples: Sequence[DrainSample] = (),
 ) -> tuple[LawBreak, ...]:
     """Return the broken list from one assessment of the plant.
 
@@ -726,13 +835,18 @@ def breaks_from_plant(
             the act. A function code is not an act.
         register: The laws the plant named. Required. There is no default.
         bookings: Bookings that can cover a program act.
-        work_orders: Work orders that can cover a program act when they name it.
+        work_orders: Work orders that can cover a program act when they name it, and a
+            valve-mode write when they name that tag.
         tag_bookings: Bookings that name both tags of a handoff.
         writes: Writes whose station the caller named. A function code is not a
             station, and this function does not infer one.
         allowed_stations: Stations the plant allowed to write. Empty means the
             directory was not stated.
         controller: One PLC1 sample. ``None`` means the comparison was not supplied.
+        valve_tags: Tags that carry a valve mode, passed through to
+            ``assess_plant`` for ``unbooked_command``.
+        drain_samples: Recorder rows passed through to ``assess_plant`` for
+            ``still_drain``.
 
     Returns:
         Every admitted break, earliest time first, then law name. An empty
@@ -752,6 +866,8 @@ def breaks_from_plant(
         writes=writes,
         allowed_stations=allowed_stations,
         controller=controller,
+        valve_tags=valve_tags,
+        drain_samples=drain_samples,
     ).broken
     logger.info("declared-law breaks %s", len(broken))
     return broken
@@ -939,6 +1055,120 @@ def _writer_breaks(
                 statement=cited_statement(
                     ALLOWED_WRITER,
                     f"Station {write.station} wrote, and it is outside the declared set.",
+                ),
+            )
+        )
+    return tuple(found)
+
+
+def _unbooked_breaks(
+    steps: Sequence[SetpointStep],
+    work_orders: Sequence[TransferWorkOrder],
+    valve_tags: frozenset[str],
+) -> tuple[LawBreak, ...]:
+    """One break per valve-forcing setpoint write that no work order covers.
+
+    The attack this exists for is the one that uses the operator's own console. The write is
+    indistinguishable from a legitimate maintenance action in the wire data, because it is the same
+    console sending the same command. What separates them is the paperwork: real maintenance has a
+    work order and the impersonation does not.
+
+    A write is covered when a work order names its tag and the order's window contains the write's
+    time, ends included, which is the same inclusive convention the transfer check uses. A write of
+    the release mode is not a force, so it is silence whether or not a work order covers it. A write
+    to a tag that is not a valve tag is not this law's business and contributes nothing. An empty
+    ``valve_tags`` returns nothing and the caller records the law as unstated, because a plant that
+    named no valve cannot be judged on valve commands. The caller also records the law as unstated
+    when no supplied write touches a named valve.
+
+    Args:
+        steps: Setpoint writes the caller supplied.
+        work_orders: Work orders the caller holds.
+        valve_tags: Tags that carry a valve mode.
+
+    Returns:
+        One break per uncovered forcing write, in inlet order. A release write contributes nothing.
+    """
+    if not valve_tags:
+        return ()
+    found: list[LawBreak] = []
+    for step in steps:
+        if step.tag not in valve_tags:
+            continue
+        if step.value == _MODE_RELEASE:
+            continue
+        covered = any(
+            order.tag == step.tag and order.start <= step.at <= order.end for order in work_orders
+        )
+        if covered:
+            continue
+        found.append(
+            LawBreak(
+                name=UNBOOKED_COMMAND.name,
+                time=step.at,
+                statement=cited_statement(
+                    UNBOOKED_COMMAND,
+                    f"{step.tag} was forced to {_plain(step.value)}, and no work order covers it.",
+                ),
+            )
+        )
+    return tuple(found)
+
+
+def _draining(sample: DrainSample) -> bool:
+    """Return whether this row is the plant's own outlet drain.
+
+    Both modes are release, the outlet is open, the inlet is shut, the flow is the quoted
+    outlet rate, and the tank holds water. Anything else ends a drain.
+    """
+    return (
+        sample.output_mode == _MODE_RELEASE
+        and sample.input_mode == _MODE_RELEASE
+        and sample.output_valve == _VALVE_OPEN
+        and sample.input_valve == _VALVE_CLOSED
+        and sample.flow == _OUTPUT_FLOW_RATE
+        and sample.level > 0.0
+    )
+
+
+def _drain_segments(samples: Sequence[DrainSample]) -> tuple[tuple[DrainSample, ...], ...]:
+    """Split the recorder rows into the drains a non-draining row separates."""
+    found: list[tuple[DrainSample, ...]] = []
+    current: list[DrainSample] = []
+    for sample in samples:
+        if _draining(sample):
+            current.append(sample)
+            continue
+        if current:
+            found.append(tuple(current))
+            current = []
+    if current:
+        found.append(tuple(current))
+    return tuple(found)
+
+
+def _still_breaks(drains: Sequence[Sequence[DrainSample]]) -> tuple[LawBreak, ...]:
+    """One break per drain of two or more samples whose level never changes.
+
+    A drain of one sample cannot show a change, so it is not this law's business. A drain
+    whose level takes two values is silence. The comparison is equality of the recorded
+    level, which is what a freeze writes and what a real drain does not.
+    """
+    found: list[LawBreak] = []
+    for drain in drains:
+        if len(drain) < 2:
+            continue
+        level = drain[0].level
+        if any(sample.level != level for sample in drain):
+            continue
+        found.append(
+            LawBreak(
+                name=STILL_DRAIN.name,
+                time=drain[0].at,
+                statement=cited_statement(
+                    STILL_DRAIN,
+                    f"The level stayed at {_plain(level)} while the outlet was open and the "
+                    "inlet was shut.",
                 ),
             )
         )

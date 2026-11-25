@@ -59,10 +59,15 @@ def test_the_law_inlet_does_not_import_it(module: str) -> None:
     assert module not in _imported_modules(_LAW_INLET)
 
 
-def test_the_refused_modules_are_not_among_the_six_laws() -> None:
-    """A placement rule is not a law, and adding one would change the page's contract."""
+def test_the_refused_modules_are_not_among_the_laws() -> None:
+    """A placement rule is not a law, and adding one would change the page's contract.
+
+    The register is pinned by name rather than by count, because the count is not the property worth
+    protecting: what matters is that no refused lane module has quietly become a law and that the
+    page ceiling has not moved. ``unbooked_command`` was added on 2026-11-25
+    and is pinned here like the six before it.
+    """
     names = {law.name for law in LAWS}
-    assert len(names) == 6
     assert names == {
         "joint_move",
         "subfloor_walk",
@@ -70,6 +75,8 @@ def test_the_refused_modules_are_not_among_the_six_laws() -> None:
         "program_transfer",
         "allowed_writer",
         "controller_valve",
+        "unbooked_command",
+        "still_drain",
     }
     assert OPERATOR_PAGE_CEILING == 8
 

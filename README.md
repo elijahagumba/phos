@@ -36,7 +36,7 @@ Atlas is a witness, not a judge. A line means someone should go and look.
 - Learn what your site is from your site's data.
 - Put a number, a score or a rank on a line.
 - Decide from a byte on the wire that someone downloaded a program.
-- Guess whether a change was authorised. That lives in your work orders, and Atlas does not have them.
+- Invent a work order. If you supply one that names the tag and the time, a valve command inside that window is silence. If you supply none, the command is a break. Atlas does not guess the paperwork.
 - Call a contractor an intruder, or an intruder a contractor.
 - Tell you that an empty page means you are safe.
 
@@ -76,6 +76,8 @@ The longer argument for why a page that refuses is worth more than a page that r
 | **Program transfer** | A download, upload or online edit that nothing booked covers |
 | **Allowed writer** | A write from a station the plant never named |
 | **Controller valve** | A valve that is not what the plant's own comparison writes |
+| **Unbooked command** | A valve forced off release, and no work order you supplied covers that tag and that time |
+| **Still drain** | The outlet is open, the inlet is shut, and the level does not change |
 
 A rule your register names and Atlas cannot check is listed as unchecked. It takes no slot and makes no claim.
 
@@ -144,6 +146,18 @@ Atlas has **never run on a live plant.** Every figure comes from public testbed 
 Checking declared rules against process data is a known family: invariant and specification-based detection. What is new here is not the check. It is the custody.
 
 Version 1 meets 8 of its 12 criteria. The four it misses: the queue cannot be ranked, no outsider has reproduced it, the second engine finds one insider of two, and no plant has run the onboarding trial.
+
+### Two checks, declared before they were run
+
+Both were written down, with the numbers that would count as a miss, before the command ran. The runs were once. A miss would have stayed in the record under the same name.
+
+They were run on a **simulator**. [ICSSim](https://github.com/AlirezaDehlaghi/ICSSIM) is a small bottled factory: one tank, two valves, a bottle and a belt. PHOS drives that factory from a seed and writes CSV. **There is no water company, no turbine, and no live controller in these figures.** A result here is a diagnosis of that toy plant. It is not evidence about a real one.
+
+**A valve forced shut, with no work order.** On the wire it is the same command as maintenance. The difference is the paperwork the run supplies. On the simulator's development runs, every copied maintenance job produced a break, 10 of 10, and every genuine maintenance job produced none. The sealed half of this same simulator was not opened. On the older copied score of that half, this class is still 5 of 20.
+
+**A level that stays still while the tank is draining.** A detector that watches only the level calls a flat line ordinary. This check reads the outlet, the inlet, and the flow. On the development runs, every freeze that opened the outlet produced a break, 9 of 9. One freeze never opened the outlet, so the check said it was not stated. No quiet run produced a break. The sealed copied score for this class is still 3 of 20, because that batch was not opened.
+
+The reason for putting this on the front page is the method. The declaration comes first. The run is once. A number that was not remeasured stays the old number. And the plant these numbers come from is not a real plant.
 
 ### The older engine, and its honest numbers
 
