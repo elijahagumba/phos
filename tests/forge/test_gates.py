@@ -78,9 +78,7 @@ def test_a_record_past_declared_phase_is_refused(declared_repo: Path, phase: str
     assert phase in outcome.detail
 
 
-def test_a_declaration_not_on_the_builders_base_is_refused(
-    declared_repo: Path, repo: Path
-) -> None:
+def test_a_declaration_not_on_the_builders_base_is_refused(declared_repo: Path, repo: Path) -> None:
     """A branch that does not carry the declaration has nothing to be judged against."""
     import subprocess
 
@@ -166,9 +164,7 @@ def test_the_gates_module_never_mounts_and_never_reads_a_password() -> None:
     # the string it returns, so a text comparison misses the node that holds it.
     docstring_nodes: set[int] = set()
     for node in ast.walk(tree):
-        if isinstance(
-            node, (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)
-        ):
+        if isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)):
             body = getattr(node, "body", [])
             if (
                 body

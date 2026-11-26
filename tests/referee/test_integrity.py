@@ -7,10 +7,15 @@ from pathlib import Path
 
 import pytest
 
-from phos.referee._integrity_test_fixtures import CHEAT_SENTINEL_SCORE, cheating_detector
+from phos.referee._integrity_test_fixtures import (
+    CHEAT_SENTINEL_SCORE,
+    cheating_detector,
+    name_reading_detector,
+)
 from phos.referee.integrity import (
     DirtyWorkingTreeError,
     IntegrityError,
+    opaque_name_for,
     refuse_if_dirty_for_private_exam,
     run_detector_isolated,
 )
@@ -104,3 +109,72 @@ def test_an_unrelated_dirty_file_does_not_block_the_named_paths(tmp_path: Path) 
 
     record = refuse_if_dirty_for_private_exam(repo, ("detector.py",))
     assert len(record.commit) == 40
+
+
+def test_a_detector_cannot_learn_the_seed_through_its_own_input(
+    small_exam_plant: GeneratedPlant, tmp_path: Path
+) -> None:
+    """b2. The name the detector is given must not carry the plant's family and seed.
+
+    A generated plant's id is ``level-flow-96011``: family, then master seed. The isolated worker
+    used to pass that straight into the `Dataset` the detector receives, which meant a detector
+    could read the seed out of its own input without opening a single label file, and could then
+    regenerate the plant or look up its family. That is the door this test holds shut.
+    """
+    detections = run_detector_isolated(
+        "phos.referee._integrity_test_fixtures:name_reading_detector", small_exam_plant, tmp_path
+    )
+    assert not any(detection.score == CHEAT_SENTINEL_SCORE for detection in detections)
+
+
+def test_the_name_reading_fixture_would_catch_a_leak(
+    small_exam_plant: GeneratedPlant, tmp_path: Path
+) -> None:
+    """The fixture used above is not vacuous: handed a real plant id, it reports the leak."""
+    from phos.eval import Dataset
+    from phos.ontology import Domain, Observation
+
+    leaking = Dataset(
+        name=small_exam_plant.manifest.plant_id,
+        domain=Domain.ATLAS,
+        observations=[
+            Observation(
+                id="obs",
+                entity_ids=[small_exam_plant.manifest.plant_id],
+                feature="tank_level_value",
+                value=1.0,
+                timestamp=small_exam_plant.manifest.run.start,
+                domain=Domain.ATLAS,
+            )
+        ],
+    )
+    detections = name_reading_detector().run(leaking)
+    assert any(detection.score == CHEAT_SENTINEL_SCORE for detection in detections)
+
+
+def test_the_opaque_name_is_stable_and_discloses_nothing(
+    small_exam_plant: GeneratedPlant,
+) -> None:
+    """b2. Same plant gives the same name twice; the name gives back neither family nor seed."""
+    first = opaque_name_for(small_exam_plant)
+    assert first == opaque_name_for(small_exam_plant)
+    assert small_exam_plant.manifest.plant_id not in first
+    assert str(small_exam_plant.manifest.master_seed) not in first
+    assert small_exam_plant.manifest.family_id not in first
+    assert first.startswith("plant-")
+
+
+def test_two_plants_do_not_share_an_opaque_name(
+    small_exam_plant: GeneratedPlant, tmp_path: Path
+) -> None:
+    """b2. Stability must not become a collision: two plants in one exam stay distinct."""
+    from phos.synth.families import get_family
+    from phos.synth.outputs import generate_plant
+
+    other = generate_plant(
+        get_family(small_exam_plant.manifest.family_id),
+        small_exam_plant.manifest.master_seed + 1,
+        tmp_path / "other",
+        hours=1.0,
+    )
+    assert opaque_name_for(small_exam_plant) != opaque_name_for(other)

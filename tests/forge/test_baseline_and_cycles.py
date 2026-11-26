@@ -3,6 +3,12 @@
 The parts that must be right are the ones that decide whether a measurement is real: a trial must
 use the commit before the result, a blocked measurement must not read as a result, and a cycle must
 not start when Step 5 has not shown the team helps.
+
+The five tests that resolve a lab commit, read a GENESIS record or ask for a corpus's tier are
+marked ``lab_only``. The public repository is a separate history of export commits, ``docs/genesis``
+is not an include pattern in ``public/manifest.toml``, and ``docs/rules/`` symlinks into the
+forbidden ``.cursor/rules/``, so none of the three exists there to check against. They still run
+here, against the real history and the real rule.
 """
 
 from __future__ import annotations
@@ -60,6 +66,7 @@ def atlas() -> types.ModuleType:
 # -- the baseline case's own facts -------------------------------------------------------------
 
 
+@pytest.mark.lab_only
 def test_each_base_commit_is_the_parent_of_its_result(baseline: types.ModuleType) -> None:
     """The validity of a backtest rests on its base being the commit before the result."""
     import subprocess
@@ -86,6 +93,7 @@ def test_each_base_commit_is_the_parent_of_its_result(baseline: types.ModuleType
         assert parent == base, f"{case.key}: base is not the parent of its result commit"
 
 
+@pytest.mark.lab_only
 def test_the_recorded_outcome_matches_the_first_record(baseline: types.ModuleType) -> None:
     """The expected answer for ADR 0418 is read from the record, not invented here."""
     record = json.loads((ROOT / "docs/genesis/experiments/E-0001.json").read_text())
@@ -94,6 +102,7 @@ def test_the_recorded_outcome_matches_the_first_record(baseline: types.ModuleTyp
     assert record["verdict"]["per_bar"] == case.bars
 
 
+@pytest.mark.lab_only
 def test_every_case_input_exists_at_its_base_commit(baseline: types.ModuleType) -> None:
     """A case whose files are missing at its base commit fails every trial for that case.
 
@@ -139,6 +148,7 @@ def test_no_case_can_see_its_own_result_at_its_base_commit(baseline: types.Modul
         )
 
 
+@pytest.mark.lab_only
 def test_every_case_names_an_iterate_tier_corpus(baseline: types.ModuleType) -> None:
     """Only iterate-freely data may be used, and the resolver is what decides that."""
     from phos.forge.genesis_api import tier
@@ -576,6 +586,7 @@ def test_the_prompt_defines_the_three_verdicts(baseline: types.ModuleType) -> No
 # -- the cycle gates ---------------------------------------------------------------------------
 
 
+@pytest.mark.lab_only
 def test_the_approval_is_found_and_covers_four_cycles(atlas: types.ModuleType) -> None:
     covered, detail = atlas.approval_state()
     assert covered, detail
@@ -583,7 +594,21 @@ def test_the_approval_is_found_and_covers_four_cycles(atlas: types.ModuleType) -
 
 
 def test_the_gate_reads_the_report_that_exists(atlas: types.ModuleType) -> None:
-    """Whatever the report says here, the gate reaches a conclusion and says why."""
+    """Whatever the report says here, the gate reaches a conclusion and says why.
+
+    The gate is closed only when the whole measurement produced no trials. The phrase that means
+    that is ``No trial ran``, which ``scripts/forge_baseline.py`` writes at the foot of a report
+    where nothing ran cleanly, and which ``test_a_blocked_baseline_does_not_open_the_gate`` holds
+    shut against a synthetic report.
+
+    It used to also treat any occurrence of ``did not run`` as a blocked run. That was wrong in
+    two directions. A per-script table cell reading ``did not run`` describes one seeded-defect
+    script aborting before its tally, while the trials and the other scripts have numbers, and
+    the live ``BASELINE.md`` says exactly that, so the gate was being closed on a finished report.
+    And the phrase is not a measurement of anything: it is a cell in a table. The condition that
+    actually means "there is no result here" is the sentence the report writes for that, which
+    this test still requires to close the gate.
+    """
     allowed, detail = atlas.baseline_allows_start()
     assert detail, "a closed or open gate must say why"
     report = ROOT / atlas.BASELINE
@@ -592,11 +617,12 @@ def test_the_gate_reads_the_report_that_exists(atlas: types.ModuleType) -> None:
         assert "does not exist" in detail
         return
     text = report.read_text()
-    if "did not win" in text and not (
-        ROOT / "docs/method/approvals/elijah-agrees-despite-baseline.md"
-    ).is_file():
+    if (
+        "did not win" in text
+        and not (ROOT / "docs/method/approvals/elijah-agrees-despite-baseline.md").is_file()
+    ):
         assert not allowed
-    if "No trial ran" in text or "did not run" in text:
+    if "No trial ran" in text:
         assert not allowed
 
 

@@ -154,10 +154,7 @@ def read_run(directory: Path) -> IcssimRun:
                 raise ValueError(f"{path} line {line} has {len(row)} fields, not {len(header)}")
             times.append(_parse_number(path, line, header[0], row[0]))
             rows.append(
-                [
-                    _parse_number(path, line, keys[index], cell)
-                    for index, cell in enumerate(row[1:])
-                ]
+                [_parse_number(path, line, keys[index], cell) for index, cell in enumerate(row[1:])]
             )
     if not rows:
         raise ValueError(f"{path} has a header and no rows")

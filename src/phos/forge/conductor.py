@@ -274,8 +274,25 @@ def _slug(goal: str) -> str:
 
     words = re.findall(r"[a-z0-9]+", goal.lower())
     stop = {
-        "the", "a", "an", "and", "or", "to", "of", "in", "on", "for", "with", "that", "this",
-        "is", "are", "be", "it", "we", "i",
+        "the",
+        "a",
+        "an",
+        "and",
+        "or",
+        "to",
+        "of",
+        "in",
+        "on",
+        "for",
+        "with",
+        "that",
+        "this",
+        "is",
+        "are",
+        "be",
+        "it",
+        "we",
+        "i",
     }
     kept = [word for word in words if word not in stop][:6]
     return "-".join(kept) or "operation"

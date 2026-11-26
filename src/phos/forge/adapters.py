@@ -205,9 +205,7 @@ def _prompt(request: RoleRequest) -> str:
     Returns:
         The prompt.
     """
-    sections: list[str] = [
-        f"You are the {request.role.replace('_', ' ')} for one FORGE operation."
-    ]
+    sections: list[str] = [f"You are the {request.role.replace('_', ' ')} for one FORGE operation."]
     if request.instruction.strip():
         sections.append(request.instruction.strip())
 

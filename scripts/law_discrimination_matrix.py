@@ -29,7 +29,8 @@ measured.
 
 Usage::
 
-    uv run python scripts/law_discrimination_matrix.py --report eval_runs/build/lane-law-discrimination/matrix.md
+    uv run python scripts/law_discrimination_matrix.py
+        --report eval_runs/build/lane-law-discrimination/matrix.md
 """
 
 from __future__ import annotations
@@ -39,7 +40,7 @@ import hashlib
 import sys
 from collections.abc import Sequence
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Final
 
@@ -70,7 +71,7 @@ from phos.atlas.program_transfer import Booking, BookingKind, ProgramAct  # noqa
 
 #: One fixed instant. The matrix is about which law fires, not about when, so the clock is
 #: constant and no class can be distinguished by its time of day.
-T0: Final = datetime(2026, 1, 1, tzinfo=timezone.utc)
+T0: Final = datetime(2026, 1, 1, tzinfo=UTC)
 
 #: All six laws, which is the register every case is scored against.
 REGISTER: Final = LawRegister(LAWS)
@@ -287,14 +288,26 @@ CASES: Final[tuple[Case, ...]] = (
     Case("subfloor_walk", SUBFLOOR_WALK.name, "720 one-second steps of one tag crossing the band."),
     Case("band_handoff", BAND_HANDOFF.name, "One in-band value on a second tag 400 s later."),
     Case("program_transfer", PROGRAM_TRANSFER.name, "An unbooked download."),
-    Case("allowed_writer", ALLOWED_WRITER.name, "A write from a station outside the declared set."),
-    Case("controller_valve", CONTROLLER_VALVE.name, "A release-mode sample whose output valve disagrees."),
+    Case(
+        "allowed_writer",
+        ALLOWED_WRITER.name,
+        "A write from a station outside the declared set.",
+    ),
+    Case(
+        "controller_valve",
+        CONTROLLER_VALVE.name,
+        "A release-mode sample whose output valve disagrees.",
+    ),
     Case("one_in_band_write", None, "One in-band value on one tag, once."),
     Case("719_steps", None, "719 one-second steps: one fewer than the walk length."),
     Case("booked_transfer", None, "A download covered by a downtime booking."),
     Case("allowed_station_write", None, "A write from a station inside the declared set."),
     Case("controller_agrees", None, "A release-mode sample whose output valve agrees."),
-    Case("two_distant_writes", None, "Two in-band values on two tags, 400 s apart, different values."),
+    Case(
+        "two_distant_writes",
+        None,
+        "Two in-band values on two tags, 400 s apart, different values.",
+    ),
     Case("held_setpoint", None, "One in-band value written once and held for 720 samples."),
 )
 
@@ -334,9 +347,7 @@ def _metrics(broken: dict[str, tuple[str, ...]], suffix: str) -> dict[str, float
     named = [case for case in CASES if case.owns is not None]
     silent = [case for case in CASES if case.owns is None]
     own = sum(1 for case in named if case.owns in broken[case.key])
-    off = sum(
-        1 for case in named for name in broken[case.key] if name != case.owns
-    )
+    off = sum(1 for case in named for name in broken[case.key] if name != case.owns)
     quiet = sum(len(broken[case.key]) for case in silent)
     return {
         f"own_law_breaks_{suffix}": float(own),
@@ -355,11 +366,7 @@ def _digest(path: Path) -> str:
 
 def _table(reading: str, broken: dict[str, tuple[str, ...]]) -> list[str]:
     """Render one matrix as markdown rows: a class per line, a marker per law."""
-    header = (
-        "| class | owns | "
-        + " | ".join(_SIX)
-        + " | unintended |"
-    )
+    header = "| class | owns | " + " | ".join(_SIX) + " | unintended |"
     rule = "| --- | --- | " + " | ".join("---" for _ in _SIX) + " | --- |"
     lines = [header, rule]
     for case in CASES:
@@ -371,11 +378,11 @@ def _table(reading: str, broken: dict[str, tuple[str, ...]]) -> list[str]:
             if fired and law != case.owns:
                 unintended.append(law)
         own = case.owns if case.owns is not None else "silence"
-        lines.append(
-            f"| `{case.key}` | `{own}` | " + " | ".join(cells) + f" | {', '.join(unintended) or '—'} |"
-        )
+        unintended_cell = ", ".join(unintended) or "—"
+        row = f"| `{case.key}` | `{own}` | " + " | ".join(cells) + f" | {unintended_cell} |"
+        lines.append(row)
     lines.append("")
-    lines.append(f"Reading: `step_source=\"{reading}\"`.")
+    lines.append(f'Reading: `step_source="{reading}"`.')
     return lines
 
 
@@ -405,7 +412,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         "",
         "## What was measured",
         "",
-        f"`src/phos/atlas/declared_law.py` sha256 `{_digest(ROOT / 'src/phos/atlas/declared_law.py')}`",
+        "`src/phos/atlas/declared_law.py` sha256 "
+        f"`{_digest(ROOT / 'src/phos/atlas/declared_law.py')}`",
         "",
         f"`src/phos/atlas/law_inlet.py` sha256 `{_digest(ROOT / 'src/phos/atlas/law_inlet.py')}`",
         "",

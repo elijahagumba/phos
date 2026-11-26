@@ -188,9 +188,7 @@ def _seeds() -> dict[str, bytes]:
         # Modbus/TCP: MBAP header then a read-holding-registers request.
         "modbus": bytes.fromhex("000100000006010300000002"),
         # S7comm: TPKT, COTP connection request, then an S7 job.
-        "s7comm": bytes.fromhex(
-            "0300001611e0000000010000c1020102c2020102c0010a"
-        ),
+        "s7comm": bytes.fromhex("0300001611e0000000010000c1020102c2020102c0010a"),
     }
 
 

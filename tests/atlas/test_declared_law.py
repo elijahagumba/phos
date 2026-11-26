@@ -255,8 +255,6 @@ def test_a_declared_law_is_a_name_and_a_statement_with_no_threshold() -> None:
         "program_transfer",
         "allowed_writer",
         "controller_valve",
-        "unbooked_command",
-        "still_drain",
     )
     for law in LAWS:
         assert not any(character.isdigit() for character in law.statement)
@@ -361,13 +359,7 @@ def test_a_full_register_keeps_the_earliest_eight_of_nine_by_time() -> None:
         "program_transfer. A later break stays off the page.",
     )
     page = law_page((loud, *reversed(early)), register=LawRegister(LAWS))
-    assert tuple(law.name for law in LAWS) == (
-        *names,
-        "allowed_writer",
-        "controller_valve",
-        "unbooked_command",
-        "still_drain",
-    )
+    assert tuple(law.name for law in LAWS) == (*names, "allowed_writer", "controller_valve")
     assert len(page) == 8 == OPERATOR_PAGE_CEILING
     assert page == early
     assert loud not in page
@@ -503,17 +495,6 @@ def test_nine_broken_laws_keep_the_earliest_eight_and_held_outcomes_take_no_slot
             Standing.UNSTATED,
             "controller_valve. No controller sample was supplied, "
             "so controller_valve was not checked.",
-        ),
-        LawOutcome(
-            "still_drain",
-            Standing.UNSTATED,
-            "still_drain. No drain of two or more samples was supplied, "
-            "so still_drain was not stated.",
-        ),
-        LawOutcome(
-            "unbooked_command",
-            Standing.UNSTATED,
-            "unbooked_command. No valve tag was named, so unbooked_command was not stated.",
         ),
     )
     assert report.unstated[0].time is None

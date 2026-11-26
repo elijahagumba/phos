@@ -3,6 +3,12 @@
 The interesting cases are the two failure modes of any such guard: a token list so broad it refuses
 honest work, and a token list so narrow it misses the batch it exists to protect. Both are tested
 against the real rule files, because that is where the tokens come from.
+
+That is also why two of them are marked ``lab_only``: the tokens they check for exist only in
+``docs/rules/data-tiers.md``, which symlinks into the ``.cursor/rules/`` that
+``public/manifest.toml`` forbids. In the public tree the rule is absent, so those tokens are
+genuinely not in the list and the test would be reporting the export split rather than a hole in
+the guard. The rest of the file does not need the rule and runs everywhere.
 """
 
 from __future__ import annotations
@@ -31,6 +37,7 @@ def test_a_sealed_corpus_is_a_token(repo: Path) -> None:
     assert "batadal" in tokens
 
 
+@pytest.mark.lab_only
 def test_a_score_once_corpus_named_only_in_the_rule_is_a_token(repo: Path) -> None:
     """``phos-icssim-heldout2`` is in the tier rule and not in the registry.
 
@@ -153,6 +160,7 @@ def test_the_inbox_path_is_where_the_task_says(repo: Path) -> None:
     assert redline.INBOX == Path("docs/method/INBOX.md")
 
 
+@pytest.mark.lab_only
 @pytest.mark.parametrize(
     "line",
     [

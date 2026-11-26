@@ -181,9 +181,7 @@ def check_no_clashing_worktrees(root: Path, wanted: tuple[str, ...] = ()) -> Che
         return Check("no clashing worktrees", False, f"git worktree list failed: {err or out}")
 
     existing = [
-        line.removeprefix("worktree ")
-        for line in out.splitlines()
-        if line.startswith("worktree ")
+        line.removeprefix("worktree ") for line in out.splitlines() if line.startswith("worktree ")
     ]
     if not wanted:
         return Check(

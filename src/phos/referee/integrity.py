@@ -16,6 +16,7 @@ the check is sized to that.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import subprocess
@@ -33,6 +34,7 @@ from phos.synth.outputs import CAPTURE_FILE, GeneratedPlant
 __all__ = [
     "DirtyWorkingTreeError",
     "IntegrityError",
+    "opaque_name_for",
     "refuse_if_dirty_for_private_exam",
     "run_detector_isolated",
 ]
@@ -49,6 +51,31 @@ class IntegrityError(RuntimeError):
 
 class DirtyWorkingTreeError(RuntimeError):
     """Raised when a private exam is asked to run from an uncommitted working tree."""
+
+
+def opaque_name_for(plant: GeneratedPlant) -> str:
+    """Return the name a detector sees in place of the plant's real id.
+
+    A generated plant's id carries its family and its master seed (``level-flow-96011``). Handing
+    that to a detector would hand over the seed through the detector's own input: it could
+    regenerate the plant exactly, or infer which family it belongs to, without opening any label
+    file. This replaces it with a digest that is stable for one plant and discloses nothing.
+
+    Stable, so a detector that keys anything on the dataset's name behaves the same way across
+    repeated runs on the same plant, and so two plants in one exam cannot collide. One-way, so the
+    name cannot be turned back into the seed by anyone who only ever sees the name.
+
+    Args:
+        plant: The plant whose real id is being replaced.
+
+    Returns:
+        ``plant-`` followed by the first 16 hex characters of a SHA-256 digest of the real id.
+        Truncated because the name goes into a dataset's entity id and observation ids, and 64 hex
+        characters there would be unreadable for no gain: 16 is 64 bits, and a collision between
+        two plants in one exam is what matters, not a collision across all time.
+    """
+    digest = hashlib.sha256(plant.manifest.plant_id.encode("utf-8")).hexdigest()
+    return f"plant-{digest[:16]}"
 
 
 def run_detector_isolated(
@@ -86,7 +113,7 @@ def run_detector_isolated(
             _WORKER_MODULE,
             detector_factory,
             str(telemetry_path),
-            plant.manifest.plant_id,
+            opaque_name_for(plant),
         ],
         cwd=isolated_dir,
         capture_output=True,

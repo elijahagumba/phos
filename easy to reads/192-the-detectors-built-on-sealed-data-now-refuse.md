@@ -27,3 +27,13 @@ The full account is ADR 0461. The voided argument is ADR 0462.
 The five never-read corpora and the two held-back halves are no longer in this copy of the project. The owner hashed them first, 62 lines, and that list is in the repository. The files themselves are in an encrypted disk image, mounted only when a referee has declared a score. The detectors still refuse, and the number on the board still does not move.
 
 One other copy on this machine, the `phos-g-dnp3` worktree, still has the folders. Nothing in them was opened to write this note. The full account of the move is ADR 0464.
+
+## And one seal that was never shut, 26 November 2026
+
+The project keeps a sixth plant family sealed. The idea is simple: five families are published, with the ranges their numbers are drawn from, and a sixth is held back, so that a detector cannot be quietly tuned on the plants it will be examined on.
+
+Checking the public copy before a refresh showed that the sixth family's recipe had been published all along. The rule that decides what leaves the private repository includes the whole source tree, and the sixth family lives in the source tree, so it went out with everything else. Its ranges and the code that draws a plant from it have been in the public copy since the first refresh that carried them.
+
+That is not a near miss. Anyone holding the public copy can draw any plant from that family, at any number, and look at it as long as they like. So the family is treated as used up. It will not be examined on, the code is no longer published, and the export rule now refuses it twice over. What cannot be done is take it back out of the public copy's history, which would mean rewriting that history, and that is not being done. The next sealed family starts again, and the machinery for registering one is the part that was built correctly.
+
+The plain version of the lesson: a seal is a property of what you published, not of what you meant to publish. Nobody checked the export against the promise until somebody read the whole list.

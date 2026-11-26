@@ -21,9 +21,20 @@ coverage.xml
 
 # Datasets are never committed. Each corpus is pinned by its committed manifest; see data/README.md.
 data/*
+!data/.gitkeep
 !data/README.md
 !data/manifest.example.json
 !data/registry.json
+# Neither of these is a dataset. `development-pool.json` is the list of seeds the published
+# development pool is drawn from, and `sealed-registry.json` is a batch's name, count and
+# fingerprint with no seed in it. The export writes both, because the lab tracks both and
+# `data/*` is an include pattern, but `data/*` above ignored them, so they were written into the
+# working tree and never committed. `src/phos/referee/development.py` cannot load a pool that is
+# not there and `src/phos/referee/sealed_registry.py` cannot load a registry that is not there,
+# so on a fresh clone the pool walk-through in `docs/referee/third-party-guide.md` and twelve
+# tests failed, while the same tree passed in the directory the export had just written.
+!data/development-pool.json
+!data/sealed-registry.json
 !data/*/
 data/*/*
 !data/*/manifest.json

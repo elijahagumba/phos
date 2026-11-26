@@ -149,9 +149,7 @@ def measure() -> dict[str, float]:
         "laws_fired_row": float(len(row_names)),
         "laws_fired_change": float(len(change_names)),
         # Laws whose answer differs between the readings. These read runs, so the reading matters.
-        "laws_reading_sensitive": float(
-            sum(1 for name in LAW_NAMES if row[name] != change[name])
-        ),
+        "laws_reading_sensitive": float(sum(1 for name in LAW_NAMES if row[name] != change[name])),
         # The law names, as a count each, so a bar can require a specific one to be silent.
         "subfloor_walk_fired_row": 1.0 if row["subfloor_walk"] else 0.0,
         "subfloor_walk_fired_change": 1.0 if change["subfloor_walk"] else 0.0,
@@ -170,7 +168,9 @@ def render(metrics: dict[str, float], path: Path) -> None:
     lines = [
         "# A single held value, and which laws fire on it",
         "",
-        f"Written by `scripts/lane_held_value_laws.py` on {datetime.now(UTC).date().isoformat()}.",
+        f"Written by `scripts/lane_held_value_laws.py` on {datetime.now(UTC).date().isoformat()}. "
+        "Synthetic construction only: no corpus, no file, and no plant is read. The tag, the value "
+        "and the row count below are constants in that script, not readings from a plant.",
         "",
         f"One tag, `{TAG}`, held at `{VALUE}` for {HOLD_ROWS} one-second rows. The value is inside "
         "the ordinary band, so nothing in it is a departure. The class it belongs to is not any of "

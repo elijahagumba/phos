@@ -3,6 +3,11 @@
 Each test drives the real orchestrator against a throwaway repository. Runtimes are injected as
 test adapters so a test does not depend on which CLI is logged in, and the recording still names the
 runtime the adapter reports, which is the property the task asks for.
+
+``test_start_records_and_plans`` is marked ``lab_only``. Starting an operation resolves its corpus
+against ``docs/rules/data-tiers.md``, and that path symlinks into ``.cursor/rules/``, which
+``public/manifest.toml`` forbids, so in the public tree the start refuses for want of the rule
+rather than recording and planning. It still runs here.
 """
 
 from __future__ import annotations
@@ -118,6 +123,7 @@ def worktree_parent(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     Returns:
         The directory worktrees go under.
     """
+
     def _default(root: Path, operation: str, role: str) -> Path:
         return (tmp_path / "worktrees" / operation / role).resolve()
 
@@ -131,6 +137,7 @@ def test_start_refuses_a_never_tier_corpus(repo: Path) -> None:
         made.start("op-1", idea="x", corpus="hai")
 
 
+@pytest.mark.lab_only
 def test_start_records_and_plans(repo: Path) -> None:
     made = Orchestrator(repo)
     made.start("op-1", idea="a thing", corpus="phos-icssim-dev4-walk")
@@ -239,9 +246,7 @@ def test_a_sealed_step_stops_when_the_volume_is_absent(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    monkeypatch.setattr(
-        "phos.forge.gates.SEALED_VOLUME", tmp_path / "definitely-not-mounted"
-    )
+    monkeypatch.setattr("phos.forge.gates.SEALED_VOLUME", tmp_path / "definitely-not-mounted")
     made = Orchestrator(declared_repo)
     made.start("op-1", idea="x", declaration="E-0001")
     made.approve("op-1")
@@ -383,9 +388,7 @@ def test_an_operation_file_written_by_the_orchestrator_has_no_verdict(
     made.approve("op-1")
     OperationStore(declared_repo).transition("op-1", "IMPLEMENTING", reason="build")
     made.run_role("op-1", role="applied_scientist", task="t", runtime="codex")
-    data = json.loads(
-        (declared_repo / "docs/forge/state/op-1.json").read_text()
-    )
+    data = json.loads((declared_repo / "docs/forge/state/op-1.json").read_text())
     assert "verdict" not in data
     assert "measurement" not in data
     assert "bars" not in data

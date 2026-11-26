@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
+from tests.referee.sealed_fixture import SEALED_FAMILY, register
 
 from phos.referee.seeds import (
     SeedEntry,
@@ -113,15 +114,18 @@ def test_no_sealed_family_may_live_in_dev_or_public(
     assert_no_sealed_in_open_pools(vault)  # does not raise
 
 
-_SEALED_FAMILY_ID = "gas_pressure"
-"""The sealed example `tests/synth` already uses (via `phos.synth.families_sealed`)."""
-
-
 def test_sealed_family_in_dev_pool_is_refused(tmp_path: Path) -> None:
+    """A sealed seed sitting in an open pool is refused.
+
+    The family is the fixture one rather than the real sealed family. The guard reads the
+    ``sealed`` flag and nothing else, so naming the real family here only published its
+    identifier, and that package is withheld from the public export in any case.
+    """
     from phos.synth.families import SEALED_ENV_VAR
 
+    register()
     vault = _vault(tmp_path)
-    vault.add(SeedPool.DEV, [SeedEntry(family=_SEALED_FAMILY_ID, seed=1)])
+    vault.add(SeedPool.DEV, [SeedEntry(family=SEALED_FAMILY, seed=1)])
 
     with pytest.raises(SeedVaultError, match="sealed"):
         assert_no_sealed_in_open_pools(vault)

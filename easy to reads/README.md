@@ -997,3 +997,21 @@ image that is mounted only for a declared referee score. This copy of the projec
 them. One worktree, `phos-g-dnp3`, still has a full set of the same folders. That copy was not opened
 and not deleted. The number on the board stays 87 of 120, and the scoreboard still reads eight of
 twelve.
+
+Note 196 is [one quiet plant, two detectors](<196-one-quiet-plant-two-detectors.md>). A demo, not a
+test: both are shown the same simulated plant with nothing injected, and the baseline is fitted twice
+because fitting it once decides the answer. Fitted on that plant it raises 322 alerts; fitted on
+another plant of the same family it raises none at all. Atlas raises 2,176 and tells one story about it.
+Both figures come from a simulator and not from a real plant, and neither is a field detection rate.
+
+Note 192 gains a section, [and one seal that was never shut](<192-the-detectors-built-on-sealed-data-now-refuse.md>).
+Checking the public copy before a refresh showed that the sixth, sealed plant family's ranges and the
+code that draws from it had been published since the first refresh that carried them: the export rule
+takes the whole source tree, and the sealed family lives in the source tree. The front page promised
+the opposite. The family is treated as used up rather than put back, because its recipe is in the
+public history and taking it out would mean rewriting that history. The code is no longer published,
+the export refuses it twice over, no test names it to get a sealed flag any more, and the front page
+now says what happened. The next sealed family starts again.
+The note says plainly that two thousand alerts on a quiet plant is noise, and that one story covering
+them is a page an operator would learn to skip. No ground truth is compared, so there is no recall and
+no verdict here.

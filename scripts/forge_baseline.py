@@ -1388,9 +1388,7 @@ def main() -> int:
     subparsers = parser.add_subparsers(dest="subcommand", required=True)
     subparsers.add_parser("plan", help="print the cases and the runtime spread")
     running = subparsers.add_parser("run", help="run every case, arm and trial")
-    running.add_argument(
-        "--parallel", type=int, default=1, help="how many trials to run at once"
-    )
+    running.add_argument("--parallel", type=int, default=1, help="how many trials to run at once")
     subparsers.add_parser("report", help="write the plain-language report")
     args = parser.parse_args()
     if args.subcommand == "plan":

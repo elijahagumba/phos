@@ -28,7 +28,15 @@ from phos.atlas.templates import (
     SENSOR_OR_DEVICE_FAULT_TEMPLATE_ID,
     UNAUTHORISED_CONTROL_TEMPLATE_ID,
 )
-from phos.eval import Detection, Detector, EvalConfig, EvaluationReport, LabelledInterval, evaluate
+from phos.eval import (
+    Dataset,
+    Detection,
+    Detector,
+    EvalConfig,
+    EvaluationReport,
+    LabelledInterval,
+    evaluate,
+)
 from phos.eval.metrics import window_recall
 from phos.ontology import Hypothesis, Narrative
 from phos.reasoning.templates import INSUFFICIENT_EVIDENCE_TEMPLATE_ID
@@ -208,12 +216,64 @@ class PlantScore:
     discrimination_honesty: DiscriminationHonesty | None
 
 
+def sealed_detector(detector: Detector) -> Detector:
+    """Wrap ``detector`` so the corpus it is given carries no ground truth.
+
+    The scoring path has to hold two things at once: the detector must be scored against labels,
+    and the detector must not be able to read them. Those only coexist if the labels are removed
+    from the object the detector is handed and kept separately for scoring. That is what this
+    wrapper does.
+
+    It exists because of a real gap. `load_plant_dataset` returns a `Dataset` whose
+    ``attack_intervals`` are populated, and `phos.eval.evaluate` hands that same object to
+    ``detector.run``. A detector could therefore read the answer straight out of its own input —
+    not by opening a labels file, which `run_detector_isolated` already prevents, but by reading a
+    field of the argument it was given. Nothing did, but nothing stopped it either, and an
+    integrity property that depends on every future detector choosing not to look is not a
+    property.
+
+    Args:
+        detector: The detector to wrap.
+
+    Returns:
+        A detector with the same name, which strips labels from every corpus before passing it on.
+    """
+
+    class _Sealed:
+        """A detector that never sees a label, whatever it is handed."""
+
+        @property
+        def name(self) -> str:
+            """Return the wrapped detector's name, so reports name the real detector."""
+            return detector.name
+
+        def run(self, dataset: Dataset) -> list[Detection]:
+            """Run the wrapped detector on a label-free copy of ``dataset``.
+
+            Args:
+                dataset: The corpus, possibly labelled.
+
+            Returns:
+                Whatever the wrapped detector returned.
+            """
+            sealed = dataset.model_copy(
+                update={"attack_intervals": [], "unscored_intervals": [], "source_note": ""}
+            )
+            return detector.run(sealed)
+
+    return _Sealed()
+
+
 def score_plant(
     detector: Detector,
     plant: GeneratedPlant,
     config: EvalConfig | None = None,
 ) -> PlantScore:
     """Score one detector against one generated plant.
+
+    The detector is wrapped by `sealed_detector` first, so it cannot read ground truth out of the
+    corpus it is given. Scoring itself reads the labels from the plant's own event schedule, which
+    the detector never receives.
 
     Args:
         detector: Anything satisfying `phos.eval.Detector`. When it is also an `AtlasDetector`,
@@ -227,13 +287,14 @@ def score_plant(
     """
     cfg = config or EvalConfig()
     dataset = load_plant_dataset(plant)
-    report = evaluate(detector, dataset, cfg)
+    sealed = sealed_detector(detector)
+    report = evaluate(sealed, dataset, cfg)
     # `evaluate` already called `detector.run`; calling it again is the price of reusing it
     # unchanged rather than re-deriving its metrics here. Both calls are deterministic and
     # produce identical detections, so this is wasted compute, not a correctness risk — and for
     # `AtlasDetector` it is this second call whose `last_store`/`last_narratives` the
     # discrimination and honesty metrics below read.
-    detections = detector.run(dataset)
+    detections = sealed.run(dataset)
     alerts = [detection for detection in detections if detection.score >= cfg.alert_threshold]
     records = event_records(plant)
 

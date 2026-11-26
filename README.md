@@ -36,7 +36,7 @@ Atlas is a witness, not a judge. A line means someone should go and look.
 - Learn what your site is from your site's data.
 - Put a number, a score or a rank on a line.
 - Decide from a byte on the wire that someone downloaded a program.
-- Invent a work order. If you supply one that names the tag and the time, a valve command inside that window is silence. If you supply none, the command is a break. Atlas does not guess the paperwork.
+- Guess whether a change was authorised. That lives in your work orders, and Atlas does not have them.
 - Call a contractor an intruder, or an intruder a contractor.
 - Tell you that an empty page means you are safe.
 
@@ -76,8 +76,6 @@ The longer argument for why a page that refuses is worth more than a page that r
 | **Program transfer** | A download, upload or online edit that nothing booked covers |
 | **Allowed writer** | A write from a station the plant never named |
 | **Controller valve** | A valve that is not what the plant's own comparison writes |
-| **Unbooked command** | A valve forced off release, and no work order you supplied covers that tag and that time |
-| **Still drain** | The outlet is open, the inlet is shut, and the level does not change |
 
 A rule your register names and Atlas cannot check is listed as unchecked. It takes no slot and makes no claim.
 
@@ -119,11 +117,13 @@ A detector is only as good as what it was tested on. Six plant structures is not
 
 So Atlas is examined against plants that are drawn, not reused. A family fixes a process structure and leaves its numbers open. A seed draws one plant from it.
 
-Five families exist. **A sixth is sealed** — kept out of the registry, out of the documents, out of the published bounds, so that nothing in this repository can point a detector-builder at it.
+Five families exist. **A sixth is sealed**, which is meant to mean kept out of the catalogue, out of the documents and out of the published bounds, so that nothing here can point a detector-builder at it.
+
+That did not hold for the sixth family this repository has now. Its generator and its parameter bounds were exported by mistake, because the export rule that selects the source tree matched the package that holds them, and they are in this repository's history. They are no longer in the current tree, and the export now refuses them. But a seal is not something you can put back: anyone who took a copy can draw that family's plants at any seed, so it is treated as spent and nothing will be examined on it. The mechanism described below is the part that was built correctly, and the next sealed family is registered under it.
 
 A plant that could not physically exist is refused rather than clipped, and a third of the first draws were refused. The same seed writes byte-identical files on another machine, and on another kind of machine.
 
-**Nothing has been scored on a drawn plant yet.** The generator is built. The referee is not. There is no recall and no verdict for Atlas here, and none may be quoted from this page.
+**No sealed plant has been scored, and no verdict for Atlas is published.** Plants from the published development pool are drawn plants and can be scored today, and the demo in note 196 does exactly that. Every seed in that pool is published, so a number from it describes how a detector behaves and is not evidence that it would catch something it has not seen. The generator is built, and so is the referee: a locked exam that cannot be edited without becoming a different exam, a runner that never shows a detector its labels, scoring that reports a spread and an interval rather than one number, and a report that puts the worst plants first and ends by saying what the exam cannot tell you. The machinery for a sealed batch is built too. Its seeds are read from the environment and never written into this repository, which holds only a fingerprint of them, so a batch cannot be quietly swapped for a different one after a disappointing result. **No sealed batch has been generated, and no sealed score exists.** There is no recall and no verdict for Atlas here, and none may be quoted from this page.
 
 [What the simulation engine is, and what it still cannot do →](docs/simulation-engine.md)
 
@@ -146,18 +146,6 @@ Atlas has **never run on a live plant.** Every figure comes from public testbed 
 Checking declared rules against process data is a known family: invariant and specification-based detection. What is new here is not the check. It is the custody.
 
 Version 1 meets 8 of its 12 criteria. The four it misses: the queue cannot be ranked, no outsider has reproduced it, the second engine finds one insider of two, and no plant has run the onboarding trial.
-
-### Two checks, declared before they were run
-
-Both were written down, with the numbers that would count as a miss, before the command ran. The runs were once. A miss would have stayed in the record under the same name.
-
-They were run on a **simulator**. [ICSSim](https://github.com/AlirezaDehlaghi/ICSSIM) is a small bottled factory: one tank, two valves, a bottle and a belt. PHOS drives that factory from a seed and writes CSV. **There is no water company, no turbine, and no live controller in these figures.** A result here is a diagnosis of that toy plant. It is not evidence about a real one.
-
-**A valve forced shut, with no work order.** On the wire it is the same command as maintenance. The difference is the paperwork the run supplies. On the simulator's development runs, every copied maintenance job produced a break, 10 of 10, and every genuine maintenance job produced none. The sealed half of this same simulator was not opened. On the older copied score of that half, this class is still 5 of 20.
-
-**A level that stays still while the tank is draining.** A detector that watches only the level calls a flat line ordinary. This check reads the outlet, the inlet, and the flow. On the development runs, every freeze that opened the outlet produced a break, 9 of 9. One freeze never opened the outlet, so the check said it was not stated. No quiet run produced a break. The sealed copied score for this class is still 3 of 20, because that batch was not opened.
-
-The reason for putting this on the front page is the method. The declaration comes first. The run is once. A number that was not remeasured stays the old number. And the plant these numbers come from is not a real plant.
 
 ### The older engine, and its honest numbers
 

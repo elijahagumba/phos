@@ -1,0 +1,34 @@
+{
+  "pool": "dev",
+  "purpose": "The public development pool: seeds anyone may tune against.",
+  "why_public": "A detector author needs plants to build against, and a pool nobody may read is useless for that. These seeds are published so the development exam can be reproduced by a third party without asking PHOS for anything. They are not secret and never will be: a plant drawn from a seed in this file cannot stand in for an unseen one.",
+  "families": [
+    "level_flow",
+    "thermal",
+    "hybrid",
+    "power",
+    "batch_mix"
+  ],
+  "seed_rule": "Each seed is a fixed decimal written here in full. They were chosen to be distinct from every seed in the four vault pools and from the generator's own fixtures, and they are large enough that nobody will draw one by accident. No seed in this file may be copied into a private pool, and `phos.referee.sealed_batch.refuse_seeds_already_seen` refuses a sealed batch that contains one.",
+  "entries": [
+    {"family": "level_flow", "seed": 771001},
+    {"family": "level_flow", "seed": 771002},
+    {"family": "level_flow", "seed": 771003},
+    {"family": "level_flow", "seed": 771004},
+    {"family": "thermal", "seed": 772001},
+    {"family": "thermal", "seed": 772002},
+    {"family": "thermal", "seed": 772003},
+    {"family": "hybrid", "seed": 773001},
+    {"family": "hybrid", "seed": 773002},
+    {"family": "hybrid", "seed": 773003},
+    {"family": "power", "seed": 774001},
+    {"family": "power", "seed": 774002},
+    {"family": "batch_mix", "seed": 775001},
+    {"family": "batch_mix", "seed": 775002}
+  ],
+  "caveats": [
+    "A result on this pool is a result on published seeds. It says how a detector behaves, and nothing about whether it would catch an attack it has never seen.",
+    "The pool is small on purpose. It is enough to build against and not enough to tune finely against.",
+    "Every plant here is simulated. None is a real plant and none carries a real attacker."
+  ]
+}

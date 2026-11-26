@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "batches": [
+    {
+      "name": "phos-referee-sealed-1",
+      "family": "gas_pressure",
+      "plants": 1,
+      "fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+      "generated_on": null,
+      "generated_by": "",
+      "payload": "Not generated. Not on any volume. The seeds are to be chosen fresh, kept in PHOS_SEALED_SEEDS on an encrypted volume, and never written into this repository.",
+      "note": "REGISTERED BEFORE IT EXISTS. The placeholder fingerprint is 64 zeros, which no real seed set can produce by accident and which check_against_registered will refuse. This entry is replaced, not amended, when a human generates the batch: the real digest goes in, plants gets the real count, and generated_on gets the date. Nothing here was scored and no plant was generated."
+    }
+  ]
+}

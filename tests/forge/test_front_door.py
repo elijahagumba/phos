@@ -10,6 +10,12 @@ answers. The hook **files** can be absent from the checkout, which the preflight
 editor's window can be open on a parent directory, which nothing inside the repository can see, and
 which the command file has to say out loud. The first is a test; the second is a test that the
 command text says it.
+
+The tests that read a command file, and the one that asks the conductor to classify a never-tier
+corpus, are marked ``lab_only``. ``.claude/*``, ``.cursor/*`` and ``docs/rules/`` (a symlink into
+``.cursor/rules/``) are forbidden paths in ``public/manifest.toml``, so none of them reaches the
+public tree and a test that reads one there has nothing to read. They still run here, where the
+files are present, and a changed sentence still fails them.
 """
 
 from __future__ import annotations
@@ -193,6 +199,7 @@ def test_a_foreign_remote_is_refused(repo: Path) -> None:
     assert "remote" in {check.name for check in checked.failures}
 
 
+@pytest.mark.lab_only
 def test_a_never_tier_corpus_is_refused(clean_repo: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     outcome = conductor.conduct(clean_repo, "measure something", corpus="hai")
     assert outcome.blocked
@@ -257,11 +264,13 @@ def test_where_results_are_names_the_four_paths() -> None:
 # -- the command files exist in both editors and carry the required behaviour --------------------
 
 
+@pytest.mark.lab_only
 @pytest.mark.parametrize("name", ["forge.md", "forge-status.md", "forge-resume.md"])
 def test_the_claude_command_exists(name: str) -> None:
     assert (COMMANDS / name).is_file()
 
 
+@pytest.mark.lab_only
 @pytest.mark.parametrize("name", ["forge.md", "forge-status.md", "forge-resume.md"])
 def test_the_cursor_entry_point_exists_and_points_at_the_claude_one(name: str) -> None:
     path = CURSOR_COMMANDS / name
@@ -271,6 +280,7 @@ def test_the_cursor_entry_point_exists_and_points_at_the_claude_one(name: str) -
     assert "third-party extensibility" in text
 
 
+@pytest.mark.lab_only
 def test_the_forge_command_carries_the_five_required_behaviours() -> None:
     """The command text must do the five things the task lists, and say where the results go."""
     text = (COMMANDS / "forge.md").read_text()
@@ -286,12 +296,14 @@ def test_the_forge_command_carries_the_five_required_behaviours() -> None:
     assert "where the results are" in text.lower()
 
 
+@pytest.mark.lab_only
 def test_the_forge_command_says_what_to_do_when_the_conductor_is_missing() -> None:
     text = (COMMANDS / "forge.md").read_text()
     assert "cannot be reached" in text
     assert "do nothing else" in text
 
 
+@pytest.mark.lab_only
 def test_the_forge_command_refuses_an_empty_goal() -> None:
     text = (COMMANDS / "forge.md").read_text()
     # The sentence wraps, so match on the normalised text rather than a line.
@@ -301,12 +313,14 @@ def test_the_forge_command_refuses_an_empty_goal() -> None:
     assert "Do not infer a goal" in flat
 
 
+@pytest.mark.lab_only
 def test_the_forge_command_never_mounts_the_sealed_volume() -> None:
     text = (COMMANDS / "forge.md").read_text()
     assert "Never mount it" in text
     assert "password" in text
 
 
+@pytest.mark.lab_only
 def test_the_status_command_reads_the_state_files() -> None:
     text = (COMMANDS / "forge-status.md").read_text()
     assert "docs/forge/state/" in text
@@ -314,6 +328,7 @@ def test_the_status_command_reads_the_state_files() -> None:
     assert "forge.py status" in text
 
 
+@pytest.mark.lab_only
 def test_the_resume_command_needs_an_id_and_refuses_a_terminal_operation() -> None:
     text = (COMMANDS / "forge-resume.md").read_text()
     assert "stop" in text.lower()
@@ -322,6 +337,7 @@ def test_the_resume_command_needs_an_id_and_refuses_a_terminal_operation() -> No
     assert "does not restart" in text
 
 
+@pytest.mark.lab_only
 def test_the_resume_command_does_not_make_fresh_worktrees() -> None:
     """A resume that makes new worktrees loses the work in the old ones."""
     text = (COMMANDS / "forge-resume.md").read_text()
@@ -364,6 +380,7 @@ def test_number_allocation_computes_from_the_files(clean_repo: Path) -> None:
 # -- nothing here restates a procedure ----------------------------------------------------------
 
 
+@pytest.mark.lab_only
 def test_the_cursor_entry_points_do_not_restate_the_procedure() -> None:
     """A second copy of a procedure is the drift this repository's rules exist to prevent."""
     for name in ("forge.md", "forge-status.md", "forge-resume.md"):
@@ -372,6 +389,7 @@ def test_the_cursor_entry_points_do_not_restate_the_procedure() -> None:
         assert len(text.splitlines()) < 40, f"{name} is becoming a second copy"
 
 
+@pytest.mark.lab_only
 def test_every_script_the_commands_name_exists_and_is_tracked() -> None:
     """A command file that names a script the checkout does not carry is a front door onto nothing.
 

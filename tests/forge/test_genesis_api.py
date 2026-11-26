@@ -3,6 +3,11 @@
 The separation is a property of the *source*, not of a run: no module under ``phos.forge`` may
 construct a research record or write under ``docs/genesis``. A behavioural test could only catch the
 day somebody added one, and only if the new path happened to be exercised.
+
+``test_tier_reads_the_real_rule`` is marked ``lab_only``: it exists to prove the tier comes from
+``docs/rules/data-tiers.md`` rather than from a stub, and that path symlinks into
+``.cursor/rules/``, which ``public/manifest.toml`` forbids. With no rule in the public tree there
+is no real rule to read, so the test would fail for the split rather than for a drifting tier.
 """
 
 from __future__ import annotations
@@ -63,6 +68,7 @@ def test_the_only_genesis_writes_are_through_the_script() -> None:
     assert "_run_genesis" in source
 
 
+@pytest.mark.lab_only
 def test_tier_reads_the_real_rule(repo: Path) -> None:
     verdict = tier(repo, "phos-icssim-dev4-walk", "iterate")
     assert verdict.tier == "green"

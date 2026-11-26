@@ -314,6 +314,13 @@ def _ensure_loaded() -> None:
 
     The sealed import is attempted on every call rather than once, because `sealed_allowed` can
     become true after the open families have already been loaded.
+
+    An absent sealed package is not an error. `public/manifest.toml` withholds
+    `src/phos/synth/families_sealed/` from the public export, because that package carries a sealed
+    family's bounds and its `draw` and publishing them defeats the seal. So in a public checkout
+    there is no sealed package to import, and the honest reading of that is that this checkout has
+    no sealed families rather than that it is broken. The switch still has to be on before the
+    import is even attempted, so this does not widen what a checkout will load.
     """
     global _LOADED_OPEN, _LOADED_SEALED
     if not _LOADED_OPEN:
@@ -321,8 +328,12 @@ def _ensure_loaded() -> None:
         importlib.import_module("phos.synth.plants")
     if sealed_allowed() and not _LOADED_SEALED:
         _LOADED_SEALED = True
-        importlib.import_module("phos.synth.families_sealed")
-        logger.debug("sealed families loaded because %s=1", SEALED_ENV_VAR)
+        try:
+            importlib.import_module("phos.synth.families_sealed")
+        except ModuleNotFoundError:
+            logger.debug("no sealed families in this checkout; the package is not present")
+        else:
+            logger.debug("sealed families loaded because %s=1", SEALED_ENV_VAR)
 
 
 def list_families(*, include_sealed: bool = False) -> tuple[PlantFamily, ...]:
