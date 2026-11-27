@@ -79,6 +79,8 @@ The longer argument for why a page that refuses is worth more than a page that r
 
 A rule your register names and Atlas cannot check is listed as unchecked. It takes no slot and makes no claim.
 
+**Drafting from a controller export.** `phos.atlas.l5x` reads a Rockwell L5X export and proposes rules in the one shape it models: a tag compared against a number, driving an output. Every rung it cannot translate is listed with the reason, and every routine that is not ladder at all is named separately rather than folded into a failure count. On four exports from three public sample projects it proposed **one** rule. Those files are instruction libraries and a state-machine framework rather than process control programs, so that number says more about what is publicly available to test against than about the code in a real plant. It is a starting point for an engineer and not a replacement for the register: the rules Atlas checks are still the ones you name.
+
 ```mermaid
 flowchart LR
     R["Your rules"] --> C["Atlas checks each one<br/>against your own files"]
@@ -205,6 +207,14 @@ uv run phos demo
 ```
 
 Fifteen seconds. A simulated water plant, 120 hours, and the demo then tells you what it missed.
+
+Want Atlas beside an ordinary detector on the same plant?
+
+```bash
+uv run python -m phos.referee.side_by_side
+```
+
+One simulated plant, twenty-four hours, nothing injected. The simplest model in the repository is fitted twice and printed twice, because either column on its own misleads: fitted on the very plant it is shown it raised 322 alerts, and fitted on a different plant of the same family it raised none. Atlas raised 2,176 and told one story. **Two thousand alerts on a quiet plant is noise.** The demo says so in its own output, under that heading, and the budget of eight alerts a shift that the rest of this page describes exists because of exactly this. Note 196 walks through all three columns. Every figure comes from a simulator and none of them is a field detection rate.
 
 Have a historian export?
 

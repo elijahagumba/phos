@@ -1003,6 +1003,9 @@ test: both are shown the same simulated plant with nothing injected, and the bas
 because fitting it once decides the answer. Fitted on that plant it raises 322 alerts; fitted on
 another plant of the same family it raises none at all. Atlas raises 2,176 and tells one story about it.
 Both figures come from a simulator and not from a real plant, and neither is a field detection rate.
+The note says plainly that two thousand alerts on a quiet plant is noise, and that one story covering
+them is a page an operator would learn to skip. No ground truth is compared, so there is no recall and
+no verdict here.
 
 Note 192 gains a section, [and one seal that was never shut](<192-the-detectors-built-on-sealed-data-now-refuse.md>).
 Checking the public copy before a refresh showed that the sixth, sealed plant family's ranges and the
@@ -1012,6 +1015,15 @@ the opposite. The family is treated as used up rather than put back, because its
 public history and taking it out would mean rewriting that history. The code is no longer published,
 the export refuses it twice over, no test names it to get a sealed flag any more, and the front page
 now says what happened. The next sealed family starts again.
-The note says plainly that two thousand alerts on a quiet plant is noise, and that one story covering
-them is a page an operator would learn to skip. No ground truth is compared, so there is no recall and
-no verdict here.
+
+Note 197 is [a controller export, and the one rule it gave up](<197-a-controller-export-and-the-one-rule-it-gave-up.md>).
+A Rockwell controller program exports as an L5X file with its ladder logic in it as text, so the
+register an engineer would otherwise type by hand might be readable out of the controller instead.
+The reader looks for one shape, a tag compared against a number driving an output, and lists
+everything else with a reason rather than guessing. On four exports from three permissively licensed
+public projects it produced one rule. Those files are instruction libraries and a state machine
+framework rather than plants, which is most of the reason. The agreement check against six
+hand-written setpoints answers zero of six, and that zero is right rather than broken: the exports
+and the hand-written record describe different processes and share no tag name, so a match was never
+available. Nothing here is a detection result, and the rules Atlas checks are still the ones the
+register names.
